@@ -1,0 +1,27 @@
+/node_modules
+/public/.htaccess
+#/public/cache
+#/public/hot
+ /public/storage
+# /public/upload/avatar
+/public/build/beike/*
+/public/install/css/*
+/public/sitemap.xml
+/storage/*.key
+/storage/installed
+/vendor
+Envoy.blade.php
+.env
+.env.backup
+.phpunit.result.cache
+docker-compose.override.yml
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+/.idea
+/.vscode
+mix-manifest.json
+package-lock.json
+dist
+/beike/ShopAPI

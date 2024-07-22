@@ -1,0 +1,4 @@
+*.sqlite*
+/factories
+/seeders
+/migrations

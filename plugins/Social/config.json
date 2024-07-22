@@ -1,0 +1,18 @@
+{
+    "code": "social",
+    "name": {
+        "zh_cn": "Social",
+        "en": "Social"
+    },
+    "description": {
+        "zh_cn": "Đăng nhập qua (Facebook, Twitter, Google)",
+        "en": "Social Login include Facebook, Twitter, Google"
+    },
+    "type": "social",
+    "version": "v1.0.0",
+    "icon": "/image/logo.png",
+    "author": {
+        "name": "成都光大网络科技有限公司",
+        "email": "yangjin@guangda.work"
+    }
+}

@@ -1,0 +1,210 @@
+@charset "UTF-8";
+
+/**
+ * @copyright     2022 beikeshop.com - All Rights Reserved.
+ * @link          https://beikeshop.com
+ * @Author        pu shuo <pushuo@guangda.work>
+ * @Date          2022-09-01 16:23:34
+ * @LastEditTime  2022-09-16 20:55:58
+ */
+
+body.page-account-order-list {
+  .unpaid-order-text {
+    color: #ee4d2d;
+    background-color: white;
+    padding: 4px 16px;
+    border-radius: 4px;
+    border: 1px solid #ee4d2d;
+  }
+
+  .completed-order-text{
+    background-color: limegreen;
+    color: white;
+    padding: 4px 16px;
+    border-radius: 4px;
+  }
+
+  .paid-order-text{
+    background-color: #ee4d2d;
+    color: white;
+    padding: 4px 16px;
+    border-radius: 4px;
+  }
+
+  .shipped-order-text{
+    color:black;
+  }
+
+  .cancelled-order-text{
+    color:white;
+    background-color: red;
+    padding: 4px 16px;
+    border-radius: 4px;
+  }
+
+  .text-truncate-style{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    font-size: 12px;
+  }
+  .order-status-wrap {
+    @media (max-width: 768px) {
+      li {
+        flex: 1;
+        text-align: center;
+      }
+
+      margin-bottom: 14px;
+
+      .nav-link {
+        padding-left: 2px;
+        padding-right: 2px;
+      }
+    }
+    .active{
+      color:#ee4d2d;
+    }
+  }
+  .user-rating{
+    display: inline-block;
+    direction: rtl;
+
+    input {
+      display: none;
+    }
+
+    label {
+      font-size: 30px;
+      color: #ddd;
+      cursor: pointer;
+    }
+
+    input:checked ~ label {
+      color:  #ee4d2d;
+    }
+  }
+
+  .order-wrap {
+    .table {
+      .sep-row {
+        height: 20px;
+
+        td {
+          border: 0;
+        }
+      }
+
+      .head-tr {
+        background: #f5f5f5;
+        td {
+          border-bottom-color: #f5f5f5;
+        }
+      }
+
+      thead {
+        background: #f5f5f5;
+        th {
+          font-weight: 500;
+          border: 0;
+        }
+      }
+
+      tbody {
+        td {
+          border: 1px solid #e5e5e5;
+        }
+
+      }
+
+      .product-info {
+        display: flex;
+        align-items: center;
+
+        .img {
+          flex: 0 0 60px;
+          margin-right: 10px;
+
+          @media (max-width:768px) {
+            flex: 0 0 50px;
+            width: 50px
+          }
+        }
+
+        .name {
+          @media (max-width:768px) {
+            a {
+              overflow: hidden;
+              text-overflow:ellipsis;
+              display: -webkit-box;
+              -webkit-box-orient: vertical;
+              -webkit-line-clamp: 2;
+              font-size: 12px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .order-mb-wrap {
+    .order-mb-list {
+      border-radius: 4px;
+    }
+
+    .header-wrapper {
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .footer-wrapper {
+      padding-top: 10px;
+      margin-top: 12px;
+      border-top: 1px solid #eee;
+    }
+  }
+}
+
+body.page-account-order-info {
+  background-color: #F7F8FA;
+
+  .order-head {
+
+  }
+
+  .product-list {
+    display: flex;
+    align-items: center; // flex-start | center
+    justify-content: space-between;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    // justify-content: space-between; // flex-end | center | space-between
+
+    .left {
+      flex: 0 0 80px;
+      margin-right: 10px;
+    }
+
+    .right {
+      color: #767676;
+
+      @media (min-width: 768px) {
+        font-size: .9375rem;
+      }
+
+      .name {
+        // font-weight: bold;
+        margin-bottom: .4rem;
+        color: #1a1a1a;
+      }
+    }
+  }
+
+  .nowrap {
+    white-space: nowrap;
+  }
+}

@@ -1,0 +1,18 @@
+{
+    "code": "vn_pay",
+    "name": {
+        "zh_cn": "VNPay",
+        "en": "VNPay"
+    },
+    "description": {
+        "zh_cn": "Thanh toán qua ví VNPay",
+        "en": "VNPay Wallet Transfer"
+    },
+    "type": "payment",
+    "version": "v1.0.0",
+    "icon": "/image/logo.png",
+    "author": {
+        "name": "",
+        "email": ""
+    }
+}

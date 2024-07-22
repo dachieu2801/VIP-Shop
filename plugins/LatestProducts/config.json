@@ -1,0 +1,19 @@
+{
+    "code": "latest_products",
+    "name": {
+        "zh_cn": "Sản phẩm mới",
+        "en": "Latest Products"
+    },
+    "description": {
+
+        "zh_cn": "Thêm chức năng danh sách sản phẩm mới nhất vào menu trang chính.",
+        "en": "Latest products for header menu"
+    },
+    "type": "feature",
+    "version": "v1.0.0",
+    "icon": "/image/logo.png",
+    "author": {
+        "name": "成都光大网络科技有限公司",
+        "email": "yangjin@guangda.work"
+    }
+}

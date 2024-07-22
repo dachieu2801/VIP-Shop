@@ -1,0 +1,18 @@
+{
+    "code": "cod",
+    "name": {
+        "zh_cn": "COD",
+        "en": "COD"
+    },
+    "description": {
+        "zh_cn": "Thu hộ",
+        "en": "Cash On Delivery"
+    },
+    "type": "payment",
+    "version": "v1.0.0",
+    "icon": "/image/logo.png",
+    "author": {
+        "name": "成都光大网络科技有限公司",
+        "email": "yangjin@guangda.work"
+    }
+}

@@ -1,0 +1,135 @@
+[33mcommit e9e2082444fe9b9674dc6cb2d4c03b3ac59b5c91[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mversion[m[33m, [m[1;31morigin/version[m[33m)[m
+Author: dachieu2801 <ankhieu322@gmail.com>
+Date:   Thu Apr 25 21:03:14 2024 +0700
+
+    merage
+
+[33mcommit 8b012e3610dfd1d579029e17c79c1315cd27f39b[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: yoyosharp89 <yoyosharp89@gmail.com>
+Date:   Thu Apr 25 18:22:06 2024 +0700
+
+    fix migration
+
+[33mcommit a5ab8bebc84b73136d9d9fbc68a6ac3cb1dbe6ca[m
+Merge: 8e85bb4 a8ed1e7
+Author: dachieu2801 <134501081+dachieu2801@users.noreply.github.com>
+Date:   Thu Apr 25 15:29:25 2024 +0700
+
+    Merge pull request #5 from hatran98/hieund
+    
+    Hieund
+
+[33mcommit a8ed1e74b2b3130831976e0b0cbb20762100b371[m[33m ([m[1;31morigin/hieund[m[33m)[m
+Merge: 47c2213 8e85bb4
+Author: dachieu2801 <134501081+dachieu2801@users.noreply.github.com>
+Date:   Thu Apr 25 15:29:18 2024 +0700
+
+    Merge branch 'main' into hieund
+
+[33mcommit 47c2213bffb7fdc3ac9d1d1ba444f34541e9d97f[m
+Author: dachieu2801 <ankhieu322@gmail.com>
+Date:   Thu Apr 25 15:26:50 2024 +0700
+
+    hieu
+
+[33mcommit 8e85bb49e36cba544c449339222fcdc82f9dc74a[m
+Merge: bf5d612 f8cb6a7
+Author: dachieu2801 <134501081+dachieu2801@users.noreply.github.com>
+Date:   Thu Apr 25 15:18:47 2024 +0700
+
+    Merge pull request #4 from hatran98/hieu
+    
+    test
+
+[33mcommit f8cb6a77ff9fd7e0ca2c07a05296a9cde087e959[m[33m ([m[1;31morigin/hieu[m[33m)[m
+Author: dachieu2801 <ankhieu322@gmail.com>
+Date:   Thu Apr 25 15:14:31 2024 +0700
+
+    test
+
+[33mcommit bf5d612099f948080fa1b6d8bcabb50e4c8ae42a[m
+Merge: 805118f 1d7e3f7
+Author: dachieu2801 <134501081+dachieu2801@users.noreply.github.com>
+Date:   Thu Apr 25 15:06:27 2024 +0700
+
+    Merge pull request #3 from hatran98/tesst
+    
+    teesst
+
+[33mcommit 1d7e3f782d6622761ae6ab095cd93b9f9d4442f2[m[33m ([m[1;31morigin/tesst[m[33m)[m
+Author: dachieu2801 <ankhieu322@gmail.com>
+Date:   Thu Apr 25 15:05:00 2024 +0700
+
+    teesst
+
+[33mcommit 805118f32eb4568a108752dddf89c994c14cedc7[m
+Author: dachieu2801 <134501081+dachieu2801@users.noreply.github.com>
+Date:   Thu Apr 25 14:43:11 2024 +0700
+
+    Delete database/seeders directory
+
+[33mcommit 2af6ad32f27e114bdc0c238b5638a4b54ecfad24[m
+Author: dachieu2801 <134501081+dachieu2801@users.noreply.github.com>
+Date:   Thu Apr 25 14:42:51 2024 +0700
+
+    Delete database/migrations directory
+
+[33mcommit b339d56c3382089ea155f60365b4ea9d5e27ac00[m
+Author: dachieu2801 <134501081+dachieu2801@users.noreply.github.com>
+Date:   Thu Apr 25 14:42:40 2024 +0700
+
+    Delete database/factories directory
+
+[33mcommit c74866a8e1ce5738d32501425d7fc4f4a6963edd[m
+Merge: 8daec4b e8e42e5
+Author: longnm2000 <127308240+longnm2000@users.noreply.github.com>
+Date:   Thu Apr 25 11:46:01 2024 +0700
+
+    Merge pull request #2 from hatran98/manhlong
+    
+    fix ui
+
+[33mcommit 8daec4b4fd5b28a2e1bf43274b6864a4d9000660[m
+Merge: a5b8e27 715255d
+Author: dachieu2801 <134501081+dachieu2801@users.noreply.github.com>
+Date:   Thu Apr 25 11:35:21 2024 +0700
+
+    Merge pull request #1 from hatran98/hieu
+    
+    Hieu
+
+[33mcommit e8e42e52b18902ccdf99e001365832573170c012[m[33m ([m[1;31morigin/manhlong[m[33m)[m
+Author: longnm2000 <longnguyenmanh20052000@gmail.com>
+Date:   Thu Apr 25 11:33:28 2024 +0700
+
+    fix ui
+
+[33mcommit 715255dff0090306a5939f2328aee1a7aed19b99[m
+Author: dachieu2801 <ankhieu322@gmail.com>
+Date:   Thu Apr 25 11:31:37 2024 +0700
+
+    hieu
+
+[33mcommit 61aa7efc2bbfa8c1c3ddb665d3c93e656d2de5fe[m
+Author: dachieu2801 <ankhieu322@gmail.com>
+Date:   Thu Apr 25 11:29:48 2024 +0700
+
+    hieu
+
+[33mcommit a5b8e2772dd7a03602db875af64466db8552ec4b[m
+Author: dachieu2801 <ankhieu322@gmail.com>
+Date:   Thu Apr 25 11:25:38 2024 +0700
+
+    hieu
+
+[33mcommit 84632dad614ee8bef99e15d6e1f99e2552f7bff4[m
+Author: dachieu2801 <ankhieu322@gmail.com>
+Date:   Thu Apr 25 11:20:37 2024 +0700
+
+    hieu
+
+[33mcommit 19bd5603cd87ee535116e327ed3241b4822bb6ec[m
+Author: longnm2000 <longnguyenmanh20052000@gmail.com>
+Date:   Wed Apr 24 16:53:12 2024 +0700
+
+    code

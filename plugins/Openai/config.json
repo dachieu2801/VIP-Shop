@@ -1,0 +1,18 @@
+{
+    "code": "openai",
+    "name": {
+        "zh_cn": "ChatGPT",
+        "en": "Integration with OpenAI ChatGPT API"
+    },
+    "description": {
+        "zh_cn": "ChatGPT là trợ lý trò chuyện thông minh, được phát triển dựa trên OpenAI API (gpt-3.5-turbo)",
+        "en": "Integration with OpenAI ChatGPT API"
+    },
+    "type": "feature",
+    "version": "v1.1.0",
+    "icon": "/image/logo.png",
+    "author": {
+        "name": "成都光大网络科技有限公司",
+        "email": "yangjin@guangda.work"
+    }
+}

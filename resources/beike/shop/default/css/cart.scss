@@ -1,0 +1,194 @@
+@charset "UTF-8";
+
+/**
+ * @copyright     2022 beikeshop.com - All Rights Reserved.
+ * @link          https://beikeshop.com
+ * @Author        pu shuo <pushuo@guangda.work>
+ * @Date          2022-08-15 17:35:29
+ * @LastEditTime  2022-09-16 20:47:16
+ */
+
+body.page-checkout, body.page-cart {
+  background-color: #f6f8fa;
+
+  .breadcrumb-wrap {
+    background-color: transparent;
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 768px) {
+    padding-bottom: 64px;
+
+    .breadcrumb {
+      // display: none
+    }
+  }
+
+  .left-column {
+    @media (min-width: 992px) {
+      width: 70%;
+    }
+  }
+
+  .right-column {
+    @media (min-width: 992px) {
+      width: 30%;
+    }
+
+    @media (max-width: 768px) {
+      margin-top: 1.4rem;
+    }
+  }
+}
+
+body.page-cart {
+  #app-cart {
+    min-height: 200px;
+  }
+
+  .cart-products-wrap {
+    .table {
+      tbody {
+        border-top: none;
+        td {
+          vertical-align: middle;
+          border-color: #f0f2f4;
+        }
+
+        // tr {
+        //   &.active {
+        //     background-color: #fff6f1;
+        //   }
+        // }
+      }
+
+      thead {
+        background-color: #F8F9FA;
+
+        th {
+          border-bottom: none;
+          padding: 0.7rem 0.5rem;
+          box-shadow: none;
+          white-space: nowrap;
+        }
+      }
+
+      .p-image {
+        input {
+          flex: 0 0 1;
+        }
+      }
+    }
+  }
+
+  .total-wrap {
+    &.total-wrap-fixed {
+      position: fixed;
+      top: 0;
+      right: 0;
+    }
+
+    .card-header {
+      padding-top: 1rem;
+      border-bottom: none;
+      background-color: transparent;
+    }
+
+    .list-group {
+      li {
+        background-color: transparent;
+        padding: 0.7rem 0;
+        border-color: #EEEEEE;
+
+        &:not(.d-grid) {
+          display: flex;
+          align-items: center; // flex-start | center
+          justify-content: space-between; // flex-end | center | space-between
+        }
+
+        .total-price {
+          color: #222222;
+          font-size: 1.2rem;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
+  .mb-product-wrap {
+    margin-left: -12px;
+    margin-right: -12px;
+
+    .mb-product-list {
+      background-color: #fff;
+      margin-bottom: 10px;
+      padding: 10px;
+      display: flex;
+
+      .quantity-wrap-line {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        input {
+          width: 38px;
+          border-radius: 0;
+        }
+
+        input, i {
+          height: 24px;
+          line-height: 24px;
+          padding: 0;
+          text-align: center;
+          display: block;
+        }
+
+        i {
+          width: 24px;
+          border: 1px solid #dee2e6;
+          display: inline-block;
+          cursor: pointer;
+        }
+
+        .bi-chevron-up {
+          transform: rotate(-270deg);
+          margin-left: -1px;
+        }
+
+        .bi-chevron-down {
+          transform: rotate(90deg);
+          margin-right: -1px;
+        }
+      }
+    }
+  }
+
+  .cart-mb-total {
+    position: fixed;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    background: #fff;
+    z-index: 100;
+    padding: 8px 12px;
+    bottom: 0;
+    justify-content: space-between;
+    box-shadow: 0 -8px 12px 0 rgba(0, 0, 0, 0.1019607843);
+    transition: transform .3s ease-in-out;
+    padding-bottom: calc(8px + env(safe-area-inset-bottom));
+
+    .right {
+      flex: 1;
+      text-align: right;
+
+      .total-price {
+        font-size: .9rem;
+      }
+    }
+
+    .btn-checkout {
+      width: 50%;
+      margin-left: 4px;
+    }
+  }
+}

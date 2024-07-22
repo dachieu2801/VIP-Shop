@@ -1,0 +1,241 @@
+@charset "UTF-8";
+
+/**
+ * @copyright     2022 beikeshop.com - All Rights Reserved.
+ * @link          https://beikeshop.com
+ * @Author        pu shuo <pushuo@guangda.work>
+ * @Date          2022-09-03 22:32:29
+ * @LastEditTime  2022-09-16 20:48:00
+ */
+
+footer {
+  background: #f6f6f8;
+  //margin-top: 1rem;
+  position: relative;
+  overflow: hidden;
+
+  .category-link{
+    color: gray;
+  }
+  .category-link:not(:last-child){
+    border-right: 1px solid gray;
+    padding-right: 4px;
+  }
+
+  @media (max-width:768px) {
+    border-top: 1px solid #eee;
+    .footer-categories{
+      height: auto;
+      .footer-category-item{
+        width: 100%;
+      }
+    }
+  }
+
+  .footer-wrapper {
+    position: relative;
+    z-index: 1;
+  }
+
+  @media (min-width:768px) {
+    //margin-top: 5rem;
+
+    .footer-categories{
+      height: 400px;
+      .footer-category-item{
+        width: 25%;
+      }
+    }
+  }
+
+  @media (min-width:1400px) {
+    //margin-top: 5rem;
+
+    .footer-categories{
+      height: 500px;
+      .footer-category-item{
+        width: 25%;
+      }
+    }
+  }
+
+  .footer-active {
+    outline: 2px dashed #4bb1f0 !important;
+  }
+
+  .services-wrap {
+    padding: 2.2rem 0;
+    border-bottom: 1px solid #e7e7e7;
+
+    @media (max-width:768px) {
+      padding: .5rem 0;
+    }
+
+    .service-item {
+      display: flex;
+      align-items: center;
+
+      .icon {
+        width: 38px;
+        flex: 0 0 38px;
+        margin-right: 14px;
+
+        @media (max-width:768px) {
+          display: none;
+        }
+      }
+
+      p {
+        margin-bottom: 0;
+      }
+
+      .title {
+        margin-bottom: 4px;
+        font-weight: bold;
+        font-size: .9rem;
+        color: #333;
+      }
+
+      .sub-title {
+        font-size: .7rem;
+        color: #8D94A0;
+      }
+    }
+  }
+
+  .footer-content {
+    @media (min-width: 768px) {
+      padding: 3rem 0 ;
+    }
+
+    > .row {
+      @media (max-width: 768px) {
+        margin: 0;
+
+        > .col-12 {
+          padding-left: 0;
+          padding-right: 0;
+        }
+      }
+    }
+
+    // .footer-content-left {
+
+    // }
+
+    a {
+      color: #666;
+
+      &:hover {
+        color: $primary;
+      }
+    }
+
+    .logo {
+      max-width: 240px;
+      margin-bottom: 10px;
+    }
+
+    .text {
+      color: #010000;
+    }
+
+    h6 {
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      @media (min-width: 768px) {
+        margin-bottom: 16px;
+      }
+
+      @media (max-width: 768px) {
+        margin-bottom: 0;
+        padding: 12px 0;
+      }
+
+      .icon-open {
+        display: none;
+        height: 20px;
+        width: 20px;
+        line-height: 20px;
+        text-align: center;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 18px;
+        @media (max-width: 768px) {
+          display: block;
+        }
+      }
+    }
+
+    .social-network {
+      margin-top: 10px;
+      display: flex;
+
+      > a {
+        margin-right: 10px;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all .3s ease;
+        &:hover {
+          transform: translateY(-5px);
+        }
+      }
+    }
+
+    .intro-title {
+      @media (min-width: 768px) {
+        display: none;
+      }
+    }
+
+    .footer-link-wrap {
+      @media (max-width: 768px) {
+        border-bottom: 1px solid #eee;
+      }
+
+      &.active {
+        .icon-open i:before {
+          content: "\F63B";
+        }
+
+        ul.list-unstyled, .intro-wrap {
+          max-height: 1666px;
+        }
+      }
+
+      ul.list-unstyled, .intro-wrap {
+        margin-bottom: 0;
+
+        @media (max-width: 768px) {
+          width: 100%;
+          max-height: 0;
+          overflow: hidden;
+          transition: all .35s;
+        }
+      }
+    }
+  }
+
+  .footer-bottom {
+    display: flex;
+    align-items: center;
+    background: #EFEFF4;
+    color: #666;
+
+    @media (min-width:768px) {
+      min-height: 60px;
+    }
+
+    @media (max-width:768px) {
+      padding: 10px 0;
+      .row.align-items-center, .d-flex {
+        justify-content: center;
+      }
+    }
+  }
+}
