@@ -71,6 +71,11 @@ class CategoryRepo
         return DB::select($sql);
     }
 
+    /**
+     * 生成每页产品数列表, 客户可以自己选择如何分页
+     *
+     * @return array
+     */
     public static function getPerPages(): array
     {
         $perPages      = [];

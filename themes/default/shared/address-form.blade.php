@@ -31,7 +31,7 @@
             </el-select>
           </el-form-item>
 
-          <el-form-item prop="zone_id" label="{{ __('address.zone') }}" required class="w-50 ms-3 ">
+          <el-form-item prop="zone_id" label="{{ __('address.zone') }}" class="w-50 ms-3 ">
             <el-select v-model="form.zone_id" class="w-100" filterable placeholder="{{ __('address.zone') }}">
               <el-option v-for="item in source.zones" :key="item.id" :label="item.name"
                 :value="item.id">
@@ -40,12 +40,12 @@
           </el-form-item>
         </div>
 
-
+        
         <div class="d-flex">
           <el-form-item label="{{ __('address.address_1') }}" class="w-50" prop="address_1">
             <el-input v-model="form.address_1" placeholder="{{ __('address.address_1') }}"></el-input>
           </el-form-item>
-
+          
           <el-form-item label="{{ __('address.address_2') }}" class="w-50 ms-3" prop="address_2">
             <el-input v-model="form.address_2" placeholder="{{ __('address.address_2') }}"></el-input>
           </el-form-item>
@@ -90,10 +90,10 @@
         name: '',
         email: '',
         phone: '',
-        country_id: 1351,// @json((int) system_setting('1351')),
+        country_id: @json((int) system_setting('base.country_id')),
         zipcode: '',
-        zone_id: '' ,//@json((int) system_setting('1414')),
-        // city: '',
+        zone_id: '',
+        city: '',
         address_1: '',
         address_2: '',
         default: false,
@@ -131,11 +131,11 @@
           message: '{{ __('shop/account/addresses.select_district') }}',
           trigger: 'blur'
         }, ],
-        {{--city: [{--}}
-        {{--  required: true,--}}
-        {{--  message: '{{ __('shop/account/addresses.enter_city') }}',--}}
-        {{--  trigger: 'blur'--}}
-        {{--}, ],--}}
+        city: [{
+          required: true,
+          message: '{{ __('shop/account/addresses.enter_city') }}',
+          trigger: 'blur'
+        }, ],
         phone: [{
           required: true,
           message: '{{ __('shop/account/addresses.enter_phone') }}',
