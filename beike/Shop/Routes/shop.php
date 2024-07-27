@@ -28,6 +28,9 @@ use Beike\Shop\Http\Controllers\ProductReviewController;
 use Beike\Shop\Http\Controllers\ZoneController;
 use Illuminate\Support\Facades\Route;
 
+
+
+
 Route::prefix('/')
     ->name('shop.')
     ->middleware(['shop'])
