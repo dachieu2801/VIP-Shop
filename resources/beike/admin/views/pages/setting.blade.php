@@ -13,7 +13,7 @@
 
 @endpush
 
-@section('content')title-review
+@section('content')
   <div id="plugins-app-form" class="card h-min-600">
     <div class="card-body">
       <form action="{{ admin_route('settings.store') }}" class="needs-validation" novalidate method="POST" id="app" v-cloak>

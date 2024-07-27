@@ -172,4 +172,15 @@ class OrderController extends Controller
 
         return json_success(trans('shop/account/order.cancelled'));
     }
+
+
+    public function showJson(Request $request, int $number)
+    {
+        $order = Order::query()->where('number', $number)->firstOrFail();
+        if(!$order) {
+            return response()->json([]);
+        }
+        $jsonData = $order->toJson();
+        return response()->json($jsonData);
+    }
 }

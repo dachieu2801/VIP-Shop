@@ -99,6 +99,7 @@ class VNPayController
         $checkSecureHash = hash_hmac('sha512', $query, $vnp_HashSecret);
 
         if ($checkSecureHash === $vnp_SecureHash) {
+            $order;
             if ($inputData['vnp_ResponseCode'] == '00') {
                 $customer     = current_customer();
                 $orderNumber  = $inputData['vnp_TxnRef'];
@@ -129,7 +130,7 @@ class VNPayController
             }
 
             // thanh toán lỗi
-            return view('vn_pay/vn_pay', ['inputData' => $inputData ,'order'=>$order,'message'=> 'fail']);
+            return view('vn_pay/vn_pay', ['inputData' => $inputData ,'message'=> 'fail']);
 
         }
         return view('vn_pay/vn_pay', ['message'=> 'Invalid signature']);
