@@ -36,7 +36,7 @@ Route::prefix('/')
     ->middleware(['shop'])
     ->group(function () {
         Route::get('/order-tracking-order-page', [OrderController::class, 'showTrackingOrderPage'])->name('orderTracking');
-        Route::get('/order-tracking', [OrderController::class, 'showTracking'])->name('showTracking');
+ 
         Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
         Route::get('brands', [BrandController::class, 'index'])->name('brands.index');
