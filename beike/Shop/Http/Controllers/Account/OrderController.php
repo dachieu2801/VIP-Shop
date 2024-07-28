@@ -182,6 +182,6 @@ class OrderController extends Controller
      {
          $order = Order::query()->where('number', $number)->firstOrFail();
          $jsonData = $order->toJson();
-         return view('order_tracking', $jsonData);
+         return response()->json($jsonData);
      }
 }
