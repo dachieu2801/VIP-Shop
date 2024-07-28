@@ -7,4 +7,4 @@ Route::get('/test', function () {
     echo __FILE__;
 })->name('test');
 
-Route::get('/order/{id}', [OrderController::class, 'showJson'])->name('checkOrder');
+

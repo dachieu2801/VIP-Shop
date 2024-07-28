@@ -174,13 +174,20 @@ class OrderController extends Controller
     }
 
 
-    public function showJson(Request $request, int $number)
+    public function showTrackingOrderPage( )
     {
-        $order = Order::query()->where('number', $number)->firstOrFail();
-        if(!$order) {
-            return response()->json([]);
-        }
-        $jsonData = $order->toJson();
-        return response()->json($jsonData);
+       
+        // return response()->json($jsonData);
+        return view('order_tracking');
     }
+    // public function showTracking(Request $request, int $number)
+    // {
+    //     $order = Order::query()->where('number', $number)->firstOrFail();
+    //     if(!$order) {
+    //         return response()->json([]);
+    //     }
+    //     $jsonData = $order->toJson();
+    //     // return response()->json($jsonData);
+    //     return view('order_tracking', $jsonData);
+    // }
 }

@@ -171,9 +171,9 @@
 {{--            </a>--}}
           </li>
           <li class="nav-item dropdown">
-            <a href="{{ shop_route('account.index') }}" class="nav-link"><i class="bi bi-pen"></i></a>
+            <a href="{{ shop_route('orderTracking') }}" class="nav-link"><i class="bi bi-pen"></i></a>
             <ul class="dropdown-menu">
-              <li ><a href="{{ shop_route('account.index') }}" class="dropdown-item" >{{__('shop/account/order.order_tracking')}}</a></li>
+              <li ><a href="{{ shop_route('orderTracking') }}" class="dropdown-item" >{{__('shop/account/order.order_tracking')}}</a></li>
             </ul>
           </li>
           
