@@ -20,5 +20,6 @@ return [
     'check'          => 'Check',
     'review'         => 'Review',
     'reason_empty'   => 'Please enter the reason for cancellation',
+    'order_tracking' => 'Order Tracking',
 
 ];

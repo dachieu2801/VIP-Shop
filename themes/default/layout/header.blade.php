@@ -1,6 +1,6 @@
 <style>
   header .top-wrap .container-fluid .left .dropdown .dropdown-menu .dropdown-item:hover {
-    color: red;
+    color: green;
   } 
 
   header .top-wrap .container-fluid .left .dropdown .dropdown-menu .dropdown-item:focus {
@@ -79,6 +79,7 @@
               line-height: 16px;
               ">
               {{ current_language()->name }}
+        
             </a>
 
             <div class="dropdown-menu" aria-labelledby="language-dropdown">
@@ -151,7 +152,9 @@
                     {{ __('common.sign_out') }}</a></li>
               @else
                 <li><a href="{{ shop_route('login.index') }}" class="dropdown-item"><i
-                      class="bi bi-box-arrow-right me-1"></i>{{ __('shop/login.login_and_sign') }}</a></li>
+                      class="
+                      bi bi-box-arrow-right 
+                      me-1"></i>{{ __('shop/login.login_and_sign') }}</a></li>
               @endauth
             </ul>
           </li>
@@ -167,6 +170,14 @@
 {{--              <span class="cart-badge-quantity"></span>--}}
 {{--            </a>--}}
           </li>
+          <li class="nav-item dropdown">
+            <a href="{{ shop_route('account.index') }}" class="nav-link"><i class="bi bi-pen"></i></a>
+            <ul class="dropdown-menu">
+              <li ><a href="{{ shop_route('account.index') }}" class="dropdown-item" >{{__('shop/account/order.order_tracking')}}</a></li>
+            </ul>
+          </li>
+          
+         
         </ul>
       </div>
     </div>

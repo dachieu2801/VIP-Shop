@@ -1,6 +1,6 @@
 <style>
   header .top-wrap .container-fluid .left .dropdown .dropdown-menu .dropdown-item:hover {
-    color: red;
+    color: green;
   } 
 
   header .top-wrap .container-fluid .left .dropdown .dropdown-menu .dropdown-item:focus {
@@ -114,6 +114,7 @@
               ">
               <?php echo e(current_language()->name); ?>
 
+        
             </a>
 
             <div class="dropdown-menu" aria-labelledby="language-dropdown">
@@ -262,7 +263,9 @@
                     <?php echo e(__('common.sign_out')); ?></a></li>
               <?php else: ?>
                 <li><a href="<?php echo e(shop_route('login.index')); ?>" class="dropdown-item"><i
-                      class="bi bi-box-arrow-right me-1"></i><?php echo e(__('shop/login.login_and_sign')); ?></a></li>
+                      class="
+                      bi bi-box-arrow-right 
+                      me-1"></i><?php echo e(__('shop/login.login_and_sign')); ?></a></li>
               <?php endif; ?>
             </ul>
           </li>
@@ -291,6 +294,14 @@
 
 
           </li>
+          <li class="nav-item dropdown">
+            <a href="<?php echo e(shop_route('account.index')); ?>" class="nav-link"><i class="bi bi-pen"></i></a>
+            <ul class="dropdown-menu">
+              <li ><a href="<?php echo e(shop_route('account.index')); ?>" class="dropdown-item" ><?php echo e(__('shop/account/order.order_tracking')); ?></a></li>
+            </ul>
+          </li>
+          
+         
         </ul>
       </div>
     </div>

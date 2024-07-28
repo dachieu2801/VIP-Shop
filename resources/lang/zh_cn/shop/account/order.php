@@ -20,4 +20,5 @@ return [
     'check'          => 'Xem chi tiết',
     'review'         => 'Đánh giá',
     'reason_empty'   => 'Vui lòng chọn lý do huỷ',
+    'order_tracking' => 'Tra cứu đơn hàng'
 ];
