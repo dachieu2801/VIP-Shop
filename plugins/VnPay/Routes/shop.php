@@ -11,6 +11,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Plugin\VNPay\Controllers\VNPayController;
+
 //
 Route::group(['prefix' => 'vn-pay'], function () {
     Route::post('/create', [VNPayController::class, 'create']);
