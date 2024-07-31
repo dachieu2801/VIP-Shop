@@ -1,17 +1,4 @@
 <?php
-/**
- * VNPayController.php
- *
- * @copyright  2022 beikeshop.com - All Rights Reserved
- * @link       https://beikeshop.com
- * @author     Edward Yang <yangjin@guangda.work>
- * @created    2022-08-10 18:57:56
- * @modified   2022-08-10 18:57:56
- *
- * https://www.zongscan.com/demo333/1311.html
- * https://clickysoft.com/how-to-integrate-paypal-payment-gateway-in-laravel/
- * https://www.positronx.io/how-to-integrate-paypal-payment-gateway-in-laravel/
- */
 
 namespace Plugin\VnPay\Controllers;
 
@@ -22,44 +9,61 @@ use Beike\Services\StateMachineService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-
-use function json_decode;
+use PayPay\OpenPaymentAPI\Client;
+use PayPay\OpenPaymentAPI\Models\CreateQrCodePayload;
+use PayPay\OpenPaymentAPI\Models\OrderItem;
 
 class VNPayController
 {
+    private $client;
+
+    public function __construct()
+    {
+        $this->client = new Client([
+            'API_KEY'    => env('PAYPAY_API_KEY'),
+            'API_SECRET' => env('PAYPAY_API_SECRET'),
+            'MERCHANT_ID' => env('PAYPAY_MERCHANT_ID'),
+            'production' => false // Set to true for production environment
+        ]);
+    }
+
     public function create(Request $request)
     {
-        $data        = json_decode($request->getContent(), true);
+        $data = json_decode($request->getContent(), true);
 
-        $paypayUrl   = env('PAYPAY_BASE_URI') . '/v2/payments';
-        $apiKey      = env('PAYPAY_API_KEY');
-        $apiSecret   = env('PAYPAY_API_SECRET');
         $orderNumber = $data['orderNumber'];
-        $orderId     = $data['orderId'];
-        $returnUrl   = env('APP_URL') . '/vn-pay/capture';
+        $orderId = $data['orderId'];
+        $returnUrl = env('APP_URL') . '/vn-pay/capture';
 
-        // Tạo mảng dữ liệu gửi tới PayPay
-        $inputData = [
-            'merchantPaymentId' => $orderNumber,
-            'amount'            => [
-                'amount'   => round($data['amount']),
-                'currency' => 'JPY',
-            ],
-            'userAuthorizationId' => $orderNumber,
-            'requestedAt'         => now()->timestamp,
-            'redirectUrl'         => $returnUrl,
-            'redirectType'        => 'WEB_LINK',
+        // Prepare the payload
+        $CQCPayload = new CreateQrCodePayload();
+        $CQCPayload->setMerchantPaymentId($orderNumber);
+        $CQCPayload->setRequestedAt();
+        $CQCPayload->setCodeType("ORDER_QR");
+
+        $orderItem = new OrderItem();
+        $orderItem->setName('Order Payment')
+                  ->setQuantity(1)
+                  ->setUnitPrice(['amount' => round($data['amount']), 'currency' => 'JPY']);
+        $CQCPayload->setOrderItems([$orderItem]);
+
+        $amount = [
+            'amount' => round($data['amount']),
+            'currency' => 'JPY'
         ];
+        $CQCPayload->setAmount($amount);
+        $CQCPayload->setRedirectType('WEB_LINK');
+        $CQCPayload->setRedirectUrl($returnUrl);
 
-        $response = $this->sendPayPayRequest($paypayUrl, $inputData, $apiKey, $apiSecret);
-        Log::info('PayPayController capture---------------2', ['$inputData' => $response['data']['redirectUrl']]);
+        // Send the request
+        $response = $this->client->code->createQRCode($CQCPayload);
 
-        if ($response && isset($response['resultInfo']['code']) && $response['resultInfo']['code'] === 'SUCCESS') {
-            OrderPaymentRepo::createOrUpdatePayment($orderId, ['request' => $inputData, 'receipt' => round($data['amount'])]);
-            Log::info('PayPayController capture---------------1', ['$inputData' => $response['data']['redirectUrl']]);
-            return response()->json(['url' => $response['data']['redirectUrl']]);
+        Log::info('PayPayController create response', ['response' => $response]);
+
+        if ($response && $response['resultInfo']['code'] === 'SUCCESS') {
+            OrderPaymentRepo::createOrUpdatePayment($orderId, ['request' => $CQCPayload, 'receipt' => round($data['amount'])]);
+            return response()->json(['url' => $response['data']['url']]);
         }
-        Log::info('PayPayController capture---------------3', ['$inputData' => $response['data']['redirectUrl']]);
 
         return response()->json(['error' => 'Payment creation failed. Please try again later.'], 500);
     }
@@ -67,12 +71,12 @@ class VNPayController
     public function capture(Request $request)
     {
         $inputData = $request->all();
-        Log::info('PayPayController capture', ['$inputData' => $inputData]);
+        Log::info('PayPayController capture', ['inputData' => $inputData]);
 
         if ($inputData['status'] == 'COMPLETED') {
-            $customer     = auth()->user();
-            $orderNumber  = $inputData['merchantPaymentId'];
-            $order        = Order::where('number', $orderNumber)->where('customer_id', $customer->id)->firstOrFail();
+            $customer = auth()->user();
+            $orderNumber = $inputData['merchantPaymentId'];
+            $order = Order::where('number', $orderNumber)->where('customer_id', $customer->id)->firstOrFail();
             $orderHistory = OrderHistory::where('order_id', $order->id)->where('status', StateMachineService::PAID)->first();
 
             try {
@@ -81,9 +85,9 @@ class VNPayController
                 if (empty($orderHistory)) {
                     OrderHistory::create([
                         'order_id' => $order->id,
-                        'status'   => StateMachineService::PAID,
-                        'notify'   => 0,
-                        'comment'  => 'Paid via PayPay',
+                        'status' => StateMachineService::PAID,
+                        'notify' => 0,
+                        'comment' => 'Paid via PayPay',
                     ]);
                 }
                 OrderPaymentRepo::createOrUpdatePayment($order->id, ['response' => $inputData, 'transaction_id' => $inputData['transaction_id']]);
@@ -97,30 +101,5 @@ class VNPayController
         }
 
         return view('vn_pay/vn_pay', ['inputData' => $inputData, 'message' => 'fail']);
-    }
-
-    private function sendPayPayRequest($url, $data, $apiKey, $apiSecret)
-    {
-        try {
-            Log::info('PayPayController capture1', ['$inputData' => $url]);
-            Log::info('PayPayController capture2', ['$inputData' => $data]);
-            Log::info('PayPayController capture3', ['$inputData' => $apiKey]);
-            Log::info('PayPayController capture4', ['$inputData' => $apiSecret]);
-
-            $client   = new \GuzzleHttp\Client;
-            $response = $client->post($url, [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . $apiKey,
-                    'Content-Type'  => 'application/json',
-                    'X-API-KEY'     => $apiSecret,
-                ],
-                'json' => $data,
-            ]);
-
-            return json_decode($response->getBody(), true);
-        } catch (\Exception $e) {
-            Log::error('PayPay API request failed: ' . $e->getMessage());
-            return null;
-        }
     }
 }

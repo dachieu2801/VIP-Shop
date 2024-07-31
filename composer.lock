@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "64e19649591e6a91a8c5ff649cf506ae",
+    "content-hash": "ea0661dda73673c086ce3cb8a22d316f",
     "packages": [
         {
             "name": "brick/math",
@@ -4420,6 +4420,70 @@
                 "source": "https://github.com/paragonie/random_compat"
             },
             "time": "2020-10-15T08:29:30+00:00"
+        },
+        {
+            "name": "paypayopa/php-sdk",
+            "version": "2.0.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/paypay/paypayopa-sdk-php.git",
+                "reference": "86dd2d08cf65dcecdc17c5c826065ac3e913baad"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/paypay/paypayopa-sdk-php/zipball/86dd2d08cf65dcecdc17c5c826065ac3e913baad",
+                "reference": "86dd2d08cf65dcecdc17c5c826065ac3e913baad",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "firebase/php-jwt": "^5.5 || ^6.0",
+                "guzzlehttp/guzzle": "^6.0 || ^7.0",
+                "php": ">=7.0.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.16 || ^3.0",
+                "php-coveralls/php-coveralls": "^2.2",
+                "phpstan/phpstan": "^0.12.33 || ^1.0.0",
+                "phpunit/phpunit": "^9"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/helpers/utility_hmac.php"
+                ],
+                "psr-4": {
+                    "PayPay\\OpenPaymentAPI\\": "src/",
+                    "PayPay\\OpenPaymentAPI\\Controller\\": "src/Controllers/"
+                },
+                "classmap": [
+                    "src/core/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "PayPay Open Source Development Team",
+                    "email": "opensource@paypay-corp.co.jp"
+                }
+            ],
+            "description": "PHP SDK for PayPay Open Payment API",
+            "keywords": [
+                "japan",
+                "opa",
+                "payment",
+                "paypay",
+                "qr",
+                "qrcode"
+            ],
+            "support": {
+                "issues": "https://github.com/paypay/paypayopa-sdk-php/issues",
+                "source": "https://github.com/paypay/paypayopa-sdk-php/tree/2.0.7"
+            },
+            "time": "2022-06-22T05:32:33+00:00"
         },
         {
             "name": "phpoffice/phpspreadsheet",
