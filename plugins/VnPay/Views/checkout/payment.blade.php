@@ -22,13 +22,8 @@
   let data = {
     orderNumber: "{{$order->number}}",
     orderId: "{{$order->id}}",
-    vnp_TmnCode: "{{$payment_setting['vnp_TmnCode']}}",
-    vnp_HashSecret: "{{$payment_setting['vnp_HashSecret']}}",
-    vnp_Url: "{{$payment_setting['vnp_Url']}}",
     amount: "{{ $order['total'] }}",
-    ip:  "{{ $order->ip }}",
     }
-  console.log(JSON.stringify(data))
   $(document).ready(function(){
     $('#button-vn-pay').click(function(){
 
@@ -41,8 +36,10 @@
         },
         body: JSON.stringify(data)
       }).then(function (res) {
+        console.log(res)
         return res.json(); // Sử dụng phương thức json() để phân tích cú pháp dữ liệu JSON
       }).then(function (data) {
+        console.log(data.url)
         window.location.href = (data.url)
       });
     });

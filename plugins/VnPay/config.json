@@ -1,12 +1,12 @@
 {
     "code": "vn_pay",
     "name": {
-        "zh_cn": "VNPay",
-        "en": "VNPay"
+        "zh_cn": "PayPay",
+        "en": "PayPay"
     },
     "description": {
-        "zh_cn": "Thanh toán qua ví VNPay",
-        "en": "VNPay Wallet Transfer"
+        "zh_cn": "Thanh toán qua ví PayPay",
+        "en": "Payment by PayPay"
     },
     "type": "payment",
     "version": "v1.0.0",

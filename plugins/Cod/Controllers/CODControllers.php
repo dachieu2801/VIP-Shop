@@ -15,16 +15,4 @@
 
 namespace Plugin\Cod\Controllers;
 
-use Beike\Repositories\OrderPaymentRepo;
-use Beike\Repositories\OrderRepo;
-use Beike\Services\StateMachineService;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Plugin\Paypal\Services\PaypalService;
-use Srmklive\PayPal\Services\PayPal;
-
-class CODControllers
-{
-
-}
+class CODControllers {}
