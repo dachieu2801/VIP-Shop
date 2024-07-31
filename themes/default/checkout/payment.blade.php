@@ -1,4 +1,3 @@
-
 @extends('layout.master')
 
 @section('body-class', 'page-payment')
@@ -38,6 +37,10 @@
                     </tr>
                   </tbody>
                 </table>
+              </div>
+
+              <div class="alert alert-warning" role="alert">
+                Vui lòng chụp ảnh màn hình đơn hàng !!!
               </div>
 
               {!! $payment !!}

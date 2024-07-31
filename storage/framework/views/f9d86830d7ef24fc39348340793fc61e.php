@@ -1,6 +1,5 @@
 
 
-
 <?php $__env->startSection('body-class', 'page-payment'); ?>
 
 <?php $__env->startSection('content'); ?>
@@ -57,6 +56,10 @@
                     </tr>
                   </tbody>
                 </table>
+              </div>
+
+              <div class="alert alert-warning" role="alert">
+                Vui lòng chụp ảnh màn hình đơn hàng !!!
               </div>
 
               <?php echo $payment; ?>

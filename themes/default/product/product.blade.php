@@ -156,7 +156,7 @@
               @hookwrapper('product.detail.model')
               <div class="d-lg-flex" v-if="product.model"><span class="title text-muted">{{ __('shop/products.model') }}: </span> @{{ product.model }}</div>
               @endhookwrapper
-              <div class="d-lg-flex"><span class="title text-muted">{{ __('shop/products.delivery') }}: </span> {{__('shop/products.delivery_price')}}</div>
+              <!-- <div class="d-lg-flex"><span class="title text-muted">{{ __('shop/products.delivery') }}: </span> {{__('shop/products.delivery_price')}}</div> -->
             </div>
 
             @hookwrapper('product.detail.variables')

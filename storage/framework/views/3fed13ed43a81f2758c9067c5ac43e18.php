@@ -275,7 +275,7 @@
                 if ($output)
                 echo $output;
                 ?>
-              <div class="d-lg-flex"><span class="title text-muted"><?php echo e(__('shop/products.delivery')); ?>: </span> <?php echo e(__('shop/products.delivery_price')); ?></div>
+              <!-- <div class="d-lg-flex"><span class="title text-muted"><?php echo e(__('shop/products.delivery')); ?>: </span> <?php echo e(__('shop/products.delivery_price')); ?></div> -->
             </div>
 
              <?php
