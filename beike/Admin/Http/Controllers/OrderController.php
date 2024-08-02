@@ -21,6 +21,7 @@ use Beike\Shop\Http\Resources\Account\OrderShippingList;
 use Beike\Shop\Http\Resources\Account\OrderSimpleList;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller
 {
@@ -97,6 +98,7 @@ class OrderController extends Controller
     public function show(Request $request, Order $order)
     {
         $order->load(['orderTotals', 'orderHistories', 'orderShipments', 'orderPayments']);
+
         $data                     = hook_filter('admin.order.show.data', ['order' => $order, 'html_items' => []]);
         $data['statuses']         = StateMachineService::getInstance($order)->nextBackendStatuses();
         $data['expressCompanies'] = system_setting('base.express_company', []);

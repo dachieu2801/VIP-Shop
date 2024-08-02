@@ -183,7 +183,9 @@ class StateMachineService
 
         $currentStatusCode = $this->order->status;
         $nextStatus        = $machines[$currentStatusCode] ?? [];
-
+//        if($this->order->payment_method_code){
+//            Log::info(s);
+//        }
         if (empty($nextStatus)) {
             return [];
         }
@@ -195,7 +197,10 @@ class StateMachineService
                 'name'   => trans("order.{$status}"),
             ];
         }
-
+//        if($this->order->payment_method_code){
+//            $result
+//        }
+        Log::info('adasd',['a'=>$result]);
         return $result;
     }
 
@@ -409,8 +414,5 @@ class StateMachineService
     /**
      * 恢复库存
      */
-    private function revertStock($oldCode, $newCode)
-    {
-
-    }
+    private function revertStock($oldCode, $newCode) {}
 }

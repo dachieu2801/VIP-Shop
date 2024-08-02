@@ -28,7 +28,7 @@ class CustomerController extends Controller
 {
     public function index(Request $request)
     {
-        $customers = CustomerRepo::list($request->only(['name', 'email', 'status', 'from', 'customer_group_id']));
+        $customers = CustomerRepo::list($request->only(['name', 'email', 'status', 'from', 'customer_group_id', 'login_at']));
 
         $data = [
             'customers'         => $customers,
@@ -39,11 +39,11 @@ class CustomerController extends Controller
         ];
         $data = hook_filter('admin.customer.index.data', $data);
 
-        Log::info('dataaaaa',$data);
-
         if ($request->expectsJson()) {
             return json_success(trans('success'), $data);
         }
+
+        Log::info('cus', ['a'=>$customers]);
 
         return view('admin::pages.customers.index', $data);
     }
