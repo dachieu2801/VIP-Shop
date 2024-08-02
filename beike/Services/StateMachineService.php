@@ -183,9 +183,9 @@ class StateMachineService
 
         $currentStatusCode = $this->order->status;
         $nextStatus        = $machines[$currentStatusCode] ?? [];
-//        if($this->order->payment_method_code){
-//            Log::info(s);
-//        }
+        //        if($this->order->payment_method_code){
+        //            Log::info(s);
+        //        }
         if (empty($nextStatus)) {
             return [];
         }
@@ -197,10 +197,16 @@ class StateMachineService
                 'name'   => trans("order.{$status}"),
             ];
         }
-//        if($this->order->payment_method_code){
-//            $result
-//        }
-        Log::info('adasd',['a'=>$result]);
+
+        $a = $this->order->jsonSerialize();
+
+        if ($a['payment_method_code'] == 'cod') {
+            $result[] = [
+                'status' => 'shipped',
+                'name'   => trans('order.shipped'),
+            ];
+        }
+
         return $result;
     }
 

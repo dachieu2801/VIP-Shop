@@ -43,8 +43,6 @@ class CustomerController extends Controller
             return json_success(trans('success'), $data);
         }
 
-        Log::info('cus', ['a'=>$customers]);
-
         return view('admin::pages.customers.index', $data);
     }
 
