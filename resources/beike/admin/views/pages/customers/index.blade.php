@@ -73,6 +73,7 @@
                 <th>{{ __('common.examine') }}</th>
                 @endif
                 <th>{{ __('common.created_at') }}</th>
+                <th>{{ __('common.login_at') }}</th>
                 @hook('admin.customer.list.column')
                 <th>{{ __('common.action') }}</th>
               </tr>
@@ -106,6 +107,8 @@
                 </td>
                 @endif
                 <td>{{ $customer['created_at'] }}</td>
+                @hook('admin.customer.list.column_value')
+                <td>{{ $customer['login_at'] }}</td>
                 @hook('admin.customer.list.column_value')
                 <td>
                   @if ($type != 'trashed')

@@ -112,5 +112,6 @@ return [
     'review'               => 'Xem đánh giá',
     'user'                 => 'Tên người dùng',
     'content'              => 'Nội dung đánh giá',
+    'login_at'=> 'Lần cuối đăng nhập'
 
 ];

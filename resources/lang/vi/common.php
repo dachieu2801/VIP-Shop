@@ -100,4 +100,5 @@ return [
     'whether_open'         => 'Trạng thái',
     'yes'                  => 'Có',
     'text_total'           => 'Tổng cộng',
+    'login_at'=> 'Lần cuối đăng nhập'
 ];

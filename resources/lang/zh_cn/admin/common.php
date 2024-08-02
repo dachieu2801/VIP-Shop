@@ -113,4 +113,5 @@ return [
     'translate_form'                   => 'Vui lòng nhập nội dung cần dịch',
     'copyright_hint_text'              => 'Vui lòng bảo lưu bản quyền hoặc truy cập <a href="https://beikeshop.com/vip/subscription?type=tab-license" target="_blank">Mua</a>',
     'reviews'                          => 'Đánh giá sản phẩm',
+    'login_at'=> 'Lần cuối đăng nhập'
 ];
