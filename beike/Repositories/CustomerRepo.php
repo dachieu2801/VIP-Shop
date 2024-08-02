@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class CustomerRepo
 {
@@ -119,7 +120,6 @@ class CustomerRepo
     public static function getListBuilder(array $filters = []): Builder
     {
         $builder = Customer::query()->with('customerGroup.description');
-
         if (isset($filters['name'])) {
             $builder->where('customers.name', 'like', "%{$filters['name']}%");
         }

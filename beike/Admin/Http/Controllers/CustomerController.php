@@ -22,6 +22,7 @@ use Beike\Repositories\CountryRepo;
 use Beike\Repositories\CustomerGroupRepo;
 use Beike\Repositories\CustomerRepo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class CustomerController extends Controller
 {
@@ -37,6 +38,9 @@ class CustomerController extends Controller
             'statuses'          => CustomerRepo::getStatuses(),
         ];
         $data = hook_filter('admin.customer.index.data', $data);
+
+        Log::info('dataaaaa',$data);
+
         if ($request->expectsJson()) {
             return json_success(trans('success'), $data);
         }

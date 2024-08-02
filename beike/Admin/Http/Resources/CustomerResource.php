@@ -27,6 +27,7 @@ class CustomerResource extends JsonResource
             'customer_group_name' => $this->customerGroup->description->name ?? '',
             'edit'                => admin_route('customers.edit', $this->id),
             'delete'              => admin_route('customers.destroy', $this->id),
+            'login_at'            => time_format($this->login_at),
         ];
 
         $params = [

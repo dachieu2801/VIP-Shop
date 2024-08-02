@@ -28,6 +28,7 @@ class RegisterController extends Controller
     {
         $credentials = $request->only('email', 'password');
 
+
         $customer               = AccountService::register($credentials);
         $guestCartProduct       = CartRepo::allCartProducts(0);
         auth(Customer::AUTH_GUARD)->attempt($credentials);

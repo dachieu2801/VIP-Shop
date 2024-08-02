@@ -15,6 +15,7 @@ use Beike\Models\Customer;
 use Beike\Repositories\CartRepo;
 use Beike\Shop\Http\Controllers\Controller;
 use Beike\Shop\Http\Requests\LoginRequest;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -63,6 +64,9 @@ class LoginController extends Controller
 
                 throw new NotFoundHttpException(trans('shop/login.customer_rejected'));
             }
+
+            // Update login_date
+            Customer::query()->where('id', $customer->id)->update(['login_at' => Carbon::now()]);
 
             CartRepo::mergeGuestCart($customer, $guestCartProduct);
 
