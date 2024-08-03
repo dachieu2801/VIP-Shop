@@ -1223,10 +1223,14 @@
   <script>
     $('.submit-form-edit').on('click', function () {
       const action = $(`form#app`).attr('action');
+      console.log('action',action)
       submitBeforeFormat()
       $(`form#app`).attr('action', bk.updateQueryStringParameter(action, 'action_type', 'stay'));
+      const updatedAction = bk.updateQueryStringParameter(action, 'action_type', 'stay');
+      console.log('updatedAction',updatedAction)
 
       setTimeout(() => {
+        console.log('Form data at submission time:', $(`form#app`).serializeArray());
         $(`form#app`).find('button[type="submit"]')[0].click();
       }, 0);
     })
@@ -1240,10 +1244,11 @@
     })
 
     function submitBeforeFormat() {
+      console.log('submitBeforeFormat called');
       if (!app.editing.isVariable) {
         app.source.variables = [];
       }
-
+      console.log('Form data before submit:', app.form);
       app.videoSubmitFormat()
     }
 

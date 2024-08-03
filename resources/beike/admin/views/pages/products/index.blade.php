@@ -63,11 +63,14 @@
 
         <div class="d-flex justify-content-between my-4 flex-wrap gap-2">
           @if ($type != 'trashed')
-          <a href="{{ admin_route('products.create') }}" class="me-1 nowrap">
-            <button class="btn btn-primary">{{ __('admin/product.products_create') }}</button>
+          <div class="me-1 nowrap">
+
+            <a href="{{ admin_route('products.create') }}" >
+              <button class="btn btn-primary">{{ __('admin/product.products_create') }}</button>
+            </a>
             <button class="btn btn-success">{{ __('admin/product.import_excel') }}</button>
-            <button class="btn btn-danger">{{ __('admin/product.export_excel') }}</button>
-          </a>
+            <button id="export-excel" class="btn btn-danger">{{ __('admin/product.export_excel') }}</button>
+          </div>
           @else
             @if ($products->total())
               <button class="btn btn-primary" @click="clearRestore">{{ __('admin/product.clear_restore') }}</button>
@@ -172,7 +175,34 @@
 @endsection
 
 @push('footer')
+<script>
+  $(document).ready(function() {
+    $('#export-excel').click(function() {
+      const token = $('meta[name="csrf-token"]').attr('content');
+      
+      fetch('/admin/products/list', {
+        method: 'GET',
+        headers: {
+          'X-CSRF-Token': token,
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(function(res) {
+        return res.json(); // Parse JSON data
+      })
+      .then(function(data) {
+        console.log(data);
+        // Handle the received data here
+      })
+      .catch(function(error) {
+        console.error('Error:', error);
+      });
+    });
+  });
+</script>
   <script>
+
+
     let app = new Vue({
       el: '#product-app',
       data: {
