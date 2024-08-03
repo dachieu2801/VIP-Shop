@@ -16,6 +16,7 @@ use Beike\Repositories\ProductRepo;
 use Beike\Repositories\ProductReviewsRepo;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
@@ -147,8 +148,12 @@ class ProductController extends Controller
             'products.*.skus.*.quantity'                 => 'required|integer',
         ];
 
-        $validatedData = $request->validate($rules);
-
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->errors(),
+            ], 422);
+        }
         $productsData = $request->input('products');
 
         $processedProducts = [];
