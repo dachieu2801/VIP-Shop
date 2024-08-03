@@ -12,21 +12,30 @@
 namespace Beike\Shop\Http\Controllers;
 
 use Beike\Models\AdminUser;
-use Beike\Notifications\sendNewOrderNotification;
+//use Beike\Notifications\sendNewOrderNotification;
 use Beike\Repositories\OrderRepo;
 use Beike\Shop\Services\CheckoutService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Beike\Repositories\VouchersRepo;
 
 class CheckoutController extends Controller
 {
+    protected $vouchersRepo;
+
+    public function __construct(VouchersRepo $vouchersRepo)
+    {
+        $this->vouchersRepo = $vouchersRepo;
+    }
     public function index()
     {
         try {
             $data = (new CheckoutService)->checkoutData();
-            Log::log('info', 'checkout.index.data111111', ['data' => $data]);
-            $data = hook_filter('checkout.index.data', $data);
+            $data['vouchers']  = $this->vouchersRepo->getActiveVouchers(now());
+            Log::info('a',['a'=> $data['vouchers'] ]);
+            Log::info('1111a',['a'=> $data ]);
 
+            $data = hook_filter('checkout.index.data', $data);
             return view('checkout', $data);
         } catch (\Exception $e) {
             return redirect(shop_route('carts.index'))->withErrors(['error' => $e->getMessage()]);

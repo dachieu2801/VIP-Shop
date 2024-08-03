@@ -7,12 +7,11 @@ use Illuminate\Http\Request;
 
 class VouchersRepo
 {
-
     private function generateRandomCode(int $length)
     {
-        $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'; // Các ký tự có thể xuất hiện trong mã
+        $characters       = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'; // Các ký tự có thể xuất hiện trong mã
         $charactersLength = strlen($characters);
-        $randomCode = '';
+        $randomCode       = '';
 
         for ($i = 0; $i < $length; $i++) {
             $randomCode .= $characters[random_int(0, $charactersLength - 1)];
@@ -99,5 +98,19 @@ class VouchersRepo
 
         // Phân trang
         return $query->paginate($request->input('per_page', 15));
+    }
+
+    public function getActiveVouchers($currentDate)
+    {
+        return Vouchers::where('status', 'active')
+            ->where(function ($query) use ($currentDate) {
+                $query->whereNull('start_date')
+                    ->orWhere('start_date', '<=', $currentDate);
+            })
+            ->where(function ($query) use ($currentDate) {
+                $query->whereNull('end_date')
+                    ->orWhere('end_date', '>=', $currentDate);
+            })
+            ->get()->jsonSerialize();
     }
 }

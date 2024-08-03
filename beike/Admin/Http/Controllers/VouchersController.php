@@ -111,4 +111,6 @@ class VouchersController extends Controller
         }
         return response()->json(['message' => 'Voucher not found'], 404);
     }
+
+
 }
