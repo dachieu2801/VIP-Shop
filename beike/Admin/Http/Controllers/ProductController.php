@@ -16,6 +16,7 @@ use Beike\Repositories\ProductRepo;
 use Beike\Repositories\ProductReviewsRepo;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
@@ -155,17 +156,15 @@ class ProductController extends Controller
             ], 422);
         }
         $productsData = $request->input('products');
-
+        Log::info('a',['aádasdasda'=> $productsData]);
         $processedProducts = [];
         $failedProducts    = [];
 
         foreach ($productsData as $index => $productData) {
             try {
-                // Tạo sản phẩm từ dữ liệu đã xác thực
                 $product             = (new ProductService)->create($productData);
                 $processedProducts[] = $product;
             } catch (\Exception $e) {
-                // Lưu lỗi của sản phẩm không hợp lệ
                 $failedProducts[$index] = [
                     'product' => $productData,
                     'error'   => $e->getMessage(),
