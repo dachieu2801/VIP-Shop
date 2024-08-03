@@ -234,7 +234,9 @@ Route::prefix($adminName)
                 Route::middleware('can:products_index')->get('products', [Controllers\ProductController::class, 'index'])->name('products.index');
                 Route::middleware('can:products_create')->get('products/create', [Controllers\ProductController::class, 'create'])->name('products.create');
                 Route::middleware('can:products_create')->post('products', [Controllers\ProductController::class, 'store'])->name('products.store');
+                Route::middleware('can:products_create')->post('products/list', [Controllers\ProductController::class, 'storeMultiple'])->name('products.storeMultiple');
                 Route::middleware('can:products_show')->get('products/{product}/edit', [Controllers\ProductController::class, 'edit'])->name('products.edit');
+                Route::middleware('can:products_show')->get('products/list', [Controllers\ProductController::class, 'getProducts'])->name('products.getProducts');
                 Route::middleware('can:products_update')->put('products/{product}', [Controllers\ProductController::class, 'update'])->name('products.update');
                 Route::middleware('can:products_delete')->delete('products/{product}', [Controllers\ProductController::class, 'destroy'])->name('products.destroy');
                 Route::middleware('can:products_reviews')->get('products/reviews', [Controllers\ProductController::class, 'reviews'])->name('products.reviews');

@@ -76,7 +76,7 @@ class ProductController extends Controller
 
     public function create(Request $request)
     {
-        return $this->form($request, new Product());
+        return $this->form($request, new Product);
     }
 
     public function store(Request $request)
@@ -99,6 +99,90 @@ class ProductController extends Controller
                 ->withInput()
                 ->withErrors(['error' => $e->getMessage()]);
         }
+    }
+
+    public function storeMultiple(Request $request)
+    {
+        $rules = [
+            'products'                                   => 'required|array',
+            'products.*.descriptions'                    => 'required|array',
+            'products.*.descriptions.zh_cn'              => 'required|array',
+            'products.*.descriptions.zh_cn.name'         => 'required|string',
+            'products.*.descriptions.en'                 => 'required|array',
+            'products.*.descriptions.en.name'            => 'required|string',
+            'products.*.images'                          => 'nullable|array',
+            'products.*.images.*'                        => 'nullable|string',
+            'products.*.video'                           => 'nullable|string',
+            'products.*.position'                        => 'nullable|integer',
+            'products.*.weight'                          => 'nullable|numeric',
+            'products.*.weight_class'                    => 'nullable|string',
+            'products.*.brand_name'                      => 'nullable|string',
+            'products.*.brand_id'                        => 'nullable|string',
+            'products.*.tax_class_id'                    => 'nullable|integer',
+            'products.*.shipping'                        => 'nullable',
+            'products.*.categories'                      => 'nullable|array',
+            'products.*.categories.*'                    => 'nullable|string',
+            'products.*.active'                          => 'nullable',
+            'products.*.variables'                       => 'nullable|array',
+            'products.*.variables.*.name'                => 'required|array',
+            'products.*.variables.*.name.zh_cn'          => 'required|string',
+            'products.*.variables.*.name.en'             => 'required|string',
+            'products.*.variables.*.values'              => 'nullable|array',
+            'products.*.variables.*.values.*.name'       => 'required|array',
+            'products.*.variables.*.values.*.name.zh_cn' => 'required|string',
+            'products.*.variables.*.values.*.name.en'    => 'required|string',
+            'products.*.variables.*.values.*.image'      => 'nullable|string',
+            'products.*.variables.*.isImage'             => 'required|boolean',
+            'products.*.skus'                            => 'required|array',
+            'products.*.skus.*.images'                   => 'nullable|array',
+            'products.*.skus.*.images.*'                 => 'nullable|string',
+            'products.*.skus.*.is_default'               => 'nullable',
+            'products.*.skus.*.variants'                 => 'nullable|array',
+            'products.*.skus.*.variants.*'               => 'nullable|integer',
+            'products.*.skus.*.model'                    => 'required|string',
+            'products.*.skus.*.sku'                      => 'required|string',
+            'products.*.skus.*.price'                    => 'required|numeric',
+            'products.*.skus.*.origin_price'             => 'required|numeric',
+            'products.*.skus.*.cost_price'               => 'required|numeric',
+            'products.*.skus.*.quantity'                 => 'required|integer',
+        ];
+
+        $validatedData = $request->validate($rules);
+
+        $productsData = $request->input('products');
+
+        $processedProducts = [];
+        $failedProducts    = [];
+
+        foreach ($productsData as $index => $productData) {
+            try {
+                // Tạo sản phẩm từ dữ liệu đã xác thực
+                $product             = (new ProductService)->create($productData);
+                $processedProducts[] = $product;
+            } catch (\Exception $e) {
+                // Lưu lỗi của sản phẩm không hợp lệ
+                $failedProducts[$index] = [
+                    'product' => $productData,
+                    'error'   => $e->getMessage(),
+                ];
+            }
+        }
+
+        // Trả về phản hồi JSON với thông báo thành công và thông tin về các sản phẩm không hợp lệ
+        return response()->json([
+            'message'            => 'Products processed',
+            'processed_products' => $processedProducts,
+            'failed_products'    => $failedProducts,
+        ]);
+    }
+
+    public function getProducts(Request $request, int $perPage = 50)
+    {
+        $page = $request->input('page', 1);
+
+        return Product::with(['descriptions', 'skus', 'categories', 'relations'])
+            ->orderBy('created_at', 'desc')
+            ->paginate($perPage, ['*'], 'page', $page);
     }
 
     public function edit(Request $request, Product $product)
@@ -259,6 +343,7 @@ class ProductController extends Controller
     {
         $reviewIds = $request->input('ids');
         ProductReviewsRepo::destroyReviewByIds($reviewIds);
+
         return json_success(trans('common.deleted_success'), []);
     }
 }
