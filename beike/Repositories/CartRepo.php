@@ -65,7 +65,6 @@ class CartRepo
             }
             $cart->save();
         }
-        Log::log('info', 'CartRepo createCart', ['$cart' => $cart]);
         $cart->loadMissing(['shippingAddress', 'paymentAddress']);
         $cart->extra                  = json_decode($cart->extra, true);
         $cart->guest_shipping_address = json_decode($cart->guest_shipping_address, true);

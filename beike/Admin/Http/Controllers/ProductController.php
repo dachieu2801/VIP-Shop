@@ -181,15 +181,12 @@ class ProductController extends Controller
         ]);
     }
 
-    public function getProducts(Request $request, int $perPage = 50)
+    public function getProducts(Request $request)
     {
-        $page = $request->input('page', 1);
-
         return Product::with(['descriptions', 'skus', 'categories', 'relations'])
             ->orderBy('created_at', 'desc')
-            ->paginate($perPage, ['*'], 'page', $page);
+            ->get();
     }
-
     public function edit(Request $request, Product $product)
     {
         return $this->form($request, $product);
