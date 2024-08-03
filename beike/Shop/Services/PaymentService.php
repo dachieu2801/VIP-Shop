@@ -39,7 +39,7 @@ class PaymentService
             throw new \Exception(trans('shop/order.order_already_paid'));
         }
         $this->orderId           = (int) $this->order->id;
-        $this->paymentMethodCode = $this->order->payment_method_code;
+        $this->paymentMethodCode = $this->order['payment_method_code'];
     }
 
     /**

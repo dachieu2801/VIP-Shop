@@ -183,9 +183,7 @@ class StateMachineService
 
         $currentStatusCode = $this->order->status;
         $nextStatus        = $machines[$currentStatusCode] ?? [];
-        //        if($this->order->payment_method_code){
-        //            Log::info(s);
-        //        }
+
         if (empty($nextStatus)) {
             return [];
         }

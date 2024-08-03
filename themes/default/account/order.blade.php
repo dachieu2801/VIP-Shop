@@ -95,7 +95,7 @@
                              <td rowspan="{{ $loop->count }}" class="text-end">
                                <a href="{{ shop_route('account.order.show', ['number' => $order->number]) }}" class="btn btn-outline-secondary btn-sm mb-2 w-100">{{ __('shop/account/order.check') }}</a>
                                @if ($order->status == 'unpaid')
-                                 @if($order->payment_method_code=="vn_pay") <a href="{{ shop_route('orders.pay', $order->number) }}" class="btn w-100 btn-primary btn-sm nowrap mb-2">{{ __('shop/account/order_info.to_pay') }}</a> @endif
+                                 @if($order['payment_method_code']=="vn_pay") <a href="{{ shop_route('orders.pay', $order->number) }}" class="btn w-100 btn-primary btn-sm nowrap mb-2">{{ __('shop/account/order_info.to_pay') }}</a> @endif
 {{--                                 <button class="btn btn-outline-danger btn-sm cancel-order w-100" data-number="{{ $order->number }}" type="button">{{ __('shop/account/order_info.cancel') }}</button>--}}
                                  <button type="button" class="btn  cancel-order w-100 btn-outline-danger btn-sm" data-number="{{ $order->number }}" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                    {{ __('shop/account/order_info.cancel') }}

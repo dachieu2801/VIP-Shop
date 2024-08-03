@@ -23,7 +23,7 @@ class OrderSimpleList extends JsonResource
             'status_format'       => $this->status_format,
             'next_status'         => $this->getNextStatuses(),
             'status'              => $this->status,
-            'payment_method_code' => $this->payment_method_code,
+            'payment_method_code' => $this['payment_method_code'],
         ];
 
         return $data;
