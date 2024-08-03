@@ -24,6 +24,7 @@ class Order extends Base
     use Notifiable;
     use SoftDeletes;
 
+    public mixed $payment_method_code;
     protected $fillable = [
         'number', 'customer_id', 'customer_group_id', 'shipping_address_id', 'payment_address_id', 'customer_name',
         'email', 'calling_code', 'telephone', 'total', 'locale', 'currency_code', 'currency_value', 'ip', 'user_agent',

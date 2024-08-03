@@ -1,6 +1,7 @@
 <?php
 
 use Beike\Admin\Http\Controllers;
+use Beike\Admin\Http\Controllers\VouchersController;
 use Beike\Admin\Http\Controllers\ForgottenController;
 use Illuminate\Support\Facades\Route;
 
@@ -234,13 +235,22 @@ Route::prefix($adminName)
                 Route::middleware('can:products_index')->get('products', [Controllers\ProductController::class, 'index'])->name('products.index');
                 Route::middleware('can:products_create')->get('products/create', [Controllers\ProductController::class, 'create'])->name('products.create');
                 Route::middleware('can:products_create')->post('products', [Controllers\ProductController::class, 'store'])->name('products.store');
+                Route::middleware('can:products_create')->post('products/list', [Controllers\ProductController::class, 'storeMultiple'])->name('products.storeMultiple');
                 Route::middleware('can:products_show')->get('products/{product}/edit', [Controllers\ProductController::class, 'edit'])->name('products.edit');
+                Route::middleware('can:products_show')->get('products/list', [Controllers\ProductController::class, 'getProducts'])->name('products.getProducts');
                 Route::middleware('can:products_update')->put('products/{product}', [Controllers\ProductController::class, 'update'])->name('products.update');
                 Route::middleware('can:products_delete')->delete('products/{product}', [Controllers\ProductController::class, 'destroy'])->name('products.destroy');
                 Route::middleware('can:products_reviews')->get('products/reviews', [Controllers\ProductController::class, 'reviews'])->name('products.reviews');
                 Route::middleware('can:products_reviews_delete')->delete('products/reviews/delete', [Controllers\ProductController::class, 'destroyReviewByIds'])->name('products.reviews.delete');
 
-                // 翻译
+                //vouchers
+                Route::middleware('can:vouchers_index')->get('vouchers', [VouchersController::class, 'index'])->name('vouchers.index');
+                Route::middleware('can:vouchers_show')->get('vouchers/{id}', [VouchersController::class, 'show'])->name('vouchers.show');
+                Route::middleware('can:vouchers_store')->post('vouchers', [VouchersController::class, 'store'])->name('vouchers.create');
+                Route::middleware('can:vouchers_edit')->post('vouchers/edit', [VouchersController::class, 'update'])->name('vouchers.update');
+                Route::middleware('can:products_delete')->post('vouchers/delete', [VouchersController::class, 'destroy'])->name('products.destroy');
+
+                // 翻译s
                 Route::post('translation', [Controllers\TranslationController::class, 'translateText'])->name('translation.translate');
 
                 // 区域组

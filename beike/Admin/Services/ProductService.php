@@ -80,6 +80,7 @@ class ProductService
             return $product;
         } catch (\Exception $e) {
             DB::rollBack();
+
             throw $e;
         }
     }

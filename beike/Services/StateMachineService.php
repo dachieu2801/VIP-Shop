@@ -183,7 +183,9 @@ class StateMachineService
 
         $currentStatusCode = $this->order->status;
         $nextStatus        = $machines[$currentStatusCode] ?? [];
-
+        //        if($this->order->payment_method_code){
+        //            Log::info(s);
+        //        }
         if (empty($nextStatus)) {
             return [];
         }
@@ -193,6 +195,15 @@ class StateMachineService
             $result[] = [
                 'status' => $status,
                 'name'   => trans("order.{$status}"),
+            ];
+        }
+
+        $a = $this->order->jsonSerialize();
+
+        if ($a['payment_method_code'] == 'cod') {
+            $result[] = [
+                'status' => 'shipped',
+                'name'   => trans('order.shipped'),
             ];
         }
 
@@ -409,8 +420,5 @@ class StateMachineService
     /**
      * 恢复库存
      */
-    private function revertStock($oldCode, $newCode)
-    {
-
-    }
+    private function revertStock($oldCode, $newCode) {}
 }
