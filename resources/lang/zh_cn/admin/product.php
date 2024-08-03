@@ -13,6 +13,8 @@ return [
 
     'products_index'         => 'Danh sách',
     'products_create'        => 'Tạo mới',
+    'import_excel'=> 'Import excel',
+    'export_excel'=> 'Xuất excel',
     'products_show'          => 'Chi tiết',
     'products_update'        => 'Chỉnh sửa',
     'products_delete'        => 'Xóa',

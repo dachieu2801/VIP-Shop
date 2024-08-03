@@ -113,6 +113,8 @@
           <?php if($type != 'trashed'): ?>
           <a href="<?php echo e(admin_route('products.create')); ?>" class="me-1 nowrap">
             <button class="btn btn-primary"><?php echo e(__('admin/product.products_create')); ?></button>
+            <button class="btn btn-success"><?php echo e(__('admin/product.import_excel')); ?></button>
+            <button class="btn btn-danger"><?php echo e(__('admin/product.export_excel')); ?></button>
           </a>
           <?php else: ?>
             <?php if($products->total()): ?>

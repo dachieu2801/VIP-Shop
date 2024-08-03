@@ -15,7 +15,7 @@
         <table class="table" v-if="plugins.length">
           <thead>
             <tr>
-              <th>{{ __('admin/plugin.plugin_code') }}</th>
+              <!-- <th>{{ __('admin/plugin.plugin_code') }}</th> -->
               <th>{{ __('admin/plugin.plugin_version') }}</th>
               <th>{{ __('admin/plugin.plugin_type') }}</th>
               <th width="50%">{{ __('admin/plugin.plugin_description') }}</th>
@@ -25,7 +25,7 @@
           </thead>
           <tbody>
             <tr v-for="plugin, index in plugins" :key="index">
-              <td>@{{ plugin.code }}</td>
+              <!-- <td>@{{ plugin.code }}</td> -->
               <td>@{{ plugin.version }}</td>
               <td>@{{ plugin.type_format }}</td>
               <td>

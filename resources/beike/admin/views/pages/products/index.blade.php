@@ -65,6 +65,8 @@
           @if ($type != 'trashed')
           <a href="{{ admin_route('products.create') }}" class="me-1 nowrap">
             <button class="btn btn-primary">{{ __('admin/product.products_create') }}</button>
+            <button class="btn btn-success">{{ __('admin/product.import_excel') }}</button>
+            <button class="btn btn-danger">{{ __('admin/product.export_excel') }}</button>
           </a>
           @else
             @if ($products->total())

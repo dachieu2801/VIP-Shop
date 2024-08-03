@@ -139,7 +139,7 @@
                 if ($output)
                 echo $output;
                 ?>
-                <td><?php echo e($customer['login_at']); ?></td>
+                <td><?php echo e($customer['login_at'] ?? "TK chưa đăng nhập"); ?></td>
                  <?php
                 $__definedVars = (get_defined_vars()["__data"]);
                 if (empty($__definedVars))

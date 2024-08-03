@@ -108,7 +108,7 @@
                 @endif
                 <td>{{ $customer['created_at'] }}</td>
                 @hook('admin.customer.list.column_value')
-                <td>{{ $customer['login_at'] }}</td>
+                <td>{{ $customer['login_at'] ?? "TK chưa đăng nhập"  }}</td>
                 @hook('admin.customer.list.column_value')
                 <td>
                   @if ($type != 'trashed')
