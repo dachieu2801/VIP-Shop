@@ -321,6 +321,7 @@ class Sidebar extends Component
         $routes = [
             ['route' => 'products.index', 'prefixes' => ['products'], 'excludes' => ['products.trashed']],
             ['route' => 'categories.index', 'prefixes' => ['categories']],
+            ['route' => 'vouchers.index', 'prefixes' => ['vouchers']],
             ['route' => 'brands.index', 'prefixes' => ['brands']],
             ['route' => 'attribute_groups.index', 'prefixes' => ['attribute_groups']],
             ['route' => 'attributes.index', 'prefixes' => ['attributes']],

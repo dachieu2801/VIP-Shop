@@ -156,7 +156,7 @@ class ProductController extends Controller
             ], 422);
         }
         $productsData = $request->input('products');
-        Log::info('a',['a'=> $productsData]);
+        Log::info('a',['aádasdasda'=> $productsData]);
         $processedProducts = [];
         $failedProducts    = [];
 

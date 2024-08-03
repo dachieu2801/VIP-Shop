@@ -50,7 +50,8 @@ class VouchersController extends Controller
     {
         $vouchers = $this->vouchersRepo->getAllWithFilters($request);
 
-        return response()->json($vouchers);
+        return view('admin::pages.vouchers.index', $vouchers);
+//        return response()->json($vouchers);
     }
 
     public function show($id)
