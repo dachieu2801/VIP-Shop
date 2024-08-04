@@ -116,12 +116,10 @@
             <a href="<?php echo e(admin_route('products.create')); ?>" >
               <button class="btn btn-primary"><?php echo e(__('admin/product.products_create')); ?></button>
             </a>
-            <div>
-
-            <input type="file" id="import-excel" accept=".xlsx, .xls">
-            
-              <button id="upload-excel">Upload Excel</button>
-            </div>
+           
+              <input type="file" id="import-excel" accept=".xlsx, .xls">
+              <button class="btn btn-success"  id="upload-excel">Upload Excel</button>
+           
       <button id="export-excel" class="btn btn-danger"><?php echo e(__('admin/product.export_excel')); ?></button>
           </div>
           <?php else: ?>
@@ -385,7 +383,7 @@ $(document).ready(function() {
 
         // Send the formatted data as a POST request
         const token = $('meta[name="csrf-token"]').attr('content');
-console.log(formattedData)
+
         $.ajax({
           url: '/admin/products/list',
           method: 'POST',

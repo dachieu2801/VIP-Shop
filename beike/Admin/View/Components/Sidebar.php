@@ -124,6 +124,7 @@ class Sidebar extends Component
                 'prefixes' => $this->getSettingSubPrefix(),
                 'children' => $this->getSettingSubRoutes(),
             ],
+
         ];
 
         return hook_filter('admin.components.sidebar.menus', $menus);
