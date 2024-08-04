@@ -29,20 +29,17 @@ class VouchersController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json([
-                'errors' => $validator->errors(),
-            ], 422);
+            throw new \Exception('Đầu vào không hợp lệ');
         }
 
         try {
             $data    = $request->all();
             $voucher = $this->vouchersRepo->create($data);
 
-            return response()->json($voucher, 201);
+            return $this->index;
         } catch (\Exception $e) {
-            return response()->json([
-                'error' => 'Có lỗi xảy ra khi tạo voucher: ' . $e->getMessage(),
-            ], 500);
+            throw new \Exception($e->getMessage());
+           
         }
     }
 
@@ -77,6 +74,7 @@ class VouchersController extends Controller
     public function create()
     {
         $data = [
+            'voucher' => [],
             'type'    => 'create',
         ];
         return view('admin::pages.vouchers.form', $data);
