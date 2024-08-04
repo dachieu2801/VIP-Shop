@@ -62,26 +62,51 @@ class CheckoutController extends Controller
                 }
 
                 $newTotals      = [];
-                $orderTotalItem = null;
+                $orderTotal     = null;
 
                 foreach ($data['totals'] as $item) {
                     if ($item['code'] === 'order_total') {
-                        $orderTotalItem = $item;
+                        $orderTotal = $item;
+                    } else {
+                        $newTotals[] = $item;
                     }
-                    $newTotals[] = $item;
                 }
-
 
                 if ($voucher['discount_type'] == 'percentage') {
+                    $amount       = floatval($voucher['discount_value']) / 100 * floatval($orderTotal['amount']);
+                    Log::info('info', ['ad111111' => $amount]);
 
+                    $newTotals[]  = [
+                        'code'          => 'voucher_id',
+                        'title'         => $voucher['name'],
+                        'amount'        => $amount,
+                        'amount_format' => '- ' . currency_format($amount),
+                    ];
+                    $amountTotal =  floatval($orderTotal['amount']) - $amount < 0 ? 0 : floatval($orderTotal['amount']) - $amount;
+
+                    $newTotals[] = [
+                        'code'          => 'order_total',
+                        'title'         => trans('shop/carts.order_total'),
+                        'amount'        => $amountTotal,
+                        'amount_format' => currency_format($amountTotal),
+                    ];
+                } else {
+                    $amount       = floatval($voucher['discount_value']);
+                    $newTotals[]  = [
+                        'code'          => 'voucher_id',
+                        'title'         => $voucher['name'],
+                        'amount'        => $amount,
+                        'amount_format' => '- ' . currency_format($amount),
+                    ];
+                    $amountTotal =  floatval($orderTotal['amount']) - $amount < 0 ? 0 : floatval($orderTotal['amount']) - $amount;
+                    $newTotals[] = [
+                        'code'          => 'order_total',
+                        'title'         => trans('shop/carts.order_total'),
+                        'amount'        => $amountTotal,
+                        'amount_format' => currency_format($amountTotal),
+                    ];
                 }
-
-                //                {
-                //                    "code": "shipping",
-                //                    "title": "Phí vận chuyển",
-                //                    "amount": 30000,
-                //                    "amount_format": "₫30.000"
-                //                  },
+                $data['totals'] = $newTotals;
 
             }
 
@@ -100,6 +125,7 @@ class CheckoutController extends Controller
     public function confirm(Request $request)
     {
         $requestData = $request->all();
+
         try {
             $data = (new CheckoutService)->confirm();
             Log::info('confirm', ['a' => $data]);
