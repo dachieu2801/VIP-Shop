@@ -42,7 +42,7 @@ class VouchersRepo
             ->where('status', 'active')
             ->where('start_date', '<=', now())
             ->where('end_date', '>=', now())
-            ->where('used_count', '<', 'usage_limit')
+            ->where('used_count', '>=', 'usage_limit')
             ->first();
     }
 

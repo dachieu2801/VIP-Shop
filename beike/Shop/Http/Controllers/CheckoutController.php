@@ -13,6 +13,7 @@ namespace Beike\Shop\Http\Controllers;
 
 //use Beike\Notifications\sendNewOrderNotification;
 use Beike\Repositories\OrderRepo;
+use Beike\Repositories\VouchersRepo;
 use Beike\Shop\Services\CheckoutService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -25,10 +26,14 @@ class CheckoutController extends Controller
             $data              = (new CheckoutService)->checkoutData();
             $data              = hook_filter('checkout.index.data', $data);
 
-            if($data['current']['voucher_id']){
+            if ($data['current']['voucher_id']) {
+                $newVoucher = (new VouchersRepo)->getByIdActive($data['current']['voucher_id']);
+                if (! $newVoucher) {
+                    $data['current']['voucher_id'] = 0;
+                }
 
             }
-            Log::info('adasdadsa', ['ád' => $data['current']['voucher_id']]);
+            Log::info('adasdadsa', ['ád' => $data]);
 
             return view('checkout', $data);
         } catch (\Exception $e) {
@@ -47,10 +52,38 @@ class CheckoutController extends Controller
         try {
             $requestData = $request->all();
 
- 
-            Log::info('update Checkout', $requestData);
-
             $data       = (new CheckoutService)->update($requestData);
+            Log::info('adasdadsa update', ['ád' => $data]);
+            ///////////////////////////////////////////////////
+            if ($data['current']['voucher_id']) {
+                $voucher = (new VouchersRepo)->getByIdActive($data['current']['voucher_id']);
+                if (! $voucher) {
+                    $data['current']['voucher_id'] = 0;
+                }
+
+                $newTotals      = [];
+                $orderTotalItem = null;
+
+                foreach ($data['totals'] as $item) {
+                    if ($item['code'] === 'order_total') {
+                        $orderTotalItem = $item;
+                    }
+                    $newTotals[] = $item;
+                }
+
+
+                if ($voucher['discount_type'] == 'percentage') {
+
+                }
+
+                //                {
+                //                    "code": "shipping",
+                //                    "title": "Phí vận chuyển",
+                //                    "amount": 30000,
+                //                    "amount_format": "₫30.000"
+                //                  },
+
+            }
 
             return hook_filter('checkout.update.data', $data);
         } catch (\Exception $e) {
@@ -64,11 +97,13 @@ class CheckoutController extends Controller
      * @return mixed
      * @throws \Throwable
      */
-    public function confirm()
+    public function confirm(Request $request)
     {
+        $requestData = $request->all();
         try {
             $data = (new CheckoutService)->confirm();
             Log::info('confirm', ['a' => $data]);
+            $requestData['voucher_id'];
 
             return hook_filter('checkout.confirm.data', $data);
         } catch (\Exception $e) {
