@@ -56,7 +56,7 @@
                 <input type="text" name="description" class="form-control wp-600" value="{{ $voucher['description'] ?? '' }}" placeholder="Nhập Mô Tả" required>
               </x-admin::form.row>
               <x-admin::form.row :title="'Giá trị Voucher'" :required="true">
-                <input type="text" name="discount_value" class="form-control wp-600" value="{{ $voucher['discount_value'] ?? '' }}" placeholder="Nhập giá trị" required>
+                <input type="number" name="discount_value" class="form-control wp-600" value="{{ $voucher['discount_value'] ?? '' }}" placeholder="Nhập giá trị" required>
               </x-admin::form.row>
               <x-admin::form.row :title="'Loaị giảm giá'">
   <div class="mb-1 mt-2">
@@ -71,7 +71,7 @@
   </div>
 </x-admin::form.row >
               <x-admin::form.row :title="'Giới hạn số lượng Voucher'" :required="true">
-                <input type="text" name="usage_limit" class="form-control wp-600" value="{{ $voucher['usage_limit'] ?? '' }}" placeholder="Nhập số lượng" required>
+                <input type="number" name="usage_limit" class="form-control wp-600" value="{{ $voucher['usage_limit'] ?? '' }}" placeholder="Nhập số lượng" required>
               </x-admin::form.row>
 
               <x-admin::form.row :title="'Ngày kích hoạt'" :required="true">

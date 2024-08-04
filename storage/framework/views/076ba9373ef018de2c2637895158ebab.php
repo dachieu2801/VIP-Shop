@@ -120,7 +120,7 @@
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
 <?php $component->withAttributes(['title' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute('Giá trị Voucher'),'required' => true]); ?>
-                <input type="text" name="discount_value" class="form-control wp-600" value="<?php echo e($voucher['discount_value'] ?? ''); ?>" placeholder="Nhập giá trị" required>
+                <input type="number" name="discount_value" class="form-control wp-600" value="<?php echo e($voucher['discount_value'] ?? ''); ?>" placeholder="Nhập giá trị" required>
                <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal1b48936358e72618543915217d3ed939)): ?>
@@ -171,7 +171,7 @@
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
 <?php $component->withAttributes(['title' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute('Giới hạn số lượng Voucher'),'required' => true]); ?>
-                <input type="text" name="usage_limit" class="form-control wp-600" value="<?php echo e($voucher['usage_limit'] ?? ''); ?>" placeholder="Nhập số lượng" required>
+                <input type="number" name="usage_limit" class="form-control wp-600" value="<?php echo e($voucher['usage_limit'] ?? ''); ?>" placeholder="Nhập số lượng" required>
                <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal1b48936358e72618543915217d3ed939)): ?>
