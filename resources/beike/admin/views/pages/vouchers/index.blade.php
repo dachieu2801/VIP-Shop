@@ -52,7 +52,7 @@
         </div>
 
         <div class="d-flex justify-content-between my-4 flex-wrap gap-2">
-          <a href="{{ admin_route('products.create') }}" >
+          <a href="{{ admin_route('vouchers.create') }}" >
             <button class="btn btn-primary">{{ __('admin/product.products_create') }}</button>
           </a>
        

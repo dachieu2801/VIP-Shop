@@ -2,6 +2,7 @@
 
 namespace Beike\Admin\Http\Controllers;
 
+use Beike\Models\Vouchers;
 use Beike\Repositories\VouchersRepo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -30,20 +31,23 @@ class VouchersController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json([
-                'errors' => $validator->errors(),
-            ], 422);
+            throw new \Exception('Đầu vào không hợp lệ');
         }
 
         try {
             $data    = $request->all();
-            $voucher = $this->vouchersRepo->create($data);
+            $this->vouchersRepo->create($data);
 
-            return response()->json($voucher, 201);
+            $query    = Vouchers::query();
+            $vouchers = $query->paginate($request->input('per_page', 15));
+            $new      = [
+                'vouchers'         => $vouchers,
+                'vouchers_format'  => $vouchers->jsonSerialize(),
+            ];
+
+            return view('admin::pages.vouchers.index', $new);
         } catch (\Exception $e) {
-            return response()->json([
-                'error' => 'Có lỗi xảy ra khi tạo voucher: ' . $e->getMessage(),
-            ], 500);
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -72,7 +76,7 @@ class VouchersController extends Controller
             'type'    => 'edit',
         ];
 
-        Log::info('ádasd',$data);
+        Log::info('ádasd', $data);
 
         return view('admin::pages.vouchers.form', $data);
     }
@@ -80,8 +84,10 @@ class VouchersController extends Controller
     public function create()
     {
         $data = [
+            'voucher' => [],
             'type'    => 'create',
         ];
+
         return view('admin::pages.vouchers.form', $data);
     }
 
@@ -100,19 +106,22 @@ class VouchersController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json([
-                'errors' => $validator->errors(),
-            ], 422);
+            throw new \Exception('Đầu vào không hợp lệ');
         }
 
         $data    = $request->all();
-        $updated = $this->vouchersRepo->update($data['id'], $data);
-
-        if ($updated) {
-            return response()->json(['message' => 'Voucher updated']);
+        try{
+           $this->vouchersRepo->update($data['id'], $data);
+        } catch (\Exception $e) {
+            return throw new \Exception($e->getMessage());
         }
-
-        return response()->json(['message' => 'Voucher not found'], 404);
+        $query    = Vouchers::query();
+        $vouchers = $query->paginate($request->input('per_page', 15));
+        $new      = [
+            'vouchers'         => $vouchers,
+            'vouchers_format'  => $vouchers->jsonSerialize(),
+        ];
+        return view('admin::pages.vouchers.index', $new);
     }
 
     public function formCreate() {}
