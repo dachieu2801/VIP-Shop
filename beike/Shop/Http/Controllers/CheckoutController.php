@@ -24,9 +24,6 @@ class CheckoutController extends Controller
         try {
             $data              = (new CheckoutService)->checkoutData();
             $data              = hook_filter('checkout.index.data', $data);
-
-            Log::info('daya', ['da' => $data]);
-
             return view('checkout', $data);
         } catch (\Exception $e) {
             return redirect(shop_route('carts.index'))->withErrors(['error' => $e->getMessage()]);
@@ -48,7 +45,7 @@ class CheckoutController extends Controller
             Log::info('update Checkout', $requestData);
 
             $data       = (new CheckoutService)->update($requestData);
-            Log::info('update Checkout 2', $requestData);
+            Log::info('update Checkout 2', $data);
 
             return hook_filter('checkout.update.data', $data);
         } catch (\Exception $e) {
@@ -67,6 +64,7 @@ class CheckoutController extends Controller
         try {
             $data = (new CheckoutService)->confirm();
             Log::info('confirm', ['a'=>$data]);
+
             return hook_filter('checkout.confirm.data', $data);
         } catch (\Exception $e) {
             return json_fail($e->getMessage());

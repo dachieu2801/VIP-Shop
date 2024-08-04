@@ -108,8 +108,6 @@ class CheckoutService
         hook_action('service.checkout.update.after', ['request_data' => $requestData, 'checkout' => $this]);
         $data = $this->checkoutData();
 
-        Log::info('new checkout', ['data' => $data]);
-
         return $data;
     }
 
@@ -129,6 +127,9 @@ class CheckoutService
         $this->validateConfirm($checkoutData);
         $carts = $checkoutData['carts']['carts'];
 
+        Log::log('info', 'data confirm carts', $carts);
+
+        throw new \Exception('ừng hereeee');
 
         try {
             DB::beginTransaction();
@@ -173,8 +174,6 @@ class CheckoutService
     private function validateConfirm($checkoutData)
     {
         $current = $checkoutData['current'];
-        Log::info('current valid coirm', ['a'=>$current]);
-
 
         if ($this->customer) {
             if ($this->shippingRequired()) {
@@ -280,6 +279,10 @@ class CheckoutService
         $cartList           = CartService::list($customer, true);
         $carts              = CartService::reloadData($cartList);
         $vouchers           = (new \Beike\Repositories\VouchersRepo)->getActiveVouchers(now());
+
+        foreach ($vouchers as &$voucher) {
+            $voucher['value_format'] = currency_format(floatval($voucher['discount_value']));
+        }
 
         if (! $this->totalService) {
             $this->initTotalService();
