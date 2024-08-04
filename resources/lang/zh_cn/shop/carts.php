@@ -19,6 +19,7 @@ return [
     'product_total'     => 'Giá bán',
     'customer_discount' => 'Giảm giá cho khách VIP',
     'order_total'       => 'Cần thanh toán',
+    'voucher'           => 'Mã giảm giá',
     'shipping_fee'      => 'Phí vận chuyển',
     'all'               => 'Tất cả',
     'selected'          => 'Đã chọn',

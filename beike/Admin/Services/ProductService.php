@@ -9,11 +9,11 @@ use Illuminate\Support\Facades\Log;
 
 class ProductService
 {
-    public function create(array $data): Product
+    public function create(array $data, $mul = false): Product
     {
         $product = new Product;
 
-        return $this->createOrUpdate($product, $data);
+        return $this->createOrUpdate($product, $data, $mul);
     }
 
     public function update(Product $product, array $data): Product
@@ -21,7 +21,7 @@ class ProductService
         return $this->createOrUpdate($product, $data);
     }
 
-    protected function createOrUpdate(Product $product, array $data): Product
+    protected function createOrUpdate(Product $product, array $data, $mul = false): Product
     {
         Log::info('Data received:', $data);
         $isUpdating = $product->id > 0;
@@ -38,7 +38,11 @@ class ProductService
             $data['brand_id']  = (int) ($data['brand_id'] ?? 0);
             $data['position']  = (int) ($data['position'] ?? 0);
             $data['weight']    = (float) ($data['weight'] ?? 0);
-            $data['variables'] = json_decode($data['variables'] ?? '[]');
+            if ($mul) {
+                $data['variables'] = $data['variables'] ?? '[]';
+            } else {
+                $data['variables'] = json_decode($data['variables'] ?? '[]');
+            }
             $data['shipping']  = (bool) ($data['shipping'] ?? 1);
             $product->fill($data);
             $product->updated_at = now();

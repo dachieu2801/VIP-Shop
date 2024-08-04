@@ -36,6 +36,15 @@ class VouchersRepo
         return Vouchers::find($id);
     }
 
+    public function getByIdActive(int $id)
+    {
+        return Vouchers::where('id', $id)
+            ->where('status', 'active')
+            ->where('start_date', '<=', now())
+            ->where('end_date', '>=', now())
+            ->first();
+    }
+
     public function update(int $id, array $data)
     {
         $voucher = Vouchers::find($id);
