@@ -60,16 +60,23 @@
        
         </div>
 
-      @if ($vouchers.data->total())
+      @if ($vouchers->total())
           <div class="table-push overflow-auto">
             <table class="table table-hover">
               <thead>
                 <tr>
                   <th><input type="checkbox" v-model="allSelected" /></th>
                   <th>{{ __('common.id') }}</th>
-                  <th>{{ __('product.image') }}</th>
                   <th>{{ __('product.name') }}</th>
-                  <th>{{ __('product.price') }}</th>
+                  <th>Mã giảm giá</th>
+                  <th>Miêu tả</th>
+                  <th>Giá trị</th>
+                  <th>Loại giảm giá</th>
+                  <th>Ngày kích hoạt</th>
+                  <th>Ngày hết hạn</th>
+                  <th>Giới hạn sử dụng</th>
+                  <th>Đã sử dụng</th>
+                  <th>Trạng thái</th>
                   <th>
                     <div class="d-flex align-items-center">
                         {{ __('common.created_at') }}
@@ -82,22 +89,20 @@
 
                   <th class="d-flex align-items-center">
                     <div class="d-flex align-items-center">
-                        {{ __('common.sort_order') }}
+                        {{ __('common.sort_order') }} 
                       <div class="d-flex flex-column ml-1 order-by-wrap">
                         <i class="el-icon-caret-top" @click="checkedOrderBy('position:asc')"></i>
                         <i class="el-icon-caret-bottom" @click="checkedOrderBy('position:desc')"></i>
                       </div>
                     </div>
                   </th>
-                  @if ($type != 'trashed')
-                    <th>{{ __('common.status') }}</th>
-                  @endif
+             
                   @hook('admin.product.list.column')
                   <th class="text-end">{{ __('common.action') }}</th>
                 </tr>
               </thead>
               <tbody>
-                @foreach ($vouchers['data'] as $voucher)
+                @foreach ($vouchers_format['data'] as $voucher)
                 <tr>
                   <td><input type="checkbox" :value="{{ $voucher['id'] }}" v-model="selectedIds" /></td>
                   <td>{{ $voucher['id'] }}</td>
@@ -105,37 +110,21 @@
                     <div class="wh-60 border d-flex rounded-2 justify-content-center align-items-center"><img src="{{ $voucher['images'][0] ?? 'image/placeholder.png' }}" class="img-fluid max-h-100"></div>
                   </td>
                   <td>
-                    <a href="{{ $voucher['url'] }}" target="_blank" title="{{ $voucher['name'] }}" class="text-dark">{{ $voucher['name'] }}</a>
+                    <a href="" target="_blank" title="{{ $voucher['name'] }}" class="text-dark">{{ $voucher['name'] }}</a>
                   </td>
-                  <td>{{ $voucher['price_formatted'] }}</td>
+                  
                   <td>{{ $voucher['created_at'] }}</td>
-                  <td>{{ $voucher['position'] }}</td>
-                  @if ($type != 'trashed')
-                    <td>
-                      <div class="form-check form-switch">
-                        <input class="form-check-input cursor-pointer" type="checkbox" role="switch" data-active="{{ $voucher['active'] ? true : false }}" data-id="{{ $voucher['id'] }}" @change="turnOnOff($event)" {{ $voucher['active'] ? 'checked' : '' }}>
-                      </div>
-                    </td>
-                  @endif
-                  @hook('admin.product.list.column_value')
-                  <td class="text-end text-nowrap">
-                    @if ($product['deleted_at'] == '')
-                      <a href="{{ admin_route('products.reviews',['product_id' => $product['id']]) }}" class="btn btn-outline-secondary btn-sm">{{ __('common.review') }}</a>
-                      <a href="{{ admin_route('products.edit', [$product['id']]) }}" class="btn btn-outline-secondary btn-sm">{{ __('common.edit') }}</a>
-                      <a href="javascript:void(0)" class="btn btn-outline-danger btn-sm" @click.prevent="deleteProduct({{ $loop->index }})">{{ __('common.delete') }}</a>
-                      @hook('admin.product.list.action')
-                    @else
-                      <a href="javascript:void(0)" class="btn btn-outline-secondary btn-sm" @click.prevent="restoreProduct({{ $loop->index }})">{{ __('common.restore') }}</a>
-                      @hook('admin.products.trashed.action')
-                    @endif
-                  </td>
+                
+              
+           
+               
                 </tr>
                 @endforeach
               </tbody>
             </table>
           </div>
 
-          {{ $products->withQueryString()->links('admin::vendor/pagination/bootstrap-4') }}
+          {{ $vouchers->withQueryString()->links('admin::vendor/pagination/bootstrap-4') }}
         @else
           <x-admin-no-data />
         @endif
@@ -331,7 +320,7 @@ $(document).ready(function() {
     let app = new Vue({
       el: '#product-app',
       data: {
-        url: '{{ $type == 'trashed' ? admin_route("products.trashed") : admin_route("products.index") }}',
+
         filter: {
           name: bk.getQueryString('name'),
           page: bk.getQueryString('page'),
@@ -343,7 +332,7 @@ $(document).ready(function() {
           order: bk.getQueryString('order', ''),
         },
         selectedIds: [],
-        productIds: @json($products->pluck('id')),
+        productIds: @json($vouchers->pluck('id')),
       },
 
       computed: {

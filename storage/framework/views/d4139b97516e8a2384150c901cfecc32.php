@@ -108,16 +108,23 @@
        
         </div>
 
-
+      <?php if($vouchers->total()): ?>
           <div class="table-push overflow-auto">
             <table class="table table-hover">
               <thead>
                 <tr>
                   <th><input type="checkbox" v-model="allSelected" /></th>
                   <th><?php echo e(__('common.id')); ?></th>
-                  <th><?php echo e(__('product.image')); ?></th>
                   <th><?php echo e(__('product.name')); ?></th>
-                  <th><?php echo e(__('product.price')); ?></th>
+                  <th>Mã giảm giá</th>
+                  <th>Miêu tả</th>
+                  <th>Giá trị</th>
+                  <th>Loại giảm giá</th>
+                  <th>Ngày kích hoạt</th>
+                  <th>Ngày hết hạn</th>
+                  <th>Giới hạn sử dụng</th>
+                  <th>Đã sử dụng</th>
+                  <th>Trạng thái</th>
                   <th>
                     <div class="d-flex align-items-center">
                         <?php echo e(__('common.created_at')); ?>
@@ -131,40 +138,14 @@
 
                   <th class="d-flex align-items-center">
                     <div class="d-flex align-items-center">
-                        <?php echo e(__('common.sort_order')); ?>
-
+                        <?php echo e(__('common.sort_order')); ?> 
                       <div class="d-flex flex-column ml-1 order-by-wrap">
                         <i class="el-icon-caret-top" @click="checkedOrderBy('position:asc')"></i>
                         <i class="el-icon-caret-bottom" @click="checkedOrderBy('position:desc')"></i>
                       </div>
                     </div>
                   </th>
-            
-
-                  <th class="text-end"><?php echo e(__('common.action')); ?></th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php $__currentLoopData = $vouchers['data']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $voucher): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <tr>
-                  <td><input type="checkbox" :value="<?php echo e($voucher['id']); ?>" v-model="selectedIds" /></td>
-                  <td><?php echo e($voucher['id']); ?></td>
-                  <td>
-                    <div class="wh-60 border d-flex rounded-2 justify-content-center align-items-center"><img src="<?php echo e($voucher['images'][0] ?? 'image/placeholder.png'); ?>" class="img-fluid max-h-100"></div>
-                  </td>
-                  <td>
-                    <a href="<?php echo e($voucher['url']); ?>" target="_blank" title="<?php echo e($voucher['name']); ?>" class="text-dark"><?php echo e($voucher['name']); ?></a>
-                  </td>
-                  <td><?php echo e($voucher['price_formatted']); ?></td>
-                  <td><?php echo e($voucher['created_at']); ?></td>
-                  <td><?php echo e($voucher['position']); ?></td>
-                  <?php if($type != 'trashed'): ?>
-                    <td>
-                      <div class="form-check form-switch">
-                        <input class="form-check-input cursor-pointer" type="checkbox" role="switch" data-active="<?php echo e($voucher['active'] ? true : false); ?>" data-id="<?php echo e($voucher['id']); ?>" @change="turnOnOff($event)" <?php echo e($voucher['active'] ? 'checked' : ''); ?>>
-                      </div>
-                    </td>
-                  <?php endif; ?>
+             
                    <?php
                 $__definedVars = (get_defined_vars()["__data"]);
                 if (empty($__definedVars))
@@ -172,52 +153,60 @@
                     $__definedVars = [];
                 }
                 
-                $output = \Hook::getHook("admin.product.list.column_value",["data"=>$__definedVars],function($data) { return null; });
+                $output = \Hook::getHook("admin.product.list.column",["data"=>$__definedVars],function($data) { return null; });
                 if ($output)
                 echo $output;
                 ?>
-                  <td class="text-end text-nowrap">
-                    <?php if($product['deleted_at'] == ''): ?>
-                      <a href="<?php echo e(admin_route('products.reviews',['product_id' => $product['id']])); ?>" class="btn btn-outline-secondary btn-sm"><?php echo e(__('common.review')); ?></a>
-                      <a href="<?php echo e(admin_route('products.edit', [$product['id']])); ?>" class="btn btn-outline-secondary btn-sm"><?php echo e(__('common.edit')); ?></a>
-                      <a href="javascript:void(0)" class="btn btn-outline-danger btn-sm" @click.prevent="deleteProduct(<?php echo e($loop->index); ?>)"><?php echo e(__('common.delete')); ?></a>
-                       <?php
-                $__definedVars = (get_defined_vars()["__data"]);
-                if (empty($__definedVars))
-                {
-                    $__definedVars = [];
-                }
-                
-                $output = \Hook::getHook("admin.product.list.action",["data"=>$__definedVars],function($data) { return null; });
-                if ($output)
-                echo $output;
-                ?>
-                    <?php else: ?>
-                      <a href="javascript:void(0)" class="btn btn-outline-secondary btn-sm" @click.prevent="restoreProduct(<?php echo e($loop->index); ?>)"><?php echo e(__('common.restore')); ?></a>
-                       <?php
-                $__definedVars = (get_defined_vars()["__data"]);
-                if (empty($__definedVars))
-                {
-                    $__definedVars = [];
-                }
-                
-                $output = \Hook::getHook("admin.products.trashed.action",["data"=>$__definedVars],function($data) { return null; });
-                if ($output)
-                echo $output;
-                ?>
-                    <?php endif; ?>
+                  <th class="text-end"><?php echo e(__('common.action')); ?></th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php $__currentLoopData = $vouchers_format['data']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $voucher): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <tr>
+                  <td><input type="checkbox" :value="<?php echo e($voucher['id']); ?>" v-model="selectedIds" /></td>
+                  <td><?php echo e($voucher['id']); ?></td>
+                  <td>
+                    <div class="wh-60 border d-flex rounded-2 justify-content-center align-items-center"><img src="<?php echo e($voucher['images'][0] ?? 'image/placeholder.png'); ?>" class="img-fluid max-h-100"></div>
                   </td>
+                  <td>
+                    <a href="" target="_blank" title="<?php echo e($voucher['name']); ?>" class="text-dark"><?php echo e($voucher['name']); ?></a>
+                  </td>
+                  
+                  <td><?php echo e($voucher['created_at']); ?></td>
+                
+              
+           
+               
                 </tr>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
               </tbody>
             </table>
           </div>
 
-          <?php echo e($products->withQueryString()->links('admin::vendor/pagination/bootstrap-4')); ?>
+          <?php echo e($vouchers->withQueryString()->links('admin::vendor/pagination/bootstrap-4')); ?>
 
-
-     
-   
+        <?php else: ?>
+          <?php if (isset($component)) { $__componentOriginal5e41293ba75edb5b6791bae671134304 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal5e41293ba75edb5b6791bae671134304 = $attributes; } ?>
+<?php $component = Beike\Admin\View\Components\NoData::resolve([] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('admin-no-data'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Beike\Admin\View\Components\NoData::class))->getConstructor()): ?>
+<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal5e41293ba75edb5b6791bae671134304)): ?>
+<?php $attributes = $__attributesOriginal5e41293ba75edb5b6791bae671134304; ?>
+<?php unset($__attributesOriginal5e41293ba75edb5b6791bae671134304); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal5e41293ba75edb5b6791bae671134304)): ?>
+<?php $component = $__componentOriginal5e41293ba75edb5b6791bae671134304; ?>
+<?php unset($__componentOriginal5e41293ba75edb5b6791bae671134304); ?>
+<?php endif; ?>
+        <?php endif; ?>
       </div>
     </div>
   </div>
@@ -420,7 +409,7 @@ $(document).ready(function() {
     let app = new Vue({
       el: '#product-app',
       data: {
-        url: '<?php echo e($type == 'trashed' ? admin_route("products.trashed") : admin_route("products.index")); ?>',
+
         filter: {
           name: bk.getQueryString('name'),
           page: bk.getQueryString('page'),
@@ -432,7 +421,7 @@ $(document).ready(function() {
           order: bk.getQueryString('order', ''),
         },
         selectedIds: [],
-        productIds: <?php echo json_encode($products->pluck('id'), 15, 512) ?>,
+        productIds: <?php echo json_encode($vouchers->pluck('id'), 15, 512) ?>,
       },
 
       computed: {
