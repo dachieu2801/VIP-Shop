@@ -5,7 +5,6 @@ namespace Beike\Admin\Http\Controllers;
 use Beike\Models\Vouchers;
 use Beike\Repositories\VouchersRepo;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class VouchersController extends Controller
@@ -39,6 +38,11 @@ class VouchersController extends Controller
             $this->vouchersRepo->create($data);
 
             $query    = Vouchers::query();
+            if ($request->has('sort_by') && in_array($request->input('sort_by'), ['asc', 'desc'])) {
+                $query->orderBy('created_at', $request->input('sort_by'));
+            } else {
+                $query->orderBy('created_at', 'desc');
+            }
             $vouchers = $query->paginate($request->input('per_page', 15));
             $new      = [
                 'vouchers'         => $vouchers,
@@ -76,8 +80,6 @@ class VouchersController extends Controller
             'type'    => 'edit',
         ];
 
-        Log::info('ádasd', $data);
-
         return view('admin::pages.vouchers.form', $data);
     }
 
@@ -110,17 +112,24 @@ class VouchersController extends Controller
         }
 
         $data    = $request->all();
-        try{
-           $this->vouchersRepo->update($data['id'], $data);
+
+        try {
+            $this->vouchersRepo->update($data['id'], $data);
         } catch (\Exception $e) {
-            return throw new \Exception($e->getMessage());
+            throw new \Exception($e->getMessage());
         }
         $query    = Vouchers::query();
+        if ($request->has('sort_by') && in_array($request->input('sort_by'), ['asc', 'desc'])) {
+            $query->orderBy('created_at', $request->input('sort_by'));
+        } else {
+            $query->orderBy('created_at', 'desc');
+        }
         $vouchers = $query->paginate($request->input('per_page', 15));
         $new      = [
             'vouchers'         => $vouchers,
             'vouchers_format'  => $vouchers->jsonSerialize(),
         ];
+
         return view('admin::pages.vouchers.index', $new);
     }
 
