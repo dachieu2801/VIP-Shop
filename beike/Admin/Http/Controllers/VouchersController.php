@@ -113,7 +113,7 @@ class VouchersController extends Controller
         try{
            $this->vouchersRepo->update($data['id'], $data);
         } catch (\Exception $e) {
-            return throw new \Exception($e->getMessage());
+             throw new \Exception($e->getMessage());
         }
         $query    = Vouchers::query();
         $vouchers = $query->paginate($request->input('per_page', 15));

@@ -36,6 +36,7 @@
                 <option value="">{{ __('common.all') }}</option>
                 <option value="active">{{ __('product.active') }}</option>
                 <option value="inactive">{{ __('product.inactive') }}</option>
+            
               </select>
             </div>
 
@@ -79,8 +80,8 @@
                     <div class="d-flex align-items-center">
                         {{ __('common.created_at') }}
                       <div class="d-flex flex-column ml-1 order-by-wrap">
-                        <i class="el-icon-caret-top" @click="checkedOrderBy('created_at:asc')"></i>
-                        <i class="el-icon-caret-bottom" @click="checkedOrderBy('created_at:desc')"></i>
+                        <i class="el-icon-caret-top" @click="checkedOrderBy('asc')"></i>
+                        <i class="el-icon-caret-bottom" @click="checkedOrderBy('desc')"></i>
                       </div>
                     </div>
                   </th>
@@ -162,6 +163,7 @@
           name: bk.getQueryString('name'),
          
           status: bk.getQueryString('status'),
+          sort_by:'',
         
         },
         selectedIds: [],
@@ -227,8 +229,8 @@
         },
 
         checkedOrderBy(orderBy) {
-          this.filter.sort = orderBy.split(':')[0];
-          this.filter.order = orderBy.split(':')[1];
+          this.filter.sort_by=orderBy;
+          
           location = bk.objectToUrlParams(this.filter, this.url)
         },
 
