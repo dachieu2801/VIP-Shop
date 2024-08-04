@@ -23,6 +23,7 @@ use Beike\Repositories\CountryRepo;
 use Beike\Repositories\OrderRepo;
 use Beike\Repositories\PluginRepo;
 use Beike\Repositories\ProductSkuRepo;
+use Beike\Repositories\VouchersRepo;
 use Beike\Services\PaymentMethodService;
 use Beike\Services\ShippingMethodService;
 use Beike\Services\StateMachineService;
@@ -36,6 +37,8 @@ class CheckoutService
     public $customer;
 
     public $cart;
+
+    public $voucher;
 
     public $selectedProducts;
 
@@ -66,6 +69,7 @@ class CheckoutService
      */
     public function update($requestData): array
     {
+        $voucherId          = $requestData['voucher_id']           ?? 0;
         $shippingAddressId  = $requestData['shipping_address_id']  ?? 0;
         $shippingMethodCode = $requestData['shipping_method_code'] ?? '';
 
@@ -84,6 +88,10 @@ class CheckoutService
             $this->updateShippingMethod($shippingMethodCode);
         }
 
+        if ($voucherId) {
+            $this->updateVoucherId($voucherId);
+        }
+
         if ($paymentAddressId) {
             $this->updatePaymentAddressId($paymentAddressId);
         }
@@ -99,6 +107,8 @@ class CheckoutService
 
         hook_action('service.checkout.update.after', ['request_data' => $requestData, 'checkout' => $this]);
         $data = $this->checkoutData();
+
+        Log::info('new checkout', ['data' => $data]);
 
         return $data;
     }
@@ -116,7 +126,7 @@ class CheckoutService
         $this->validateConfirm($checkoutData);
         $carts = $checkoutData['carts']['carts'];
 
-        Log::log('info', 'checkoutData', $checkoutData);
+        Log::log('info', 'data confirm', $checkoutData);
 
         try {
             DB::beginTransaction();
@@ -161,7 +171,9 @@ class CheckoutService
     private function validateConfirm($checkoutData)
     {
         $current = $checkoutData['current'];
+        Log::info('current', ['a'=>$current]);
 
+        throw new \Exception('Voucher does not exist or expired.');
         if ($this->customer) {
             if ($this->shippingRequired()) {
                 $shippingAddressId = $current['shipping_address_id'];
@@ -211,6 +223,17 @@ class CheckoutService
         $this->cart->load('paymentAddress');
     }
 
+    private function updateVoucherId($voucherId)
+    {
+
+        $newVoucher = (new VouchersRepo)->getByIdActive($voucherId);
+        if (! $newVoucher) {
+            throw new \Exception('Voucher does not exist or expired.');
+        }
+        $this->cart->update(['voucher_id' => $newVoucher->id]);
+        $this->voucher = $newVoucher;
+    }
+
     private function updateGuestShippingAddress($guestShippingAddress)
     {
         $this->cart->update(['guest_shipping_address' => self::formatAddress($guestShippingAddress)]);
@@ -254,6 +277,7 @@ class CheckoutService
 
         $cartList           = CartService::list($customer, true);
         $carts              = CartService::reloadData($cartList);
+        $vouchers           = (new \Beike\Repositories\VouchersRepo)->getActiveVouchers(now());
 
         if (! $this->totalService) {
             $this->initTotalService();
@@ -279,7 +303,9 @@ class CheckoutService
                 'payment_method_code'    => $currentCart->payment_method_code,
                 'payment_method_name'    => $paymentMethod['name'] ?? '',
                 'extra'                  => $currentCart->extra,
+                'voucher_id'             => $this->voucher->id ?? 0,
             ],
+            'vouchers'         => $vouchers,
             'shipping_require' => $shippingRequired,
             'country_id'       => (int) system_setting('base.country_id'),
             'customer_id'      => $customer->id ?? null,

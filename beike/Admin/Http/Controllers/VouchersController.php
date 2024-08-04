@@ -50,9 +50,13 @@ class VouchersController extends Controller
     public function index(Request $request)
     {
         $vouchers = $this->vouchersRepo->getAllWithFilters($request);
-        Log::info('confirm', ['a'=>$vouchers]);
-        return view('admin::pages.vouchers.index', $vouchers);
-//        return response()->json($vouchers);
+
+        $data = [
+            'vouchers' => $vouchers,
+            'vouchers_format'  =>  $vouchers->jsonSerialize(),
+        ];
+
+        return view('admin::pages.vouchers.index', $data);
     }
 
     public function show($id)

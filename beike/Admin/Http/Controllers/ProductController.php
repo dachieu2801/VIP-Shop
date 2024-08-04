@@ -16,9 +16,8 @@ use Beike\Repositories\ProductRepo;
 use Beike\Repositories\ProductReviewsRepo;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Support\Facades\Log;
 class ProductController extends Controller
 {
     protected string $defaultRoute = 'products.index';
@@ -42,6 +41,8 @@ class ProductController extends Controller
             'products'        => $products,
             'type'            => 'products',
         ];
+
+        Log::info('asdasd',['data'=>$data]);
 
         $data = hook_filter('admin.product.index.data', $data);
 
@@ -155,14 +156,13 @@ class ProductController extends Controller
                 'errors' => $validator->errors(),
             ], 422);
         }
-        $productsData = $request->input('products');
-        Log::info('a',['aádasdasda'=> $productsData]);
+        $productsData      = $request->input('products');
         $processedProducts = [];
         $failedProducts    = [];
 
         foreach ($productsData as $index => $productData) {
             try {
-                $product             = (new ProductService)->create($productData);
+                $product             = (new ProductService)->create($productData, true);
                 $processedProducts[] = $product;
             } catch (\Exception $e) {
                 $failedProducts[$index] = [
@@ -186,6 +186,7 @@ class ProductController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
     }
+
     public function edit(Request $request, Product $product)
     {
         return $this->form($request, $product);

@@ -13,6 +13,7 @@ namespace Beike\Shop\Services;
 
 use Beike\Libraries\Tax;
 use Beike\Models\Cart;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class TotalService
@@ -21,6 +22,7 @@ class TotalService
         'subtotal',
         'tax',
         'shipping',
+        'voucher_id',
         'customer_discount',
         'subtotal_discount',
         'subtotal_origin',
@@ -34,6 +36,8 @@ class TotalService
 
     public array $totals;
 
+    public $voucherId = 0;
+
     public float $amount = 0;
 
     protected string|array $shippingMethod = '';
@@ -43,6 +47,7 @@ class TotalService
         $this->currentCart  = $currentCart;
         $this->cartProducts = $cartProducts;
         $this->setShippingMethod($currentCart->shipping_method_code);
+        $this->setVoucherId($currentCart->voucher_id);
         $this->getTaxes();
     }
 
@@ -56,9 +61,21 @@ class TotalService
         return $this;
     }
 
+    public function setVoucherId($voucherId)
+    {
+        $this->voucherId = $voucherId ?? 0;
+
+        return $this;
+    }
+
     public function getShippingMethod(): string
     {
         return $this->shippingMethod;
+    }
+
+    public function getVoucherId()
+    {
+        return $this->voucherId;
     }
 
     /**

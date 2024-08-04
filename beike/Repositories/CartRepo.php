@@ -16,7 +16,6 @@ use Beike\Models\CartProduct;
 use Beike\Models\Customer;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Log;
 
 class CartRepo
 {
@@ -55,6 +54,7 @@ class CartRepo
                 'shipping_method_code' => $shippingMethodCode ? $shippingMethodCode . '.0' : '',
                 'payment_address_id'   => $defaultAddressId,
                 'payment_method_code'  => $paymentMethod->code ?? '',
+                'voucher_id'           => 0,
             ]);
         } else {
             if ($cart->shipping_address_id == 0 || empty(AddressRepo::find($cart->shipping_address_id))) {

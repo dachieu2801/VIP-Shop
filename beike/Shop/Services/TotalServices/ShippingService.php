@@ -13,6 +13,7 @@
 namespace Beike\Shop\Services\TotalServices;
 
 use Beike\Shop\Services\CheckoutService;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class ShippingService
@@ -26,6 +27,9 @@ class ShippingService
     {
         $totalService   = $checkout->totalService;
         $shippingMethod = $totalService->getShippingMethod();
+
+
+
         if (empty($shippingMethod)) {
             return null;
         }

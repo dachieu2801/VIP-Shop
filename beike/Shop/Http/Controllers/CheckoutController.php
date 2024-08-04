@@ -11,31 +11,22 @@
 
 namespace Beike\Shop\Http\Controllers;
 
-use Beike\Models\AdminUser;
 //use Beike\Notifications\sendNewOrderNotification;
 use Beike\Repositories\OrderRepo;
 use Beike\Shop\Services\CheckoutService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Beike\Repositories\VouchersRepo;
 
 class CheckoutController extends Controller
 {
-    protected $vouchersRepo;
-
-    public function __construct(VouchersRepo $vouchersRepo)
-    {
-        $this->vouchersRepo = $vouchersRepo;
-    }
     public function index()
     {
         try {
-            $data = (new CheckoutService)->checkoutData();
-            $data['vouchers']  = $this->vouchersRepo->getActiveVouchers(now());
-            Log::info('a',['a'=> $data['vouchers'] ]);
-            Log::info('1111a',['a'=> $data ]);
+            $data              = (new CheckoutService)->checkoutData();
+            $data              = hook_filter('checkout.index.data', $data);
 
-            $data = hook_filter('checkout.index.data', $data);
+            Log::info('daya', ['da' => $data]);
+
             return view('checkout', $data);
         } catch (\Exception $e) {
             return redirect(shop_route('carts.index'))->withErrors(['error' => $e->getMessage()]);
@@ -53,7 +44,10 @@ class CheckoutController extends Controller
         try {
             $requestData = $request->all();
 
-            $data = (new CheckoutService)->update($requestData);
+            $requestData['voucher_id'] = 2;
+            Log::info('update Checkout', $requestData);
+
+            $data       = (new CheckoutService)->update($requestData);
 
             return hook_filter('checkout.update.data', $data);
         } catch (\Exception $e) {
@@ -71,64 +65,8 @@ class CheckoutController extends Controller
     {
         try {
             $data = (new CheckoutService)->confirm();
-//            Log::log('info', 'checkout.confirm.data', ['data' => $data]);
-//            $orderProducts = [];
-//            foreach ($data->orderProducts as $product) {
-//                $orderProducts[] = [
-//                    'product_name'         => $product['name'],
-//                    'product_quantity'     => $product['quantity'],
-//                    'product_total'        => $product['price'],
-//                    'product_total_format' => $product['price_format'],
-//                ];
-//            }
-//
-//            $buyer = [
-//                'product_name'    => $orderProducts,
-//                'buyer_id'        => $data['customer_id'] ?? 0,
-//                'buyer_email'     => $data['email'],
-//                'title'           => 'Thông báo từ VIPShop, mã đơn hàng ' . $data['number'] . ' đã được tạo',
-//                'sub_title'       => 'Đặt Hàng Thành Công!!!',
-//                'thanks_1'        => 'Chân thành cảm ơn quý khách đã lựa chọn VIPShop.',
-//                'thanks_2'        => 'Chúng tôi hy vọng Quý khách hài lòng với dịch vụ đã chọn!',
-//                'tracking_number' => $data['number'],
-//                'total'           => $data['total'],
-//                'date'            => $data['updated_at'],
-//                'name'            => $data['customer_name'],
-//                'status_payment'  => $data['status_format'],
-//                'payment_method'  => $data['payment_method_name'],
-//                'total_format'    => $data['total_format'],
-//                'telephone'       => $data['payment_telephone'],
-//                'address'         => $data['payment_address_1'] . ' ' . $data['payment_address_1'] . ' ' . $data['payment_city'] . ' ' . $data['payment_zone'],
-//            ];
-//            $sellers = [];
-//            $admins  = AdminUser::all();
-//            foreach ($admins as $admin) {
-//                $sellers[] = [
-//                    'product_name'     => $orderProducts,
-//                    'admin_id '        => $admin['id'],
-//                    'admin_email'      => $admin['email'],
-//                    'sub_title'        => 'Đơn Hàng Mới!!!',
-//                    'title'            => 'Có đơn hàng mới. Mã đơn hàng ' . $data['number'],
-//                    'tracking_number'  => $data['number'],
-//                    'total'            => $data['total'],
-//                    'date'             => $data['updated_at'],
-//                    'name'             => $data['customer_name'],
-//                    'status_payment'   => $data['status_format'],
-//                    'payment_method'   => $data['payment_method_name'],
-//                    'total_format'     => $data['total_format'],
-//                    'telephone'        => $data['payment_telephone'],
-//                    'address'          => $data['payment_address_1'] . ' ' . $data['payment_address_1'] . ' ' . $data['payment_city'] . ' ' . $data['payment_zone'],
-//                ];
-//            }
-//            $dataSend = [
-//                'buyer'    => $buyer,
-//                'seller'   => $sellers,
-//                'template' => 'vipshop',
-//                'type'     => 'vipshop',
-//            ];
-//            $dataEncrypted = $this->encrypt($dataSend);
-//            sendNewOrderNotification::handleSendOrder($dataEncrypted, env('ENDPOINT_SEND_MAIL', 'api/sendMail/vipshop-notification'));
 
+            Log::info('confirm', ['a'=>$data]);
             return hook_filter('checkout.confirm.data', $data);
         } catch (\Exception $e) {
             return json_fail($e->getMessage());
