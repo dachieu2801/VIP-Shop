@@ -51,7 +51,45 @@
           </div>
         <?php endif; ?>
 
+       
+ 
         <div class="card shadow-sm">
+        <div class="card-body p-lg-4">
+             <?php
+                $__definedVars = (get_defined_vars()["__data"]);
+                if (empty($__definedVars))
+                {
+                    $__definedVars = [];
+                }
+                
+                $output = \Hook::getHook("checkout.body.header",["data"=>$__definedVars],function($data) { return null; });
+                if ($output)
+                echo $output;
+                ?>
+
+            <?php echo $__env->make('checkout._address', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+
+            <div class="checkout-black">
+              <h5 class="checkout-title">Mã giảm giá</h5>
+           
+              <div class="radio-line-wrap" id="voucher-wrap">
+                <h4><?php echo e(json_encode($current)); ?></h4>
+                <?php $__currentLoopData = $vouchers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $voucher): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                  <div class="radio-line-item <?php echo e($voucher['id'] == $current['voucher_id'] ? 'active' : ''); ?>" data-key="voucher_id" data-value="<?php echo e($voucher['id']); ?>">
+                    <div class="left">
+                      <span class="radio"></span>
+                   
+                    </div>
+                    <div class="right ">
+                      <h5 class="font-weight-bold"><?php echo e($voucher['name']); ?></h5>
+                      <div class="sub-title">Giảm <?php echo e($voucher['discount_value']); ?><?php echo e($voucher['discount_type'] === 'percentage' ? '%' : 'đ'); ?></div>
+                    </div>
+                  </div>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+              </div>
+           </div>
+        </div>
+
           <div class="card-body p-lg-4">
              <?php
                 $__definedVars = (get_defined_vars()["__data"]);
@@ -280,6 +318,7 @@
   $(document).ready(function() {
     $(document).on('click', '.radio-line-item', function(event) {
       if ($(this).hasClass('active')) return;
+      console.log($(this).data('key'), $(this).data('value'))
       updateCheckout($(this).data('key'), $(this).data('value'))
     });
 
@@ -320,6 +359,7 @@
       updateTotal(res.totals)
       updateShippingMethods(res.shipping_methods, res.current.shipping_method_code)
       updatePaymentMethods(res.payment_methods, res.current.payment_method_code)
+      updateVoucher(res.vouchers, res.current.voucher_id)
 
       if (typeof callback === 'function') {
         callback(res)
@@ -370,6 +410,24 @@
     })
 
     $('#payment-methods-wrap').replaceWith('<div class="radio-line-wrap" id="payment-methods-wrap">' + html + '</div>');
+  }
+  const updateVoucher = (data, voucher_id) => {
+    let html = '';
+   
+    data.forEach((item) => {
+      html += `<div class="radio-line-item d-flex align-items-center ${voucher_id == item.id ? 'active' : ''}" data-key="voucher_id" data-value="${item.id}">
+        <div class="left">
+          <span class="radio"></span>
+          
+        </div>
+         <div class="right ">
+                      <h5 class="font-weight-bold">${item.name}</h5>
+                      <div class="sub-title">Giảm ${item.discount_value} ${item.discount_type === 'percentage' ? '%' : 'đ'}</div>
+      </div>
+      </div>`;
+    })
+
+    $('#voucher-wrap').replaceWith('<div class="radio-line-wrap" id="voucher-wrap">' + html + '</div>');
   }
 </script>
 <?php $__env->stopPush(); ?>
