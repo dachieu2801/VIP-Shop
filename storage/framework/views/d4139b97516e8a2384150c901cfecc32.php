@@ -100,7 +100,7 @@
         </div>
 
         <div class="d-flex justify-content-between my-4 flex-wrap gap-2">
-          <a href="<?php echo e(admin_route('products.create')); ?>" >
+          <a href="<?php echo e(admin_route('vouchers.create')); ?>" >
             <button class="btn btn-primary"><?php echo e(__('admin/product.products_create')); ?></button>
           </a>
        
