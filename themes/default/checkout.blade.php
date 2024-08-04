@@ -208,25 +208,28 @@
     });
 
     $('#submit-checkout').click(function(event) {
-      const address = config.isLogin ? checkoutAddressApp.form.shipping_address_id : checkoutAddressApp.source.guest_shipping_address;
-      const payment = config.isLogin ? checkoutAddressApp.form.payment_address_id : checkoutAddressApp.source.guest_payment_address;
-      if (checkoutAddressApp.shippingRequired && !address) {
-        layer.msg('{{ __('shop/checkout.error_address') }}', ()=>{})
-        return;
-      }
+        const address = config.isLogin ? checkoutAddressApp.form.shipping_address_id : checkoutAddressApp.source.guest_shipping_address;
+        const payment = config.isLogin ? checkoutAddressApp.form.payment_address_id : checkoutAddressApp.source.guest_payment_address;
+        const voucherId = $('#voucher-wrap .radio-line-item.active').data('value'); // Get the selected voucher ID
 
-      if (!payment) {
-        layer.msg('{{ __('shop/checkout.error_payment_address') }}', ()=>{})
-        return;
-      }
+        if (checkoutAddressApp.shippingRequired && !address) {
+            layer.msg('{{ __('shop/checkout.error_address') }}', ()=>{})
+            return;
+        }
 
-      let data = {
-        comment: $('textarea[name=comment]').val()
-      }
+        if (!payment) {
+            layer.msg('{{ __('shop/checkout.error_payment_address') }}', ()=>{})
+            return;
+        }
 
-      $http.post('/checkout/confirm',data).then((res) => {
-        location = 'orders/' + res.number + '/pay?type=create'
-      })
+        let data = {
+            comment: $('textarea[name=comment]').val(),
+            voucher_id: voucherId // Add the voucher_id to the data
+        }
+
+        $http.post('/checkout/confirm', data).then((res) => {
+            location = 'orders/' + res.number + '/pay?type=create'
+        });
     });
 
     $('.guest-checkout-login').click(function(event) {
