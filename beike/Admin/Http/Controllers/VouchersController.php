@@ -5,6 +5,7 @@ namespace Beike\Admin\Http\Controllers;
 use Beike\Repositories\VouchersRepo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
 
 class VouchersController extends Controller
 {
@@ -49,7 +50,7 @@ class VouchersController extends Controller
     public function index(Request $request)
     {
         $vouchers = $this->vouchersRepo->getAllWithFilters($request);
-
+        Log::info('confirm', ['a'=>$vouchers]);
         return view('admin::pages.vouchers.index', $vouchers);
 //        return response()->json($vouchers);
     }

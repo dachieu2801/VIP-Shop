@@ -1,15 +1,53 @@
-@extends('admin::layouts.master')
 
-@section('title', __('admin/common.product'))
 
-@section('content')
-  @if ($errors->has('error'))
-    <x-admin-alert type="danger" msg="{{ $errors->first('error') }}" class="mt-4" />
-  @endif
+<?php $__env->startSection('title', __('admin/common.product')); ?>
 
-  @if (session()->has('success'))
-    <x-admin-alert type="success" msg="{{ session('success') }}" class="mt-4" />
-  @endif
+<?php $__env->startSection('content'); ?>
+  <?php if($errors->has('error')): ?>
+    <?php if (isset($component)) { $__componentOriginal18fd067f3cb26aee8acdd02921cdd9f8 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal18fd067f3cb26aee8acdd02921cdd9f8 = $attributes; } ?>
+<?php $component = Beike\Admin\View\Components\Alert::resolve(['type' => 'danger','msg' => ''.e($errors->first('error')).''] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('admin-alert'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Beike\Admin\View\Components\Alert::class))->getConstructor()): ?>
+<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['class' => 'mt-4']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal18fd067f3cb26aee8acdd02921cdd9f8)): ?>
+<?php $attributes = $__attributesOriginal18fd067f3cb26aee8acdd02921cdd9f8; ?>
+<?php unset($__attributesOriginal18fd067f3cb26aee8acdd02921cdd9f8); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal18fd067f3cb26aee8acdd02921cdd9f8)): ?>
+<?php $component = $__componentOriginal18fd067f3cb26aee8acdd02921cdd9f8; ?>
+<?php unset($__componentOriginal18fd067f3cb26aee8acdd02921cdd9f8); ?>
+<?php endif; ?>
+  <?php endif; ?>
+
+  <?php if(session()->has('success')): ?>
+    <?php if (isset($component)) { $__componentOriginal18fd067f3cb26aee8acdd02921cdd9f8 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal18fd067f3cb26aee8acdd02921cdd9f8 = $attributes; } ?>
+<?php $component = Beike\Admin\View\Components\Alert::resolve(['type' => 'success','msg' => ''.e(session('success')).''] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('admin-alert'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Beike\Admin\View\Components\Alert::class))->getConstructor()): ?>
+<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['class' => 'mt-4']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal18fd067f3cb26aee8acdd02921cdd9f8)): ?>
+<?php $attributes = $__attributesOriginal18fd067f3cb26aee8acdd02921cdd9f8; ?>
+<?php unset($__attributesOriginal18fd067f3cb26aee8acdd02921cdd9f8); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal18fd067f3cb26aee8acdd02921cdd9f8)): ?>
+<?php $component = $__componentOriginal18fd067f3cb26aee8acdd02921cdd9f8; ?>
+<?php unset($__componentOriginal18fd067f3cb26aee8acdd02921cdd9f8); ?>
+<?php endif; ?>
+  <?php endif; ?>
 
   <div id="product-app">
     <div class="card h-min-600">
@@ -17,62 +55,73 @@
         <div class="bg-light p-4">
           <div class="row">
             <div class="col-xxl-20 col-xl-3 col-lg-4 col-md-4 d-flex align-items-center mb-3">
-              <label class="filter-title">{{ __('product.name') }}</label>
-              <input @keyup.enter="search" type="text" v-model="filter.name" class="form-control" placeholder="{{ __('product.name') }}">
+              <label class="filter-title"><?php echo e(__('product.name')); ?></label>
+              <input @keyup.enter="search" type="text" v-model="filter.name" class="form-control" placeholder="<?php echo e(__('product.name')); ?>">
             </div>
             <div class="col-xxl-20 col-xl-3 col-lg-4 col-md-4 d-flex align-items-center mb-3">
-              <label class="filter-title">{{ __('product.sku') }}</label>
-              <input @keyup.enter="search" type="text" v-model="filter.sku" class="form-control" placeholder="{{ __('product.sku') }}">
+              <label class="filter-title"><?php echo e(__('product.sku')); ?></label>
+              <input @keyup.enter="search" type="text" v-model="filter.sku" class="form-control" placeholder="<?php echo e(__('product.sku')); ?>">
             </div>
 
             <div class="col-xxl-20 col-xl-3 col-lg-4 col-md-4 d-flex align-items-center mb-3">
-              <label class="filter-title">{{ __('product.model') }}</label>
-              <input @keyup.enter="search" type="text" v-model="filter.model" class="form-control" placeholder="{{ __('product.model') }}">
+              <label class="filter-title"><?php echo e(__('product.model')); ?></label>
+              <input @keyup.enter="search" type="text" v-model="filter.model" class="form-control" placeholder="<?php echo e(__('product.model')); ?>">
             </div>
 
    
 
             <div class="col-xxl-20 col-xl-3 col-lg-4 col-md-4 d-flex align-items-center mb-3">
-              <label class="filter-title">{{ __('common.status') }}</label>
+              <label class="filter-title"><?php echo e(__('common.status')); ?></label>
               <select v-model="filter.active" class="form-select">
-                <option value="">{{ __('common.all') }}</option>
-                <option value="1">{{ __('product.active') }}</option>
-                <option value="0">{{ __('product.inactive') }}</option>
+                <option value=""><?php echo e(__('common.all')); ?></option>
+                <option value="1"><?php echo e(__('product.active')); ?></option>
+                <option value="0"><?php echo e(__('product.inactive')); ?></option>
               </select>
             </div>
 
-            @hook('admin.product.list.filter')
+             <?php
+                $__definedVars = (get_defined_vars()["__data"]);
+                if (empty($__definedVars))
+                {
+                    $__definedVars = [];
+                }
+                
+                $output = \Hook::getHook("admin.product.list.filter",["data"=>$__definedVars],function($data) { return null; });
+                if ($output)
+                echo $output;
+                ?>
           </div>
 
           <div class="row">
             <label class="filter-title"></label>
             <div class="col-auto">
-              <button type="button" @click="search" class="btn btn-outline-primary btn-sm">{{ __('common.filter') }}</button>
-              <button type="button" @click="resetSearch" class="btn btn-outline-secondary btn-sm">{{ __('common.reset') }}</button>
+              <button type="button" @click="search" class="btn btn-outline-primary btn-sm"><?php echo e(__('common.filter')); ?></button>
+              <button type="button" @click="resetSearch" class="btn btn-outline-secondary btn-sm"><?php echo e(__('common.reset')); ?></button>
             </div>
           </div>
         </div>
 
         <div class="d-flex justify-content-between my-4 flex-wrap gap-2">
-          <a href="{{ admin_route('products.create') }}" >
-            <button class="btn btn-primary">{{ __('admin/product.products_create') }}</button>
+          <a href="<?php echo e(admin_route('products.create')); ?>" >
+            <button class="btn btn-primary"><?php echo e(__('admin/product.products_create')); ?></button>
           </a>
        
         </div>
 
-      @if ($vouchers.data->total())
+
           <div class="table-push overflow-auto">
             <table class="table table-hover">
               <thead>
                 <tr>
                   <th><input type="checkbox" v-model="allSelected" /></th>
-                  <th>{{ __('common.id') }}</th>
-                  <th>{{ __('product.image') }}</th>
-                  <th>{{ __('product.name') }}</th>
-                  <th>{{ __('product.price') }}</th>
+                  <th><?php echo e(__('common.id')); ?></th>
+                  <th><?php echo e(__('product.image')); ?></th>
+                  <th><?php echo e(__('product.name')); ?></th>
+                  <th><?php echo e(__('product.price')); ?></th>
                   <th>
                     <div class="d-flex align-items-center">
-                        {{ __('common.created_at') }}
+                        <?php echo e(__('common.created_at')); ?>
+
                       <div class="d-flex flex-column ml-1 order-by-wrap">
                         <i class="el-icon-caret-top" @click="checkedOrderBy('created_at:asc')"></i>
                         <i class="el-icon-caret-bottom" @click="checkedOrderBy('created_at:desc')"></i>
@@ -82,71 +131,111 @@
 
                   <th class="d-flex align-items-center">
                     <div class="d-flex align-items-center">
-                        {{ __('common.sort_order') }}
+                        <?php echo e(__('common.sort_order')); ?>
+
                       <div class="d-flex flex-column ml-1 order-by-wrap">
                         <i class="el-icon-caret-top" @click="checkedOrderBy('position:asc')"></i>
                         <i class="el-icon-caret-bottom" @click="checkedOrderBy('position:desc')"></i>
                       </div>
                     </div>
                   </th>
-                  @if ($type != 'trashed')
-                    <th>{{ __('common.status') }}</th>
-                  @endif
-                  @hook('admin.product.list.column')
-                  <th class="text-end">{{ __('common.action') }}</th>
+            
+
+                  <th class="text-end"><?php echo e(__('common.action')); ?></th>
                 </tr>
               </thead>
               <tbody>
-                @foreach ($vouchers['data'] as $voucher)
+                <?php $__currentLoopData = $vouchers['data']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $voucher): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <tr>
-                  <td><input type="checkbox" :value="{{ $voucher['id'] }}" v-model="selectedIds" /></td>
-                  <td>{{ $voucher['id'] }}</td>
+                  <td><input type="checkbox" :value="<?php echo e($voucher['id']); ?>" v-model="selectedIds" /></td>
+                  <td><?php echo e($voucher['id']); ?></td>
                   <td>
-                    <div class="wh-60 border d-flex rounded-2 justify-content-center align-items-center"><img src="{{ $voucher['images'][0] ?? 'image/placeholder.png' }}" class="img-fluid max-h-100"></div>
+                    <div class="wh-60 border d-flex rounded-2 justify-content-center align-items-center"><img src="<?php echo e($voucher['images'][0] ?? 'image/placeholder.png'); ?>" class="img-fluid max-h-100"></div>
                   </td>
                   <td>
-                    <a href="{{ $voucher['url'] }}" target="_blank" title="{{ $voucher['name'] }}" class="text-dark">{{ $voucher['name'] }}</a>
+                    <a href="<?php echo e($voucher['url']); ?>" target="_blank" title="<?php echo e($voucher['name']); ?>" class="text-dark"><?php echo e($voucher['name']); ?></a>
                   </td>
-                  <td>{{ $voucher['price_formatted'] }}</td>
-                  <td>{{ $voucher['created_at'] }}</td>
-                  <td>{{ $voucher['position'] }}</td>
-                  @if ($type != 'trashed')
+                  <td><?php echo e($voucher['price_formatted']); ?></td>
+                  <td><?php echo e($voucher['created_at']); ?></td>
+                  <td><?php echo e($voucher['position']); ?></td>
+                  <?php if($type != 'trashed'): ?>
                     <td>
                       <div class="form-check form-switch">
-                        <input class="form-check-input cursor-pointer" type="checkbox" role="switch" data-active="{{ $voucher['active'] ? true : false }}" data-id="{{ $voucher['id'] }}" @change="turnOnOff($event)" {{ $voucher['active'] ? 'checked' : '' }}>
+                        <input class="form-check-input cursor-pointer" type="checkbox" role="switch" data-active="<?php echo e($voucher['active'] ? true : false); ?>" data-id="<?php echo e($voucher['id']); ?>" @change="turnOnOff($event)" <?php echo e($voucher['active'] ? 'checked' : ''); ?>>
                       </div>
                     </td>
-                  @endif
-                  @hook('admin.product.list.column_value')
+                  <?php endif; ?>
+                   <?php
+                $__definedVars = (get_defined_vars()["__data"]);
+                if (empty($__definedVars))
+                {
+                    $__definedVars = [];
+                }
+                
+                $output = \Hook::getHook("admin.product.list.column_value",["data"=>$__definedVars],function($data) { return null; });
+                if ($output)
+                echo $output;
+                ?>
                   <td class="text-end text-nowrap">
-                    @if ($product['deleted_at'] == '')
-                      <a href="{{ admin_route('products.reviews',['product_id' => $product['id']]) }}" class="btn btn-outline-secondary btn-sm">{{ __('common.review') }}</a>
-                      <a href="{{ admin_route('products.edit', [$product['id']]) }}" class="btn btn-outline-secondary btn-sm">{{ __('common.edit') }}</a>
-                      <a href="javascript:void(0)" class="btn btn-outline-danger btn-sm" @click.prevent="deleteProduct({{ $loop->index }})">{{ __('common.delete') }}</a>
-                      @hook('admin.product.list.action')
-                    @else
-                      <a href="javascript:void(0)" class="btn btn-outline-secondary btn-sm" @click.prevent="restoreProduct({{ $loop->index }})">{{ __('common.restore') }}</a>
-                      @hook('admin.products.trashed.action')
-                    @endif
+                    <?php if($product['deleted_at'] == ''): ?>
+                      <a href="<?php echo e(admin_route('products.reviews',['product_id' => $product['id']])); ?>" class="btn btn-outline-secondary btn-sm"><?php echo e(__('common.review')); ?></a>
+                      <a href="<?php echo e(admin_route('products.edit', [$product['id']])); ?>" class="btn btn-outline-secondary btn-sm"><?php echo e(__('common.edit')); ?></a>
+                      <a href="javascript:void(0)" class="btn btn-outline-danger btn-sm" @click.prevent="deleteProduct(<?php echo e($loop->index); ?>)"><?php echo e(__('common.delete')); ?></a>
+                       <?php
+                $__definedVars = (get_defined_vars()["__data"]);
+                if (empty($__definedVars))
+                {
+                    $__definedVars = [];
+                }
+                
+                $output = \Hook::getHook("admin.product.list.action",["data"=>$__definedVars],function($data) { return null; });
+                if ($output)
+                echo $output;
+                ?>
+                    <?php else: ?>
+                      <a href="javascript:void(0)" class="btn btn-outline-secondary btn-sm" @click.prevent="restoreProduct(<?php echo e($loop->index); ?>)"><?php echo e(__('common.restore')); ?></a>
+                       <?php
+                $__definedVars = (get_defined_vars()["__data"]);
+                if (empty($__definedVars))
+                {
+                    $__definedVars = [];
+                }
+                
+                $output = \Hook::getHook("admin.products.trashed.action",["data"=>$__definedVars],function($data) { return null; });
+                if ($output)
+                echo $output;
+                ?>
+                    <?php endif; ?>
                   </td>
                 </tr>
-                @endforeach
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
               </tbody>
             </table>
           </div>
 
-          {{ $products->withQueryString()->links('admin::vendor/pagination/bootstrap-4') }}
-        @else
-          <x-admin-no-data />
-        @endif
+          <?php echo e($products->withQueryString()->links('admin::vendor/pagination/bootstrap-4')); ?>
+
+
+     
+   
       </div>
     </div>
   </div>
 
-  @hook('admin.product.list.content.footer')
-@endsection
+   <?php
+                $__definedVars = (get_defined_vars()["__data"]);
+                if (empty($__definedVars))
+                {
+                    $__definedVars = [];
+                }
+                
+                $output = \Hook::getHook("admin.product.list.content.footer",["data"=>$__definedVars],function($data) { return null; });
+                if ($output)
+                echo $output;
+                ?>
+<?php $__env->stopSection(); ?>
 
-@push('footer')
+<?php $__env->startPush('footer'); ?>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -331,7 +420,7 @@ $(document).ready(function() {
     let app = new Vue({
       el: '#product-app',
       data: {
-        url: '{{ $type == 'trashed' ? admin_route("products.trashed") : admin_route("products.index") }}',
+        url: '<?php echo e($type == 'trashed' ? admin_route("products.trashed") : admin_route("products.index")); ?>',
         filter: {
           name: bk.getQueryString('name'),
           page: bk.getQueryString('page'),
@@ -343,7 +432,7 @@ $(document).ready(function() {
           order: bk.getQueryString('order', ''),
         },
         selectedIds: [],
-        productIds: @json($products->pluck('id')),
+        productIds: <?php echo json_encode($products->pluck('id'), 15, 512) ?>,
       },
 
       computed: {
@@ -374,9 +463,9 @@ $(document).ready(function() {
         },
 
         batchDelete() {
-          this.$confirm('{{ __('admin/product.confirm_batch_product') }}', '{{ __('common.text_hint') }}', {
-            confirmButtonText: '{{ __('common.confirm') }}',
-            cancelButtonText: '{{ __('common.cancel') }}',
+          this.$confirm('<?php echo e(__('admin/product.confirm_batch_product')); ?>', '<?php echo e(__('common.text_hint')); ?>', {
+            confirmButtonText: '<?php echo e(__('common.confirm')); ?>',
+            cancelButtonText: '<?php echo e(__('common.cancel')); ?>',
             type: 'warning'
           }).then(() => {
             $http.delete('products/delete', {ids: this.selectedIds}).then((res) => {
@@ -387,9 +476,9 @@ $(document).ready(function() {
         },
 
         batchActive(type) {
-          this.$confirm('{{ __('admin/product.confirm_batch_status') }}', '{{ __('common.text_hint') }}', {
-            confirmButtonText: '{{ __('common.confirm') }}',
-            cancelButtonText: '{{ __('common.cancel') }}',
+          this.$confirm('<?php echo e(__('admin/product.confirm_batch_status')); ?>', '<?php echo e(__('common.text_hint')); ?>', {
+            confirmButtonText: '<?php echo e(__('common.confirm')); ?>',
+            cancelButtonText: '<?php echo e(__('common.cancel')); ?>',
             type: 'warning'
           }).then(() => {
             $http.post('products/status', {ids: this.selectedIds, status: type}).then((res) => {
@@ -418,7 +507,7 @@ $(document).ready(function() {
         deleteProduct(index) {
           const id = this.productIds[index];
 
-          this.$confirm('{{ __('common.confirm_delete') }}', '{{ __('common.text_hint') }}', {
+          this.$confirm('<?php echo e(__('common.confirm_delete')); ?>', '<?php echo e(__('common.text_hint')); ?>', {
             type: 'warning'
           }).then(() => {
             $http.delete('products/' + id).then((res) => {
@@ -431,7 +520,7 @@ $(document).ready(function() {
         restoreProduct(index) {
           const id = this.productIds[index];
 
-          this.$confirm('{{ __('admin/product.confirm_batch_restore') }}', '{{ __('common.text_hint') }}', {
+          this.$confirm('<?php echo e(__('admin/product.confirm_batch_restore')); ?>', '<?php echo e(__('common.text_hint')); ?>', {
             type: 'warning'
           }).then(() => {
             $http.put('products/restore', {id: id}).then((res) => {
@@ -441,7 +530,7 @@ $(document).ready(function() {
         },
 
         clearRestore() {
-          this.$confirm('{{ __('admin/product.confirm_delete_restore') }}', '{{ __('common.text_hint') }}', {
+          this.$confirm('<?php echo e(__('admin/product.confirm_delete_restore')); ?>', '<?php echo e(__('common.text_hint')); ?>', {
             type: 'warning'
           }).then(() => {
             $http.post('products/trashed/clear').then((res) => {
@@ -452,4 +541,6 @@ $(document).ready(function() {
       }
     });
   </script>
-@endpush
+<?php $__env->stopPush(); ?>
+
+<?php echo $__env->make('admin::layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\team-free-lance\shop-freelance\resources\/beike/admin/views/pages/vouchers/index.blade.php ENDPATH**/ ?>
