@@ -42,8 +42,6 @@ class ProductController extends Controller
             'type'            => 'products',
         ];
 
-        Log::info('asdasd',['data'=>$data]);
-
         $data = hook_filter('admin.product.index.data', $data);
 
         if ($request->expectsJson()) {

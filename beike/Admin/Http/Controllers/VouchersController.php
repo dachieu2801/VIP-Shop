@@ -4,6 +4,7 @@ namespace Beike\Admin\Http\Controllers;
 
 use Beike\Repositories\VouchersRepo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class VouchersController extends Controller
@@ -70,6 +71,8 @@ class VouchersController extends Controller
             'voucher' => $voucher,
             'type'    => 'edit',
         ];
+
+        Log::info('ádasd',$data);
 
         return view('admin::pages.vouchers.form', $data);
     }

@@ -123,10 +123,12 @@ class CheckoutService
         $checkoutData             = self::checkoutData();
         $checkoutData['customer'] = $customer;
         $checkoutData['comment']  = request('comment');
+
+        Log::log('info', 'data confirm', $checkoutData);
+
         $this->validateConfirm($checkoutData);
         $carts = $checkoutData['carts']['carts'];
 
-        Log::log('info', 'data confirm', $checkoutData);
 
         try {
             DB::beginTransaction();
@@ -171,7 +173,7 @@ class CheckoutService
     private function validateConfirm($checkoutData)
     {
         $current = $checkoutData['current'];
-        Log::info('current', ['a'=>$current]);
+        Log::info('current valid coirm', ['a'=>$current]);
 
         throw new \Exception('Voucher does not exist or expired.');
         if ($this->customer) {

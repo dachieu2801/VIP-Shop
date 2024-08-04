@@ -71,22 +71,18 @@ class VouchersRepo
     {
         $query = Vouchers::query();
 
-        // Lọc theo code
         if ($request->has('code')) {
             $query->where('code', 'like', '%' . $request->input('code') . '%');
         }
 
-        // Lọc theo tên
         if ($request->has('name')) {
             $query->whereRaw('LOWER(name) LIKE ?', ['%' . strtolower($request->input('name')) . '%']);
         }
 
-        // Lọc theo khoảng thời gian tạo
         if ($request->has('start_date') && $request->has('end_date')) {
             $query->whereBetween('created_at', [$request->input('start_date'), $request->input('end_date')]);
         }
 
-        // Lọc theo trạng thái
         if ($request->has('status')) {
             $status = $request->input('status');
             if ($status === 'expired') {
@@ -97,11 +93,9 @@ class VouchersRepo
             }
         }
 
-        // Sắp xếp theo thời gian tạo
         if ($request->has('sort_by') && in_array($request->input('sort_by'), ['asc', 'desc'])) {
             $query->orderBy('created_at', $request->input('sort_by'));
         } else {
-            // Mặc định sắp xếp theo thời gian tạo mới nhất
             $query->orderBy('created_at', 'desc');
         }
 

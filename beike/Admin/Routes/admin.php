@@ -1,8 +1,8 @@
 <?php
 
 use Beike\Admin\Http\Controllers;
-use Beike\Admin\Http\Controllers\VouchersController;
 use Beike\Admin\Http\Controllers\ForgottenController;
+use Beike\Admin\Http\Controllers\VouchersController;
 use Illuminate\Support\Facades\Route;
 
 $adminName = admin_name();
