@@ -175,7 +175,7 @@ class CheckoutService
         $current = $checkoutData['current'];
         Log::info('current valid coirm', ['a'=>$current]);
 
-//        throw new \Exception('Voucher does not exist or expired.');
+
         if ($this->customer) {
             if ($this->shippingRequired()) {
                 $shippingAddressId = $current['shipping_address_id'];

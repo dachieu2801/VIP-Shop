@@ -44,7 +44,7 @@ class CheckoutController extends Controller
         try {
             $requestData = $request->all();
 
-            $requestData['voucher_id'] = 2;
+ 
             Log::info('update Checkout', $requestData);
 
             $data       = (new CheckoutService)->update($requestData);
