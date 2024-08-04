@@ -117,6 +117,7 @@ class CheckoutService
      */
     public function confirm(): Order
     {
+
         $customer                 = $this->customer;
         $checkoutData             = self::checkoutData();
         $checkoutData['customer'] = $customer;
