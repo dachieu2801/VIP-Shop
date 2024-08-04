@@ -243,10 +243,11 @@ Route::prefix($adminName)
                 Route::middleware('can:products_reviews')->get('products/reviews', [Controllers\ProductController::class, 'reviews'])->name('products.reviews');
                 Route::middleware('can:products_reviews_delete')->delete('products/reviews/delete', [Controllers\ProductController::class, 'destroyReviewByIds'])->name('products.reviews.delete');
 
-                //vouchers
+                //
                 Route::middleware('can:vouchers_index')->get('vouchers', [VouchersController::class, 'index'])->name('vouchers.index');
                 Route::middleware('can:vouchers_show')->get('vouchers/{id}', [VouchersController::class, 'show'])->name('vouchers.show');
-                Route::middleware('can:vouchers_store')->post('vouchers', [VouchersController::class, 'store'])->name('vouchers.create');
+                Route::middleware('can:vouchers_store')->post('vouchers', [VouchersController::class, 'store'])->name('vouchers.store');
+                Route::middleware('can:vouchers_store')->get('vouchers/create', [VouchersController::class, 'create'])->name('vouchers.create');
                 Route::middleware('can:vouchers_edit')->post('vouchers/edit', [VouchersController::class, 'update'])->name('vouchers.update');
                 Route::middleware('can:products_delete')->post('vouchers/delete', [VouchersController::class, 'destroy'])->name('products.destroy');
 

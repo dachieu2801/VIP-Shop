@@ -5,7 +5,6 @@ namespace Beike\Admin\Http\Controllers;
 use Beike\Repositories\VouchersRepo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Log;
 
 class VouchersController extends Controller
 {
@@ -52,8 +51,8 @@ class VouchersController extends Controller
         $vouchers = $this->vouchersRepo->getAllWithFilters($request);
 
         $data = [
-            'vouchers' => $vouchers,
-            'vouchers_format'  =>  $vouchers->jsonSerialize(),
+            'vouchers'         => $vouchers,
+            'vouchers_format'  => $vouchers->jsonSerialize(),
         ];
 
         return view('admin::pages.vouchers.index', $data);
@@ -61,13 +60,26 @@ class VouchersController extends Controller
 
     public function show($id)
     {
-        $voucher = $this->vouchersRepo->getById($id);
+        $voucher = $this->vouchersRepo->getById($id)->jsonSerialize();
 
-        if ($voucher) {
-            return response()->json($voucher);
+        if (! $voucher) {
+            throw new \Exception('Mã giảm giá không tồn tại');
         }
 
-        return response()->json(['message' => 'Voucher not found'], 404);
+        $data = [
+            'voucher' => $voucher,
+            'type'    => 'edit',
+        ];
+
+        return view('admin::pages.vouchers.form', $data);
+    }
+
+    public function create()
+    {
+        $data = [
+            'type'    => 'create',
+        ];
+        return view('admin::pages.vouchers.form', $data);
     }
 
     public function update(Request $request)
@@ -100,6 +112,8 @@ class VouchersController extends Controller
         return response()->json(['message' => 'Voucher not found'], 404);
     }
 
+    public function formCreate() {}
+
     public function destroy(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -115,8 +129,7 @@ class VouchersController extends Controller
         if ($deleted) {
             return response()->json(['message' => 'Voucher deleted']);
         }
+
         return response()->json(['message' => 'Voucher not found'], 404);
     }
-
-
 }
