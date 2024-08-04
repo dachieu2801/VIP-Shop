@@ -33,7 +33,7 @@ class Order extends Base
         'shipping_address_1', 'shipping_zipcode', 'shipping_address_2', 'payment_method_code', 'payment_method_name',
         'payment_customer_name', 'payment_calling_code', 'payment_telephone', 'payment_country', 'payment_country_id',
         'payment_zone', 'payment_zone_id', 'payment_city', 'payment_address_1', 'payment_address_2', 'payment_zipcode',
-        'cancellation_reason', 'cancelled_at',
+        'cancellation_reason', 'cancelled_at','voucher_id'
     ];
 
     protected $appends = ['status_format', 'total_format'];

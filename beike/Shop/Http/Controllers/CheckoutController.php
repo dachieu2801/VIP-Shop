@@ -27,13 +27,54 @@ class CheckoutController extends Controller
             $data              = hook_filter('checkout.index.data', $data);
 
             if ($data['current']['voucher_id']) {
-                $newVoucher = (new VouchersRepo)->getByIdActive($data['current']['voucher_id']);
-                if (! $newVoucher) {
+                $voucher = (new VouchersRepo)->getByIdActive($data['current']['voucher_id']);
+                if (! $voucher) {
                     $data['current']['voucher_id'] = 0;
+                } else {
+                    $newTotals      = [];
+                    $orderTotal     = null;
+                    foreach ($data['totals'] as $item) {
+                        if ($item['code'] === 'order_total') {
+                            $orderTotal = $item;
+                        } else {
+                            $newTotals[] = $item;
+                        }
+                    }
+                    if ($voucher['discount_type'] == 'percentage') {
+                        $amount       = floatval($voucher['discount_value']) / 100 * floatval($orderTotal['amount']);
+                        $newTotals[]  = [
+                            'code'          => 'voucher_id',
+                            'title'         => $voucher['name'],
+                            'amount'        => $amount,
+                            'amount_format' => '- ' . currency_format($amount),
+                        ];
+                        $amountTotal =  floatval($orderTotal['amount']) - $amount < 0 ? 0 : floatval($orderTotal['amount']) - $amount;
+                        $newTotals[] = [
+                            'code'          => 'order_total',
+                            'title'         => trans('shop/carts.order_total'),
+                            'amount'        => $amountTotal,
+                            'amount_format' => currency_format($amountTotal),
+                        ];
+                    } else {
+                        $amount       = floatval($voucher['discount_value']);
+                        $newTotals[]  = [
+                            'code'          => 'voucher_id',
+                            'title'         => $voucher['name'],
+                            'amount'        => $amount,
+                            'amount_format' => '- ' . currency_format($amount),
+                        ];
+                        $amountTotal =  floatval($orderTotal['amount']) - $amount < 0 ? 0 : floatval($orderTotal['amount']) - $amount;
+                        $newTotals[] = [
+                            'code'          => 'order_total',
+                            'title'         => trans('shop/carts.order_total'),
+                            'amount'        => $amountTotal,
+                            'amount_format' => currency_format($amountTotal),
+                        ];
+                    }
+                    $data['totals'] = $newTotals;
                 }
 
             }
-            Log::info('adasdadsa', ['ád' => $data]);
 
             return view('checkout', $data);
         } catch (\Exception $e) {
@@ -59,56 +100,52 @@ class CheckoutController extends Controller
                 $voucher = (new VouchersRepo)->getByIdActive($data['current']['voucher_id']);
                 if (! $voucher) {
                     $data['current']['voucher_id'] = 0;
-                }
-
-                $newTotals      = [];
-                $orderTotal     = null;
-
-                foreach ($data['totals'] as $item) {
-                    if ($item['code'] === 'order_total') {
-                        $orderTotal = $item;
-                    } else {
-                        $newTotals[] = $item;
-                    }
-                }
-
-                if ($voucher['discount_type'] == 'percentage') {
-                    $amount       = floatval($voucher['discount_value']) / 100 * floatval($orderTotal['amount']);
-                    Log::info('info', ['ad111111' => $amount]);
-
-                    $newTotals[]  = [
-                        'code'          => 'voucher_id',
-                        'title'         => $voucher['name'],
-                        'amount'        => $amount,
-                        'amount_format' => '- ' . currency_format($amount),
-                    ];
-                    $amountTotal =  floatval($orderTotal['amount']) - $amount < 0 ? 0 : floatval($orderTotal['amount']) - $amount;
-
-                    $newTotals[] = [
-                        'code'          => 'order_total',
-                        'title'         => trans('shop/carts.order_total'),
-                        'amount'        => $amountTotal,
-                        'amount_format' => currency_format($amountTotal),
-                    ];
                 } else {
-                    $amount       = floatval($voucher['discount_value']);
-                    $newTotals[]  = [
-                        'code'          => 'voucher_id',
-                        'title'         => $voucher['name'],
-                        'amount'        => $amount,
-                        'amount_format' => '- ' . currency_format($amount),
-                    ];
-                    $amountTotal =  floatval($orderTotal['amount']) - $amount < 0 ? 0 : floatval($orderTotal['amount']) - $amount;
-                    $newTotals[] = [
-                        'code'          => 'order_total',
-                        'title'         => trans('shop/carts.order_total'),
-                        'amount'        => $amountTotal,
-                        'amount_format' => currency_format($amountTotal),
-                    ];
+                    $newTotals      = [];
+                    $orderTotal     = null;
+                    foreach ($data['totals'] as $item) {
+                        if ($item['code'] === 'order_total') {
+                            $orderTotal = $item;
+                        } else {
+                            $newTotals[] = $item;
+                        }
+                    }
+                    if ($voucher['discount_type'] == 'percentage') {
+                        $amount       = floatval($voucher['discount_value']) / 100 * floatval($orderTotal['amount']);
+                        $newTotals[]  = [
+                            'code'          => 'voucher_id',
+                            'title'         => $voucher['name'],
+                            'amount'        => $amount,
+                            'amount_format' => '- ' . currency_format($amount),
+                        ];
+                        $amountTotal =  floatval($orderTotal['amount']) - $amount < 0 ? 0 : floatval($orderTotal['amount']) - $amount;
+                        $newTotals[] = [
+                            'code'          => 'order_total',
+                            'title'         => trans('shop/carts.order_total'),
+                            'amount'        => $amountTotal,
+                            'amount_format' => currency_format($amountTotal),
+                        ];
+                    } else {
+                        $amount       = floatval($voucher['discount_value']);
+                        $newTotals[]  = [
+                            'code'          => 'voucher_id',
+                            'title'         => $voucher['name'],
+                            'amount'        => $amount,
+                            'amount_format' => '- ' . currency_format($amount),
+                        ];
+                        $amountTotal =  floatval($orderTotal['amount']) - $amount < 0 ? 0 : floatval($orderTotal['amount']) - $amount;
+                        $newTotals[] = [
+                            'code'          => 'order_total',
+                            'title'         => trans('shop/carts.order_total'),
+                            'amount'        => $amountTotal,
+                            'amount_format' => currency_format($amountTotal),
+                        ];
+                    }
+                    $data['totals'] = $newTotals;
                 }
-                $data['totals'] = $newTotals;
 
             }
+
 
             return hook_filter('checkout.update.data', $data);
         } catch (\Exception $e) {
@@ -125,12 +162,8 @@ class CheckoutController extends Controller
     public function confirm(Request $request)
     {
         $requestData = $request->all();
-
         try {
-            $data = (new CheckoutService)->confirm();
-            Log::info('confirm', ['a' => $data]);
-            $requestData['voucher_id'];
-
+            $data = (new CheckoutService)->confirm($requestData['voucher_id'] ?? 0);
             return hook_filter('checkout.confirm.data', $data);
         } catch (\Exception $e) {
             return json_fail($e->getMessage());

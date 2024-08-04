@@ -115,22 +115,65 @@ class CheckoutService
      * 确认提交订单
      * @throws \Throwable
      */
-    public function confirm(): Order
+    public function confirm($voucher_id = 0): Order
     {
-
         $customer                 = $this->customer;
         $checkoutData             = self::checkoutData();
         $checkoutData['customer'] = $customer;
         $checkoutData['comment']  = request('comment');
 
-        Log::log('info', 'data confirm', $checkoutData);
+        if ($voucher_id) {
+            $voucher = (new VouchersRepo)->getByIdActive($voucher_id);
+            if (! $voucher) {
+                throw new \Exception('Voucher does not exist or expired.');
+            }
+            $checkoutData['current']['voucher_id'] = $voucher_id;
+            $newTotals                             = [];
+            $orderTotal                            = null;
+            foreach ($checkoutData['totals'] as $item) {
+                if ($item['code'] === 'order_total') {
+                    $orderTotal = $item;
+                } else {
+                    $newTotals[] = $item;
+                }
+            }
+            if ($voucher['discount_type'] == 'percentage') {
+                $amount       = floatval($voucher['discount_value']) / 100 * floatval($orderTotal['amount']);
+                $newTotals[]  = [
+                    'code'          => 'voucher_id',
+                    'title'         => $voucher['name'],
+                    'amount'        => $amount,
+                    'amount_format' => '- ' . currency_format($amount),
+                ];
+                $amountTotal = max(floatval($orderTotal['amount']) - $amount, 0);
+                $newTotals[] = [
+                    'code'          => 'order_total',
+                    'title'         => trans('shop/carts.order_total'),
+                    'amount'        => $amountTotal,
+                    'amount_format' => currency_format($amountTotal),
+                ];
+            } else {
+                $amount       = floatval($voucher['discount_value']);
+                $newTotals[]  = [
+                    'code'          => 'voucher_id',
+                    'title'         => $voucher['name'],
+                    'amount'        => $amount,
+                    'amount_format' => '- ' . currency_format($amount),
+                ];
+                $amountTotal = max(floatval($orderTotal['amount']) - $amount, 0);
+                $newTotals[] = [
+                    'code'          => 'order_total',
+                    'title'         => trans('shop/carts.order_total'),
+                    'amount'        => $amountTotal,
+                    'amount_format' => currency_format($amountTotal),
+                ];
+            }
+            $checkoutData['totals'] = $newTotals;
+
+        }
 
         $this->validateConfirm($checkoutData);
         $carts = $checkoutData['carts']['carts'];
-
-        Log::log('info', 'data confirm carts', $carts);
-
-        throw new \Exception('ừng hereeee');
 
         try {
             DB::beginTransaction();

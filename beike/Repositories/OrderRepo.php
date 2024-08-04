@@ -223,7 +223,7 @@ class OrderRepo
             $shippingAddressId = $current['shipping_address_id'] ?? 0;
             $paymentAddressId  = $current['payment_address_id']  ?? 0;
 
-            $shippingAddress = $shippingAddressId ? Address::query()->findOrFail($shippingAddressId) : new Address();
+            $shippingAddress = $shippingAddressId ? Address::query()->findOrFail($shippingAddressId) : new Address;
             $paymentAddress  = Address::query()->findOrFail($paymentAddressId);
             $email           = $customer->email;
         } else {
@@ -247,6 +247,7 @@ class OrderRepo
         $currencyValue = $currency->value ?? 1;
 
         $order = new Order([
+            'voucher_id'             => $current['voucher_id'] ?? 0,
             'number'                 => self::generateOrderNumber(),
             'customer_id'            => $customer->id                ?? 0,
             'customer_group_id'      => $customer->customer_group_id ?? 0,
