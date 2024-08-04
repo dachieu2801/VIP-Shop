@@ -73,8 +73,7 @@
               <h5 class="checkout-title">Mã giảm giá</h5>
            
               <div class="radio-line-wrap" id="voucher-wrap">
-                <h4><?php echo e(json_encode($current)); ?></h4>
-                <?php $__currentLoopData = $vouchers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $voucher): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+              <?php $__currentLoopData = $vouchers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $voucher): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                   <div class="radio-line-item <?php echo e($voucher['id'] == $current['voucher_id'] ? 'active' : ''); ?>" data-key="voucher_id" data-value="<?php echo e($voucher['id']); ?>">
                     <div class="left">
                       <span class="radio"></span>
@@ -82,7 +81,7 @@
                     </div>
                     <div class="right ">
                       <h5 class="font-weight-bold"><?php echo e($voucher['name']); ?></h5>
-                      <div class="sub-title">Giảm <?php echo e($voucher['discount_value']); ?><?php echo e($voucher['discount_type'] === 'percentage' ? '%' : 'đ'); ?></div>
+                      <div class="sub-title">Giảm <?php echo e($voucher['discount_type'] === 'percentage' ?   $voucher['discount_value'].'%'  : $voucher['value_format']); ?></div>
                     </div>
                   </div>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -422,7 +421,8 @@
         </div>
          <div class="right ">
                       <h5 class="font-weight-bold">${item.name}</h5>
-                      <div class="sub-title">Giảm ${item.discount_value} ${item.discount_type === 'percentage' ? '%' : 'đ'}</div>
+
+                      <div class="sub-title">Giảm ${item.discount_type === 'percentage' ?   item.discount_value+'%'  : item.value_format}</div>
       </div>
       </div>`;
     })

@@ -44,8 +44,7 @@
               <h5 class="checkout-title">Mã giảm giá</h5>
            
               <div class="radio-line-wrap" id="voucher-wrap">
-                <h4>{{json_encode($current)}}</h4>
-                @foreach ($vouchers as $voucher)
+              @foreach ($vouchers as $voucher)
                   <div class="radio-line-item {{ $voucher['id'] == $current['voucher_id'] ? 'active' : '' }}" data-key="voucher_id" data-value="{{ $voucher['id'] }}">
                     <div class="left">
                       <span class="radio"></span>
@@ -53,7 +52,7 @@
                     </div>
                     <div class="right ">
                       <h5 class="font-weight-bold">{{ $voucher['name'] }}</h5>
-                      <div class="sub-title">Giảm {{ $voucher['discount_value'] }}{{$voucher['discount_type'] === 'percentage' ? '%' : 'đ'}}</div>
+                      <div class="sub-title">Giảm {{$voucher['discount_type'] === 'percentage' ?   $voucher['discount_value'].'%'  : $voucher['value_format']}}</div>
                     </div>
                   </div>
                 @endforeach
@@ -308,7 +307,8 @@
         </div>
          <div class="right ">
                       <h5 class="font-weight-bold">${item.name}</h5>
-                      <div class="sub-title">Giảm ${item.discount_value} ${item.discount_type === 'percentage' ? '%' : 'đ'}</div>
+
+                      <div class="sub-title">Giảm ${item.discount_type === 'percentage' ?   item.discount_value+'%'  : item.value_format}</div>
       </div>
       </div>`;
     })
