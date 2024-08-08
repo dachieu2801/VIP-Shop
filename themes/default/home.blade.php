@@ -7,7 +7,6 @@
 
   @foreach($modules as $module)
     @include($module['view_path'], $module)
-
   @endforeach
 
   @hook('home.modules.after')

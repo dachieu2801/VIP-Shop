@@ -17,7 +17,7 @@ use Beike\Repositories\ProductReviewsRepo;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Log;
+
 class ProductController extends Controller
 {
     protected string $defaultRoute = 'products.index';
@@ -185,6 +185,26 @@ class ProductController extends Controller
             ->get();
     }
 
+    public function productStorage(Request $request)
+    {
+        $perPage = $request->input('per_page', 20);
+
+        $page = $request->input('page', 1);
+
+        $sortBy = $request->input('sort_by', 'created_at');
+        $sortOrder = $request->input('sort_order', 'asc');
+
+        $query = Product::with(['descriptions', 'skus', 'categories'])
+            ->distinct();
+
+        $query->join('product_skus', 'products.id', '=', 'product_skus.product_id')
+                ->orderBy('product_skus.quantity', $sortOrder);
+
+        $products = $query->paginate($perPage, ['*'], 'page', $page);
+
+        return response()->json($products);
+    }
+
     public function edit(Request $request, Product $product)
     {
         return $this->form($request, $product);
@@ -228,12 +248,6 @@ class ProductController extends Controller
         return ['success' => true];
     }
 
-    /**
-     * @param Request $request
-     * @param Product $product
-     * @return mixed
-     * @throws \Exception
-     */
     protected function form(Request $request, Product $product)
     {
         if ($product->id) {
@@ -274,12 +288,6 @@ class ProductController extends Controller
         return json_success(trans('common.get_success'), $name);
     }
 
-    /**
-     * 根据商品ID批量获取商品名称
-     *
-     * @param Request $request
-     * @return JsonResponse
-     */
     public function getNames(Request $request): JsonResponse
     {
         $productIds = explode(',', $request->get('product_ids'));

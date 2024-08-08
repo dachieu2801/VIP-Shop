@@ -103,13 +103,13 @@ class Sidebar extends Component
                 'prefixes' => $this->getReportSubPrefix(),
                 'children' => $this->getReportSubRoutes(),
             ],
-            [
-                'route'    => 'theme.index',
-                'title'    => trans('admin/common.design'),
-                'icon'     => 'bi bi-palette',
-                'prefixes' => $this->getDesignSubPrefix(),
-                'children' => $this->getDesignSubRoutes(),
-            ],
+             [
+                 'route'    => 'theme.index',
+                 'title'    => trans('admin/common.design'),
+                 'icon'     => 'bi bi-palette',
+                 'prefixes' => $this->getDesignSubPrefix(),
+                 'children' => $this->getDesignSubRoutes(),
+             ],
             [
                 'route'    => 'plugins.index',
                 'title'    => trans('admin/common.plugin'),
