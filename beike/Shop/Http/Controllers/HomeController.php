@@ -102,7 +102,13 @@ class HomeController extends Controller
         }
         Log::info('product', ['asd' => $filteredCategories]);
 
+        $data = [
+            'modules'            => $moduleItems,
+            'filteredCategories' => $filteredCategories,
+        ];
 
-        return view('home', ['data'=>$data,'filteredCategories'=> $filteredCategories]);
+        $data = hook_filter('home.index.data', $data);
+
+        return view('home', $data);
     }
 }
