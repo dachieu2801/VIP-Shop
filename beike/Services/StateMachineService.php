@@ -61,6 +61,7 @@ class StateMachineService
         self::UNPAID  => [
             self::PAID      => ['updateStatus', 'addHistory', 'updateSales', 'subStock', 'notifyUpdateOrder'],
             self::CANCELLED => ['updateStatus', 'addHistory', 'notifyUpdateOrder'],
+            self::SHIPPED   => ['updateStatus', 'addHistory', 'addShipment', 'notifyUpdateOrder'],
         ],
         self::PAID    => [
             self::CANCELLED => ['updateStatus', 'addHistory', 'notifyUpdateOrder'],
