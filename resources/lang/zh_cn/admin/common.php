@@ -21,7 +21,7 @@ return [
     // errors
     'forbidden'                        => 'Từ chối',
     'has_no_permission'                => 'Bạn không có quyền truy cập, vui lòng liên hệ với quản trị viên.',
-
+    'products_productStorage' => 'Quản lý tồn kho',
     // header
     'home'                             => 'Trang chủ',
     'home_index'                       => 'Trang chủ',

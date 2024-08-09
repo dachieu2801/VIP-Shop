@@ -25,10 +25,10 @@
               <label class="filter-title">{{ __('product.name') }}</label>
               <input @keyup.enter="search" type="text" v-model="filter.name" class="form-control" placeholder="{{ __('product.name') }}">
             </div>
-            
-    
 
-   
+
+
+
 
             <div class="col-xxl-20 col-xl-3 col-lg-4 col-md-4 d-flex align-items-center mb-3">
               <label class="filter-title">{{ __('common.status') }}</label>
@@ -36,7 +36,7 @@
                 <option value="">{{ __('common.all') }}</option>
                 <option value="active">{{ __('product.active') }}</option>
                 <option value="inactive">{{ __('product.inactive') }}</option>
-            
+
               </select>
             </div>
 
@@ -56,7 +56,7 @@
           <a href="{{ admin_route('vouchers.create') }}" >
             <button class="btn btn-primary">{{ __('admin/product.products_create') }}</button>
           </a>
-       
+
         </div>
 
       @if ($vouchers->total())
@@ -86,7 +86,7 @@
                     </div>
                   </th>
 
-                 
+
                   @hook('admin.product.list.column')
                   <th class="text-end">{{ __('common.action') }}</th>
                 </tr>
@@ -101,7 +101,7 @@
                   <td>
                     <a href="" target="_blank" title="{{ $voucher['name'] }}" class="text-dark">{{ $voucher['code'] }}</a>
                   </td>
-                  
+
                   <td>{{ $voucher['description'] }}</td>
                   <td>{{ $voucher['discount_value'] }}</td>
                   <td>{{ $voucher['discount_type'] }}</td>
@@ -114,24 +114,24 @@
                       <input class="form-check-input cursor-pointer" type="checkbox" role="switch" data-active="{{ $voucher['status'] === 'active' ? true : false }}" data-id="{{ $voucher['id'] }}" @change="turnOnOff($event)" {{ $voucher['status'] === 'active' ? 'checked' : '' }}>
                     </div>
                   </td>
-                  
+
                   <td>{{ Carbon::parse($voucher['created_at'])->format('d-m-Y H:i:s') }}</td>
                   @hook('admin.product.list.column_value')
                   <td class="text-end text-nowrap">
-                   
-                      
+
+
                       <a href="{{ admin_route('vouchers.show', [$voucher['id']]) }}" class="btn btn-outline-secondary btn-sm">{{ __('common.edit') }}</a>
                       <a href="javascript:void(0)" class="btn btn-outline-danger btn-sm" @click.prevent="deleteVoucher({{ $loop->index }})">{{ __('common.delete') }}</a>
                       @hook('admin.product.list.action')
-                
-                     
+
+
                       @hook('admin.products.trashed.action')
-                 
+
                   </td>
-                
-              
-           
-               
+
+
+
+
                 </tr>
                 @endforeach
               </tbody>
@@ -161,10 +161,10 @@
         url: '{{ admin_route("vouchers.index") }}',
         filter: {
           name: bk.getQueryString('name'),
-         
+
           status: bk.getQueryString('status'),
           sort_by:'',
-        
+
         },
         selectedIds: [],
         voucherIds: @json($vouchers->pluck('id')),
@@ -230,7 +230,7 @@
 
         checkedOrderBy(orderBy) {
           this.filter.sort_by=orderBy;
-          
+
           location = bk.objectToUrlParams(this.filter, this.url)
         },
 
@@ -252,9 +252,9 @@
           }).catch(()=>{});
         },
 
-     
 
-        
+
+
       }
     });
   </script>

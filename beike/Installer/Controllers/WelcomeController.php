@@ -17,14 +17,13 @@ class WelcomeController extends BaseController
 {
     private $languages = [
         'zh_cn' => 'Tiếng Việt',
-        'en'    => 'English',
     ];
 
     public function index()
     {
         $this->checkInstalled();
         $data['languages'] = $this->languages;
-        $data['locale']    = $_COOKIE['locale'] ?? 'zh_cn';
+        $data['locale']    = 'zh_cn';
         $data['steps']     = 1;
 
         return view('installer::welcome', $data);

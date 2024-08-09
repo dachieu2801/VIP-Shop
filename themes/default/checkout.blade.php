@@ -14,9 +14,9 @@
 
   <div class="container">
     @if (!is_mobile())
-    <div class="row mt-1 justify-content-center">
-      <div class="col-12 col-md-9">@include('shared.steps', ['steps' => 2])</div>
-    </div>
+      <div class="row mt-1 justify-content-center">
+        <div class="col-12 col-md-9">@include('shared.steps', ['steps' => 2])</div>
+      </div>
     @endif
 
     <div class="row {{ !is_mobile() ? 'mt-5' : ''}}">
@@ -32,38 +32,30 @@
           </div>
         @endif
 
-       
- 
         <div class="card shadow-sm">
-        <div class="card-body p-lg-4">
-            @hook('checkout.body.header')
-
-            @include('checkout._address')
-
-            <div class="checkout-black">
-              <h5 class="checkout-title">Mã giảm giá</h5>
-           
-              <div class="radio-line-wrap" id="voucher-wrap">
-              @foreach ($vouchers as $voucher)
-                  <div class="radio-line-item {{ $voucher['id'] == $current['voucher_id'] ? 'active' : '' }}" data-key="voucher_id" data-value="{{ $voucher['id'] }}">
-                    <div class="left">
-                      <span class="radio"></span>
-                   
-                    </div>
-                    <div class="right ">
-                      <h5 class="font-weight-bold">{{ $voucher['name'] }}</h5>
-                      <div class="sub-title">Giảm {{$voucher['discount_type'] === 'percentage' ?   $voucher['discount_value'].'%'  : $voucher['value_format']}}</div>
-                    </div>
-                  </div>
-                @endforeach
-              </div>
-           </div>
-        </div>
-
           <div class="card-body p-lg-4">
             @hook('checkout.body.header')
 
             @include('checkout._address')
+
+               <div class="checkout-black"  id="vouchersssssss">
+                  <h5 class="checkout-title">Mã giảm giá</h5>
+
+                  <div class="radio-line-wrap" id="voucher-wrap">
+                    @foreach ($vouchers as $voucher)
+                      <div class="radio-line-item {{ $voucher['id'] == $current['voucher_id'] ? 'active' : '' }}" data-key="voucher_id" data-value="{{ $voucher['id'] }}">
+                        <div class="left">
+                          <span class="radio"></span>
+
+                        </div>
+                        <div class="right ">
+                          <h5 class="font-weight-bold">{{ $voucher['name'] }}</h5>
+                          <div class="sub-title">Giảm {{$voucher['discount_type'] === 'percentage' ?   $voucher['discount_value'].'%'  : $voucher['value_format']}}</div>
+                        </div>
+                      </div>
+                    @endforeach
+                  </div>
+                </div>
 
             <div class="checkout-black">
               <h5 class="checkout-title">{{ __('shop/checkout.payment_method') }}</h5>
@@ -90,19 +82,19 @@
                 <div class="radio-line-wrap" id="shipping-methods-wrap">
                   @foreach ($shipping_methods as $methods)
                     @foreach ($methods['quotes'] as $shipping)
-                    <div class="radio-line-item {{ $shipping['code'] == $current['shipping_method_code'] ? 'active':'' }}" data-key="shipping_method_code" data-value="{{ $shipping['code'] }}">
-                      <div class="left">
-                        <span class="radio"></span>
-                        <img src="{{ $shipping['icon'] }}" class="img-fluid">
+                      <div class="radio-line-item {{ $shipping['code'] == $current['shipping_method_code'] ? 'active':'' }}" data-key="shipping_method_code" data-value="{{ $shipping['code'] }}">
+                        <div class="left">
+                          <span class="radio"></span>
+                          <img src="{{ $shipping['icon'] }}" class="img-fluid">
+                        </div>
+                        <div class="right ms-2">
+                          <div class="title">{{ $shipping['name'] }}</div>
+                          <div class="sub-title">{!! $shipping['description'] !!}</div>
+                          @if (isset($shipping['html']))
+                            <div class="mt-2">{!! $shipping['html'] !!}</div>
+                          @endif
+                        </div>
                       </div>
-                      <div class="right ms-2">
-                        <div class="title">{{ $shipping['name'] }}</div>
-                        <div class="sub-title">{!! $shipping['description'] !!}</div>
-                        @if (isset($shipping['html']))
-                          <div class="mt-2">{!! $shipping['html'] !!}</div>
-                        @endif
-                      </div>
-                    </div>
                     @endforeach
                   @endforeach
                 </div>
@@ -172,14 +164,14 @@
                   <li><span>{{ __('admin/dashboard.subtotal_discount') }}</span><span>-{{ $carts['discount_amount_format'] }}</span></li>
                 @endif -->
                 @foreach ($totals as $total)
-                <li><span>{{ $total['title'] }}</span><span>{{ $total['amount_format'] }}</span></li>
+                  <li><span>{{ $total['title'] }}</span><span>{{ $total['amount_format'] }}</span></li>
                 @endforeach
               </ul>
               <div class="d-grid gap-2 mt-3 submit-checkout-wrap">
                 @if (is_mobile())
-                <div class="text-nowrap">
-                  <span>{{ __('common.text_total') }}</span>: <span class="fw-bold text-total">{{ $totals[count($totals) - 1]['amount_format'] }}</span>
-                </div>
+                  <div class="text-nowrap">
+                    <span>{{ __('common.text_total') }}</span>: <span class="fw-bold text-total">{{ $totals[count($totals) - 1]['amount_format'] }}</span>
+                  </div>
                 @endif
 
                 @hookwrapper('checkout.confirm')
@@ -194,6 +186,7 @@
       </div>
     </div>
   </div>
+
 
   @hook('checkout.footer')
 @endsection
@@ -210,7 +203,7 @@
     $('#submit-checkout').click(function(event) {
         const address = config.isLogin ? checkoutAddressApp.form.shipping_address_id : checkoutAddressApp.source.guest_shipping_address;
         const payment = config.isLogin ? checkoutAddressApp.form.payment_address_id : checkoutAddressApp.source.guest_payment_address;
-        const voucherId = $('#voucher-wrap .radio-line-item.active').data('value'); // Get the selected voucher ID
+        const voucherId = $('#voucher-wrap .radio-line-item.active').data('value');
 
         if (checkoutAddressApp.shippingRequired && !address) {
             layer.msg('{{ __('shop/checkout.error_address') }}', ()=>{})
@@ -301,12 +294,12 @@
   }
   const updateVoucher = (data, voucher_id) => {
     let html = '';
-   
+
     data.forEach((item) => {
       html += `<div class="radio-line-item d-flex align-items-center ${voucher_id == item.id ? 'active' : ''}" data-key="voucher_id" data-value="${item.id}">
         <div class="left">
           <span class="radio"></span>
-          
+
         </div>
          <div class="right ">
                       <h5 class="font-weight-bold">${item.name}</h5>
@@ -320,3 +313,4 @@
   }
 </script>
 @endpush
+
