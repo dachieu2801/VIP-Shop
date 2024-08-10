@@ -22,13 +22,13 @@ class ProductResource extends JsonResource
         $productSkus = Product::with('skus')
             ->where('id', $this->id)
             ->first()->jsonSerialize();
-        $status = 'còn hàng';
+        $status = 'Normal';
         foreach ($productSkus['skus'] as $sku) {
             if ($sku['quantity'] == 0) {
-                $status = 'có sản phẩm hết hàng';
+                $status = 'Out';
                 break;
             } elseif ($sku['quantity'] > 1 && $sku['quantity'] < 10) {
-                $status = 'có sản phẩm sắp hết';
+                $status = 'Few';
             }
         }
 

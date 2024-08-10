@@ -31,17 +31,20 @@ class ProductController extends Controller
             $requestData['sort']  = 'products.updated_at';
             $requestData['order'] = 'desc';
         }
-        $productList    = ProductRepo::list($requestData);
+        $productList = [];
+
+        $sortQuantity = $requestData['sort_quantity'] ?? false;
+        if(!$sortQuantity){
+            $productList       = ProductRepo::list($requestData);
+        } else {
+            $query = Product::with(['description', 'skus', 'masterSku', 'attributes', 'brand']);
+            $query->join('product_skus', 'products.id', '=', 'product_skus.product_id')
+                ->orderBy('product_skus.quantity', $sortQuantity)
+                ->select('products.*');
+        }
 
         $products       = ProductResource::collection($productList);
         $productsFormat =  $products->jsonSerialize();
-
-//        if(!$requestData['sort_quantity']){
-//            $products       = ProductResource::collection($productList);
-//            $productsFormat =  $products->jsonSerialize();
-//        } else {}
-
-        Log::info('ádas',);
         session(['page' => $request->get('page', 1)]);
         $data = [
             'categories'      => CategoryRepo::flatten(locale()),
