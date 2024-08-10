@@ -4,6 +4,18 @@
       -{{$product['discount']}}%
     </div>
    @endif
+    <button class="btn btn-link p-0 mt-1 text-secondary btn-wishlist-mobile" data-in-wishlist="{{ $product['in_wishlist'] }}" onclick="bk.addWishlist('{{ $product['id'] }}', this)">
+      <i class="bi bi-heart{{ $product['in_wishlist'] ? '-fill' : '' }} me-1"></i>
+    </button>
+    <button
+      class="btn btn-light text-light btn-add-cart-mobile"
+      product-id="{{ $product['sku_id'] }}"
+      product-price="{{ $product['price'] }}"
+      onclick="bk.productQuickView({{ $product['id'] }})">>
+{{--      onclick="bk.addCart({sku_id: '{{ $product['sku_id'] }}'}, this)">--}}
+      <i class="bi bi-cart"></i>
+
+    </button>
 
   <div class="image">
     @hook('product_list.item.image.tag')
@@ -100,9 +112,11 @@
         <br>
         <button class="btn btn-link p-0 mt-1 text-secondary btn-wishlist" data-in-wishlist="{{ $product['in_wishlist'] }}" onclick="bk.addWishlist('{{ $product['id'] }}', this)">
           <i class="bi bi-heart{{ $product['in_wishlist'] ? '-fill' : '' }} me-1"></i> {{ __('shop/products.add_to_favorites') }}
+
         </button>
       </div>
     @endif
+
   </div>
 
   @hook('product_list.item.after')

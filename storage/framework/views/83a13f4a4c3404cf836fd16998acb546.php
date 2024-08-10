@@ -18,7 +18,8 @@
   <?php $__currentLoopData = $modules; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $module): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
     <?php echo $__env->make($module['view_path'], $module, \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
   <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-
+  <div><?php echo e(json_encode($modules)); ?></div>
+{categories : [],product: []}
    <?php
                 $__definedVars = (get_defined_vars()["__data"]);
                 if (empty($__definedVars))
