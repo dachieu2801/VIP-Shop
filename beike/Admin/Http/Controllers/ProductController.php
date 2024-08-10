@@ -31,23 +31,17 @@ class ProductController extends Controller
             $requestData['sort']  = 'products.updated_at';
             $requestData['order'] = 'desc';
         }
-        $productList    = [];
-
-        $check = $requestData['sort_quantity'] ?? false;
-        if ($check) {
-            $productList[]       = ProductResource::collection($requestData);
-        } else {
-            $query = Product::with(['skus']);
-            $query->join('product_skus', 'products.id', '=', 'product_skus.product_id')
-                ->orderBy('product_skus.quantity', $requestData['quantity'])
-                ->select('products.*');
-            $productList[]      =  $query->paginate(20);
-        }
+        $productList    = ProductRepo::list($requestData);
 
         $products       = ProductResource::collection($productList);
         $productsFormat =  $products->jsonSerialize();
 
-        Log::info('ádas', ['saddas' => $products]);
+//        if(!$requestData['sort_quantity']){
+//            $products       = ProductResource::collection($productList);
+//            $productsFormat =  $products->jsonSerialize();
+//        } else {}
+
+        Log::info('ádas',);
         session(['page' => $request->get('page', 1)]);
         $data = [
             'categories'      => CategoryRepo::flatten(locale()),
@@ -178,11 +172,14 @@ class ProductController extends Controller
                 $failedProducts[$index] = [
                     'product' => $productData,
                     'error'   => $e->getMessage(),
-                    'row'     => $index,
+                    'row'     => $index
                 ];
             }
         }
 
+        //        return json_success(trans('common.deleted_success'));
+
+        // Trả về phản hồi JSON với thông báo thành công và thông tin về các sản phẩm không hợp lệ
         return response()->json([
             'message'            => 'Products processed',
             'processed_products' => $processedProducts,
@@ -226,8 +223,7 @@ class ProductController extends Controller
         // $data = hook_filter('admin.product.productStorage.data', $data);
         Log::info('ada', ['ádas' => $data]);
 
-//        return view('admin::pages.storage.index', $data);
-        return $productsFormat;
+        return view('admin::pages.storage.index', $data);
     }
 
     public function updateStock(Request $request)
