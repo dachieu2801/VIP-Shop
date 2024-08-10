@@ -19,7 +19,6 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
@@ -32,12 +31,23 @@ class ProductController extends Controller
             $requestData['sort']  = 'products.updated_at';
             $requestData['order'] = 'desc';
         }
-        $productList    = ProductRepo::list($requestData);
+        $productList    = [];
+
+        if (! $requestData['sort_quantity']) {
+            $productList       = ProductResource::collection($requestData);
+        } else {
+            $query = Product::with(['skus']);
+            $query->join('product_skus', 'products.id', '=', 'product_skus.product_id')
+                ->orderBy('product_skus.quantity', $requestData['quantity'])
+                ->select('products.*');
+            $productList       =  $query->paginate(20);
+
+        }
+
         $products       = ProductResource::collection($productList);
         $productsFormat =  $products->jsonSerialize();
 
-        Log::info('add',['đá'=>$productsFormat]);
-
+        Log::info('ádas', ['saddas' => $products]);
         session(['page' => $request->get('page', 1)]);
         $data = [
             'categories'      => CategoryRepo::flatten(locale()),
@@ -168,6 +178,7 @@ class ProductController extends Controller
                 $failedProducts[$index] = [
                     'product' => $productData,
                     'error'   => $e->getMessage(),
+                    'row'     => $index,
                 ];
             }
         }
@@ -216,7 +227,7 @@ class ProductController extends Controller
         ];
 
         // $data = hook_filter('admin.product.productStorage.data', $data);
-        Log::info('ada',['ádas'=>$data]);
+        Log::info('ada', ['ádas' => $data]);
 
         return view('admin::pages.storage.index', $data);
     }
