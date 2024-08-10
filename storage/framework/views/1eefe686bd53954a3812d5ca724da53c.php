@@ -48,4 +48,4 @@
 
 
 
-<?php /**PATH D:\shop-freelance\themes\default/design/tab_product.blade.php ENDPATH**/ ?>
+<?php /**PATH G:\workspace\shop-freelance\themes\default/design/tab_product.blade.php ENDPATH**/ ?>

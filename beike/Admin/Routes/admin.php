@@ -240,6 +240,7 @@ Route::prefix($adminName)
                 Route::middleware('can:products_show')->get('products/{product}/edit', [Controllers\ProductController::class, 'edit'])->name('products.edit');
                 Route::middleware('can:products_show')->get('products/list', [Controllers\ProductController::class, 'getProducts'])->name('products.getProducts');
                 Route::middleware('can:products_storage')->get('products/storage', [Controllers\ProductController::class, 'productStorage'])->name('products.productStorage');
+                Route::middleware('can:products_update_storage')->post('products/storage', [Controllers\ProductController::class, 'updateStock'])->name('products.updateStock');
                 Route::middleware('can:products_update')->put('products/{product}', [Controllers\ProductController::class, 'update'])->name('products.update');
                 Route::middleware('can:products_delete')->delete('products/{product}', [Controllers\ProductController::class, 'destroy'])->name('products.destroy');
                 Route::middleware('can:products_reviews')->get('products/reviews', [Controllers\ProductController::class, 'reviews'])->name('products.reviews');

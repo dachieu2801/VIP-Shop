@@ -1,6 +1,5 @@
 
 <div>
-  <p style="font-size: 1rem;" class="mt-2 mb-3">Internet Banking</p>
   <div class="d-flex">
     <p class="me-2" style="width: 20px;
     height: 20px;

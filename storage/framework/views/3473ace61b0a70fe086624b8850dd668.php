@@ -56,4 +56,4 @@
 
   </script>
 </section>
-<?php /**PATH D:\shop-freelance\themes\default/design/slideshow.blade.php ENDPATH**/ ?>
+<?php /**PATH G:\workspace\shop-freelance\themes\default/design/slideshow.blade.php ENDPATH**/ ?>

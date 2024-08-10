@@ -359,4 +359,4 @@
                 echo $output;
                 ?>
 </header>
-<?php /**PATH D:\shop-freelance\themes\default/layout/header.blade.php ENDPATH**/ ?>
+<?php /**PATH G:\workspace\shop-freelance\themes\default/layout/header.blade.php ENDPATH**/ ?>

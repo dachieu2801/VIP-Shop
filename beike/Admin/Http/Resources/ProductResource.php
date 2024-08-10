@@ -2,6 +2,7 @@
 
 namespace Beike\Admin\Http\Resources;
 
+use Beike\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -18,6 +19,19 @@ class ProductResource extends JsonResource
     {
         $masterSku = $this->masterSku;
 
+        $productSkus = Product::with('skus')
+            ->where('id', $this->id)
+            ->first()->jsonSerialize();
+        $status = 'còn hàng';
+        foreach ($productSkus['skus'] as $sku) {
+            if ($sku['quantity'] == 0) {
+                $status = 'có sản phẩm hết hàng';
+                break;
+            } elseif ($sku['quantity'] > 1 && $sku['quantity'] < 10) {
+                $status = 'có sản phẩm sắp hết';
+            }
+        }
+
         $data = [
             'id'              => $this->id,
             'images'          => array_map(function ($image) {
@@ -25,7 +39,9 @@ class ProductResource extends JsonResource
             }, $this->images ?? []),
             'name'            => $this->description->name ?? '',
             'model'           => $masterSku->model,
+            'sku'             => $masterSku->sku,
             'quantity'        => $masterSku->quantity,
+            'status_quantity' => $status,
             'price_formatted' => currency_format($masterSku->price),
             'active'          => $this->active,
             'position'        => $this->position,

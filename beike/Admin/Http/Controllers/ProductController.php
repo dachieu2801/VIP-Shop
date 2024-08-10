@@ -9,6 +9,7 @@ use Beike\Admin\Repositories\TaxClassRepo;
 use Beike\Admin\Services\ProductService;
 use Beike\Libraries\Weight;
 use Beike\Models\Product;
+use Beike\Models\ProductSku;
 use Beike\Repositories\CategoryRepo;
 use Beike\Repositories\FlattenCategoryRepo;
 use Beike\Repositories\LanguageRepo;
@@ -16,6 +17,7 @@ use Beike\Repositories\ProductRepo;
 use Beike\Repositories\ProductReviewsRepo;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
@@ -33,8 +35,9 @@ class ProductController extends Controller
         $products       = ProductResource::collection($productList);
         $productsFormat =  $products->jsonSerialize();
 
-        session(['page' => $request->get('page', 1)]);
+        Log::info('add',['đá'=>$productsFormat]);
 
+        session(['page' => $request->get('page', 1)]);
         $data = [
             'categories'      => CategoryRepo::flatten(locale()),
             'products_format' => $productsFormat,
@@ -150,9 +153,7 @@ class ProductController extends Controller
 
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
-            return response()->json([
-                'errors' => $validator->errors(),
-            ], 422);
+            return json_fail('', $validator->errors());
         }
         $productsData      = $request->input('products');
         $processedProducts = [];
@@ -169,6 +170,8 @@ class ProductController extends Controller
                 ];
             }
         }
+
+        //        return json_success(trans('common.deleted_success'));
 
         // Trả về phản hồi JSON với thông báo thành công và thông tin về các sản phẩm không hợp lệ
         return response()->json([
@@ -214,6 +217,22 @@ class ProductController extends Controller
         $data = hook_filter('admin.product.productStorage.data', $data);
 
         return view('admin::pages.storage.index', $data);
+    }
+
+    public function updateStock(Request $request)
+    {
+        try {
+            $requestData = $request->all();
+            $skuId       = $requestData['id']       ?? '';
+            $quantity    = $requestData['quantity'] ?? 0;
+
+            ProductSku::where('id', $skuId)->update(['quantity' => $quantity]);
+
+            return json_success(trans('common.update_success'));
+
+        } catch (\Exception $e) {
+            return json_fail('', $e->getMessage());
+        }
     }
 
     public function edit(Request $request, Product $product)
