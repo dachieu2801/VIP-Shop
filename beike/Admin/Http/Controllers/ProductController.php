@@ -187,22 +187,37 @@ class ProductController extends Controller
 
     public function productStorage(Request $request)
     {
-        $perPage = $request->input('per_page', 20);
+        $sortQuantity = $request->get('sort_quantity', 'desc');
+        $productName  = $request->get('product_name', null);
+        $productId    = $request->get('product_id', null);
 
-        $page = $request->input('page', 1);
-
-        $sortBy = $request->input('sort_by', 'created_at');
-        $sortOrder = $request->input('sort_order', 'asc');
-
-        $query = Product::with(['descriptions', 'skus', 'categories'])
-            ->distinct();
-
+        $query = Product::with(['descriptions', 'skus']);
         $query->join('product_skus', 'products.id', '=', 'product_skus.product_id')
-                ->orderBy('product_skus.quantity', $sortOrder);
+            ->orderBy('product_skus.quantity', $sortQuantity)
+            ->select('products.*');
 
-        $products = $query->paginate($perPage, ['*'], 'page', $page);
+        if ($productName) {
+            $query->where('products.name', 'like', '%' . $productName . '%');
+        }
 
-        return response()->json($products);
+        if ($productId) {
+            $query->where('products.id', $productId);
+        }
+
+        $products       =  $query->paginate(20);
+        $productsFormat = $products->jsonSerialize();
+        $data           = [
+            'products_format' => $productsFormat,
+            'products'        => $products,
+        ];
+
+        $data = hook_filter('admin.product.productStorage.data', $data);
+
+//        if ($request->expectsJson()) {
+//            return $productsFormat;
+//        }
+
+        return view('admin::pages.storage.index', $data);
     }
 
     public function edit(Request $request, Product $product)

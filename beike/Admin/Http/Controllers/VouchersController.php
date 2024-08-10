@@ -63,6 +63,7 @@ class VouchersController extends Controller
             'vouchers'         => $vouchers,
             'vouchers_format'  => $vouchers->jsonSerialize(),
         ];
+        $data = hook_filter('admin.vouchers.index.data', $data);
 
         return view('admin::pages.vouchers.index', $data);
     }
@@ -137,20 +138,11 @@ class VouchersController extends Controller
 
     public function destroy(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'id'              => 'required|numeric',
-        ]);
-        if ($validator->fails()) {
-            return response()->json([
-                'errors' => $validator->errors(),
-            ], 422);
-        }
         $data    = $request->all();
         $deleted = $this->vouchersRepo->delete($data['id']);
         if ($deleted) {
-            return response()->json(['message' => 'Voucher deleted']);
+            return json_success(trans('common.deleted_success'));
         }
-
-        return response()->json(['message' => 'Voucher not found'], 404);
+        return json_fail(trans('common.deleted_faid'));
     }
 }

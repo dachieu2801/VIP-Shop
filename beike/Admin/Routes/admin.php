@@ -6,7 +6,6 @@ use Beike\Admin\Http\Controllers\VouchersController;
 use Illuminate\Support\Facades\Route;
 
 $adminName = admin_name();
-Route::get('products/storage', [Controllers\ProductController::class, 'productStorage'])->name('products.productStorage');
 
 Route::prefix($adminName)
     ->middleware(['admin'])
@@ -240,7 +239,7 @@ Route::prefix($adminName)
                 Route::middleware('can:products_create')->post('products/list', [Controllers\ProductController::class, 'storeMultiple'])->name('products.storeMultiple');
                 Route::middleware('can:products_show')->get('products/{product}/edit', [Controllers\ProductController::class, 'edit'])->name('products.edit');
                 Route::middleware('can:products_show')->get('products/list', [Controllers\ProductController::class, 'getProducts'])->name('products.getProducts');
-                Route::middleware('can:products_show')->get('products/storage', [Controllers\ProductController::class, 'productStorage'])->name('products.productStorage');
+                Route::middleware('can:products_storage')->get('products/storage', [Controllers\ProductController::class, 'productStorage'])->name('products.productStorage');
                 Route::middleware('can:products_update')->put('products/{product}', [Controllers\ProductController::class, 'update'])->name('products.update');
                 Route::middleware('can:products_delete')->delete('products/{product}', [Controllers\ProductController::class, 'destroy'])->name('products.destroy');
                 Route::middleware('can:products_reviews')->get('products/reviews', [Controllers\ProductController::class, 'reviews'])->name('products.reviews');
@@ -252,7 +251,7 @@ Route::prefix($adminName)
                 Route::middleware('can:vouchers_store')->post('vouchers', [VouchersController::class, 'store'])->name('vouchers.store');
                 Route::middleware('can:vouchers_new')->get('vouchers/create/new', [VouchersController::class, 'create'])->name('vouchers.create');
                 Route::middleware('can:vouchers_edit')->post('vouchers/edit', [VouchersController::class, 'update'])->name('vouchers.update');
-                Route::middleware('can:products_delete')->post('vouchers/delete', [VouchersController::class, 'destroy'])->name('products.destroy');
+                Route::middleware('can:vouchers_delete')->post('vouchers/delete', [VouchersController::class, 'destroy'])->name('vouchers.destroy');
 
                 // 翻译s
                 Route::post('translation', [Controllers\TranslationController::class, 'translateText'])->name('translation.translate');
