@@ -12,6 +12,8 @@
   @endif
 
   <div id="product-app">
+
+
     <div class="card h-min-600">
       <div class="card-body">
         <div class="bg-light p-4">
@@ -68,10 +70,10 @@
             <a href="{{ admin_route('products.create') }}" >
               <button class="btn btn-primary">{{ __('admin/product.products_create') }}</button>
             </a>
-           
+
               <input type="file" id="import-excel" accept=".xlsx, .xls">
               <button class="btn btn-success"  id="upload-excel">Upload Excel</button>
-           
+
       <button id="export-excel" class="btn btn-danger">{{ __('admin/product.export_excel') }}</button>
           </div>
           @else
@@ -113,18 +115,20 @@
 
                   <th class="d-flex align-items-center">
                     <div class="d-flex align-items-center">
-                        {{ __('common.sort_order') }}
+                        TT ưu tiên
                       <div class="d-flex flex-column ml-1 order-by-wrap">
                         <i class="el-icon-caret-top" @click="checkedOrderBy('position:asc')"></i>
                         <i class="el-icon-caret-bottom" @click="checkedOrderBy('position:desc')"></i>
                       </div>
                     </div>
                   </th>
+                  <th>Tồn kho</th>
+                  <th>Trạng thái tồn kho</th>
                   @if ($type != 'trashed')
                     <th>{{ __('common.status') }}</th>
                   @endif
                   @hook('admin.product.list.column')
-                  <th class="text-end">{{ __('common.action') }}</th>
+                  <th class="text-center">{{ __('common.action') }}</th>
                 </tr>
               </thead>
               <tbody>
@@ -140,7 +144,33 @@
                   </td>
                   <td>{{ $product['price_formatted'] }}</td>
                   <td>{{ $product['created_at'] }}</td>
-                  <td>{{ $product['position'] }}</td>
+                  <td class="text-center">{{ $product['position'] }}</td>
+                  <td class="text-center">{{$product['quantity']}}</td>
+                  <td>
+                    <div class="
+    @if($product['status_quantity'] == 'Normal') bg-success
+    @elseif($product['status_quantity'] == 'Few') bg-warning
+    @elseif($product['status_quantity'] == 'Out') bg-danger
+    @endif
+    shadow-lg
+" style="padding: 0; border-radius: 1rem;">
+                      <div class="card-body text-white text-center" style=" padding: 5px; padding-top: 12px">
+                        <h5 class="card-title
+
+        ">
+                          @if($product['status_quantity'] == 'Normal')
+                            Còn hàng
+                          @elseif($product['status_quantity'] == 'Few')
+                            Có sp sắp hết
+                          @elseif($product['status_quantity'] == 'Out')
+                            Có sp đã hết
+                          @endif
+                        </h5>
+                      </div>
+                    </div>
+                  </td>
+
+
                   @if ($type != 'trashed')
                     <td>
                       <div class="form-check form-switch">
@@ -185,7 +215,7 @@ $(document).ready(function() {
   $('#upload-excel').click(function() {
     const fileInput = document.getElementById('import-excel');
     const file = fileInput.files[0];
-    
+
     if (!file) {
       alert("Please select an Excel file.");
       return;
@@ -273,8 +303,37 @@ $(document).ready(function() {
           },
           data: JSON.stringify({ products: formattedData }),
           success: function(response) {
-            console.log(response);
-            alert('Products imported successfully.');
+            console.log(response)
+            if(response.failed_products.length === 0){
+              alert("Đã import sản phẩm thành công !!!")
+            }else{
+              const errorMap = new Map();
+
+              response.failed_products.forEach(item => {
+                const error = item.error;
+                const row = Number(item.row) + 2;
+
+
+                if (errorMap.has(error)) {
+                  errorMap.get(error).count += 1;
+                  errorMap.get(error).rows.push(row);
+                } else {
+                  errorMap.set(error, { count: 1, rows: [row] });
+                }
+              });
+
+              // Create a message string for the alert
+              let message = '';
+
+              errorMap.forEach((value, error) => {
+                const rows = value.rows.join(', ');
+                message += `Có ${value.count} sản phẩm ở các hàng ${rows} bị lỗi do ${error}\n`;
+              });
+
+              // Show a single alert with the complete message
+              alert(message);
+            }
+
           },
           error: function(error) {
             console.error('Error:', error);
@@ -301,7 +360,7 @@ $(document).ready(function() {
 $(document).ready(function() {
   $('#export-excel').click(function() {
     const token = $('meta[name="csrf-token"]').attr('content');
-    
+
     fetch('/admin/products/list', {
       method: 'GET',
       headers: {
