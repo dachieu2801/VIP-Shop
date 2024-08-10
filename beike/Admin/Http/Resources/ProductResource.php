@@ -5,6 +5,7 @@ namespace Beike\Admin\Http\Resources;
 use Beike\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Log;
 
 class ProductResource extends JsonResource
 {
@@ -19,15 +20,17 @@ class ProductResource extends JsonResource
     {
         $masterSku = $this->masterSku;
 
+        $status = 'Normal';
+
         $productSkus = Product::with('skus')
             ->where('id', $this->id)
-            ->first()->jsonSerialize();
-        $status = 'Normal';
-        foreach ($productSkus['skus'] as $sku) {
-            if ($sku['quantity'] == 0) {
+            ->first();
+        if ($productSkus) {
+            $abc         = $productSkus->jsonSerialize();
+            $minQuantity = min(array_column($abc['skus'], 'quantity'));
+            if ($minQuantity == 0) {
                 $status = 'Out';
-                break;
-            } elseif ($sku['quantity'] > 1 && $sku['quantity'] < 10) {
+            } elseif ($minQuantity >= 1 && $minQuantity <= 10) {
                 $status = 'Few';
             }
         }
@@ -38,11 +41,11 @@ class ProductResource extends JsonResource
                 return image_resize($image);
             }, $this->images ?? []),
             'name'            => $this->description->name ?? '',
-            'model'           => $masterSku->model,
-            'sku'             => $masterSku->sku,
-            'quantity'        => $masterSku->quantity,
+            'model'           => $masterSku->model        ?? '',
+            'sku'             => $masterSku->sku          ?? '',
+            'quantity'        => $masterSku->quantity     ?? '',
             'status_quantity' => $status,
-            'price_formatted' => currency_format($masterSku->price),
+            'price_formatted' => currency_format($masterSku->price ?? 0),
             'active'          => $this->active,
             'position'        => $this->position,
             'url'             => $this->url,

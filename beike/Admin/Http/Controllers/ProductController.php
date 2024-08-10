@@ -33,18 +33,25 @@ class ProductController extends Controller
         }
         $productList = [];
 
-        $sortQuantity = $requestData['sort_quantity'] ?? false;
-        if(!$sortQuantity){
+        $sortQuantity = $requestData['sort_quantity'] ?? true;
+        $quantity     = $requestData['quantity']      ?? 'asc';
+
+        if (! $sortQuantity) {
             $productList       = ProductRepo::list($requestData);
         } else {
             $query = Product::with(['description', 'skus', 'masterSku', 'attributes', 'brand']);
             $query->join('product_skus', 'products.id', '=', 'product_skus.product_id')
-                ->orderBy('product_skus.quantity', $sortQuantity)
-                ->select('products.*');
+                ->select('products.*')
+                ->selectRaw('MIN(product_skus.quantity) as min_quantity')
+                ->groupBy('products.id')
+                ->orderBy('min_quantity', $quantity);
+            $productList       =  $query->paginate(20);
+
         }
 
         $products       = ProductResource::collection($productList);
         $productsFormat =  $products->jsonSerialize();
+
         session(['page' => $request->get('page', 1)]);
         $data = [
             'categories'      => CategoryRepo::flatten(locale()),
@@ -175,7 +182,7 @@ class ProductController extends Controller
                 $failedProducts[$index] = [
                     'product' => $productData,
                     'error'   => $e->getMessage(),
-                    'row'     => $index
+                    'row'     => $index,
                 ];
             }
         }
