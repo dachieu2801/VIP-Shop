@@ -213,10 +213,6 @@ class ProductController extends Controller
 
         $data = hook_filter('admin.product.productStorage.data', $data);
 
-//        if ($request->expectsJson()) {
-//            return $productsFormat;
-//        }
-
         return view('admin::pages.storage.index', $data);
     }
 

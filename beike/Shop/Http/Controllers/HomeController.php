@@ -148,6 +148,7 @@ class HomeController extends Controller
                     'module_code' => 'tab_product',
                     'tabs'        => [],
                 ],
+                'url'      => url('/categories/' . $a['id']),
             ];
             $module['content']['tabs'][] = [
                 'title'    => 'Tất cả',

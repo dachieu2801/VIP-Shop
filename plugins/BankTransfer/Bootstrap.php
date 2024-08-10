@@ -9,8 +9,9 @@
  * @modified   2023-08-17 15:15:27
  */
 
-namespace Plugin\VnPay;
+namespace Plugin\BankTransfer;
 
+use Plugin\BankTransfer\Services\BankTransferService;
 use Stripe\Exception\ApiErrorException;
 
 class Bootstrap
@@ -29,6 +30,7 @@ class Bootstrap
             if ($order->payment_method_code != 'bank_transfer') {
                 return $data;
             }
+
             return $data;
         });
     }
