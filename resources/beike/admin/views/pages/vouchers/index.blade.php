@@ -121,7 +121,7 @@
 
 
                       <a href="{{ admin_route('vouchers.show', [$voucher['id']]) }}" class="btn btn-outline-secondary btn-sm">{{ __('common.edit') }}</a>
-                      <a href="javascript:void(0)" class="btn btn-outline-danger btn-sm" @click.prevent="deleteVoucher({{ $loop->index }})">{{ __('common.delete') }}</a>
+                      <button  class="btn btn-outline-danger btn-sm" @click="deleteVoucher({{$voucher['id']}})">{{ __('common.delete') }}</button>
                       @hook('admin.product.list.action')
 
 
@@ -153,8 +153,7 @@
 
 
   <script>
-
-
+  
     let app = new Vue({
       el: '#product-app',
       data: {
@@ -240,12 +239,13 @@
         },
 
         deleteVoucher(index) {
-          const id = this.productIds[index];
+          console.log(index)
+          // const id = this.productIds[index];
 
           this.$confirm('{{ __('common.confirm_delete') }}', '{{ __('common.text_hint') }}', {
             type: 'warning'
           }).then(() => {
-            $http.post('vouchers/delete', {id: id} ).then((res) => {
+            $http.post('vouchers/delete', {id: index} ).then((res) => {
               this.$message.success(res.message);
               location.reload();
             })
