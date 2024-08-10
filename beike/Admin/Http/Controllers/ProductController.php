@@ -33,15 +33,15 @@ class ProductController extends Controller
         }
         $productList    = [];
 
-        if (! $requestData['sort_quantity']) {
-            $productList       = ProductResource::collection($requestData);
+        $check = $requestData['sort_quantity'] ?? false;
+        if ($check) {
+            $productList[]       = ProductResource::collection($requestData);
         } else {
             $query = Product::with(['skus']);
             $query->join('product_skus', 'products.id', '=', 'product_skus.product_id')
                 ->orderBy('product_skus.quantity', $requestData['quantity'])
                 ->select('products.*');
-            $productList       =  $query->paginate(20);
-
+            $productList[]      =  $query->paginate(20);
         }
 
         $products       = ProductResource::collection($productList);
@@ -183,9 +183,6 @@ class ProductController extends Controller
             }
         }
 
-        //        return json_success(trans('common.deleted_success'));
-
-        // Trả về phản hồi JSON với thông báo thành công và thông tin về các sản phẩm không hợp lệ
         return response()->json([
             'message'            => 'Products processed',
             'processed_products' => $processedProducts,
@@ -229,7 +226,8 @@ class ProductController extends Controller
         // $data = hook_filter('admin.product.productStorage.data', $data);
         Log::info('ada', ['ádas' => $data]);
 
-        return view('admin::pages.storage.index', $data);
+//        return view('admin::pages.storage.index', $data);
+        return $productsFormat;
     }
 
     public function updateStock(Request $request)
