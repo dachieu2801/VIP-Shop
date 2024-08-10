@@ -19,8 +19,7 @@
 @endpush
 
 @section('page-bottom-btns')
-  <button type="button" class="btn w-min-100 btn-lg btn-primary submit-form-edit">{{ $type === "edit" ? __('common.save') : __('common.save_new') }}</button>
-  <button type="button" class="btn w-min-100 btn-lg btn-default submit-form ms-2">{{ __('common.save_return') }}</button>
+  <button type="button" class="btn w-min-100 btn-lg btn-primary submit-form">{{ __('common.save') }}</button>
 @endsection
 
 @section('content')

@@ -17,6 +17,7 @@ use Beike\Repositories\ProductReviewsRepo;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
@@ -211,7 +212,8 @@ class ProductController extends Controller
             'products'        => $products,
         ];
 
-        $data = hook_filter('admin.product.productStorage.data', $data);
+        // $data = hook_filter('admin.product.productStorage.data', $data);
+        Log::info('ada',['ádas'=>$data]);
 
         return view('admin::pages.storage.index', $data);
     }

@@ -8,8 +8,8 @@
   @foreach($modules as $module)
     @include($module['view_path'], $module)
   @endforeach
-  <div>{{json_encode($modules)}}</div>
-{categories : [],product: []}
+
+
   @hook('home.modules.after')
 
 </div>
