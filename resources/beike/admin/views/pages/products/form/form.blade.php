@@ -817,7 +817,7 @@
 
         batchSettingVariantImage() {
           bk.fileManagerIframe(images => {
-            this.variablesBatch.image = images[0].path;
+            this.variablesBatch.image = images[0].path.slice(1, images[0].path.lenth())
           })
         },
 
@@ -827,7 +827,6 @@
               if (this.form.skus[skuIndex].images === null) {
                 this.form.skus[skuIndex].images = images.map((e)=>{
                   if(e.path.charAt(0)==='/'){
-                    console.log(e.path)
                     return e.path.slice(1, e.path.lenth())
                   }
                   return e.path
