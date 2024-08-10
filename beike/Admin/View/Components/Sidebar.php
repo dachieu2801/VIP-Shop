@@ -226,7 +226,7 @@ class Sidebar extends Component
      */
     private function getProductSubPrefix()
     {
-        $prefix = ['products', 'multi_filter', 'categories', 'brands', 'attribute_groups', 'attributes'];
+        $prefix = ['products', 'multi_filter', 'vouchers','categories', 'brands', 'attribute_groups', 'attributes'];
 
         return hook_filter('admin.sidebar.product.prefix', $prefix);
     }
