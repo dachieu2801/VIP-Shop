@@ -1,12 +1,12 @@
 {
     "code": "bank_transfer",
     "name": {
-        "zh_cn": "Internet Banking",
-        "en": "Internet Banking"
+        "zh_cn": "Custom payment",
+        "en": "Custom payment"
     },
     "description": {
-        "zh_cn": "Chuyển khoản qua tài khoản ngân hàng",
-        "en": "Internet Banking"
+        "zh_cn": "Thanh toán tuỳ chỉnh",
+        "en": "Custom payment"
     },
     "type": "payment",
     "version": "v1.0.0",

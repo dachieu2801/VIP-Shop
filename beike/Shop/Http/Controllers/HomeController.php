@@ -74,7 +74,7 @@ class HomeController extends Controller
         ];
         foreach ($categories as $a) {
             $cate['content']['images'][] = [
-                'image' => $a['image'] ? url('/' . $a['image']):'' ,
+                'image' => $a['image'] ? url($a['image']) : '' ,
                 'link'  => [
                     'type'  => 'category',
                     'value' => $a['id'],
