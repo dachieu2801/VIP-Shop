@@ -1489,7 +1489,7 @@
 
         batchSettingVariantImage() {
           bk.fileManagerIframe(images => {
-            this.variablesBatch.image = images[0].path
+            this.variablesBatch.image = images[0].path.slice(1, images[0].path.lenth())
           })
         },
 

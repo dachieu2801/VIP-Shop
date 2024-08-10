@@ -33,10 +33,10 @@ class ProductController extends Controller
         }
         $productList = [];
 
-        $sortQuantity = $requestData['sort_quantity'] ?? false;
+        $sortQuantity = $requestData['sort_quantity'] ?? 0;
         $quantity     = 'asc';
 
-        if (! $sortQuantity) {
+        if ($sortQuantity == 0) {
             $productList       = ProductRepo::list($requestData);
         } else {
             $query = Product::with(['description', 'skus', 'masterSku', 'attributes', 'brand']);
