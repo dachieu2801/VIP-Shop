@@ -286,7 +286,8 @@ class Sidebar extends Component
      */
     private function getPluginSubPrefix()
     {
-        $prefix = ['plugins', 'marketing'];
+//        $prefix = ['plugins', 'marketing'];
+        $prefix = ['plugins'];
 
         return hook_filter('admin.sidebar.plugin.prefix', $prefix);
     }
@@ -427,7 +428,7 @@ class Sidebar extends Component
             $routes[] = ['route' => "plugins.{$type}", 'prefixes' => ['plugins'], 'title' => trans("admin/plugin.{$type}"), 'excludes' => $types->toArray()];
         }
 
-        $routes[] = ['route' => 'marketing.index', 'prefixes' => ['marketing']];
+//        $routes[] = ['route' => 'marketing.index', 'prefixes' => ['marketing']];
 
         return hook_filter('admin.sidebar.plugins_routes', $routes);
     }
@@ -442,7 +443,7 @@ class Sidebar extends Component
             ['route' => 'settings.index', 'prefixes' => ['settings']],
             ['route' => 'account.index', 'prefixes' => ['account']],
             ['route' => 'admin_users.index', 'prefixes' => ['admin_users', 'admin_roles']],
-            ['route' => 'regions.index', 'prefixes' => ['regions']],
+//            ['route' => 'regions.index', 'prefixes' => ['regions']],
             ['route' => 'tax_rates.index', 'prefixes' => ['tax_rates']],
             ['route' => 'tax_classes.index', 'prefixes' => ['tax_classes']],
             ['route' => 'currencies.index', 'prefixes' => ['currencies']],

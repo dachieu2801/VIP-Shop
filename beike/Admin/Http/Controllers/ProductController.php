@@ -46,7 +46,6 @@ class ProductController extends Controller
                 ->groupBy('products.id')
                 ->orderBy('min_quantity', $quantity);
             $productList       =  $query->paginate(20);
-
         }
 
         $products       = ProductResource::collection($productList);

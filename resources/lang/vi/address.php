@@ -13,7 +13,7 @@ return [
     'index'      => 'Chỉnh sửa Địa chỉ',
     'name'       => 'Họ và tên',
     'phone'      => 'Số điện thoại',
-    'country'    => 'Quốc gia/Vùng',
+    'country'    => 'Tỉnh/Thành phố',
     'country_id' => 'ID Quốc gia/Vùng',
     'zone'       => 'Khu vực',
     'zone_id'    => 'ID Khu vực',

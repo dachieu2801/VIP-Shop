@@ -56,7 +56,7 @@
               <th>ID</th>
               <th>{{ __('common.name') }}</th>
               <th>{{ __('currency.code') }}</th>
-              <th>{{ __('common.continent') }}</th>
+{{--              <th>{{ __('common.continent') }}</th>--}}
               <th>{{ __('common.created_at') }}</th>
               <th>{{ __('common.updated_at') }}</th>
               <th>{{ __('common.sort_order') }}</th>
@@ -69,7 +69,7 @@
               <td>@{{ country.id }}</td>
               <td>@{{ country.name }}</td>
               <td>@{{ country.code }}</td>
-              <td>@{{ country.continent_format }}</td>
+{{--              <td>@{{ country.continent_format }}</td>--}}
               <td>@{{ country.created_at }}</td>
               <td>@{{ country.updated_at }}</td>
               <td>@{{ country.sort_order }}</td>

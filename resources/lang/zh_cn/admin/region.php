@@ -19,6 +19,6 @@ return [
     'regions_delete' => 'Xóa',
     'name' => 'Tên',
     'describe' => 'Mô tả',
-    'country' => 'Quốc gia/Khu vực',
+    'country' => 'Tỉnh/Thành phố',
     'zone' => 'Khu vực',
 ];

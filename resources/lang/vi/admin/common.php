@@ -94,7 +94,7 @@ return [
     'rma_reasons_index'                => 'Lý do RMA',
     'customers_index'                  => 'Khách hàng',
     'customer_groups_index'            => 'Nhóm khách hàng',
-    'countries_index'                  => 'Quốc gia/Vùng',
+    'countries_index'                  => 'Tỉnh/Thành phố',
     'zones_index'                      => 'Vùng',
     'update_nav'                       => 'Cập nhật',
     'update_title'                     => 'Tìm phiên bản BeikeShop mới, bạn có muốn cập nhật ngay bây giờ',

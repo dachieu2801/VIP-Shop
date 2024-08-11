@@ -10,13 +10,13 @@
  */
 return [
     'zone_name'         => 'Tên Tỉnh/Thành phố',
-    'country_of_origin' => 'Quốc gia/ Khu vực Xuất xứ',
+    'country_of_origin' => 'Tỉnh/Thành phố',
 
     'zones_index'       => 'Danh sách Tỉnh/Thành phố',
     'zones_create'      => 'Tạo mới Tỉnh/Thành phố',
     'zones_update'      => 'Chỉnh sửa Tỉnh/Thành phố',
     'zones_delete'      => 'Xóa Tỉnh/Thành phố',
 
-    'error_country'     => 'Vui lòng chọn Quốc gia/ Khu vực',
+    'error_country'     => 'Vui lòng chọn Tỉnh/Thành phố',
 
 ];

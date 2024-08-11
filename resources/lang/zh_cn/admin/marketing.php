@@ -61,5 +61,5 @@ return [
     'version_compatible_text' => 'Plugin này không tương thích với phiên bản hệ thống hiện tại, vui lòng nâng cấp lên <a href="http://beikeshop.cn.test/download" target="_blank">phiên bản mới nhất</a>',
     'wxpay' => 'Thanh toán bằng mã quét WeChat!',
     'yuan' => 'đồng',
-    'code_keyword' => 'Tìm kiếm quốc gia và khu vực của bạn',
+    'code_keyword' => 'Tìm kiếm Tỉnh/Thành phố của bạn',
 ];

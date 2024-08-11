@@ -24,7 +24,7 @@ return [
     'no_address' => 'Tài khoản hiện tại không có địa chỉ',
     'edit_address' => 'Chỉnh sửa địa chỉ',
     'address' => 'Địa chỉ',
-    'choose_country' => 'Chọn Quốc gia/Khu vực',
+    'choose_country' => 'Chọn Tỉnh/Thành phố',
     'zones' => 'Khu vực',
     'choose_zones' => 'Chọn Khu vực',
     'enter_city' => 'Nhập thành phố',
