@@ -45,6 +45,37 @@ class ProductController extends Controller
                 ->selectRaw('MIN(product_skus.quantity) as min_quantity')
                 ->groupBy('products.id')
                 ->orderBy('min_quantity', $quantity);
+            $query->leftJoin('product_descriptions as pd', function ($build) {
+                $build->whereColumn('pd.product_id', 'products.id')
+                    ->where('locale', locale());
+            });
+            if (isset($requestData['category_id'])) {
+                $query->whereHas('categories', function ($query1) use ($requestData) {
+                    if (is_array($requestData['category_id'])) {
+                        $query1->whereIn('category_id', $requestData['category_id']);
+                    } else {
+                        $query1->where('category_id', $requestData['category_id']);
+                    }
+                });
+            }
+
+            if (isset($requestData['sku']) || isset($requestData['model'])) {
+                $query->whereHas('skus', function ($query1) use ($requestData) {
+                    if (isset($requestData['sku'])) {
+                        $query1->where('sku', 'like', "%{$requestData['sku']}%");
+                    }
+                    if (isset($requestData['model'])) {
+                        $query1->where('model', 'like', "%{$requestData['model']}%");
+                    }
+                });
+            }
+
+            if (isset($requestData['name'])) {
+                $query->where('pd.name', 'like', "%{$requestData['name']}%");
+            }
+            if (isset($requestData['active'])) {
+                $query->where('active', (int) $requestData['active']);
+            }
             $productList       =  $query->paginate(20);
         }
 

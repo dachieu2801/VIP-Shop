@@ -70,6 +70,8 @@
               <input @keyup.enter="search" type="text" v-model="filter.model" class="form-control" placeholder="<?php echo e(__('product.model')); ?>">
             </div>
 
+
+
             <div class="col-xxl-20 col-xl-3 col-lg-4 col-md-4 d-flex align-items-center mb-3">
               <label class="filter-title"><?php echo e(__('product.category')); ?></label>
               <select v-model="filter.category_id" class="form-select">
@@ -77,6 +79,15 @@
                 <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $_category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                   <option :value="<?php echo e($_category->id); ?>"><?php echo e($_category->name); ?></option>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+              </select>
+            </div>
+
+            <div class="col-xxl-20 col-xl-3 col-lg-4 col-md-4 d-flex align-items-center mb-3">
+              <label class="filter-title">Lọc theo tồn kho</label>
+              <select v-model="filter.sort_quantity" class="form-select">
+                <option value="0">Không</option>
+
+                  <option value="1">Có</option>
               </select>
             </div>
 
@@ -120,7 +131,7 @@
             </a>
 
               <input type="file" id="import-excel" accept=".xlsx, .xls">
-              <button class="btn btn-success"  id="upload-excel">Upload Excel</button>
+              <button class="btn btn-success text-white"  id="upload-excel">Upload Excel</button>
 
       <button id="export-excel" class="btn btn-danger"><?php echo e(__('admin/product.export_excel')); ?></button>
           </div>
@@ -213,18 +224,18 @@
     <?php endif; ?>
     shadow-lg
 " style="padding: 0; border-radius: 1rem;">
-                      <div class="card-body text-white text-center" style=" padding: 5px; padding-top: 12px">
-                        <h5 class="card-title
+                      <div class=" text-white text-center px-1 py-2" >
+                        <div class="text-xl font-bold
 
         ">
                           <?php if($product['status_quantity'] == 'Normal'): ?>
                             Còn hàng
                           <?php elseif($product['status_quantity'] == 'Few'): ?>
-                            Có sp sắp hết
+                            Có mã sắp hết
                           <?php elseif($product['status_quantity'] == 'Out'): ?>
-                            Có sp đã hết
+                            Có mã đã hết
                           <?php endif; ?>
-                        </h5>
+                        </div>
                       </div>
                     </div>
                   </td>
@@ -550,6 +561,7 @@ $(document).ready(function() {
           active: bk.getQueryString('active'),
           sort: bk.getQueryString('sort', ''),
           order: bk.getQueryString('order', ''),
+          sort_quantity: bk.getQueryString('sort_quantity',0)
         },
         selectedIds: [],
         productIds: <?php echo json_encode($products->pluck('id'), 15, 512) ?>,
