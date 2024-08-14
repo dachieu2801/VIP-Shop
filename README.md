@@ -7,10 +7,10 @@ Hệ thống này được thiết kế để phục vụ cho thương mại đi
 
 
 ## Kiến trúc phần mềm
-Require: PHP >= 8.1
-Framwork: Laravel 10
-view: Blade + Vue
-DB: MySQL
+1. Require: PHP >= 8.1
+2. Framwork: Laravel 10
+3. view: Blade + Vue
+4. DB: MySQL
 
 ## PHP ini
 - BCMath PHP Extension

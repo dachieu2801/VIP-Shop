@@ -178,9 +178,14 @@ class OrderController extends Controller
     {
         return view('order_tracking');
     }
-     public function showTracking(Request $request, int $number)
+     public function showTracking(Request $request, $number)
      {
-         $order = Order::query()->where('number', $number)->firstOrFail();
+         $order = Order::query()->where('number', $number)->first();
+         if(!$order){
+             $order = Order::query()->where('shipping_telephone', $number)->get();
+             $jsonData = $order->toJson();
+             return response()->json($jsonData);
+         }
          $jsonData = $order->toJson();
          return response()->json($jsonData);
      }
