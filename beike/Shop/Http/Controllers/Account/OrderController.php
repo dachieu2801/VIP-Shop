@@ -173,20 +173,20 @@ class OrderController extends Controller
         return json_success(trans('shop/account/order.cancelled'));
     }
 
-
-    public function showTrackingOrderPage( )
+    public function showTrackingOrderPage()
     {
         return view('order_tracking');
     }
-     public function showTracking(Request $request, $number)
-     {
-         $order = Order::query()->where('number', $number)->get();
 
-         if ($order->isEmpty()) { // Check if the collection is empty
-             $order = Order::query()->where('shipping_telephone', $number)->get();
-         }
+    public function showTracking(Request $request, $number)
+    {
+        $order = Order::query()->where('number', $number)->get();
 
-         $jsonData = $order->toJson();
-         return response()->json($jsonData);
-     }
+        if ($order->isEmpty()) { // Check if the collection is empty
+            $order = Order::query()->where('shipping_telephone', $number)->orderBy('id', 'desc')->get();        }
+
+        $jsonData = $order->toJson();
+
+        return response()->json($jsonData);
+    }
 }
