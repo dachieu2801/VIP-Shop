@@ -5,7 +5,6 @@ namespace Beike\Admin\Http\Resources;
 use Beike\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\Log;
 
 class ProductResource extends JsonResource
 {
@@ -27,11 +26,13 @@ class ProductResource extends JsonResource
             ->first();
         if ($productSkus) {
             $abc         = $productSkus->jsonSerialize();
-            $minQuantity = min(array_column($abc['skus'], 'quantity'));
-            if ($minQuantity == 0) {
-                $status = 'Out';
-            } elseif ($minQuantity >= 1 && $minQuantity <= 10) {
-                $status = 'Few';
+            if (! empty($abc['skus'])) {
+                $minQuantity = min(array_column($abc['skus'], 'quantity'));
+                if ($minQuantity == 0) {
+                    $status = 'Out';
+                } elseif ($minQuantity >= 1 && $minQuantity <= 10) {
+                    $status = 'Few';
+                }
             }
         }
 
