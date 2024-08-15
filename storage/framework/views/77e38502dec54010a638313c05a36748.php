@@ -127,7 +127,7 @@
                   <div class="position-absolute top-0 end-0">
                     <button class="btn btn-danger btn-sm wh-20 p-0" @click="removeImages(index)" type="button"><i class="bi bi-trash"></i></button>
                   </div>
-                  <img :src="thumbnail(image)" class="img-fluid rounded-2">
+                  <img :src="thumbnail(image.startsWith('/') ? image.substring(1) : image)" class="img-fluid rounded-2">
                   <input type="hidden" name="images[]" :value="image">
                 </div>
                 <div v-if="!form.images.length" class="d-none"><input type="hidden" name="images[]" value=""></div>
@@ -502,7 +502,7 @@
                                <div v-for="(value, value_index) in variant.values" :key="value_index" class="variants-item" @dblclick="modalVariantOpenButtonClicked(variantIndex, value_index)">
                                  <div class="open-file-manager variant-value-img" v-if="variant.isImage">
                                    <div>
-                                     <img :src="thumbnail(value.image)" class="img-fluid">
+                                     <img :src="thumbnail(value.image.startsWith('/') ? value.image.substring(1) : value.image)"  class="img-fluid">
                                    </div>
                                  </div>
                                  <input type="hidden" v-model="value.image">
@@ -536,7 +536,7 @@
                           </select>
                         </div>
                         <div role="button" class="border d-flex justify-content-center align-items-center border-dashed bg-light wh-40 me-2 bg-white" @click="batchSettingVariantImage">
-                          <img :src="thumbnail(variablesBatch.image)" class="img-fluid" v-if="variablesBatch.image" style="max-height: 40px;">
+                          <img :src="thumbnail(variablesBatch.image.startsWith('/') ? variablesBatch.image.substring(1) : variablesBatch.image)"  class="img-fluid" v-if="variablesBatch.image" style="max-height: 40px;">
                           <i class="bi bi-plus fs-3 text-muted" v-else></i>
                         </div>
                         <input type="text" class="form-control me-2 bg-white" v-model="variablesBatch.model" placeholder="<?php echo e(__('admin/product.model')); ?>">
@@ -608,7 +608,7 @@
                                   <div class="position-absolute top-0 end-0">
                                     <button class="btn btn-danger btn-sm wh-20 p-0" @click="removeSkuImages(skuIndex, index)" type="button"><i class="bi bi-trash"></i></button>
                                   </div>
-                                  <img :src="thumbnail(image)" class="img-fluid" style="max-height: 40px;">
+                                  <img :src="thumbnail(image.startsWith('/') ? image.substring(1) : image)" class="img-fluid" style="max-height: 40px;">
                                   <input type="hidden" class="form-control" v-model="sku.images[index]" :name="'skus[' + skuIndex + '][images][]'" placeholder="image">
                                 </div>
                                 <div class="border d-flex justify-content-center align-items-center border-dashed bg-light wh-40" role="button" @click="addProductImages(skuIndex)"><i class="bi bi-plus fs-3 text-muted"></i></div>
@@ -1489,7 +1489,7 @@
 
         batchSettingVariantImage() {
           bk.fileManagerIframe(images => {
-            this.variablesBatch.image = images[0].path;
+            this.variablesBatch.image = images[0].path
           })
         },
 
@@ -1499,27 +1499,21 @@
               if (this.form.skus[skuIndex].images === null) {
                 this.form.skus[skuIndex].images = images.map((e)=>{
                   if(e.path.charAt(0)==='/'){
-                    console.log(e.path)
-                    return e.path.slice(1, e.path.lenth())
+                    return e.path
                   }
                   return e.path
                 })
               } else {
                 this.form.skus[skuIndex].images.push(...images.map((e)=>{
                   if(e.path.charAt(0)==='/'){
-                    return e.path.slice(1, e.path.lenth())
+                    return e.path
                   }
                   return e.path
                 }))
-                console.log(this.form.skus[skuIndex].images.push(...images.map(e => e.path)))
               }
               return;
             }
             this.form.images.push(...images.map((e)=>{
-              if(e.path.charAt(0)==='/'){
-                console.log(e.path)
-                return e.path.slice(1, e.path.length)
-              }
               return e.path
             }))
           }, {mime: 'image'})

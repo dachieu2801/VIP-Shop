@@ -5,7 +5,7 @@
 
 @extends('admin::layouts.master')
 
-@section('title', __('admin/common.product'))
+@section('title', 'Mã giảm giá')
 
 @section('content')
   @if ($errors->has('error'))
@@ -153,7 +153,7 @@
 
 
   <script>
-  
+
     let app = new Vue({
       el: '#product-app',
       data: {

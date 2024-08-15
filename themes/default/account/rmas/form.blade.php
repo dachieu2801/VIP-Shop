@@ -80,6 +80,7 @@
                   <label class="form-label">{{ __('shop/account/rma_form.remark') }}</label>
                   <textarea rows="4" type="text" name="comment" class="form-control">{{ old('comment', '') }}</textarea>
                 </div>
+             
 
                 <div class="col-12 mt-4">
                   <button class="btn btn-primary mt-sm-0" type="submit">{{ __('shop/common.submit') }}</button>

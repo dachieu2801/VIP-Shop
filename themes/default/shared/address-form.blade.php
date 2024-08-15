@@ -41,19 +41,19 @@
         </div>
 
         
-        <div class="d-flex">
-          <el-form-item label="{{ __('address.address_1') }}" class="w-50" prop="address_1">
+        <el-form-item label="{{ __('address.post_code') }}" class="w-50 ">
+          <el-input v-model="form.zipcode" placeholder="{{ __('address.post_code') }}"></el-input>
+        </el-form-item>
+        <el-form-item label="{{ __('address.address_2') }}" class="w-50 " prop="address_2">
+          <el-input v-model="form.address_2" placeholder="{{ __('address.address_2') }}"></el-input>
+        </el-form-item>
+        <div class="d-flex dialog-address">
+          <!-- <el-form-item label="{{ __('address.address_1') }}" class="w-50" prop="address_1">
             <el-input v-model="form.address_1" placeholder="{{ __('address.address_1') }}"></el-input>
-          </el-form-item>
+          </el-form-item> -->
           
-          <el-form-item label="{{ __('address.address_2') }}" class="w-50 ms-3" prop="address_2">
-            <el-input v-model="form.address_2" placeholder="{{ __('address.address_2') }}"></el-input>
-          </el-form-item>
 
           <!-- Mã bưu điện -->
-          <!-- <el-form-item label="{{ __('address.post_code') }}" class="w-50 ms-3">
-            <el-input v-model="form.zipcode" placeholder="{{ __('address.post_code') }}"></el-input>
-          </el-form-item> -->
         </div>
 
 

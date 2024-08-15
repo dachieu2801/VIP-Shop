@@ -16,6 +16,7 @@
           <div class="modal-body">
             <textarea id="reason-input" class="w-100 p-4 form-control"  placeholder="{{__('shop/account/order_info.reason')}}"></textarea>
           </div>
+        
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary cancel-action" data-bs-dismiss="modal" >{{ __('shop/account/order_info.cancel') }}</button>
             <button id="confirm-cancellation" type="button" class="btn btn-primary">{{__('common.confirm')}}</button>

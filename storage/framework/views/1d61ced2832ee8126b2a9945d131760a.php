@@ -1,7 +1,7 @@
-@extends('layout.master')
-@section('body-class', 'page-categories')
 
-@section('content')
+<?php $__env->startSection('body-class', 'page-categories'); ?>
+
+<?php $__env->startSection('content'); ?>
 <div class="container mt-5 mb-5">
     <div class="row ">
         <div class="col-md-6">
@@ -72,7 +72,7 @@ document.getElementById('orderTrackingForm').addEventListener('submit', function
     event.preventDefault(); // Prevent the form from submitting the traditional way
     const inputField = document.getElementById('inputField');
     const orderNumber = inputField.value;
-    const baseUrl = '{{ config('app.url') }}';
+    const baseUrl = '<?php echo e(config('app.url')); ?>';
 
     fetch(`${baseUrl}/order-tracking/${orderNumber}`)
         .then(response => response.json())
@@ -153,4 +153,6 @@ function renderResult(data) {
     }
 }
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layout.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\shop-freelance\themes\default/order_tracking.blade.php ENDPATH**/ ?>

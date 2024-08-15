@@ -37,11 +37,24 @@
             @hook('checkout.body.header')
 
             @include('checkout._address')
-
-               <div class="checkout-black"  id="vouchersssssss">
+            <h5 class="checkout-title">Thời gian nhận hàng :</h5>
+  <div class="form-group ">
+    <select class="form-select" name="receive_time" required>
+      <option value="" disabled selected>Vui lòng chọn thời gian</option>
+      
+      <option value="7h-12h">7h-12h</option>
+      <option value="12h-14h">12h-14h</option>
+      <option value="14h-16h">14h-16h</option>
+      <option value="16h-18h">16h-18h</option>
+      <option value="18h-after">18h trở đi</option>
+    </select>
+  </div>
+  @if(!empty($vouchers))
+               <div class="checkout-black mt-5"  id="vouchersssssss">
                   <h5 class="checkout-title">Mã giảm giá</h5>
 
                   <div class="radio-line-wrap" id="voucher-wrap">
+                   
                     @foreach ($vouchers as $voucher)
                       <div class="radio-line-item {{ $voucher['id'] == $current['voucher_id'] ? 'active' : '' }}" data-key="voucher_id" data-value="{{ $voucher['id'] }}">
                         <div class="left">
@@ -54,10 +67,13 @@
                         </div>
                       </div>
                     @endforeach
+                  
+                    
                   </div>
                 </div>
+                @endif
 
-            <div class="checkout-black">
+            <div class="checkout-black mt-5">
               <h5 class="checkout-title">{{ __('shop/checkout.payment_method') }}</h5>
               <div class="radio-line-wrap" id="payment-methods-wrap">
                 @foreach ($payment_methods as $payment)
@@ -108,6 +124,7 @@
                 <textarea rows="5" type="text" class="form-control" name="comment" placeholder="{{ __('shop/checkout.comment') }}">{{ old('comment', $comment ?? '') }}</textarea>
               </div>
             </div>
+            
 
             @hook('checkout.bottom')
           </div>
@@ -126,6 +143,7 @@
               </div>
             </div>
           @endif
+          
 
           <div class="card total-wrap p-lg-4 p-md-2 shadow-sm">
             <div class="card-header d-flex align-items-center justify-content-between">
@@ -166,6 +184,7 @@
                 @foreach ($totals as $total)
                   <li><span>{{ $total['title'] }}</span><span>{{ $total['amount_format'] }}</span></li>
                 @endforeach
+                
               </ul>
               <div class="d-grid gap-2 mt-3 submit-checkout-wrap">
                 @if (is_mobile())
@@ -216,6 +235,7 @@
         }
 
         let data = {
+            receive_time: $('select[name=receive_time]').val(),
             comment: $('textarea[name=comment]').val(),
             voucher_id: voucherId // Add the voucher_id to the data
         }

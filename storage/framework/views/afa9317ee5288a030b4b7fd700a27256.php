@@ -74,7 +74,7 @@
                 echo $output;
                 ?>
 
-         <?php
+        <!--  <?php
                     $__hook_name="admin.header.license";
                     ob_start();
                 ?>
@@ -95,9 +95,9 @@
                 unset($__hook_content);
                 if ($output)
                 echo $output;
-                ?>
+                ?> -->
 
-         <?php
+        <!--  <?php
                     $__hook_name="admin.header.marketing";
                     ob_start();
                 ?>
@@ -116,7 +116,7 @@
                 unset($__hook_content);
                 if ($output)
                 echo $output;
-                ?>
+                ?> -->
 
          <?php
                     $__hook_name="admin.header.language";

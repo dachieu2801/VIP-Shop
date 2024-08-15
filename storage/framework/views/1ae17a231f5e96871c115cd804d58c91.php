@@ -1,1 +1,0 @@
-<?php /**PATH G:\workspace\shop-freelance\resources\/beike/admin/views/pages/storage/index.blade.php ENDPATH**/ ?>

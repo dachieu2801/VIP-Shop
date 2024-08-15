@@ -44,7 +44,12 @@
       <?php endif; ?>
     </div>
  <div class="text-center mt-3 mb-5">
-   <a href="<?php echo e($url); ?>" class="text-xl">Xem tất cả > </a>
+   <a href="<?php echo e($url); ?>" style="font-size: 1rem;">
+ 
+
+     Xem tất cả > 
+   
+  </a>
 </div>
   </div>
 </section>

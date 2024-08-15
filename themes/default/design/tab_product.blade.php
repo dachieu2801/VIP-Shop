@@ -44,7 +44,12 @@
       @endif
     </div>
  <div class="text-center mt-3 mb-5">
-   <a href="{{ $url}}" class="text-xl">Xem tất cả > </a>
+   <a href="{{ $url}}" style="font-size: 1rem;">
+ 
+
+     Xem tất cả > 
+   
+  </a>
 </div>
   </div>
 </section>
