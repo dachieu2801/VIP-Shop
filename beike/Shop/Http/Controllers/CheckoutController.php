@@ -12,12 +12,13 @@
 namespace Beike\Shop\Http\Controllers;
 
 //use Beike\Notifications\sendNewOrderNotification;
+use Beike\Mail\SendNotifyOrder;
 use Beike\Repositories\OrderRepo;
 use Beike\Repositories\VouchersRepo;
 use Beike\Shop\Services\CheckoutService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
-
+use Illuminate\Support\Facades\Mail;
+use Beike\Models\AdminUser;
 class CheckoutController extends Controller
 {
     public function index()
@@ -167,6 +168,7 @@ class CheckoutController extends Controller
         try {
             $data = (new CheckoutService)->confirm($requestData['voucher_id'] ?? 0);
 
+            $this->sendEmail($data->jsonSerialize());
 
             return hook_filter('checkout.confirm.data', $data);
         } catch (\Exception $e) {
@@ -177,12 +179,42 @@ class CheckoutController extends Controller
     public function success()
     {
         $order_number = request('order_number');
-        Log::info('success', ['success', $order_number]);
-
-        $customer = current_customer();
-        $order    = OrderRepo::getOrderByNumber($order_number, $customer);
-        $data     = hook_filter('account.order.show.data', ['order' => $order, 'html_items' => []]);
+        $customer     = current_customer();
+        $order        = OrderRepo::getOrderByNumber($order_number, $customer);
+        $data         = hook_filter('account.order.show.data', ['order' => $order, 'html_items' => []]);
 
         return view('checkout/success', $data);
+    }
+
+    public function sendEmail($data)
+    {
+        try {
+
+            $detailCustomer = [
+                'tracking_number' => $data['number'],
+                'order_at'        => $data['created_at'],
+                'amount'          => $data['total_format'],
+                'customer_name'   => $data['customer_name'],
+                'isShop'          => true,
+            ];
+
+            $detailShop = [
+                'tracking_number' => $data['number'],
+                'order_at'        => $data['created_at'],
+                'amount'          => $data['total_format'],
+                'customer_name'   => $data['customer_name'],
+                'isShop'          => false,
+            ];
+
+            Mail::to($data['email'])->send(new SendNotifyOrder($detailCustomer));
+
+            $activeEmails = AdminUser::where('active', 1)->pluck('email');
+            foreach ($activeEmails as $email) {
+                Mail::to($email)->send(new SendNotifyOrder($detailShop));
+            }
+            return true;
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 }

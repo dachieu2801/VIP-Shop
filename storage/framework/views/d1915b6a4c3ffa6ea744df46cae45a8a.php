@@ -66,11 +66,24 @@
                 ?>
 
             <?php echo $__env->make('checkout._address', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-
-               <div class="checkout-black"  id="vouchersssssss">
+            <h5 class="checkout-title">Thời gian nhận hàng :</h5>
+  <div class="form-group ">
+    <select class="form-select" name="receive_time" required>
+      <option value="" disabled selected>Vui lòng chọn thời gian</option>
+      
+      <option value="7h-12h">7h-12h</option>
+      <option value="12h-14h">12h-14h</option>
+      <option value="14h-16h">14h-16h</option>
+      <option value="16h-18h">16h-18h</option>
+      <option value="18h-after">18h trở đi</option>
+    </select>
+  </div>
+  <?php if(!empty($vouchers)): ?>
+               <div class="checkout-black mt-5"  id="vouchersssssss">
                   <h5 class="checkout-title">Mã giảm giá</h5>
 
                   <div class="radio-line-wrap" id="voucher-wrap">
+                   
                     <?php $__currentLoopData = $vouchers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $voucher): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                       <div class="radio-line-item <?php echo e($voucher['id'] == $current['voucher_id'] ? 'active' : ''); ?>" data-key="voucher_id" data-value="<?php echo e($voucher['id']); ?>">
                         <div class="left">
@@ -83,10 +96,13 @@
                         </div>
                       </div>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                  
+                    
                   </div>
                 </div>
+                <?php endif; ?>
 
-            <div class="checkout-black">
+            <div class="checkout-black mt-5">
               <h5 class="checkout-title"><?php echo e(__('shop/checkout.payment_method')); ?></h5>
               <div class="radio-line-wrap" id="payment-methods-wrap">
                 <?php $__currentLoopData = $payment_methods; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $payment): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -152,6 +168,7 @@
                 <textarea rows="5" type="text" class="form-control" name="comment" placeholder="<?php echo e(__('shop/checkout.comment')); ?>"><?php echo e(old('comment', $comment ?? '')); ?></textarea>
               </div>
             </div>
+            
 
              <?php
                 $__definedVars = (get_defined_vars()["__data"]);
@@ -180,6 +197,7 @@
               </div>
             </div>
           <?php endif; ?>
+          
 
           <div class="card total-wrap p-lg-4 p-md-2 shadow-sm">
             <div class="card-header d-flex align-items-center justify-content-between">
@@ -235,6 +253,7 @@
                 <?php $__currentLoopData = $totals; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $total): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                   <li><span><?php echo e($total['title']); ?></span><span><?php echo e($total['amount_format']); ?></span></li>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                
               </ul>
               <div class="d-grid gap-2 mt-3 submit-checkout-wrap">
                 <?php if(is_mobile()): ?>
@@ -320,6 +339,7 @@
         }
 
         let data = {
+            receive_time: $('select[name=receive_time]').val(),
             comment: $('textarea[name=comment]').val(),
             voucher_id: voucherId // Add the voucher_id to the data
         }

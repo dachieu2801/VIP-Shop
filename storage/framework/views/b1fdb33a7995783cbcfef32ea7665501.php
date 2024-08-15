@@ -93,9 +93,9 @@
                 <span class="name">{{ address.name }}</span>
                 <span class="phone">{{ address.phone }}</span>
               </div>
-              <!-- <div class="zipcode">{{ address.zipcode }}</div> -->
+              <div class="zipcode">{{ address.zipcode }}</div>
               <div class="address-info" style="height: auto; margin-bottom: 9px">{{ address.address_2 }}</div>
-                    <div class="address-info" style="height: auto; margin-bottom: 9px">{{ address.address_1 }}, {{ address.zone }}, {{ address.country }}</div>
+                    <!-- <div class="address-info" style="height: auto; margin-bottom: 9px">{{ address.address_1 }}, {{ address.zone }}, {{ address.country }}</div> -->
               <div class="address-bottom">
                 <div>
                   <span class="badge bg-success"
