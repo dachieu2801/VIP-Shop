@@ -167,6 +167,7 @@ class CheckoutController extends Controller
         try {
             $data = (new CheckoutService)->confirm($requestData['voucher_id'] ?? 0);
 
+
             return hook_filter('checkout.confirm.data', $data);
         } catch (\Exception $e) {
             return json_fail($e->getMessage());

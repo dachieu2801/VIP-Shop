@@ -34,6 +34,7 @@ class OrderShippingList extends JsonResource
             'shipping_city'           => $this->shipping_city,
             'shipping_address_1'      => $this->shipping_address_1,
             'shipping_address_2'      => $this->shipping_address_2,
+            'receive_time'            => $this->receive_time,
             'website'                 => shop_route('home.index'),
             'order_products'          => $products,
             'created_at'              => $this->created_at,

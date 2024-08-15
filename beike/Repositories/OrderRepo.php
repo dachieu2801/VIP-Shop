@@ -212,13 +212,13 @@ class OrderRepo
      */
     public static function create(array $data): Order
     {
-        $customer   = $data['customer'] ?? null;
-        $current    = $data['current']  ?? [];
-        $carts      = $data['carts']    ?? [];
-        $totals     = $data['totals']   ?? [];
+        $customer    = $data['customer']      ?? null;
+        $current     = $data['current']       ?? [];
+        $carts       = $data['carts']         ?? [];
+        $totals      = $data['totals']        ?? [];
         $receiveTime = $data['receive_time']  ?? '';
-        $comment    = $data['comment']  ?? '';
-        $orderTotal = collect($totals)->where('code', 'order_total')->first();
+        $comment     = $data['comment']       ?? '';
+        $orderTotal  = collect($totals)->where('code', 'order_total')->first();
 
         if ($customer) {
             $shippingAddressId = $current['shipping_address_id'] ?? 0;
@@ -248,51 +248,51 @@ class OrderRepo
         $currencyValue = $currency->value ?? 1;
 
         $order = new Order([
-            'voucher_id'             => $current['voucher_id'] ?? 0,
-            'number'                 => self::generateOrderNumber(),
-            'customer_id'            => $customer->id                ?? 0,
-            'customer_group_id'      => $customer->customer_group_id ?? 0,
-            'shipping_address_id'    => $shippingAddress->id         ?? 0,
-            'payment_address_id'     => $paymentAddress->id          ?? 0,
-            'customer_name'          => $customer->name              ?? '',
-            'email'                  => $email,
-            'calling_code'           => $customer->calling_code ?? 0,
-            'telephone'              => $customer->telephone    ?? '',
-            'total'                  => $orderTotal['amount'],
-            'locale'                 => locale(),
-            'currency_code'          => $currencyCode,
-            'currency_value'         => $currencyValue,
-            'ip'                     => request()->getClientIp(),
-            'user_agent'             => request()->userAgent(),
-            'comment'                => $comment,
+            'voucher_id'                  => $current['voucher_id'] ?? 0,
+            'number'                      => self::generateOrderNumber(),
+            'customer_id'                 => $customer->id                ?? 0,
+            'customer_group_id'           => $customer->customer_group_id ?? 0,
+            'shipping_address_id'         => $shippingAddress->id         ?? 0,
+            'payment_address_id'          => $paymentAddress->id          ?? 0,
+            'customer_name'               => $customer->name              ?? '',
+            'email'                       => $email,
+            'calling_code'                => $customer->calling_code ?? 0,
+            'telephone'                   => $customer->telephone    ?? '',
+            'total'                       => $orderTotal['amount'],
+            'locale'                      => locale(),
+            'currency_code'               => $currencyCode,
+            'currency_value'              => $currencyValue,
+            'ip'                          => request()->getClientIp(),
+            'user_agent'                  => request()->userAgent(),
+            'comment'                     => $comment,
             'receive_time'                => $receiveTime,
-            'status'                 => StateMachineService::CREATED,
-            'shipping_method_code'   => $shippingMethodCode,
-            'shipping_method_name'   => $shippingMethodName,
-            'shipping_customer_name' => $shippingAddress->name         ?? '',
-            'shipping_calling_code'  => $shippingAddress->calling_code ?? 0,
-            'shipping_telephone'     => $shippingAddress->phone        ?? '',
-            'shipping_country'       => $shippingAddress->country_name ?? '',
-            'shipping_country_id'    => $shippingAddress->country_id   ?? 0,
-            'shipping_zone'          => $shippingAddress->zone         ?? '',
-            'shipping_zone_id'       => $shippingAddress->zone_id      ?? 0,
-            'shipping_city'          => $shippingAddress->city         ?? '',
-            'shipping_address_1'     => $shippingAddress->address_1    ?? '',
-            'shipping_address_2'     => $shippingAddress->address_2    ?? '',
-            'shipping_zipcode'       => $shippingAddress->zipcode      ?? '',
-            'payment_method_code'    => $paymentMethodCode,
-            'payment_method_name'    => $paymentMethodName,
-            'payment_customer_name'  => $paymentAddress->name,
-            'payment_calling_code'   => $paymentAddress->calling_code ?? 0,
-            'payment_telephone'      => $paymentAddress->phone        ?? '',
-            'payment_country'        => $paymentAddress->country_name ?? '',
-            'payment_country_id'     => $paymentAddress->country_id   ?? 0,
-            'payment_zone'           => $paymentAddress->zone,
-            'payment_zone_id'        => $paymentAddress->zone_id ?? 0,
-            'payment_city'           => $paymentAddress->city,
-            'payment_address_1'      => $paymentAddress->address_1,
-            'payment_address_2'      => $paymentAddress->address_2,
-            'payment_zipcode'        => $paymentAddress->zipcode,
+            'status'                      => StateMachineService::CREATED,
+            'shipping_method_code'        => $shippingMethodCode,
+            'shipping_method_name'        => $shippingMethodName,
+            'shipping_customer_name'      => $shippingAddress->name         ?? '',
+            'shipping_calling_code'       => $shippingAddress->calling_code ?? 0,
+            'shipping_telephone'          => $shippingAddress->phone        ?? '',
+            'shipping_country'            => $shippingAddress->country_name ?? '',
+            'shipping_country_id'         => $shippingAddress->country_id   ?? 0,
+            'shipping_zone'               => $shippingAddress->zone         ?? '',
+            'shipping_zone_id'            => $shippingAddress->zone_id      ?? 0,
+            'shipping_city'               => $shippingAddress->city         ?? '',
+            'shipping_address_1'          => $shippingAddress->address_1    ?? '',
+            'shipping_address_2'          => $shippingAddress->address_2    ?? '',
+            'shipping_zipcode'            => $shippingAddress->zipcode      ?? '',
+            'payment_method_code'         => $paymentMethodCode,
+            'payment_method_name'         => $paymentMethodName,
+            'payment_customer_name'       => $paymentAddress->name,
+            'payment_calling_code'        => $paymentAddress->calling_code ?? 0,
+            'payment_telephone'           => $paymentAddress->phone        ?? '',
+            'payment_country'             => $paymentAddress->country_name ?? '',
+            'payment_country_id'          => $paymentAddress->country_id   ?? 0,
+            'payment_zone'                => $paymentAddress->zone,
+            'payment_zone_id'             => $paymentAddress->zone_id ?? 0,
+            'payment_city'                => $paymentAddress->city,
+            'payment_address_1'           => $paymentAddress->address_1,
+            'payment_address_2'           => $paymentAddress->address_2,
+            'payment_zipcode'             => $paymentAddress->zipcode,
         ]);
         $order->saveOrFail();
 
