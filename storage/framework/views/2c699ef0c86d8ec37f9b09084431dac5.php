@@ -21,7 +21,9 @@
           <b><?php echo e(__("admin/order.shipping_customer_name")); ?>: </b> <?php echo e($order['shipping_customer_name']); ?><br />
           <b><?php echo e(__("admin/order.telephone")); ?>: </b> <?php echo e($order['shipping_telephone']); ?><br/>
           <b><?php echo e(__("admin/order.email")); ?>: </b> <?php echo e($order['email']); ?><br/>
-          <b><?php echo e(__("admin/order.shipping_address")); ?>: </b> <?php echo e($order['shipping_customer_name'] . "(" . $order['shipping_telephone'] . ")". ' ', $order['shipping_address_1'] . ' ' . $order['shipping_address_2'] . ' ' . $order['shipping_city'] . ' ' . $order['shipping_zone'] . ' ' . $order['shipping_country']); ?><br />
+          <b><?php echo e(__("admin/order.shipping_address")); ?>: </b> <?php echo e($order['shipping_address_1']); ?>,<?php echo e($order['shipping_zone']); ?>,
+          <?php echo e($order['shipping_country']); ?><br />
+          <b>Địa chỉ chi tiết: </b> <?php echo e($order['shipping_address_2']); ?><br/>
           <b>Giờ nhận hàng: </b> <?php echo e($order['receive_time'] ?? ''); ?><br />
         </td>
         <td style="width: 50%;">

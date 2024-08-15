@@ -48,9 +48,9 @@
           <el-input v-model="form.address_2" placeholder="<?php echo e(__('address.address_2')); ?>"></el-input>
         </el-form-item>
         <div class="d-flex dialog-address">
-          <!-- <el-form-item label="<?php echo e(__('address.address_1')); ?>" class="w-50" prop="address_1">
+          <el-form-item label="<?php echo e(__('address.address_1')); ?>" class="w-50" prop="address_1">
             <el-input v-model="form.address_1" placeholder="<?php echo e(__('address.address_1')); ?>"></el-input>
-          </el-form-item> -->
+          </el-form-item>
           
 
           <!-- Mã bưu điện -->
