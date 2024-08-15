@@ -63,6 +63,7 @@
               <th class="nowrap">{{ __('shop/account/order_info.order_amount') }}</th>
               <th class="nowrap">{{ __('shop/checkout.payment_method') }}</th>
               <th class="nowrap">{{ __('shop/checkout.delivery_method') }}</th>
+              <th class="nowrap">Giờ nhận hàng</th>
             </tr>
           </thead>
           <tbody>
@@ -73,6 +74,7 @@
               <td>{{ currency_format($order->total, $order->currency_code, $order->currency_value) }}</td>
               <td>{{ $order->payment_method_name }}</td>
               <td>{{ $order->shipping_method_name }}</td>
+              <td>{{ $order->receive_time }}</td>
             </tr>
           </tbody>
         </table>

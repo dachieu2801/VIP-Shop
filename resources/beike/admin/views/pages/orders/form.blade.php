@@ -63,6 +63,10 @@
                 <td>{{ __('order.updated_at') }}：</td>
                 <td>{{ $order->updated_at }}</td>
               </tr>
+              <tr>
+                <td>Giờ nhận hàng：</td>
+                <td>{{ $order->receive_time }}</td>
+              </tr>
             </tbody>
           </table>
         </div>

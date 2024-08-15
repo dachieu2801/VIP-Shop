@@ -77,6 +77,7 @@
                 <th>{{ __('order.total') }}</th>
                 <th>{{ __('order.created_at') }}</th>
                 <th>{{ __('order.updated_at') }}</th>
+                <th>Giờ nhận hàng</th>
                 <th>{{ __('common.action') }}</th>
               </tr>
             </thead>
@@ -93,6 +94,7 @@
                     <td>{{ currency_format($order->total, $order->currency_code, $order->currency_value) }}</td>
                     <td>{{ $order->created_at }}</td>
                     <td>{{ $order->updated_at }}</td>
+                    <td>{{ $order->receive_time }}</td>
                     <td>
                       @if (!$order->deleted_at)
                      <div class="d-flex gap-2 ">

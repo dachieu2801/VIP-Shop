@@ -76,6 +76,10 @@
                 <td><?php echo e(__('order.updated_at')); ?>：</td>
                 <td><?php echo e($order->updated_at); ?></td>
               </tr>
+              <tr>
+                <td>Giờ nhận hàng：</td>
+                <td><?php echo e($order->receive_time); ?></td>
+              </tr>
             </tbody>
           </table>
         </div>

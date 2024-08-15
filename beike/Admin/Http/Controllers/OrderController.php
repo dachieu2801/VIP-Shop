@@ -180,6 +180,7 @@ class OrderController extends Controller
         $data = [
             'orders' => OrderShippingList::collection($orders)->jsonSerialize(),
         ];
+        Log::info($data);
 
         $data = hook_filter('admin.order.shipping.data', $data);
 

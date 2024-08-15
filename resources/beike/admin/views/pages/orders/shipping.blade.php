@@ -22,12 +22,14 @@
           <b>{{ __("admin/order.telephone") }}: </b> {{ $order['shipping_telephone'] }}<br/>
           <b>{{ __("admin/order.email") }}: </b> {{ $order['email'] }}<br/>
           <b>{{ __("admin/order.shipping_address") }}: </b> {{ $order['shipping_customer_name'] . "(" . $order['shipping_telephone'] . ")". ' ', $order['shipping_address_1'] . ' ' . $order['shipping_address_2'] . ' ' . $order['shipping_city'] . ' ' . $order['shipping_zone'] . ' ' . $order['shipping_country'] }}<br />
+          <b>Giờ nhận hàng: </b> {{$order['receive_time'] ?? ''}}<br />
         </td>
         <td style="width: 50%;">
           <b>{{ __("admin/order.order_number") }}: </b> {{ $order['number'] }}<br />
           <b>{{ __("admin/order.created_at") }}: </b> {{ $order['created_at'] }}<br />
+          
         </td>
-      </tr>
+      </tr> 
       </tbody>
     </table>
     <table class="table table-bordered">
