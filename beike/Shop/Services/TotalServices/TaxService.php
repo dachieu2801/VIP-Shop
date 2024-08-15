@@ -14,6 +14,7 @@ namespace Beike\Shop\Services\TotalServices;
 
 use Beike\Admin\Repositories\TaxRateRepo;
 use Beike\Shop\Services\CheckoutService;
+use Illuminate\Support\Facades\Log;
 
 class TaxService
 {
@@ -24,7 +25,9 @@ class TaxService
     public static function getTotal(CheckoutService $checkout): ?array
     {
         $totalService = $checkout->totalService;
+
         $taxEnabled   = system_setting('base.tax', false);
+
         if (! $taxEnabled) {
             return null;
         }
@@ -46,6 +49,7 @@ class TaxService
         }
 
         $totalService->totals = array_merge($totalService->totals, $totalItems);
+
 
         return $totalItems;
     }

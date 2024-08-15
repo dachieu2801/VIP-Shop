@@ -31,7 +31,7 @@ class Bootstrap
         $pluginResource = (new PluginResource($plugin))->jsonSerialize();
         $quotes[]       = [
             'type'        => 'shipping',
-            'code'        => "{$code}.0",
+            'code'        => $code,
             'name'        => $pluginResource['name'],
             'description' => $pluginResource['description'],
             'icon'        => $pluginResource['icon'],

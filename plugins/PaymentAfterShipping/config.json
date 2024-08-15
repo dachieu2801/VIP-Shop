@@ -1,0 +1,18 @@
+{
+    "code": "payment_after_shipping",
+    "name": {
+        "zh_cn": "Thanh toán ship khi nhận hàng",
+        "en": "Thanh toán ship khi nhận hàng"
+    },
+    "description": {
+        "zh_cn": "Thanh toán ship khi nhận hàng",
+        "en": "Thanh toán ship khi nhận hàng"
+    },
+    "type": "shipping",
+    "version": "v1.0.0",
+    "icon": "/image/logo.png",
+    "author": {
+        "name": "",
+        "email": ""
+    }
+}

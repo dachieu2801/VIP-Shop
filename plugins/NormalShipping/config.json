@@ -1,0 +1,18 @@
+{
+    "code": "normal_shipping",
+    "name": {
+        "zh_cn": "Ship thường",
+        "en": "Ship thường"
+    },
+    "description": {
+        "zh_cn": "Ship thường",
+        "en": "Ship thường"
+    },
+    "type": "shipping",
+    "version": "v1.0.0",
+    "icon": "/image/logo.png",
+    "author": {
+        "name": "",
+        "email": ""
+    }
+}

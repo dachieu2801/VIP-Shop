@@ -12,8 +12,10 @@
 namespace Beike\Libraries;
 
 use Beike\Models\Address;
+use Beike\Models\TaxClass;
 use Beike\Models\TaxRate;
 use Beike\Models\TaxRule;
+use Illuminate\Support\Facades\Log;
 
 class Tax
 {
@@ -184,6 +186,7 @@ class Tax
         $taxRateData = [];
 
         if (isset($this->taxRates[$taxClassId])) {
+
             foreach ($this->taxRates[$taxClassId] as $taxRate) {
                 if (isset($taxRateData[$taxRate['tax_rate_id']])) {
                     $amount = $taxRateData[$taxRate['tax_rate_id']]['amount'];
@@ -205,6 +208,36 @@ class Tax
                     'amount'      => $amount,
                 ];
             }
+        }
+
+        return $taxRateData;
+    }
+
+    public function getRates1($value, $taxClassId)
+    {
+        $taxRateData = [];
+
+        $taxRates = TaxClass::find($taxClassId)->taxRates->jsonSerialize();
+        foreach ($taxRates as $taxRate) {
+            if (isset($taxRateData[$taxRate['id']])) {
+                $amount = $taxRateData[$taxRate['id']]['amount'];
+            } else {
+                $amount = 0;
+            }
+
+            if ($taxRate['type'] == 'flat') {
+                $amount += $taxRate['rate'];
+            } elseif ($taxRate['type'] == 'percent') {
+                $amount += ($value / 100 * $taxRate['rate']);
+            }
+
+            $taxRateData[$taxRate['id']] = [
+                'tax_rate_id' => $taxRate['id'],
+                'name'        => $taxRate['name'],
+                'rate'        => $taxRate['rate'],
+                'type'        => $taxRate['type'],
+                'amount'      => round($amount),
+            ];
         }
 
         return $taxRateData;

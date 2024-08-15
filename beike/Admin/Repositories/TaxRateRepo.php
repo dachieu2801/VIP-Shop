@@ -28,7 +28,7 @@ class TaxRateRepo
         if ($id) {
             $taxRate = TaxRate::query()->findOrFail($id);
         } else {
-            $taxRate = new TaxRate();
+            $taxRate = new TaxRate;
         }
         $taxRate->fill([
             'region_id' => $data['region_id'],
