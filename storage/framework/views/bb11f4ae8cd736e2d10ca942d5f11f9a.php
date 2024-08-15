@@ -16,21 +16,15 @@
           </el-form-item>
           <?php endif; ?>
         </div>
-        <?php if(!current_customer()): ?>
+        <!-- <?php if(!current_customer()): ?>
         <el-form-item label="<?php echo e(__('address.address_1')); ?>" prop="address_1">
           <el-input v-model="form.address_1" placeholder="<?php echo e(__('address.address_1')); ?>"></el-input>
         </el-form-item>
-        <?php endif; ?>
-
+        <?php endif; ?> -->
         <div class="d-flex dialog-address">
-          <el-form-item prop="country_id" label="<?php echo e(__('address.country')); ?>" required class="w-50" >
-            <el-select v-model="form.country_id" class="w-100" filterable placeholder="<?php echo e(__('address.country_id')); ?>" @change="countryChange">
-              <el-option v-for="item in source.countries" :key="item.id" :label="item.name"
-                         :value="item.id">
-              </el-option>
-            </el-select>
+          <el-form-item label="<?php echo e(__('address.address_1')); ?>" class="w-50" prop="address_1">
+            <el-input v-model="form.address_1" placeholder="<?php echo e(__('address.address_1')); ?>"></el-input>
           </el-form-item>
-
           <el-form-item prop="zone_id" label="<?php echo e(__('address.zone')); ?>" class="w-50 ms-3 ">
             <el-select v-model="form.zone_id" class="w-100" filterable placeholder="<?php echo e(__('address.zone')); ?>">
               <el-option v-for="item in source.zones" :key="item.id" :label="item.name"
@@ -40,21 +34,27 @@
           </el-form-item>
         </div>
 
-        
-        <el-form-item label="<?php echo e(__('address.post_code')); ?>" class="w-50 ">
+        <div class="d-flex dialog-address">
+          <el-form-item prop="country_id" label="<?php echo e(__('address.country')); ?>" required class="w-50" >
+            <el-select v-model="form.country_id" class="w-100" filterable placeholder="<?php echo e(__('address.country_id')); ?>" @change="countryChange">
+              <el-option v-for="item in source.countries" :key="item.id" :label="item.name"
+                         :value="item.id">
+              </el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="<?php echo e(__('address.post_code')); ?>" class="w-50 ms-3">
           <el-input v-model="form.zipcode" placeholder="<?php echo e(__('address.post_code')); ?>"></el-input>
         </el-form-item>
-        <el-form-item label="<?php echo e(__('address.address_2')); ?>" class="w-50 " prop="address_2">
+
+          
+        </div>
+
+        
+        
+        <el-form-item label="<?php echo e(__('address.address_2')); ?>" class="w-100" prop="address_2">
           <el-input v-model="form.address_2" placeholder="<?php echo e(__('address.address_2')); ?>"></el-input>
         </el-form-item>
-        <div class="d-flex dialog-address">
-          <el-form-item label="<?php echo e(__('address.address_1')); ?>" class="w-50" prop="address_1">
-            <el-input v-model="form.address_1" placeholder="<?php echo e(__('address.address_1')); ?>"></el-input>
-          </el-form-item>
-          
-
-          <!-- Mã bưu điện -->
-        </div>
+      
 
 
 
