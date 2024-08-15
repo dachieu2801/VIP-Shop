@@ -28,15 +28,15 @@ use Beike\Shop\Http\Controllers\ProductReviewController;
 use Beike\Shop\Http\Controllers\ZoneController;
 use Illuminate\Support\Facades\Route;
 
-
-
+Route::post('/send-email', [CheckoutController::class, 'sendEmail'])->name('mail');
 
 Route::prefix('/')
     ->name('shop.')
     ->middleware(['shop'])
     ->group(function () {
+
         Route::get('/order-tracking-order-page', [OrderController::class, 'showTrackingOrderPage'])->name('orderTracking');
- 
+
         Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
         Route::get('brands', [BrandController::class, 'index'])->name('brands.index');
