@@ -216,6 +216,7 @@ class OrderRepo
         $current    = $data['current']  ?? [];
         $carts      = $data['carts']    ?? [];
         $totals     = $data['totals']   ?? [];
+        $receiveTime = $data['receive_time']  ?? '';
         $comment    = $data['comment']  ?? '';
         $orderTotal = collect($totals)->where('code', 'order_total')->first();
 
@@ -264,6 +265,7 @@ class OrderRepo
             'ip'                     => request()->getClientIp(),
             'user_agent'             => request()->userAgent(),
             'comment'                => $comment,
+            'receive_time'                => $receiveTime,
             'status'                 => StateMachineService::CREATED,
             'shipping_method_code'   => $shippingMethodCode,
             'shipping_method_name'   => $shippingMethodName,

@@ -232,7 +232,6 @@ class HomeController extends Controller
 
         }
 
-        Log::info('adas', ['ad' => $filteredCategories]);
         $data          = ['modules' => $moduleItems];
 
         $data = hook_filter('home.index.data', $data);

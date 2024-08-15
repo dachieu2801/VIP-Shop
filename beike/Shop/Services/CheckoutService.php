@@ -30,7 +30,6 @@ use Beike\Services\StateMachineService;
 use Beike\Shop\Http\Resources\Account\AddressResource;
 use Beike\Shop\Http\Resources\Checkout\PaymentMethodItem;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
 class CheckoutService
 {
@@ -117,10 +116,11 @@ class CheckoutService
      */
     public function confirm($voucher_id = 0): Order
     {
-        $customer                 = $this->customer;
-        $checkoutData             = self::checkoutData();
-        $checkoutData['customer'] = $customer;
-        $checkoutData['comment']  = request('comment');
+        $customer                      = $this->customer;
+        $checkoutData                  = self::checkoutData();
+        $checkoutData['customer']      = $customer;
+        $checkoutData['comment']       = request('comment');
+        $checkoutData['receive_time']  = request('receive_time');
 
         if ($voucher_id) {
             $voucher = (new VouchersRepo)->getByIdActive($voucher_id);
