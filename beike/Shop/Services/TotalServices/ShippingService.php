@@ -28,8 +28,6 @@ class ShippingService
         $totalService   = $checkout->totalService;
         $shippingMethod = $totalService->getShippingMethod();
 
-
-
         if (empty($shippingMethod)) {
             return null;
         }
@@ -47,9 +45,11 @@ class ShippingService
 
         $className = "Plugin\\{$pluginCode}\\Bootstrap";
         if (! method_exists($className, 'getShippingFee')) {
-            throw new \Exception("请在插件 {$className} 实现方法: public function getShippingFee(CheckoutService \$checkout)");
+            throw new \Exception("Vui lòng thêm vào plugin {$className} Phương pháp thực hiện: public function getShippingFee(CheckoutService \$checkout)");
         }
+
         $amount    = (float) (new $className)->getShippingFee($checkout);
+
         $totalData = [
             'code'          => 'shipping',
             'title'         => trans('shop/carts.shipping_fee'),

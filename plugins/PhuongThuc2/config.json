@@ -1,0 +1,18 @@
+{
+    "code": "phuong_thuc_2",
+    "name": {
+        "zh_cn": "Phương Thức 2",
+        "en":"Phương Thức 2"
+    },
+    "description": {
+        "zh_cn":"Phương Thức 2",
+        "en": "Phương Thức 2"
+    },
+    "type": "payment",
+    "version": "v1.0.0",
+    "icon": "/image/logo.png",
+    "author": {
+        "name": "",
+        "email": ""
+    }
+}

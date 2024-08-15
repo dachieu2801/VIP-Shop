@@ -96,7 +96,8 @@ class TotalService
                 continue;
             }
 
-            $taxRates = $taxLib->getRates($product['price'], $product['tax_class_id']);
+            $taxRates = $taxLib->getRates1($product['price'], $product['tax_class_id']);
+
             foreach ($taxRates as $taxRate) {
                 if (! isset($this->taxes[$taxRate['tax_rate_id']])) {
                     $this->taxes[$taxRate['tax_rate_id']] = ($taxRate['amount'] * $product['quantity']);

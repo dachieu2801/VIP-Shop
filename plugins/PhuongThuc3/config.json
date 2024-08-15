@@ -1,0 +1,18 @@
+{
+    "code": "phuong_thuc_3",
+    "name": {
+        "zh_cn": "Phương Thức 3",
+        "en":"Phương Thức 3"
+    },
+    "description": {
+        "zh_cn":"Phương Thức 3",
+        "en": "Phương Thức 3"
+    },
+    "type": "payment",
+    "version": "v1.0.0",
+    "icon": "/image/logo.png",
+    "author": {
+        "name": "",
+        "email": ""
+    }
+}

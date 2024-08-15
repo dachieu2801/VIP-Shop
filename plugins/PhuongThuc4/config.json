@@ -1,0 +1,18 @@
+{
+    "code": "phuong_thuc_4",
+    "name": {
+        "zh_cn": "Phương Thức 4",
+        "en":"Phương Thức 4"
+    },
+    "description": {
+        "zh_cn":"Phương Thức 4",
+        "en": "Phương Thức 4"
+    },
+    "type": "payment",
+    "version": "v1.0.0",
+    "icon": "/image/logo.png",
+    "author": {
+        "name": "",
+        "email": ""
+    }
+}

@@ -1,0 +1,18 @@
+{
+    "code": "bithu_shipping",
+    "name": {
+        "zh_cn": "Ship bì thư",
+        "en": "Ship bì thư"
+    },
+    "description": {
+        "zh_cn": "Ship bì thư",
+        "en": "Ship bì thư"
+    },
+    "type": "shipping",
+    "version": "v1.0.0",
+    "icon": "/image/logo.png",
+    "author": {
+        "name": "",
+        "email": ""
+    }
+}

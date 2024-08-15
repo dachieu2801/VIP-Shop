@@ -94,7 +94,7 @@ class CheckoutController extends Controller
             $requestData = $request->all();
 
             $data       = (new CheckoutService)->update($requestData);
-            Log::info('adasdadsa update', ['ád' => $data]);
+//            Log::info('adasdadsa update', ['CheckoutService' => $data]);
             ///////////////////////////////////////////////////
             if ($data['current']['voucher_id']) {
                 $voucher = (new VouchersRepo)->getByIdActive($data['current']['voucher_id']);
