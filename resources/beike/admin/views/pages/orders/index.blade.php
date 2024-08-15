@@ -101,7 +101,7 @@
                        <a href="{{ admin_route('orders.show', [$order->id]) }}"
                           class="btn btn-secondary btn-sm">{{ __('common.view') }}
                        </a>
-                       <button type="button" data-id="{{ $order->id }}" class="btn btn-outline-danger btn-sm">{{ __('common.delete') }}</button>
+                       <button type="button"  data-id="{{ $order->id }}" class="btn btn-outline-danger btn-sm delete-btn">{{ __('common.delete') }}</button>
                      </div>
                       @else
                       <button type="button" data-id="{{ $order->id }}" class="btn btn-outline-secondary btn-sm restore-btn">{{ __('common.restore') }}</button>
@@ -227,6 +227,7 @@
 
 <script>
   $('.delete-btn').click(function(event) {
+    console.log("click-delete")
     const id = $(this).data('id');
     const self = $(this);
 
