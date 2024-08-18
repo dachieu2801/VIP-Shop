@@ -1,11 +1,11 @@
 <style>
   header .top-wrap .container-fluid .left .dropdown .dropdown-menu .dropdown-item:hover {
     color: green;
-  } 
+  }
 
   header .top-wrap .container-fluid .left .dropdown .dropdown-menu .dropdown-item:focus {
     background-color: transparent;
-  } 
+  }
 
   header .header-content .right-btn .nav-link {
     color: white;
@@ -37,31 +37,28 @@
                 ?>
         <?php if(currencies()->count() > 1): ?>
           <div class="dropdown" style="background-color: transparent">
-            <a class="btn dropdown-toggle ps-0 " href="javascript:void(0)" role="button" id="currency-dropdown" data-toggle="dropdown"
-              aria-expanded="false" 
-              style="
-              color: white;  
-              outline: none; 
-              border: none;
-              font-weight: 300;
-              font-size: 13px;
-              line-height: 16px;
-              ">
-              <?php $__currentLoopData = currencies(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $currency): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <?php if($currency->code == current_currency_code()): ?>
-                  <?php if($currency->symbol_left): ?>
-                  <?php echo e($currency->symbol_left); ?>
 
-                  <?php endif; ?>
-                  <?php echo e($currency->name); ?>
 
-                  <?php if($currency->symbol_right): ?>
-                  <?php echo e($currency->symbol_right); ?>
 
-                  <?php endif; ?>
-                <?php endif; ?>
-              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             <div class="dropdown-menu" aria-labelledby="currency-dropdown">
               <?php $__currentLoopData = currencies(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $currency): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -103,10 +100,10 @@
         <?php if(count($languages) > 1): ?>
           <div class="dropdown" style="background-color: transparent">
             <a class="btn dropdown-toggle" href="javascript:void(0)" role="button" id="language-dropdown" data-toggle="dropdown"
-              aria-expanded="false" 
+              aria-expanded="false"
               style="
-              color: white;  
-              outline: none; 
+              color: white;
+              outline: none;
               border: none;
               font-weight: 300;
               font-size: 13px;
@@ -114,7 +111,7 @@
               ">
               <?php echo e(current_language()->name); ?>
 
-        
+
             </a>
 
             <div class="dropdown-menu" aria-labelledby="language-dropdown">
@@ -264,7 +261,7 @@
               <?php else: ?>
                 <li><a href="<?php echo e(shop_route('login.index')); ?>" class="dropdown-item"><i
                       class="
-                      bi bi-box-arrow-right 
+                      bi bi-box-arrow-right
                       me-1"></i><?php echo e(__('shop/login.login_and_sign')); ?></a></li>
               <?php endif; ?>
             </ul>
@@ -300,8 +297,8 @@
               <li ><a href="<?php echo e(shop_route('orderTracking')); ?>" class="dropdown-item" ><?php echo e(__('shop/account/order.order_tracking')); ?></a></li>
             </ul>
           </li>
-          
-         
+
+
         </ul>
       </div>
     </div>

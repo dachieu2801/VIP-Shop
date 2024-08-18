@@ -29,7 +29,7 @@
               <th><?php echo e(__('admin/tax_rate.tax')); ?></th>
               <th><?php echo e(__('admin/tax_rate.tax_rate')); ?></th>
               <th><?php echo e(__('admin/tax_rate.type')); ?></th>
-              <th><?php echo e(__('admin/tax_rate.area')); ?></th>
+
               <th><?php echo e(__('common.created_at')); ?></th>
               <th><?php echo e(__('common.updated_at')); ?></th>
               <th class="text-end"><?php echo e(__('common.action')); ?></th>
@@ -41,7 +41,7 @@
               <td>{{ tax.name }}</td>
               <td>{{ tax.rate }}</td>
               <td>{{ tax.type }}</td>
-              <td>{{ tax.region ? tax.region.name : '' }}</td>
+
               <td>{{ tax.created_at }}</td>
               <td>{{ tax.updated_at }}</td>
               <td class="text-end">
@@ -96,11 +96,11 @@
           </el-select>
         </el-form-item>
 
-        <el-form-item label="<?php echo e(__('admin/tax_rate.area')); ?>">
-          <el-select v-model="dialog.form.region_id" size="small" placeholder="<?php echo e(__('common.please_choose')); ?>">
-            <el-option v-for="region in source.regions" :key="region.value" :label="region.name" :value="region.id"></el-option>
-          </el-select>
-        </el-form-item>
+
+
+
+
+
 
         <el-form-item class="mt-5">
           <el-button type="primary" @click="addFormSubmit('form')"><?php echo e(__('common.save')); ?></el-button>

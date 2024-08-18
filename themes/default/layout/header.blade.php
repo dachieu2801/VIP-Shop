@@ -1,11 +1,11 @@
 <style>
   header .top-wrap .container-fluid .left .dropdown .dropdown-menu .dropdown-item:hover {
     color: green;
-  } 
+  }
 
   header .top-wrap .container-fluid .left .dropdown .dropdown-menu .dropdown-item:focus {
     background-color: transparent;
-  } 
+  }
 
   header .header-content .right-btn .nav-link {
     color: white;
@@ -24,28 +24,28 @@
         @hookwrapper('header.top.currency')
         @if (currencies()->count() > 1)
           <div class="dropdown" style="background-color: transparent">
-            <a class="btn dropdown-toggle ps-0 " href="javascript:void(0)" role="button" id="currency-dropdown" data-toggle="dropdown"
-              aria-expanded="false" 
-              style="
-              color: white;  
-              outline: none; 
-              border: none;
-              font-weight: 300;
-              font-size: 13px;
-              line-height: 16px;
-              ">
-              @foreach (currencies() as $currency)
-                @if ($currency->code == current_currency_code())
-                  @if ($currency->symbol_left)
-                  {{ $currency->symbol_left }}
-                  @endif
-                  {{ $currency->name }}
-                  @if ($currency->symbol_right)
-                  {{ $currency->symbol_right }}
-                  @endif
-                @endif
-              @endforeach
-            </a>
+{{--            <a class="btn dropdown-toggle ps-0 " href="javascript:void(0)" role="button" id="currency-dropdown" data-toggle="dropdown"--}}
+{{--              aria-expanded="false" --}}
+{{--              style="--}}
+{{--              color: white;  --}}
+{{--              outline: none; --}}
+{{--              border: none;--}}
+{{--              font-weight: 300;--}}
+{{--              font-size: 13px;--}}
+{{--              line-height: 16px;--}}
+{{--              ">--}}
+{{--              @foreach (currencies() as $currency)--}}
+{{--                @if ($currency->code == current_currency_code())--}}
+{{--                  @if ($currency->symbol_left)--}}
+{{--                  {{ $currency->symbol_left }}--}}
+{{--                  @endif--}}
+{{--                  {{ $currency->name }}--}}
+{{--                  @if ($currency->symbol_right)--}}
+{{--                  {{ $currency->symbol_right }}--}}
+{{--                  @endif--}}
+{{--                @endif--}}
+{{--              @endforeach--}}
+{{--            </a>--}}
 
             <div class="dropdown-menu" aria-labelledby="currency-dropdown">
               @foreach (currencies() as $currency)
@@ -69,17 +69,17 @@
         @if (count($languages) > 1)
           <div class="dropdown" style="background-color: transparent">
             <a class="btn dropdown-toggle" href="javascript:void(0)" role="button" id="language-dropdown" data-toggle="dropdown"
-              aria-expanded="false" 
+              aria-expanded="false"
               style="
-              color: white;  
-              outline: none; 
+              color: white;
+              outline: none;
               border: none;
               font-weight: 300;
               font-size: 13px;
               line-height: 16px;
               ">
               {{ current_language()->name }}
-        
+
             </a>
 
             <div class="dropdown-menu" aria-labelledby="language-dropdown">
@@ -153,7 +153,7 @@
               @else
                 <li><a href="{{ shop_route('login.index') }}" class="dropdown-item"><i
                       class="
-                      bi bi-box-arrow-right 
+                      bi bi-box-arrow-right
                       me-1"></i>{{ __('shop/login.login_and_sign') }}</a></li>
               @endauth
             </ul>
@@ -176,8 +176,8 @@
               <li ><a href="{{ shop_route('orderTracking') }}" class="dropdown-item" >{{__('shop/account/order.order_tracking')}}</a></li>
             </ul>
           </li>
-          
-         
+
+
         </ul>
       </div>
     </div>

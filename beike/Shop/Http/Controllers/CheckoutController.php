@@ -13,12 +13,13 @@ namespace Beike\Shop\Http\Controllers;
 
 //use Beike\Notifications\sendNewOrderNotification;
 use Beike\Mail\SendNotifyOrder;
+use Beike\Models\AdminUser;
 use Beike\Repositories\OrderRepo;
 use Beike\Repositories\VouchersRepo;
 use Beike\Shop\Services\CheckoutService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use Beike\Models\AdminUser;
+
 class CheckoutController extends Controller
 {
     public function index()
@@ -26,6 +27,35 @@ class CheckoutController extends Controller
         try {
             $data              = (new CheckoutService)->checkoutData();
             $data              = hook_filter('checkout.index.data', $data);
+
+            if ($data['current']['payment_method_code'] == 'vn_pay') {
+                $newTotals      = [];
+                $orderTotal     = null;
+                foreach ($data['totals'] as $item) {
+                    if ($item['code'] === 'order_total') {
+                        $orderTotal = $item;
+                    } else {
+                        $newTotals[] = $item;
+                    }
+                }
+
+                $amount       = round($orderTotal['amount'] * 0.05);
+                $newTotals[]  = [
+                    'code'          => 'voucher_id',
+                    'title'         => 'Phí thanh toán qua PayPay(5%)',
+                    'amount'        => $amount,
+                    'amount_format' => currency_format($amount),
+                ];
+                $amountTotal = round($amount + $orderTotal['amount']);
+                $newTotals[] = [
+                    'code'          => 'order_total',
+                    'title'         => trans('shop/carts.order_total'),
+                    'amount'        => $amountTotal,
+                    'amount_format' => currency_format($amountTotal),
+                ];
+                $data['totals'] = $newTotals;
+
+            }
 
             if ($data['current']['voucher_id']) {
                 $voucher = (new VouchersRepo)->getByIdActive($data['current']['voucher_id']);
@@ -42,7 +72,7 @@ class CheckoutController extends Controller
                         }
                     }
                     if ($voucher['discount_type'] == 'percentage') {
-                        $amount       = floatval($voucher['discount_value']) / 100 * floatval($orderTotal['amount']);
+                        $amount       = round(floatval($voucher['discount_value']) / 100 * floatval($orderTotal['amount']));
                         $newTotals[]  = [
                             'code'          => 'voucher_id',
                             'title'         => $voucher['name'],
@@ -57,14 +87,14 @@ class CheckoutController extends Controller
                             'amount_format' => currency_format($amountTotal),
                         ];
                     } else {
-                        $amount       = floatval($voucher['discount_value']);
+                        $amount       = round($voucher['discount_value']);
                         $newTotals[]  = [
                             'code'          => 'voucher_id',
                             'title'         => $voucher['name'],
                             'amount'        => $amount,
                             'amount_format' => '- ' . currency_format($amount),
                         ];
-                        $amountTotal =  floatval($orderTotal['amount']) - $amount < 0 ? 0 : floatval($orderTotal['amount']) - $amount;
+                        $amountTotal =  round(max(floatval($orderTotal['amount']) - $amount, 0));
                         $newTotals[] = [
                             'code'          => 'order_total',
                             'title'         => trans('shop/carts.order_total'),
@@ -95,6 +125,36 @@ class CheckoutController extends Controller
             $requestData = $request->all();
 
             $data       = (new CheckoutService)->update($requestData);
+
+            if ($data['current']['payment_method_code'] == 'vn_pay') {
+                $newTotals      = [];
+                $orderTotal     = null;
+                foreach ($data['totals'] as $item) {
+                    if ($item['code'] === 'order_total') {
+                        $orderTotal = $item;
+                    } else {
+                        $newTotals[] = $item;
+                    }
+                }
+
+                $amount       = round($orderTotal['amount'] * 0.05);
+                $newTotals[]  = [
+                    'code'          => 'voucher_id',
+                    'title'         => 'Phí thanh toán qua PayPay(5%)',
+                    'amount'        => $amount,
+                    'amount_format' => currency_format($amount),
+                ];
+                $amountTotal = round($amount + $orderTotal['amount']);
+                $newTotals[] = [
+                    'code'          => 'order_total',
+                    'title'         => trans('shop/carts.order_total'),
+                    'amount'        => $amountTotal,
+                    'amount_format' => currency_format($amountTotal),
+                ];
+                $data['totals'] = $newTotals;
+
+            }
+
             if ($data['current']['voucher_id']) {
                 $voucher = (new VouchersRepo)->getByIdActive($data['current']['voucher_id']);
                 if (! $voucher) {
@@ -212,6 +272,7 @@ class CheckoutController extends Controller
             foreach ($activeEmails as $email) {
                 Mail::to($email)->send(new SendNotifyOrder($detailShop));
             }
+
             return true;
         } catch (\Exception $e) {
             return false;
