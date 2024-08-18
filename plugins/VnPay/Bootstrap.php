@@ -26,7 +26,7 @@ class Bootstrap
     {
         add_hook_filter('service.payment.mobile_pay.data', function ($data) {
             $order = $data['order'];
-            if ($order->payment_method_code != 'bank_transfer') {
+            if ($order->payment_method_code != 'vn_pay') {
                 return $data;
             }
             return $data;

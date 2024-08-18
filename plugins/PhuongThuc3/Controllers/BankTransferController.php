@@ -13,7 +13,7 @@
  * https://www.positronx.io/how-to-integrate-paypal-payment-gateway-in-laravel/
  */
 
-namespace Plugin\BankTransfer\Controllers;
+namespace Plugin\PhuongThuc3\Controllers;
 
 use Beike\Repositories\OrderRepo;
 use Illuminate\Http\JsonResponse;

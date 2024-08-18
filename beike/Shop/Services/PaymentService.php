@@ -50,7 +50,7 @@ class PaymentService
         $orderPaymentCode = $this->paymentMethodCode;
         $paymentCode      = Str::studly($orderPaymentCode);
         $viewPath         = "$paymentCode::checkout.payment";
-        $viewPath = hook_filter('service.payment.pay.view_path', $viewPath);
+        $viewPath         = hook_filter('service.payment.pay.view_path', $viewPath);
 
         if (! view()->exists($viewPath)) {
             throw new \Exception("Payment method not found {$orderPaymentCode} template {$viewPath}");
@@ -59,11 +59,10 @@ class PaymentService
             'order'           => $this->order,
             'payment_setting' => plugin_setting($orderPaymentCode),
         ];
-//        Log::log('info', 'PaymentService pay', ['$paymentData' => $paymentData]);
+        //        Log::log('info', 'PaymentService pay', ['$paymentData' => $paymentData]);
         $paymentData = hook_filter('service.payment.pay.data', $paymentData);
 
         $paymentView = view($viewPath, $paymentData)->render();
-
 
         return view('checkout.payment', ['order' => $this->order, 'payment' => $paymentView]);
     }

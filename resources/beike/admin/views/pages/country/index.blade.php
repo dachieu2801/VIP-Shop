@@ -26,15 +26,15 @@
             </select>
           </div>
 
-          <div class="col-xxl-20 col-xl-3 col-lg-4 col-md-4 d-flex align-items-center mb-3">
-            <label class="filter-title">{{ __('common.continent') }}</label>
-            <select v-model="filter.continent" class="form-select">
-              <option value="">{{ __('common.all') }}</option>
-              @foreach ($continents as $continent)
-                <option value="{{ $continent['code'] }}">{{ $continent['label'] }}</option>
-              @endforeach
-            </select>
-          </div>
+{{--          <div class="col-xxl-20 col-xl-3 col-lg-4 col-md-4 d-flex align-items-center mb-3">--}}
+{{--            <label class="filter-title">{{ __('common.continent') }}</label>--}}
+{{--            <select v-model="filter.continent" class="form-select">--}}
+{{--              <option value="">{{ __('common.all') }}</option>--}}
+{{--              @foreach ($continents as $continent)--}}
+{{--                <option value="{{ $continent['code'] }}">{{ $continent['label'] }}</option>--}}
+{{--              @endforeach--}}
+{{--            </select>--}}
+{{--          </div>--}}
         </div>
 
         <div class="row">

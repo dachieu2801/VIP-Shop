@@ -1010,7 +1010,6 @@
             }, 0);
           }
         },
-
         addVariantValue(variantIndex) {
           this.dialogVariables.show = true;
           this.dialogVariables.type = 'variant-value';

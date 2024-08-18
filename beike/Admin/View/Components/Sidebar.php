@@ -442,7 +442,7 @@ class Sidebar extends Component
         $routes = [
             ['route' => 'settings.index', 'prefixes' => ['settings']],
             ['route' => 'account.index', 'prefixes' => ['account']],
-            ['route' => 'admin_users.index', 'prefixes' => ['admin_users', 'admin_roles']],
+//            ['route' => 'admin_users.index', 'prefixes' => ['admin_users', 'admin_roles']],
 //            ['route' => 'regions.index', 'prefixes' => ['regions']],
             ['route' => 'tax_rates.index', 'prefixes' => ['tax_rates']],
             ['route' => 'tax_classes.index', 'prefixes' => ['tax_classes']],

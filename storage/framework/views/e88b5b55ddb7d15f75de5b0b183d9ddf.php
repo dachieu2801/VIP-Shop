@@ -121,7 +121,7 @@
                           class="btn btn-secondary btn-sm"><?php echo e(__('common.view')); ?>
 
                        </a>
-                       <button type="button" data-id="<?php echo e($order->id); ?>" class="btn btn-outline-danger btn-sm"><?php echo e(__('common.delete')); ?></button>
+                       <button type="button"  data-id="<?php echo e($order->id); ?>" class="btn btn-outline-danger btn-sm delete-btn"><?php echo e(__('common.delete')); ?></button>
                      </div>
                       <?php else: ?>
                       <button type="button" data-id="<?php echo e($order->id); ?>" class="btn btn-outline-secondary btn-sm restore-btn"><?php echo e(__('common.restore')); ?></button>
@@ -316,6 +316,7 @@
 
 <script>
   $('.delete-btn').click(function(event) {
+    console.log("click-delete")
     const id = $(this).data('id');
     const self = $(this);
 

@@ -13,7 +13,7 @@
         <thead>
           <tr>
             <th>{{ __('common.name') }}</th>
-            <th>{{ __('currency.code') }}</th>
+{{--            <th>{{ __('currency.code') }}</th>--}}
             {{-- <th>{{ __('currency.icon') }}</th> --}}
             <th>{{ __('common.sort_order') }}</th>
             <th class="text-end">{{ __('common.action') }}</th>
@@ -25,7 +25,7 @@
               @{{ language.name }}
               <span class="badge bg-success" v-if="settingLocale == language.code">{{ __('common.default') }}</span>
             </td>
-            <td>@{{ language.code }}</td>
+{{--            <td>@{{ language.code }}</td>--}}
             {{-- <td><div v-if="language.image" class="wh-30 align-items-center justify-content-center d-flex"><img :src="thumbnail(language.image)" class="img-fluid"></div></td> --}}
             <td>@{{ language.sort_order }}</td>
             <td class="text-end">
