@@ -133,6 +133,12 @@ class ProductController extends Controller
         try {
             $requestData = $request->all();
             $actionType  = $requestData['action_type'] ?? '';
+            $taxClassId  = $requestData['tax_class_id'];
+            if (round($taxClassId) <= 0) {
+                return redirect(admin_route('products.create'))
+                    ->withInput()
+                    ->withErrors(['error' => 'Cần chọn 1 loại thuế']);
+            }
             $product     = (new ProductService)->create($requestData);
 
             $data = [
@@ -261,7 +267,6 @@ class ProductController extends Controller
         ];
 
         // $data = hook_filter('admin.product.productStorage.data', $data);
-        Log::info('ada', ['ádas' => $data]);
 
         return view('admin::pages.storage.index', $data);
     }

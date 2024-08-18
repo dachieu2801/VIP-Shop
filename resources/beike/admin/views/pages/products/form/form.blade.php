@@ -246,9 +246,9 @@
                         </div>
                         <input type="text" class="form-control me-2 bg-white" v-model="variablesBatch.model" placeholder="{{ __('admin/product.model') }}">
                         <input type="text" class="form-control me-2 bg-white" v-model="variablesBatch.sku" placeholder="sku">
+                        <input type="number" class="form-control me-2 bg-white" v-model="variablesBatch.cost_price" placeholder="{{ __('admin/product.cost_price') }}">
                         <input type="number" class="form-control me-2 bg-white" v-model="variablesBatch.price" placeholder="{{ __('admin/product.price') }}">
                         <input type="number" class="form-control me-2 bg-white" v-model="variablesBatch.origin_price" placeholder="{{ __('admin/product.origin_price') }}">
-                        <input type="number" class="form-control me-2 bg-white" v-model="variablesBatch.cost_price" placeholder="{{ __('admin/product.cost_price') }}">
                         <input type="number" class="form-control me-2 bg-white" v-model="variablesBatch.quantity" placeholder="{{ __('admin/product.quantity') }}">
                         @hook('admin.product.edit.variables.batch.input.after')
                         <button type="button" class="btn btn-primary text-nowrap" @click="batchSettingVariant">{{ __('common.batch_setting') }}</button>

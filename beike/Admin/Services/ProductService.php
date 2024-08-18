@@ -23,7 +23,6 @@ class ProductService
 
     protected function createOrUpdate(Product $product, array $data, $mul = false): Product
     {
-        Log::info('Data received:', $data);
         $isUpdating = $product->id > 0;
         foreach ($data['skus'] as $sku) {
             $productSku = ProductSku::query()->where('sku', $sku['sku'])->first();

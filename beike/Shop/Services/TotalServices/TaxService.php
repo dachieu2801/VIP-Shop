@@ -12,9 +12,7 @@
 
 namespace Beike\Shop\Services\TotalServices;
 
-use Beike\Admin\Repositories\TaxRateRepo;
 use Beike\Shop\Services\CheckoutService;
-use Illuminate\Support\Facades\Log;
 
 class TaxService
 {
@@ -26,30 +24,19 @@ class TaxService
     {
         $totalService = $checkout->totalService;
 
-        $taxEnabled   = system_setting('base.tax', false);
-
-        if (! $taxEnabled) {
-            return null;
-        }
-
-        $taxes = $totalService->taxes;
-
+        $taxes      = $totalService->taxes;
         $totalItems = [];
-        foreach ($taxes as $taxRateId => $value) {
-            if ($value <= 0) {
-                continue;
-            }
+        if ($taxes['totalTax'] && $taxes['totalTax'] >= 0) {
             $totalItems[] = [
                 'code'          => 'tax',
-                'title'         => TaxRateRepo::getNameByRateId($taxRateId),
-                'amount'        => $value,
-                'amount_format' => currency_format($value),
+                'title'         => 'Tổng thuế là',
+                'amount'        => round($taxes['totalTax']),
+                'amount_format' => currency_format(round($taxes['totalTax'])),
             ];
-            $totalService->amount += $value;
+            $totalService->amount += round($taxes['totalTax']);
         }
 
         $totalService->totals = array_merge($totalService->totals, $totalItems);
-
 
         return $totalItems;
     }
