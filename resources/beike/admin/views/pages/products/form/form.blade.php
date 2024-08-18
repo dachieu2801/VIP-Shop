@@ -246,8 +246,8 @@
                         </div>
                         <input type="text" class="form-control me-2 bg-white" v-model="variablesBatch.model" placeholder="{{ __('admin/product.model') }}">
                         <input type="text" class="form-control me-2 bg-white" v-model="variablesBatch.sku" placeholder="sku">
-                        <input type="number" class="form-control me-2 bg-white" v-model="variablesBatch.cost_price" placeholder="Giá trước thuế">
-                        <input type="number" class="form-control me-2 bg-white" v-model="variablesBatch.price" placeholder="Giá sau thuế">
+                        <input type="number" class="form-control me-2 bg-white" v-model="variablesBatch.cost_price" placeholder="{{ 'Giá trước thuế' }}">
+                        <!-- <input type="number" class="form-control me-2 bg-white" v-model="variablesBatch.price" placeholder="{{ 'Giá sau thuế' }}"> -->
                         <input type="number" class="form-control me-2 bg-white" v-model="variablesBatch.origin_price" placeholder="{{ __('admin/product.origin_price') }}">
                         <input type="number" class="form-control me-2 bg-white" v-model="variablesBatch.quantity" placeholder="{{ __('admin/product.quantity') }}">
                         @hook('admin.product.edit.variables.batch.input.after')
@@ -263,9 +263,9 @@
                           <th width="106px">{{ __('common.image') }}</th>
                           <th class="w-min-100">{{ __('admin/product.model') }}</th>
                           <th class="w-min-100">sku</th>
-                          <th class="w-min-100">Giá trước thuế</th>
-                          <th class="w-min-100">Giá sau thuế</th>
+                          <th class="w-min-100">{{ 'Giá trước thuế' }}</th>
                           <th class="w-min-100">{{ __('admin/product.origin_price') }}</th>
+                          <!-- <th class="w-min-100">{{ 'Giá sau thuế' }}</th> -->
                           <th style="width: 70px">{{ __('admin/product.quantity') }}</th>
                           @hook('admin.product.edit.sku.variants.title.after')
                         </thead>
@@ -299,20 +299,21 @@
                               <span role="alert" class="invalid-feedback">{{ __('common.error_required', ['name' => 'sku']) }}</span>
                               <span v-if="sku.is_default * 1" class="text-success">{{ __('admin/product.default_main_product') }}</span>
                             </td>
-                            <td>
-                              <input type="number" class="form-control" v-model="sku.cost_price" :name="'skus[' + skuIndex + '][cost_price]'" step="any"
-                                placeholder="Giá trước thuế" required>
+                            <td><input type="number" class="form-control" v-model="sku.cost_price" :name="'skus[' + skuIndex + '][cost_price]'" step="any"
+                                placeholder="{{ 'Giá trước thuế' }}">
                             </td>
-                            <td>
-                              <input type="number" class="form-control" v-model="sku.price" :name="'skus[' + skuIndex + '][price]'" step="any"
-                                placeholder="Giá sau thuế" >
-                              <span role="alert" class="invalid-feedback">{{ __('common.error_required', ['name' => __('admin/product.price')]) }}</span>
-                              @hook('admin.product.edit.sku.price.tiered')
-                            </td>
+                           
                             <td><input type="number" class="form-control" v-model="sku.origin_price" :name="'skus[' + skuIndex + '][origin_price]'" step="any"
                               placeholder="{{ __('admin/product.origin_price') }}">
                               <span role="alert" class="invalid-feedback">{{ __('common.error_required', ['name' => __('admin/product.origin_price')]) }}</span>
                             </td>
+                            <!-- <td>
+                              <input type="number" class="form-control" v-model="sku.price" :name="'skus[' + skuIndex + '][price]'" step="any"
+                                placeholder="{{ 'Giá sau thuế' }}" required>
+                              <span role="alert" class="invalid-feedback">{{ __('common.error_required', ['name' => 'Giá sau thuế']) }}</span>
+                              @hook('admin.product.edit.sku.price.tiered')
+                            </td>
+                             -->
                             <td><input type="number" class="form-control" v-model="sku.quantity" :name="'skus[' + skuIndex + '][quantity]'"
                                 placeholder="{{ __('admin/product.quantity') }}"></td>
                             @hook('admin.product.edit.sku.variants.after')
@@ -331,8 +332,8 @@
                 <input type="hidden" value="{{ old('skus.0.image', $product->skus[0]->image ?? '') }}" name="skus[0][image]">
                 <x-admin-form-input name="skus[0][model]" :title="__('admin/product.model')" :value="old('skus.0.model', $product->skus[0]->model ?? '')" />
                 <x-admin-form-input name="skus[0][sku]" title="sku" :value="old('skus.0.sku', $product->skus[0]->sku ?? '')" required />
-                <x-admin-form-input name="skus[0][cost_price]" type="number" title="Giá trước thuế" :value="old('skus.0.cost_price', $product->skus[0]->cost_price ?? '')" required step="any" />
-                <x-admin-form-input name="skus[0][price]" type="number" title="Giá sau thuế" :value="old('skus.0.price', $product->skus[0]->price ?? '')" step="any"  />
+                <x-admin-form-input name="skus[0][cost_price]" type="number" :title="'Giá trước thuế'" :value="old('skus.0.cost_price', $product->skus[0]->cost_price ?? '')" step="any" required />
+                <!-- <x-admin-form-input name="skus[0][price]" type="number" :title="'Giá sau thuế'" :value="old('skus.0.price', $product->skus[0]->price ?? '')" step="any" required /> -->
                 <x-admin-form-input name="skus[0][origin_price]" type="number" :title="__('admin/product.origin_price')" :value="old('skus.0.origin_price', $product->skus[0]->origin_price ?? '')" step="any" />
                 <x-admin-form-input name="skus[0][quantity]" type="number" :title="__('admin/product.quantity')" :value="old('skus.0.quantity', $product->skus[0]->quantity ?? '')" />
                 <input type="hidden" name="skus[0][variants]" placeholder="variants" value="">
