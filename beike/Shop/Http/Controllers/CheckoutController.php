@@ -41,7 +41,7 @@ class CheckoutController extends Controller
 
                 $amount       = round($orderTotal['amount'] * 0.05);
                 $newTotals[]  = [
-                    'code'          => 'voucher_id',
+                    'code'          => 'paypay_fee',
                     'title'         => 'Phí thanh toán qua PayPay(5%)',
                     'amount'        => $amount,
                     'amount_format' => currency_format($amount),

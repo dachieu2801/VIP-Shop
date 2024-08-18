@@ -10,6 +10,7 @@ use Beike\Admin\Services\ProductService;
 use Beike\Libraries\Weight;
 use Beike\Models\Product;
 use Beike\Models\ProductSku;
+use Beike\Models\TaxClass;
 use Beike\Repositories\CategoryRepo;
 use Beike\Repositories\FlattenCategoryRepo;
 use Beike\Repositories\LanguageRepo;
@@ -132,13 +133,33 @@ class ProductController extends Controller
     {
         try {
             $requestData = $request->all();
+
             $actionType  = $requestData['action_type'] ?? '';
             $taxClassId  = $requestData['tax_class_id'];
+
             if (round($taxClassId) <= 0) {
                 return redirect(admin_route('products.create'))
                     ->withInput()
                     ->withErrors(['error' => 'Cần chọn 1 loại thuế']);
             }
+
+            $taxRates = TaxClass::find($taxClassId)->taxRates->jsonSerialize();
+
+            foreach ($requestData['skus'] as &$sku) {
+                $costPrice = (float) $sku['cost_price'];
+                $price     = $costPrice;
+
+                foreach ($taxRates as $rate) {
+                    if ($rate['type'] === 'percent') {
+                        $price += $costPrice * ($rate['rate'] / 100);
+                    } elseif ($rate['type'] === 'flat') {
+                        $price += (float) $rate['rate'];
+                    }
+                }
+
+                $sku['price'] = round($price); // Cập nhật giá mới vào SKU
+            }
+
             $product     = (new ProductService)->create($requestData);
 
             $data = [
@@ -296,7 +317,32 @@ class ProductController extends Controller
     {
         try {
             $requestData = $request->all();
+            Log::info('ádasd',['ádas'=>$requestData]);
             $actionType  = $requestData['action_type'] ?? '';
+            $taxClassId  = $requestData['tax_class_id'];
+
+            if (round($taxClassId) <= 0) {
+                return redirect(admin_route('products.create'))
+                    ->withInput()
+                    ->withErrors(['error' => 'Cần chọn 1 loại thuế']);
+            }
+
+            $taxRates = TaxClass::find($taxClassId)->taxRates->jsonSerialize();
+
+            foreach ($requestData['skus'] as &$sku) {
+                $costPrice = (float) $sku['cost_price'];
+                $price     = $costPrice;
+
+                foreach ($taxRates as $rate) {
+                    if ($rate['type'] === 'percent') {
+                        $price += $costPrice * ($rate['rate'] / 100);
+                    } elseif ($rate['type'] === 'flat') {
+                        $price += (float) $rate['rate'];
+                    }
+                }
+
+                $sku['price'] = round($price); // Cập nhật giá mới vào SKU
+            }
             $product     = (new ProductService)->update($product, $requestData);
 
             $data = [
@@ -340,7 +386,7 @@ class ProductController extends Controller
 
         $product    = hook_filter('admin.product.form.product', $product);
         $taxClasses = TaxClassRepo::getList();
-        array_unshift($taxClasses, ['title' => trans('admin/builder.text_no'), 'id' => 0]);
+        //        array_unshift($taxClasses, ['title' => trans('admin/builder.text_no'), 'id' => 0]);
 
         $data = [
             'product'               => $product,
