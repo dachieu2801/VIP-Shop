@@ -541,8 +541,8 @@
                         </div>
                         <input type="text" class="form-control me-2 bg-white" v-model="variablesBatch.model" placeholder="<?php echo e(__('admin/product.model')); ?>">
                         <input type="text" class="form-control me-2 bg-white" v-model="variablesBatch.sku" placeholder="sku">
-                        <input type="number" class="form-control me-2 bg-white" v-model="variablesBatch.cost_price" placeholder="Giá trước thuế">
-                        <input type="number" class="form-control me-2 bg-white" v-model="variablesBatch.price" placeholder="Giá sau thuế">
+                        <input type="number" class="form-control me-2 bg-white" v-model="variablesBatch.cost_price" placeholder="<?php echo e('Giá trước thuế'); ?>">
+                        <!-- <input type="number" class="form-control me-2 bg-white" v-model="variablesBatch.price" placeholder="<?php echo e('Giá sau thuế'); ?>"> -->
                         <input type="number" class="form-control me-2 bg-white" v-model="variablesBatch.origin_price" placeholder="<?php echo e(__('admin/product.origin_price')); ?>">
                         <input type="number" class="form-control me-2 bg-white" v-model="variablesBatch.quantity" placeholder="<?php echo e(__('admin/product.quantity')); ?>">
                          <?php
@@ -578,9 +578,9 @@
                           <th width="106px"><?php echo e(__('common.image')); ?></th>
                           <th class="w-min-100"><?php echo e(__('admin/product.model')); ?></th>
                           <th class="w-min-100">sku</th>
-                          <th class="w-min-100">Giá trước thuế</th>
-                          <th class="w-min-100">Giá sau thuế</th>
+                          <th class="w-min-100"><?php echo e('Giá trước thuế'); ?></th>
                           <th class="w-min-100"><?php echo e(__('admin/product.origin_price')); ?></th>
+                          <!-- <th class="w-min-100"><?php echo e('Giá sau thuế'); ?></th> -->
                           <th style="width: 70px"><?php echo e(__('admin/product.quantity')); ?></th>
                            <?php
                 $__definedVars = (get_defined_vars()["__data"]);
@@ -624,14 +624,18 @@
                               <span role="alert" class="invalid-feedback"><?php echo e(__('common.error_required', ['name' => 'sku'])); ?></span>
                               <span v-if="sku.is_default * 1" class="text-success"><?php echo e(__('admin/product.default_main_product')); ?></span>
                             </td>
-                            <td>
-                              <input type="number" class="form-control" v-model="sku.cost_price" :name="'skus[' + skuIndex + '][cost_price]'" step="any"
-                                placeholder="Giá trước thuế" required>
+                            <td><input type="number" class="form-control" v-model="sku.cost_price" :name="'skus[' + skuIndex + '][cost_price]'" step="any"
+                                placeholder="<?php echo e('Giá trước thuế'); ?>">
                             </td>
-                            <td>
+                           
+                            <td><input type="number" class="form-control" v-model="sku.origin_price" :name="'skus[' + skuIndex + '][origin_price]'" step="any"
+                              placeholder="<?php echo e(__('admin/product.origin_price')); ?>">
+                              <span role="alert" class="invalid-feedback"><?php echo e(__('common.error_required', ['name' => __('admin/product.origin_price')])); ?></span>
+                            </td>
+                            <!-- <td>
                               <input type="number" class="form-control" v-model="sku.price" :name="'skus[' + skuIndex + '][price]'" step="any"
-                                placeholder="Giá sau thuế" >
-                              <span role="alert" class="invalid-feedback"><?php echo e(__('common.error_required', ['name' => __('admin/product.price')])); ?></span>
+                                placeholder="<?php echo e('Giá sau thuế'); ?>" required>
+                              <span role="alert" class="invalid-feedback"><?php echo e(__('common.error_required', ['name' => 'Giá sau thuế'])); ?></span>
                                <?php
                 $__definedVars = (get_defined_vars()["__data"]);
                 if (empty($__definedVars))
@@ -644,10 +648,7 @@
                 echo $output;
                 ?>
                             </td>
-                            <td><input type="number" class="form-control" v-model="sku.origin_price" :name="'skus[' + skuIndex + '][origin_price]'" step="any"
-                              placeholder="<?php echo e(__('admin/product.origin_price')); ?>">
-                              <span role="alert" class="invalid-feedback"><?php echo e(__('common.error_required', ['name' => __('admin/product.origin_price')])); ?></span>
-                            </td>
+                             -->
                             <td><input type="number" class="form-control" v-model="sku.quantity" :name="'skus[' + skuIndex + '][quantity]'"
                                 placeholder="<?php echo e(__('admin/product.quantity')); ?>"></td>
                              <?php
@@ -719,7 +720,7 @@
 <?php endif; ?>
                 <?php if (isset($component)) { $__componentOriginal9779c7c6189b71f1c04f0551cbef988b = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal9779c7c6189b71f1c04f0551cbef988b = $attributes; } ?>
-<?php $component = Beike\Admin\View\Components\Form\Input::resolve(['name' => 'skus[0][cost_price]','type' => 'number','title' => 'Giá trước thuế','value' => old('skus.0.cost_price', $product->skus[0]->cost_price ?? ''),'required' => true,'step' => 'any'] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component = Beike\Admin\View\Components\Form\Input::resolve(['name' => 'skus[0][cost_price]','type' => 'number','title' => 'Giá trước thuế','value' => old('skus.0.cost_price', $product->skus[0]->cost_price ?? ''),'step' => 'any','required' => true] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('admin-form-input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -737,9 +738,9 @@
 <?php $component = $__componentOriginal9779c7c6189b71f1c04f0551cbef988b; ?>
 <?php unset($__componentOriginal9779c7c6189b71f1c04f0551cbef988b); ?>
 <?php endif; ?>
-                <?php if (isset($component)) { $__componentOriginal9779c7c6189b71f1c04f0551cbef988b = $component; } ?>
+                <!-- <?php if (isset($component)) { $__componentOriginal9779c7c6189b71f1c04f0551cbef988b = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal9779c7c6189b71f1c04f0551cbef988b = $attributes; } ?>
-<?php $component = Beike\Admin\View\Components\Form\Input::resolve(['name' => 'skus[0][price]','type' => 'number','title' => 'Giá sau thuế','value' => old('skus.0.price', $product->skus[0]->price ?? ''),'step' => 'any'] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component = Beike\Admin\View\Components\Form\Input::resolve(['name' => 'skus[0][price]','type' => 'number','title' => 'Giá sau thuế','value' => old('skus.0.price', $product->skus[0]->price ?? ''),'step' => 'any','required' => true] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('admin-form-input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -756,7 +757,7 @@
 <?php if (isset($__componentOriginal9779c7c6189b71f1c04f0551cbef988b)): ?>
 <?php $component = $__componentOriginal9779c7c6189b71f1c04f0551cbef988b; ?>
 <?php unset($__componentOriginal9779c7c6189b71f1c04f0551cbef988b); ?>
-<?php endif; ?>
+<?php endif; ?> -->
                 <?php if (isset($component)) { $__componentOriginal9779c7c6189b71f1c04f0551cbef988b = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal9779c7c6189b71f1c04f0551cbef988b = $attributes; } ?>
 <?php $component = Beike\Admin\View\Components\Form\Input::resolve(['name' => 'skus[0][origin_price]','type' => 'number','title' => __('admin/product.origin_price'),'value' => old('skus.0.origin_price', $product->skus[0]->origin_price ?? ''),'step' => 'any'] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>

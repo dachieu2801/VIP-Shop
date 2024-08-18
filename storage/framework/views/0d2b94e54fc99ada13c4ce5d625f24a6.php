@@ -8,7 +8,7 @@
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
 <?php $component->withAttributes(['title' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($title)]); ?>
-  <select class="form-select me-3 wp-<?php echo e($width); ?>" name="<?php echo e($name); ?>">
+  <select  class="form-select me-3 wp-<?php echo e($width); ?>" name="<?php echo e($name); ?>">
     <?php $__currentLoopData = $options; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $option): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
       <option value="<?php echo e($option[$key]); ?>" <?php echo e($option[$key] == $value ? 'selected': ''); ?>><?php echo e($option[$label]); ?></option>
     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

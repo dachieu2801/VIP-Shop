@@ -14,6 +14,7 @@ namespace Beike\Shop\Http\Controllers;
 //use Beike\Notifications\sendNewOrderNotification;
 use Beike\Mail\SendNotifyOrder;
 use Beike\Models\AdminUser;
+use Beike\Models\TaxClass;
 use Beike\Repositories\OrderRepo;
 use Beike\Repositories\VouchersRepo;
 use Beike\Shop\Services\CheckoutService;
@@ -106,6 +107,55 @@ class CheckoutController extends Controller
                 }
 
             }
+
+            $amount     = 0;
+            $titleTax   = 'Đã bao gồm các loại thuế';
+            $taxClasses = TaxClass::with('taxRates')->get();
+            $taxNames   = [];
+
+            $taxClassMap = [];
+            foreach ($taxClasses as $taxClass) {
+                $taxClassMap[$taxClass->id] = $taxClass->taxRates->pluck('name')->toArray();
+            }
+
+            $newTotals      = [];
+            $orderTotal     = null;
+            foreach ($data['totals'] as $item) {
+                if ($item['code'] === 'order_total') {
+                    $orderTotal = $item;
+                } else {
+                    $newTotals[] = $item;
+                }
+            }
+
+            foreach ($data['carts']['carts'] as $product) {
+                if ($product['price'] > $product['cost_price']) {
+                    $amount += round(($product['price'] - $product['cost_price']) * $product['quantity']);
+                }
+
+                // Kiểm tra tax_class_id và thêm tên thuế vào mảng
+                $taxClassId = $product['tax_class_id'];
+                if (isset($taxClassMap[$taxClassId])) {
+                    $taxNames = array_merge($taxNames, $taxClassMap[$taxClassId]);
+                }
+            }
+
+            $taxNames = array_unique($taxNames);
+
+            if (! empty($taxNames)) {
+                $titleTax .= ' (' . implode(', ', $taxNames) . ')';
+            }
+
+            if ($amount > 0) {
+                $newTotals[] = [
+                    'code'          => 'tax_fee',
+                    'title'         => $titleTax,
+                    'amount'        => round($amount),
+                    'amount_format' => currency_format($amount),
+                ];
+            }
+            $newTotals[] = $orderTotal;
+            $data['totals'] = $newTotals;
 
             return view('checkout', $data);
         } catch (\Exception $e) {
@@ -205,6 +255,54 @@ class CheckoutController extends Controller
 
             }
 
+            $amount     = 0;
+            $titleTax   = 'Đã bao gồm các loại thuế';
+            $taxClasses = TaxClass::with('taxRates')->get();
+            $taxNames   = [];
+
+            $taxClassMap = [];
+            foreach ($taxClasses as $taxClass) {
+                $taxClassMap[$taxClass->id] = $taxClass->taxRates->pluck('name')->toArray();
+            }
+
+            $newTotals      = [];
+            $orderTotal     = null;
+            foreach ($data['totals'] as $item) {
+                if ($item['code'] === 'order_total') {
+                    $orderTotal = $item;
+                } else {
+                    $newTotals[] = $item;
+                }
+            }
+
+            foreach ($data['carts']['carts'] as $product) {
+                if ($product['price'] > $product['cost_price']) {
+                    $amount += round(($product['price'] - $product['cost_price']) * $product['quantity']);
+                }
+
+                // Kiểm tra tax_class_id và thêm tên thuế vào mảng
+                $taxClassId = $product['tax_class_id'];
+                if (isset($taxClassMap[$taxClassId])) {
+                    $taxNames = array_merge($taxNames, $taxClassMap[$taxClassId]);
+                }
+            }
+
+            $taxNames = array_unique($taxNames);
+
+            if (! empty($taxNames)) {
+                $titleTax .= ' (' . implode(', ', $taxNames) . ')';
+            }
+
+            if ($amount > 0) {
+                $newTotals[] = [
+                    'code'          => 'tax_fee',
+                    'title'         => $titleTax,
+                    'amount'        => round($amount),
+                    'amount_format' => currency_format($amount),
+                ];
+            }
+            $newTotals[] = $orderTotal;
+            $data['totals'] = $newTotals;
             return hook_filter('checkout.update.data', $data);
         } catch (\Exception $e) {
             return json_fail($e->getMessage());

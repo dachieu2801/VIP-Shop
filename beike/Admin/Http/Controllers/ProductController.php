@@ -317,7 +317,6 @@ class ProductController extends Controller
     {
         try {
             $requestData = $request->all();
-            Log::info('ádasd',['ádas'=>$requestData]);
             $actionType  = $requestData['action_type'] ?? '';
             $taxClassId  = $requestData['tax_class_id'];
 

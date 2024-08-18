@@ -22,21 +22,21 @@ class TaxService
      */
     public static function getTotal(CheckoutService $checkout): ?array
     {
-        $totalService = $checkout->totalService;
-
-        $taxes      = $totalService->taxes;
+//        $totalService = $checkout->totalService;
+//
+//        $taxes      = $totalService->taxes;
         $totalItems = [];
-        if ($taxes['totalTax'] && $taxes['totalTax'] >= 0) {
-            $totalItems[] = [
-                'code'          => 'tax',
-                'title'         => 'Tổng thuế là',
-                'amount'        => round($taxes['totalTax']),
-                'amount_format' => currency_format(round($taxes['totalTax'])),
-            ];
-            $totalService->amount += round($taxes['totalTax']);
-        }
-
-        $totalService->totals = array_merge($totalService->totals, $totalItems);
+//        if ($taxes['totalTax'] && $taxes['totalTax'] >= 0) {
+//            $totalItems[] = [
+//                'code'          => 'tax',
+//                'title'         => 'Tổng thuế là',
+//                'amount'        => round($taxes['totalTax']),
+//                'amount_format' => currency_format(round($taxes['totalTax'])),
+//            ];
+//            $totalService->amount += round($taxes['totalTax']);
+//        }
+//
+//        $totalService->totals = array_merge($totalService->totals, $totalItems);
 
         return $totalItems;
     }

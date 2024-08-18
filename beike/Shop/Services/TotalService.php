@@ -12,7 +12,9 @@
 namespace Beike\Shop\Services;
 
 use Beike\Models\Cart;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use Beike\Models\TaxClass;
 
 class TotalService
 {
@@ -25,7 +27,6 @@ class TotalService
         'subtotal_discount',
         'subtotal_origin',
     ];
-
     protected Cart $currentCart;
 
     protected array $cartProducts;
@@ -84,10 +85,13 @@ class TotalService
     public function getTaxes(): array
     {
         $this->taxes['totalTax'] = 0;
+        $this->taxes['list']     = [];
         foreach ($this->cartProducts as $product) {
+//            $taxRates = TaxClass::find($product['tax_class_id'])->taxRates->jsonSerialize();
             if ($product['price'] > $product['cost_price']) {
                 $this->taxes['totalTax']  += round($product['price']  - $product['cost_price']) * $product['quantity'];
             }
+
         }
 
         return $this->taxes;
