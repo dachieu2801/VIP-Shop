@@ -44,6 +44,7 @@ class CartDetail extends JsonResource
             'tax_class_id'                            => $product->tax_class_id,
             'subtotal'                                => $subTotal,
             'origin_price'                            => $sku->origin_price,
+            'cost_price'                              => $sku->cost_price,
             'origin_price_format'                     => currency_format($sku->origin_price),
             'sub_total_origin_price'                  => $subTotal_origin_price,
             'subtotal_format'                         => currency_format($subTotal),

@@ -11,9 +11,7 @@
 
 namespace Beike\Shop\Services;
 
-use Beike\Libraries\Tax;
 use Beike\Models\Cart;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class TotalService
@@ -85,25 +83,10 @@ class TotalService
      */
     public function getTaxes(): array
     {
-        $addressInfo = [
-            'shipping_address' => $this->currentCart->shippingAddress ?? $this->currentCart->guest_shipping_address,
-            'payment_address'  => $this->currentCart->paymentAddress  ?? $this->currentCart->guest_payment_address,
-        ];
-        $taxLib = Tax::getInstance($addressInfo);
-
+        $this->taxes['totalTax'] = 0;
         foreach ($this->cartProducts as $product) {
-            if (empty($product['tax_class_id'])) {
-                continue;
-            }
-
-            $taxRates = $taxLib->getRates1($product['price'], $product['tax_class_id']);
-
-            foreach ($taxRates as $taxRate) {
-                if (! isset($this->taxes[$taxRate['tax_rate_id']])) {
-                    $this->taxes[$taxRate['tax_rate_id']] = ($taxRate['amount'] * $product['quantity']);
-                } else {
-                    $this->taxes[$taxRate['tax_rate_id']] += ($taxRate['amount'] * $product['quantity']);
-                }
+            if ($product['price'] > $product['cost_price']) {
+                $this->taxes['totalTax']  += round($product['price']  - $product['cost_price']) * $product['quantity'];
             }
         }
 
