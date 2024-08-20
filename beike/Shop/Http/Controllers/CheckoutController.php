@@ -19,6 +19,7 @@ use Beike\Repositories\OrderRepo;
 use Beike\Repositories\VouchersRepo;
 use Beike\Shop\Services\CheckoutService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class CheckoutController extends Controller
@@ -154,7 +155,7 @@ class CheckoutController extends Controller
                     'amount_format' => currency_format($amount),
                 ];
             }
-            $newTotals[] = $orderTotal;
+            $newTotals[]    = $orderTotal;
             $data['totals'] = $newTotals;
 
             return view('checkout', $data);
@@ -301,8 +302,9 @@ class CheckoutController extends Controller
                     'amount_format' => currency_format($amount),
                 ];
             }
-            $newTotals[] = $orderTotal;
+            $newTotals[]    = $orderTotal;
             $data['totals'] = $newTotals;
+
             return hook_filter('checkout.update.data', $data);
         } catch (\Exception $e) {
             return json_fail($e->getMessage());
@@ -326,7 +328,11 @@ class CheckoutController extends Controller
         try {
             $data = (new CheckoutService)->confirm($requestData['voucher_id'] ?? 0);
 
-            $this->sendEmail($data->jsonSerialize());
+            try {
+                $this->sendEmail($data->jsonSerialize());
+            } catch (\Exception $e) {
+                Log::info('Error send mail');
+            }
 
             return hook_filter('checkout.confirm.data', $data);
         } catch (\Exception $e) {
