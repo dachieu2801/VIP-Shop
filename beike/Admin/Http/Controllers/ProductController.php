@@ -102,7 +102,7 @@ class ProductController extends Controller
 
     public function bestSelling(Request $request)
     {
-        return view('admin::pages.products.bestSelling');
+        return view('admin::pages.bestSelling.index');
     }
 
     public function trashed(Request $request)

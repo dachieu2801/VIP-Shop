@@ -68,7 +68,7 @@
               <thead>
                 <tr>
                   <th>{{ __('admin/tax_rate.tax_rate') }}</th>
-                  <th>{{ __('admin/tax_class.based_on') }}</th>
+                  <!-- <th>{{ __('admin/tax_class.based_on') }}</th> -->
                   <th>{{ __('admin/tax_class.priority') }}</th>
                   <th></th>
                 </tr>
@@ -80,11 +80,11 @@
                       <el-option v-for="tax in source.all_tax_rates" :key="tax.id" :label="tax.name" :value="tax.id"></el-option>
                     </el-select>
                   </td>
-                  <td>
+                  <!-- <td>
                     <el-select v-model="rule.based" size="mini" placeholder="{{ __('common.please_choose') }}">
                       <el-option v-for="base in source.bases" :key="base" :label="base" :value="base"></el-option>
                     </el-select>
-                  </td>
+                  </td> -->
                   <td width="80px"><el-input v-model="rule.priority" size="mini" placeholder="{{ __('admin/tax_class.priority') }}"></el-input></td>
                   <td>
                     <button class="btn btn-outline-danger btn-sm ml-1" type="button" @click="deleteRates(index)">{{ __('common.delete') }}</button>

@@ -226,7 +226,7 @@ class Sidebar extends Component
      */
     private function getProductSubPrefix()
     {
-        $prefix = ['products', 'multi_filter', 'vouchers','categories', 'brands', 'attribute_groups', 'attributes'];
+        $prefix = ['products','best-selling','vouchers','categories'];
 
         return hook_filter('admin.sidebar.product.prefix', $prefix);
     }
@@ -321,16 +321,16 @@ class Sidebar extends Component
     public function getProductSubRoutes()
     {
         $routes = [
-            ['route' => 'products.index', 'prefixes' => ['products'], 'excludes' => ['products.trashed']],
+            ['route' => 'products.index', 'prefixes' => ['products'], 'excludes' => ['products.trashed','products.bestSelling']],
 
             ['route' => 'categories.index', 'prefixes' => ['categories']],
-            ['route' => 'products.bestSelling', 'prefixes' => ['bestSelling']],
+            ['route' => 'products.bestSelling', 'prefixes' => ['products'], 'excludes'=>['products.index', 'products.edit', 'products.create', 'products.reviews','products.trashed']],
             ['route' => 'vouchers.index', 'prefixes' => ['vouchers']],
             // ['route' => 'brands.index', 'prefixes' => ['brands']],
             // ['route' => 'attribute_groups.index', 'prefixes' => ['attribute_groups']],
             // ['route' => 'attributes.index', 'prefixes' => ['attributes']],
             // ['route' => 'multi_filter.index', 'prefixes' => ['multi_filter']],
-            ['route' => 'products.trashed', 'prefixes' => ['products'], 'excludes' => ['products.index', 'products.edit', 'products.create', 'products.reviews']],
+            ['route' => 'products.trashed', 'prefixes' => ['products'], 'excludes' => ['products.index', 'products.edit', 'products.create', 'products.reviews','products.bestSelling']],
         ];
 
         return hook_filter('admin.sidebar.product_routes', $routes);
