@@ -53,9 +53,9 @@
     <li class="nav-item" role="presentation">
       <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-descriptions" type="button"><?php echo e(__('admin/product.product_details')); ?></button>
     </li>
-    <li class="nav-item" role="presentation">
+    <!-- <li class="nav-item" role="presentation">
       <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-attribute" type="button"><?php echo e(__('admin/attribute.index')); ?></button>
-    </li>
+    </li> -->
     <li class="nav-item" role="presentation">
       <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-seo" type="button" >SEO</button>
     </li>
@@ -218,7 +218,7 @@
 <?php unset($__componentOriginal9779c7c6189b71f1c04f0551cbef988b); ?>
 <?php endif; ?>
 
-            <?php if (isset($component)) { $__componentOriginal1b48936358e72618543915217d3ed939 = $component; } ?>
+            <!-- <?php if (isset($component)) { $__componentOriginal1b48936358e72618543915217d3ed939 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal1b48936358e72618543915217d3ed939 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'admin::components.form.row','data' => ['title' => __('admin/product.weight_text')]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('admin::form.row'); ?>
@@ -245,13 +245,13 @@
 <?php if (isset($__componentOriginal1b48936358e72618543915217d3ed939)): ?>
 <?php $component = $__componentOriginal1b48936358e72618543915217d3ed939; ?>
 <?php unset($__componentOriginal1b48936358e72618543915217d3ed939); ?>
-<?php endif; ?>
+<?php endif; ?> -->
 
              <?php
                     $__hook_name="admin.product.edit.brand";
                     ob_start();
                 ?>
-            <?php if (isset($component)) { $__componentOriginal1b48936358e72618543915217d3ed939 = $component; } ?>
+            <!-- <?php if (isset($component)) { $__componentOriginal1b48936358e72618543915217d3ed939 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal1b48936358e72618543915217d3ed939 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'admin::components.form.row','data' => ['title' => __('admin/brand.index')]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('admin::form.row'); ?>
@@ -272,7 +272,7 @@
 <?php if (isset($__componentOriginal1b48936358e72618543915217d3ed939)): ?>
 <?php $component = $__componentOriginal1b48936358e72618543915217d3ed939; ?>
 <?php unset($__componentOriginal1b48936358e72618543915217d3ed939); ?>
-<?php endif; ?>
+<?php endif; ?> -->
              <?php
                 $__definedVars = (get_defined_vars()["__data"]);
                 if (empty($__definedVars))
@@ -1682,7 +1682,6 @@
             }, 0);
           }
         },
-
         addVariantValue(variantIndex) {
           this.dialogVariables.show = true;
           this.dialogVariables.type = 'variant-value';

@@ -104,7 +104,7 @@ class Sidebar extends Component
                 'children' => $this->getReportSubRoutes(),
             ],
              [
-                 'route'    => 'theme.index',
+                 'route'    => 'design_menu.index',
                  'title'    => trans('admin/common.design'),
                  'icon'     => 'bi bi-palette',
                  'prefixes' => $this->getDesignSubPrefix(),
@@ -325,10 +325,10 @@ class Sidebar extends Component
 
             ['route' => 'categories.index', 'prefixes' => ['categories']],
             ['route' => 'vouchers.index', 'prefixes' => ['vouchers']],
-            ['route' => 'brands.index', 'prefixes' => ['brands']],
-            ['route' => 'attribute_groups.index', 'prefixes' => ['attribute_groups']],
-            ['route' => 'attributes.index', 'prefixes' => ['attributes']],
-            ['route' => 'multi_filter.index', 'prefixes' => ['multi_filter']],
+            // ['route' => 'brands.index', 'prefixes' => ['brands']],
+            // ['route' => 'attribute_groups.index', 'prefixes' => ['attribute_groups']],
+            // ['route' => 'attributes.index', 'prefixes' => ['attributes']],
+            // ['route' => 'multi_filter.index', 'prefixes' => ['multi_filter']],
             ['route' => 'products.trashed', 'prefixes' => ['products'], 'excludes' => ['products.index', 'products.edit', 'products.create', 'products.reviews']],
         ];
 
@@ -399,7 +399,7 @@ class Sidebar extends Component
     public function getDesignSubRoutes()
     {
         $routes = [
-            ['route' => 'theme.index', 'prefixes' => ['theme'], 'hide_mobile' => true],
+            // ['route' => 'theme.index', 'prefixes' => ['theme'], 'hide_mobile' => true],
             ['route' => 'design_menu.index', 'prefixes' => ['design_menu'], 'hide_mobile' => 1],
             ['route' => 'design.index', 'prefixes' => ['design'], 'blank' => true, 'hide_mobile' => true],
             ['route' => 'design_footer.index', 'prefixes' => ['design_footer'], 'blank' => true, 'hide_mobile' => true],

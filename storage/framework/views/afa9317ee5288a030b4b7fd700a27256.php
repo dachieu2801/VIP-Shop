@@ -123,7 +123,7 @@
                     ob_start();
                 ?>
         <li class="nav-item">
-          <div class="dropdown">
+          <!-- <div class="dropdown">
             <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-bs-toggle="dropdown"><?php echo e($admin_language['name']); ?></a>
 
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">
@@ -131,7 +131,7 @@
               <li><a href="<?php echo e(admin_route('edit.locale', ['locale' => $language['code']])); ?>" class="dropdown-item"><?php echo e($language['name']); ?></a></li>
               <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </ul>
-          </div>
+          </div> -->
         </li>
          <?php
                 $__definedVars = (get_defined_vars()["__data"]);

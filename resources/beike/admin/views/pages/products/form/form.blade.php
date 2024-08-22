@@ -34,9 +34,9 @@
     <li class="nav-item" role="presentation">
       <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-descriptions" type="button">{{ __('admin/product.product_details') }}</button>
     </li>
-    <li class="nav-item" role="presentation">
+    <!-- <li class="nav-item" role="presentation">
       <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-attribute" type="button">{{ __('admin/attribute.index') }}</button>
-    </li>
+    </li> -->
     <li class="nav-item" role="presentation">
       <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-seo" type="button" >SEO</button>
     </li>
@@ -117,7 +117,7 @@
 
             <x-admin-form-input name="position" :title="__('common.sort_order')" :value="old('position', $product->position ?? '0')" />
 
-            <x-admin::form.row :title="__('admin/product.weight_text')">
+            <!-- <x-admin::form.row :title="__('admin/product.weight_text')">
               <div class="d-flex wp-400">
                 <input type="text" name="weight" placeholder="{{ __('admin/product.weight_text') }}" value="{{ old('weight', $product->weight ?? '') }}" class="form-control" style="flex: 0 0 260px" />
                 <select class="form-select ms-4 bg-white" name="weight_class">
@@ -126,13 +126,13 @@
                   @endforeach
                 </select>
               </div>
-            </x-admin::form.row>
+            </x-admin::form.row> -->
 
             @hookwrapper('admin.product.edit.brand')
-            <x-admin::form.row :title="__('admin/brand.index')">
+            <!-- <x-admin::form.row :title="__('admin/brand.index')">
               <input type="text" name="brand_name" value="{{ old('brand_name', $product->brand->name ?? '') }}" placeholder="{{ __('admin/builder.modules_keywords_search') }}" id="brand-autocomplete" class="form-control wp-400 " />
               <input type="hidden" name="brand_id" value="{{ old('brand_id', $product->brand_id ?? '') }}" />
-            </x-admin::form.row>
+            </x-admin::form.row> -->
             @endhookwrapper
 
             <x-admin-form-select :title="__('admin/tax_class.index')" name="tax_class_id" :value="old('tax_class_id', $product->tax_class_id ?? '')" :options="$tax_classes" key="id" label="title" />

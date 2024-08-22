@@ -21,9 +21,9 @@
         <li class="nav-item" role="presentation">
           <a class="nav-link active" data-bs-toggle="tab" href="#tab-general">{{ __('admin/setting.basic_settings') }}</a>
         </li>
-        <li class="nav-item" role="presentation">
+        <!-- <li class="nav-item" role="presentation">
           <a class="nav-link" data-bs-toggle="tab" href="#tab-token">{{ __('admin/account.create_token') }}</a>
-        </li>
+        </li> -->
         @hook('admin.account.nav.after')
       </ul>
 
@@ -36,7 +36,7 @@
           </x-admin-form-input>
           <x-admin-form-select title="{{ __('common.language') }}" name="locale" :value="old('locale', $current_user->locale)" :options="$admin_languages" key="code" label="name" />
         </div>
-        <div class="tab-pane fade show" id="tab-token">
+        <!-- <div class="tab-pane fade show" id="tab-token">
           <x-admin::form.row :title="__('admin/account.create_token')">
             <div class="col-auto wp-200-">
               <table class="table table-bordered w-max-500" id="token-app">
@@ -63,7 +63,7 @@
               </table>
             </div>
           </x-admin::form.row>
-        </div>
+        </div> -->
       </div>
       <div>
         <x-admin::form.row title="">

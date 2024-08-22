@@ -191,8 +191,8 @@
 <?php $component = $__componentOriginal9779c7c6189b71f1c04f0551cbef988b; ?>
 <?php unset($__componentOriginal9779c7c6189b71f1c04f0551cbef988b); ?>
 <?php endif; ?>
-            
-            <?php if (isset($component)) { $__componentOriginal1b48936358e72618543915217d3ed939 = $component; } ?>
+            <!--  -->
+            <!-- <?php if (isset($component)) { $__componentOriginal1b48936358e72618543915217d3ed939 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal1b48936358e72618543915217d3ed939 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'admin::components.form.row','data' => ['title' => ''.e(__('admin/setting.license_code')).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('admin::form.row'); ?>
@@ -215,7 +215,7 @@
 <?php if (isset($__componentOriginal1b48936358e72618543915217d3ed939)): ?>
 <?php $component = $__componentOriginal1b48936358e72618543915217d3ed939; ?>
 <?php unset($__componentOriginal1b48936358e72618543915217d3ed939); ?>
-<?php endif; ?>
+<?php endif; ?> -->
              <?php
                 $__definedVars = (get_defined_vars()["__data"]);
                 if (empty($__definedVars))

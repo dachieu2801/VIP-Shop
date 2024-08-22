@@ -31,7 +31,7 @@ return [
     'order_status'       => 'Trạng thái đơn hàng',
     'product_sub_price'  => 'Tổng phụ',
     'current_status'     => 'Hiện tại',
-    'change_to_status'   => 'Chuyển đến',
+    'change_to_status'   => 'Trạng thái',
     'comment'            => 'Bình luận',
     'submit_status'      => 'Gửi',
 
