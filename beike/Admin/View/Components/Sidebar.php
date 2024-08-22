@@ -324,6 +324,7 @@ class Sidebar extends Component
             ['route' => 'products.index', 'prefixes' => ['products'], 'excludes' => ['products.trashed']],
 
             ['route' => 'categories.index', 'prefixes' => ['categories']],
+            ['route' => 'products.bestSelling', 'prefixes' => ['bestSelling']],
             ['route' => 'vouchers.index', 'prefixes' => ['vouchers']],
             ['route' => 'brands.index', 'prefixes' => ['brands']],
             ['route' => 'attribute_groups.index', 'prefixes' => ['attribute_groups']],
