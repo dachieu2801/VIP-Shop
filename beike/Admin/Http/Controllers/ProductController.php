@@ -100,6 +100,11 @@ class ProductController extends Controller
         return view('admin::pages.products.index', $data);
     }
 
+    public function bestSelling(Request $request)
+    {
+        return view('admin::pages.products.bestSelling');
+    }
+
     public function trashed(Request $request)
     {
         $requestData            = $request->all();

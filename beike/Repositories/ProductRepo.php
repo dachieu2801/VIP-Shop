@@ -119,7 +119,6 @@ class ProductRepo
             $builder->orderByRaw("FIELD(products.id, {$productIds})");
         }
 
-        // attr 格式:attr=10:10,13|11:34,23|3:4
         if (isset($filters['attr']) && $filters['attr']) {
             $attributes = self::parseFilterParamsAttr($filters['attr']);
             foreach ($attributes as $attribute) {
