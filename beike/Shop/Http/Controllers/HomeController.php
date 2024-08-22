@@ -5,9 +5,9 @@ namespace Beike\Shop\Http\Controllers;
 use Beike\Models\CustomerWishlist;
 use Beike\Models\Product;
 use Beike\Repositories\CategoryRepo;
+use Beike\Repositories\SettingRepo;
 use Beike\Services\DesignService;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class HomeController extends Controller
@@ -20,6 +20,8 @@ class HomeController extends Controller
      */
     public function index(): View
     {
+        $statusProduct = SettingRepo::getPluginStatus('latest_products');
+
         $designSettings = system_setting('base.design_setting');
         $modules        = $designSettings['modules'] ?? [];
 
@@ -57,7 +59,7 @@ class HomeController extends Controller
         //danh mục
         $cate = [
             'code'      => 'icons',
-            'module_id' => 'Lasd2131234223iaGC9madadsadadanz1',
+            'module_id' => Str::random(12),
             'view_path' => 'design.icons',
             'content'   => [
                 'style' => [
@@ -74,7 +76,7 @@ class HomeController extends Controller
         ];
         foreach ($categories as $a) {
             $cate['content']['images'][] = [
-                'image' => $a['image'] ? url($a['image']) : '' ,
+                'image' => $a['image'] ? url($a['image']) : '',
                 'link'  => [
                     'type'  => 'category',
                     'value' => $a['id'],
@@ -130,6 +132,65 @@ class HomeController extends Controller
 
         }
 
+        // lastest product
+        if ($statusProduct) {
+            $products       = Product::with(['description','skus', 'masterSku'])
+                ->join('product_skus', 'products.id', '=', 'product_skus.product_id')
+                ->where('products.active', 1)
+                ->select('products.*')
+                ->orderBy('products.id', 'desc')
+                ->limit(8)
+                ->get()->jsonSerialize();
+            $module = [
+                'code'      => 'tab_product',
+                'module_id' => Str::random(12),
+                'view_path' => 'design.tab_product',
+                'content'   => [
+                    'style' => [
+                        'background_color' => '',
+                    ],
+                    'editableTabsValue' => '0',
+                    'floor'             => [
+                        'zh_cn' => '',
+                    ],
+                    'title'       => 'Sản phẩm mới',
+                    'module_code' => 'tab_product',
+                    'tabs'        => [],
+                ],
+                'url'      => url('/latest_products'),
+            ];
+            $module['content']['tabs'][] = [
+                'title'    => '',
+                'products' => [],
+            ];
+            foreach ($products as $product) {
+                if (! empty($product['master_sku'])) {
+                    $countWishlist = CustomerWishlist::where('product_id', $product['id'])->count();
+
+                    $module['content']['tabs'][0]['products'][] = [
+                        'id'                   => $product['id'],
+                        'sku_id'               => $product['master_sku']['id']           ?? null,
+                        'name'                 => $product['description']['name'] ?? null,
+                        'name_format'          => $product['description']['name'] ?? null,
+                        'url'                  => url('/products/' . $product['id']),
+                        'price'                => $product['master_sku']['price'],
+                        'origin_price'         => $product['master_sku']['origin_price'],
+                        'price_format'         => currency_format($product['master_sku']['price']),
+                        'origin_price_format'  => currency_format($product['master_sku']['origin_price']),
+                        'category_id'          => '',
+                        'in_wishlist'          => $countWishlist ?? 0,
+                        'discount'             => round((1 - floatval($product['master_sku']['price']) / floatval($product['master_sku']['origin_price'])) * 100),
+                        'quantity_sold'        => $product['master_sku']['quantity_sold'],
+                        'quantity_sold_format' => $this->format_sold_quantity($product['master_sku']['quantity_sold'] ?? 0),
+                        'images'               => $product['images'],
+                    ];
+
+                }
+            }
+            $moduleItems[] = $module;
+
+        }
+
         //cho sản phẩm theo danh mục
         foreach ($filteredCategories as $a) {
             $module = [
@@ -155,19 +216,19 @@ class HomeController extends Controller
                 'products' => [],
             ];
             $maxProducts = 8;
-            $count = 0;
+            $count       = 0;
 
             foreach ($a['products'] as $product) {
                 if ($count >= $maxProducts) {
                     break; // Dừng vòng lặp khi đã đạt số lượng tối đa
                 }
 
-                if (!empty($product['skus'])) {
+                if (! empty($product['skus'])) {
                     $countWishlist = CustomerWishlist::where('product_id', $product['id'])->count();
 
                     $module['content']['tabs'][0]['products'][] = [
                         'id'                   => $product['id'],
-                        'sku_id'               => $product['skus'][0]['id'] ?? null,
+                        'sku_id'               => $product['skus'][0]['id']           ?? null,
                         'name'                 => $product['descriptions'][0]['name'] ?? null,
                         'name_format'          => $product['descriptions'][0]['name'] ?? null,
                         'url'                  => url('/products/' . $product['id']),

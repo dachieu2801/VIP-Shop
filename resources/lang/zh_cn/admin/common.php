@@ -18,6 +18,7 @@ return [
     'install'                          => 'Cài đặt',
     'uninstall'                        => 'Gỡ cài đặt',
     'vouchers_index'                   => 'Mã giảm giá',
+    'products_bestSelling'            => 'Sản phẩm bán chạy',
     // errors
     'forbidden'                        => 'Từ chối',
     'has_no_permission'                => 'Bạn không có quyền truy cập, vui lòng liên hệ với quản trị viên.',
