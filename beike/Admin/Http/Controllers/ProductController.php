@@ -117,6 +117,7 @@ class ProductController extends Controller
             return ['product_id' => $productId];
         }, $product_id);
         BestSeller::insert($data);
+        //test
 
         return json_success('Cập nhật thành công');
     }
