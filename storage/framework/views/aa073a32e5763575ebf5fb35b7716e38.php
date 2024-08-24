@@ -21,9 +21,9 @@
                 if ($output)
                 echo $output;
                 ?>
-            <form novalidate class="needs-validation" 
+            <form novalidate class="needs-validation" action=""
             method="POST" id="app">
-            <?php if (isset($component)) { $__componentOriginal1b48936358e72618543915217d3ed939 = $component; } ?>
+                <?php if (isset($component)) { $__componentOriginal1b48936358e72618543915217d3ed939 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal1b48936358e72618543915217d3ed939 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'admin::components.form.row','data' => ['title' => 'Sản phẩm bán chạy']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('admin::form.row'); ?>
@@ -66,7 +66,7 @@
                   </div>
                 </div>
               </div>
-             <?php echo $__env->renderComponent(); ?>
+                         <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal1b48936358e72618543915217d3ed939)): ?>
 <?php $attributes = $__attributesOriginal1b48936358e72618543915217d3ed939; ?>
@@ -76,7 +76,7 @@
 <?php $component = $__componentOriginal1b48936358e72618543915217d3ed939; ?>
 <?php unset($__componentOriginal1b48936358e72618543915217d3ed939); ?>
 <?php endif; ?>
-            <?php if (isset($component)) { $__componentOriginal1b48936358e72618543915217d3ed939 = $component; } ?>
+                <?php if (isset($component)) { $__componentOriginal1b48936358e72618543915217d3ed939 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal1b48936358e72618543915217d3ed939 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'admin::components.form.row','data' => ['title' => '']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('admin::form.row'); ?>
@@ -86,8 +86,8 @@
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
 <?php $component->withAttributes(['title' => '']); ?>
-          <button type="submit" class="btn  btn-primary btn-submit mt-3 btn-lg"><?php echo e(__('common.save')); ?></button>
-         <?php echo $__env->renderComponent(); ?>
+                        <button type="submit" class="btn  btn-primary btn-submit mt-3 btn-lg"><?php echo e(__('common.save')); ?></button>
+                     <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal1b48936358e72618543915217d3ed939)): ?>
 <?php $attributes = $__attributesOriginal1b48936358e72618543915217d3ed939; ?>
@@ -97,7 +97,7 @@
 <?php $component = $__componentOriginal1b48936358e72618543915217d3ed939; ?>
 <?php unset($__componentOriginal1b48936358e72618543915217d3ed939); ?>
 <?php endif; ?>
-</form>
+            </form>
             <?php $__env->stopSection(); ?>
             <?php $__env->startPush('footer'); ?>
             <script>
