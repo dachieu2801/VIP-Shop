@@ -63,6 +63,29 @@
 <?php endif; ?>
             <?php endif; ?>
 
+              <?php if($column['type'] == 'number'): ?>
+                <?php if (isset($component)) { $__componentOriginal9779c7c6189b71f1c04f0551cbef988b = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal9779c7c6189b71f1c04f0551cbef988b = $attributes; } ?>
+<?php $component = Beike\Admin\View\Components\Form\Input::resolve(['name' => $column['name'],'type' => $column['type'],'title' => $column['label'],'placeholder' => $column['placeholder'] ?? '','description' => $column['description'] ?? '','error' => $errors->first($column['name']),'required' => $column['required'] ? true : false,'value' => old($column['name'], $column['value'] ?? '')] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('admin-form-input'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Beike\Admin\View\Components\Form\Input::class))->getConstructor()): ?>
+<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal9779c7c6189b71f1c04f0551cbef988b)): ?>
+<?php $attributes = $__attributesOriginal9779c7c6189b71f1c04f0551cbef988b; ?>
+<?php unset($__attributesOriginal9779c7c6189b71f1c04f0551cbef988b); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal9779c7c6189b71f1c04f0551cbef988b)): ?>
+<?php $component = $__componentOriginal9779c7c6189b71f1c04f0551cbef988b; ?>
+<?php unset($__componentOriginal9779c7c6189b71f1c04f0551cbef988b); ?>
+<?php endif; ?>
+              <?php endif; ?>
+
             <?php if($column['type'] == 'string-multiple'): ?>
               <?php if (isset($component)) { $__componentOriginala681672db39a7b0a9f0cb6f3c0615226 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginala681672db39a7b0a9f0cb6f3c0615226 = $attributes; } ?>

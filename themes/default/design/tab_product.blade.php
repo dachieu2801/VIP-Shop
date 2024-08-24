@@ -43,16 +43,13 @@
         </div>
       @endif
     </div>
-    @if($url)
  <div class="text-center mt-3 mb-5">
+   @if($url)
    <a href="{{ $url}}" style="font-size: 1rem;">
- 
-
-     Xem tất cả > 
-   
+     Xem tất cả >
   </a>
+   @endif
 </div>
-    @endif
   </div>
 </section>
 

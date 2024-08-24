@@ -44,12 +44,11 @@
       <?php endif; ?>
     </div>
  <div class="text-center mt-3 mb-5">
+   <?php if($url): ?>
    <a href="<?php echo e($url); ?>" style="font-size: 1rem;">
- 
-
-     Xem tất cả > 
-   
+     Xem tất cả >
   </a>
+   <?php endif; ?>
 </div>
   </div>
 </section>

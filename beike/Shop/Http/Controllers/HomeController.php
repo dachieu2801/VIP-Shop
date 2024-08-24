@@ -2,6 +2,7 @@
 
 namespace Beike\Shop\Http\Controllers;
 
+use Beike\Models\BestSeller;
 use Beike\Models\CustomerWishlist;
 use Beike\Models\Product;
 use Beike\Repositories\CategoryRepo;
@@ -98,6 +99,7 @@ class HomeController extends Controller
                 array_column($category['children'], 'id')
             );
             $categoryProducts = Product::with(['descriptions', 'skus'])
+                ->where('active', 1)
                 ->join('product_categories', 'products.id', '=', 'product_categories.product_id')
                 ->whereIn('product_categories.category_id', $categoryIds)
                 ->orderBy('products.position', 'desc')
@@ -112,6 +114,7 @@ class HomeController extends Controller
             foreach ($category['children'] as $childCategory) {
                 $childProducts = Product::with(['descriptions', 'skus'])
                     ->join('product_categories', 'products.id', '=', 'product_categories.product_id')
+                    ->where('active', 1)
                     ->where('product_categories.category_id', $childCategory['id'])
                     ->orderBy('products.position', 'desc')
                     ->orderBy('products.created_at', 'desc')
@@ -132,15 +135,50 @@ class HomeController extends Controller
 
         }
 
+        //sản phẩm bán chạy
+        $records = BestSeller::pluck('product_id')->jsonSerialize();
+        if (! empty($records)) {
+            $products = Product::whereHas('masterSku')
+                ->whereIn('id', $records)
+                ->where('active', 1)
+                ->get();
+            $allRecords =  \Beike\Shop\Http\Resources\ProductSimple::collection($products)->jsonSerialize();
+            $module     = [
+                'code'      => 'tab_product',
+                'module_id' => Str::random(12),
+                'view_path' => 'design.tab_product',
+                'content'   => [
+                    'style' => [
+                        'background_color' => '',
+                    ],
+                    'editableTabsValue' => '0',
+                    'floor'             => [
+                        'zh_cn' => '',
+                    ],
+                    'title'       => 'Sản phẩm bán chạy',
+                    'module_code' => 'tab_product',
+                    'tabs'        => [],
+                ],
+                'url'      => '',
+            ];
+            $module['content']['tabs'][] = [
+                'title'    => '',
+                'products' => [],
+            ];
+            $module['content']['tabs'][0]['products'] = $allRecords;
+
+            $moduleItems[] = $module;
+        }
+
         // lastest product
         if ($statusProduct) {
-            $products       = Product::with(['description', 'skus', 'masterSku'])
-                ->join('product_skus', 'products.id', '=', 'product_skus.product_id')
-                ->where('products.active', 1)
-                ->select('products.*')
+            $products = Product::whereHas('masterSku')
                 ->orderBy('products.id', 'desc')
+                ->where('active', 1)
                 ->limit(8)
-                ->get()->jsonSerialize();
+                ->get();
+            $products =  \Beike\Shop\Http\Resources\ProductSimple::collection($products)->jsonSerialize();
+
             $module = [
                 'code'      => 'tab_product',
                 'module_id' => Str::random(12),
@@ -163,30 +201,8 @@ class HomeController extends Controller
                 'title'    => '',
                 'products' => [],
             ];
-            foreach ($products as $product) {
-                if (! empty($product['master_sku'])) {
-                    $countWishlist = CustomerWishlist::where('product_id', $product['id'])->count();
+            $module['content']['tabs'][0]['products'] = $products;
 
-                    $module['content']['tabs'][0]['products'][] = [
-                        'id'                   => $product['id'],
-                        'sku_id'               => $product['master_sku']['id']           ?? null,
-                        'name'                 => $product['description']['name']        ?? null,
-                        'name_format'          => $product['description']['name']        ?? null,
-                        'url'                  => url('/products/' . $product['id']),
-                        'price'                => $product['master_sku']['price'],
-                        'origin_price'         => $product['master_sku']['origin_price'],
-                        'price_format'         => currency_format($product['master_sku']['price']),
-                        'origin_price_format'  => currency_format($product['master_sku']['origin_price']),
-                        'category_id'          => '',
-                        'in_wishlist'          => $countWishlist ?? 0,
-                        'discount'             => round((1 - floatval($product['master_sku']['price']) / floatval($product['master_sku']['origin_price'])) * 100),
-                        'quantity_sold'        => $product['master_sku']['quantity_sold'],
-                        'quantity_sold_format' => $this->format_sold_quantity($product['master_sku']['quantity_sold'] ?? 0),
-                        'images'               => $product['images'],
-                    ];
-
-                }
-            }
             $moduleItems[] = $module;
 
         }

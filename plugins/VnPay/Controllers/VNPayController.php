@@ -20,10 +20,10 @@ class VNPayController
     public function __construct()
     {
         $this->client = new Client([
-            'API_KEY'    => env('PAYPAY_API_KEY'),
-            'API_SECRET' => env('PAYPAY_API_SECRET'),
+            'API_KEY'     => env('PAYPAY_API_KEY'),
+            'API_SECRET'  => env('PAYPAY_API_SECRET'),
             'MERCHANT_ID' => env('PAYPAY_MERCHANT_ID'),
-            'production' => false // Set to true for production environment
+            'production'  => false, // Set to true for production environment
         ]);
     }
 
@@ -32,24 +32,24 @@ class VNPayController
         $data = json_decode($request->getContent(), true);
 
         $orderNumber = $data['orderNumber'];
-        $orderId = $data['orderId'];
-        $returnUrl = env('APP_URL') . '/vn-pay/capture';
+        $orderId     = $data['orderId'];
+        $returnUrl   = env('APP_URL') . '/vn-pay/capture';
 
         // Prepare the payload
-        $CQCPayload = new CreateQrCodePayload();
+        $CQCPayload = new CreateQrCodePayload;
         $CQCPayload->setMerchantPaymentId($orderNumber);
         $CQCPayload->setRequestedAt();
-        $CQCPayload->setCodeType("ORDER_QR");
+        $CQCPayload->setCodeType('ORDER_QR');
 
-        $orderItem = new OrderItem();
+        $orderItem = new OrderItem;
         $orderItem->setName('Order Payment')
-                  ->setQuantity(1)
-                  ->setUnitPrice(['amount' => round($data['amount']), 'currency' => 'JPY']);
+            ->setQuantity(1)
+            ->setUnitPrice(['amount' => round($data['amount']), 'currency' => 'JPY']);
         $CQCPayload->setOrderItems([$orderItem]);
 
         $amount = [
-            'amount' => round($data['amount']),
-            'currency' => 'JPY'
+            'amount'   => round($data['amount']),
+            'currency' => 'JPY',
         ];
         $CQCPayload->setAmount($amount);
         $CQCPayload->setRedirectType('WEB_LINK');
@@ -62,6 +62,7 @@ class VNPayController
 
         if ($response && $response['resultInfo']['code'] === 'SUCCESS') {
             OrderPaymentRepo::createOrUpdatePayment($orderId, ['request' => $CQCPayload, 'receipt' => round($data['amount'])]);
+
             return response()->json(['url' => $response['data']['url']]);
         }
 
@@ -74,9 +75,9 @@ class VNPayController
         Log::info('PayPayController capture', ['inputData' => $inputData]);
 
         if ($inputData['status'] == 'COMPLETED') {
-            $customer = auth()->user();
-            $orderNumber = $inputData['merchantPaymentId'];
-            $order = Order::where('number', $orderNumber)->where('customer_id', $customer->id)->firstOrFail();
+            $customer     = auth()->user();
+            $orderNumber  = $inputData['merchantPaymentId'];
+            $order        = Order::where('number', $orderNumber)->where('customer_id', $customer->id)->firstOrFail();
             $orderHistory = OrderHistory::where('order_id', $order->id)->where('status', StateMachineService::PAID)->first();
 
             try {
@@ -85,9 +86,9 @@ class VNPayController
                 if (empty($orderHistory)) {
                     OrderHistory::create([
                         'order_id' => $order->id,
-                        'status' => StateMachineService::PAID,
-                        'notify' => 0,
-                        'comment' => 'Paid via PayPay',
+                        'status'   => StateMachineService::PAID,
+                        'notify'   => 0,
+                        'comment'  => 'Paid via PayPay',
                     ]);
                 }
                 OrderPaymentRepo::createOrUpdatePayment($order->id, ['response' => $inputData, 'transaction_id' => $inputData['transaction_id']]);

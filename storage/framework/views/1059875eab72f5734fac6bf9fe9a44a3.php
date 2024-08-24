@@ -11,4 +11,4 @@
     <div class="number-wrap"><span class="number">3</span></div>
     <span class="title"><?php echo e(__('shop/steps.payment')); ?></span>
   </div>
-</div><?php /**PATH D:\shop-freelance\themes\default/shared/steps.blade.php ENDPATH**/ ?>
+</div><?php /**PATH G:\workspace\shop-freelance\themes\default/shared/steps.blade.php ENDPATH**/ ?>

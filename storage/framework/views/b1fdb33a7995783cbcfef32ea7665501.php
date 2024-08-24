@@ -295,4 +295,4 @@
   })
 </script>
 <?php $__env->stopPush(); ?>
-<?php /**PATH D:\shop-freelance\themes\default/checkout/_address.blade.php ENDPATH**/ ?>
+<?php /**PATH G:\workspace\shop-freelance\themes\default/checkout/_address.blade.php ENDPATH**/ ?>

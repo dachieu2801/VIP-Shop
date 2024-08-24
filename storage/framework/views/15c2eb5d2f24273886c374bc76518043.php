@@ -79,4 +79,4 @@
   </script>
 <?php endif; ?>
 <?php $__env->stopPush(); ?>
-<?php /**PATH D:\shop-freelance\themes\default/product/product-video.blade.php ENDPATH**/ ?>
+<?php /**PATH G:\workspace\shop-freelance\themes\default/product/product-video.blade.php ENDPATH**/ ?>

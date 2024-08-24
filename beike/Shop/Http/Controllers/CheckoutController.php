@@ -17,6 +17,7 @@ use Beike\Models\AdminUser;
 use Beike\Models\Setting;
 use Beike\Models\TaxClass;
 use Beike\Repositories\OrderRepo;
+use Beike\Repositories\SettingRepo;
 use Beike\Repositories\VouchersRepo;
 use Beike\Shop\Services\CheckoutService;
 use Illuminate\Http\Request;
@@ -42,10 +43,11 @@ class CheckoutController extends Controller
                     }
                 }
 
-                $amount      = round($orderTotal['amount'] * 0.05);
-                $newTotals[] = [
+                $fee           = SettingRepo::getValuePluginColumns('vn_pay', 'percent_fee') ?? 0;
+                $amount        = round($orderTotal['amount'] * $fee / 100);
+                $newTotals[]   = [
                     'code'          => 'paypay_fee',
-                    'title'         => 'Phí thanh toán qua PayPay(5%)',
+                    'title'         => "Phí thanh toán qua PayPay($fee%)",
                     'amount'        => $amount,
                     'amount_format' => currency_format($amount),
                 ];
@@ -141,7 +143,6 @@ class CheckoutController extends Controller
                         $amount += round(($product['price'] - $product['cost_price']) * $product['quantity']);
                     }
 
-                    // Kiểm tra tax_class_id và thêm tên thuế vào mảng
                     $taxClassId = $product['tax_class_id'];
                     if (isset($taxClassMap[$taxClassId])) {
                         $taxNames = array_merge($taxNames, $taxClassMap[$taxClassId]);
@@ -196,10 +197,11 @@ class CheckoutController extends Controller
                     }
                 }
 
-                $amount       = round($orderTotal['amount'] * 0.05);
-                $newTotals[]  = [
+                $fee           = SettingRepo::getValuePluginColumns('vn_pay', 'percent_fee') ?? 0;
+                $amount        = round($orderTotal['amount'] * $fee / 100);
+                $newTotals[]   = [
                     'code'          => 'voucher_id',
-                    'title'         => 'Phí thanh toán qua PayPay(5%)',
+                    'title'         =>"Phí thanh toán qua PayPay($fee%)",
                     'amount'        => $amount,
                     'amount_format' => currency_format($amount),
                 ];
@@ -296,7 +298,6 @@ class CheckoutController extends Controller
                         $amount += round(($product['price'] - $product['cost_price']) * $product['quantity']);
                     }
 
-                    // Kiểm tra tax_class_id và thêm tên thuế vào mảng
                     $taxClassId = $product['tax_class_id'];
                     if (isset($taxClassMap[$taxClassId])) {
                         $taxNames = array_merge($taxNames, $taxClassMap[$taxClassId]);
