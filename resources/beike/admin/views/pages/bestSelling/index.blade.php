@@ -13,6 +13,7 @@
             @hook('admin.product.edit.product_relations.before')
             <form novalidate class="needs-validation" action=""
             method="POST" id="app">
+       
                 <x-admin::form.row title="Sản phẩm bán chạy">
               <div class="module-edit-group wp-600">
                 <div class="autocomplete-group-wrapper">
@@ -48,19 +49,22 @@
                 </div>
               </div>
                         </x-admin::form.row>
+                        <div>{{json_encode($allRecords)}}</div>
                 <x-admin::form.row title="">
                         <button type="submit" class="btn  btn-primary btn-submit mt-3 btn-lg">{{ __('common.save') }}</button>
                     </x-admin::form.row>
             </form>
+            
             @endsection
             @push('footer')
             <script>
-                var app = new Vue({
+             
+            var app = new Vue({
                     el: '#app',
                     data: {
                         relations: {
                             keyword: '',
-                            products: @json($relations ?? []),
+                            products: @json($allRecords ?? []),
                             loading: null,
                 },
             // other data properties...
@@ -72,7 +76,7 @@
 
 
                         relationsHandleSelect(item) {
-                            if (!this.relations.products.find(v => v == item.id))
+                            if (!this.relations.products.find(v => v == item.product_id))
                             {
                                 this.relations.products.push(item);
                             }         

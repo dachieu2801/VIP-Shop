@@ -134,9 +134,10 @@
               <input type="hidden" name="brand_id" value="{{ old('brand_id', $product->brand_id ?? '') }}" />
             </x-admin::form.row> -->
             @endhookwrapper
-
+         
+          @if($showTax)
             <x-admin-form-select :title="__('admin/tax_class.index')" name="tax_class_id" :value="old('tax_class_id', $product->tax_class_id ?? '')" :options="$tax_classes" key="id" label="title" />
-
+          @endif  
             <x-admin-form-select name="shipping" :title="__('admin/common.shipping')" :value="old('shipping', $product->shipping ?? 1)" :options="[['title' => __('common.yes'), 'id' => 1], ['title' => __('common.no'),'id' => 0]]" key="id" label="title" />
 
             @hookwrapper('admin.product.edit.category')
@@ -464,7 +465,7 @@
                     placeholder="{{ __('admin/builder.modules_keywords_search') }}"
                     @select="relationsHandleSelect"
                   ></el-autocomplete>
-
+                   
                   <div class="item-group-wrapper" v-loading="relations.loading">
                     <template v-if="relations.products.length">
                       <draggable
