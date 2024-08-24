@@ -43,6 +43,7 @@
         </div>
       @endif
     </div>
+    @if($url)
  <div class="text-center mt-3 mb-5">
    <a href="{{ $url}}" style="font-size: 1rem;">
  
@@ -51,6 +52,7 @@
    
   </a>
 </div>
+    @endif
   </div>
 </section>
 
