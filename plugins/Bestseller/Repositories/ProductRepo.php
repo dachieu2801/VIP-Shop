@@ -15,12 +15,6 @@ use Beike\Shop\Http\Resources\ProductSimple;
 
 class ProductRepo
 {
-    /**
-     * Get best seller
-     *
-     * @param $limit
-     * @return array
-     */
     public static function getBestSellerProducts($limit): array
     {
         $products = \Beike\Repositories\ProductRepo::getBuilder([

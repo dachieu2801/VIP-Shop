@@ -8,8 +8,10 @@ use Beike\Admin\Http\Resources\ProductSimple;
 use Beike\Admin\Repositories\TaxClassRepo;
 use Beike\Admin\Services\ProductService;
 use Beike\Libraries\Weight;
+use Beike\Models\BestSeller;
 use Beike\Models\Product;
 use Beike\Models\ProductSku;
+use Beike\Models\Setting;
 use Beike\Models\TaxClass;
 use Beike\Repositories\CategoryRepo;
 use Beike\Repositories\FlattenCategoryRepo;
@@ -18,7 +20,6 @@ use Beike\Repositories\ProductRepo;
 use Beike\Repositories\ProductReviewsRepo;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
@@ -102,7 +103,23 @@ class ProductController extends Controller
 
     public function bestSelling(Request $request)
     {
+        $allRecords = BestSeller::all()->jsonSerialize();
         return view('admin::pages.bestSelling.index');
+    }
+
+    public function updateBestSelling(Request $request)
+    {
+        $requestData = $request->all();
+
+        $product_id  = $requestData['id'] ?? [];
+
+        $data = array_map(function ($product_id) {
+            return ['product_id' => $product_id];
+        }, $product_id);
+
+        BestSeller::insert($data);
+
+        return json_success('Cập nhật thành công');
     }
 
     public function trashed(Request $request)
@@ -390,10 +407,19 @@ class ProductController extends Controller
 
         $product    = hook_filter('admin.product.form.product', $product);
         $taxClasses = TaxClassRepo::getList();
-        //        array_unshift($taxClasses, ['title' => trans('admin/builder.text_no'), 'id' => 0]);
-
+        $showTax    = true;
+        $tax        = Setting::query()
+            ->where('type', 'system')
+            ->where('space', 'base')
+            ->where('name', 'tax')
+            ->where('value', '1')
+            ->first();
+        if (! $tax) {
+            $showTax = false;
+        }
         $data = [
             'product'               => $product,
+            'showTax'               => $showTax,
             'descriptions'          => $descriptions ?? [],
             'category_ids'          => $categoryIds  ?? [],
             'product_attributes'    => ProductAttributeResource::collection($product->attributes),
