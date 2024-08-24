@@ -104,19 +104,18 @@ class ProductController extends Controller
     public function bestSelling(Request $request)
     {
         $allRecords = BestSeller::all()->jsonSerialize();
-        return view('admin::pages.bestSelling.index');
+
+        return view('admin::pages.bestSelling.index', ['allRecords'=>$allRecords]);
     }
 
     public function updateBestSelling(Request $request)
     {
         $requestData = $request->all();
-
         $product_id  = $requestData['id'] ?? [];
-
-        $data = array_map(function ($product_id) {
-            return ['product_id' => $product_id];
+        BestSeller::truncate();
+        $data = array_map(function ($productId) {
+            return ['product_id' => $productId];
         }, $product_id);
-
         BestSeller::insert($data);
 
         return json_success('Cập nhật thành công');
