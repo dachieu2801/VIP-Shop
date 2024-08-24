@@ -221,7 +221,9 @@ class StateMachineService
         $oldStatusCode = $order->status;
         $newStatusCode = $status;
 
+        //sửa email ở đây
         $this->setComment($comment)->setNotify($notify);
+
 
         $this->validStatusCode($status);
         $functions = $this->getFunctions($oldStatusCode, $newStatusCode);

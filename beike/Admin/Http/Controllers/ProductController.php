@@ -131,6 +131,7 @@ class ProductController extends Controller
 
     public function create(Request $request)
     {
+        Log::info('products',['$request'=>$request]);
         return $this->form($request, new Product);
     }
 
@@ -390,7 +391,6 @@ class ProductController extends Controller
 
         $product    = hook_filter('admin.product.form.product', $product);
         $taxClasses = TaxClassRepo::getList();
-        //        array_unshift($taxClasses, ['title' => trans('admin/builder.text_no'), 'id' => 0]);
 
         $data = [
             'product'               => $product,

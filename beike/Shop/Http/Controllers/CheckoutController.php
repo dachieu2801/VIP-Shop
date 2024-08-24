@@ -364,6 +364,7 @@ class CheckoutController extends Controller
 
             $detailShop = [
                 'tracking_number' => $data['number'],
+                'id'=> $data['id'],
                 'order_at'        => $data['created_at'],
                 'amount'          => $data['total_format'],
                 'customer_name'   => $data['customer_name'],

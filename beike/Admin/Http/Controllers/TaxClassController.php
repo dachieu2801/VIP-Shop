@@ -49,6 +49,10 @@ class TaxClassController extends Controller
 
     public function destroy(Request $request, int $taxClassId)
     {
+        if($taxClassId == 1){
+            return json_fail('Bạn không thể xoá thuế này');
+        }
+
         TaxClassRepo::deleteById($taxClassId);
 
         return json_success(trans('common.deleted_success'));

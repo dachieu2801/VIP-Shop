@@ -33,7 +33,6 @@ class UserService
             'code'    => $code,
         ]);
 
-        Log::info("找回密码验证码：{$code}");
 
         UserRepo::findByEmail($email)->notifyVerifyCodeForForgotten($code);
     }

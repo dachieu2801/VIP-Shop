@@ -12,6 +12,7 @@
 namespace Beike\Admin\Http\Controllers;
 
 use Beike\Admin\Http\Resources\OrderSimple;
+use Beike\Mail\SendNotifyOrder;
 use Beike\Models\Order;
 use Beike\Models\OrderShipment;
 use Beike\Repositories\OrderRepo;
@@ -22,6 +23,7 @@ use Beike\Shop\Http\Resources\Account\OrderSimpleList;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
@@ -125,6 +127,20 @@ class OrderController extends Controller
 
         $stateMachine = new StateMachineService($order);
         $stateMachine->setShipment($shipment)->changeStatus($status, $comment, $notify);
+
+        if ($notify) {
+            $email = $order['email'];
+            $data  = [
+                'type'    => 'notiUser',
+                'comment' => $comment ?? '',
+                'order'   => $order,
+                'status' => $status
+            ];
+            Mail::to($email)->send(new SendNotifyOrder($data));
+
+        }
+
+        Log::info('đâsdasdsadsa', ['áadas' => $order]);
 
         $orderStatusData = $request->all();
 

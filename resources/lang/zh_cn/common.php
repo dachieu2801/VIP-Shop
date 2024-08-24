@@ -96,6 +96,11 @@ return [
     'unauthenticated'         => 'Vui lòng đăng nhập trước',
     'updated_at'              => 'Đã cập nhật lúc',
     'updated_success'         => 'Cập nhật thành công!',
+    'cancelled'               => 'Đã bị huỷ',
+    'paid'                    => 'Đã được thanh toán',
+    'shipped'                 => 'Đã được giao cho đơn vị vận chuyển',
+    'completed'               => 'Đã giao thành công',
+
     'view'                    => 'Xem',
     'view_details'            => 'Xem chi tiết',
     'view_more'               => 'Xem thêm',

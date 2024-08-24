@@ -51,6 +51,9 @@ class TaxRateController
 
     public function destroy(Request $request, int $taxRateId)
     {
+        if($taxRateId == 1){
+            return json_fail('Bạn không thể xoá thuế này');
+        }
         TaxRateRepo::deleteById($taxRateId);
 
         return json_success(trans('common.deleted_success'));

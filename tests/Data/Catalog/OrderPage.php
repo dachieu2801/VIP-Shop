@@ -13,11 +13,11 @@ class OrderPage
     ];
 
     public const Order_Status = [
-        'Unpaid'    => 'Unpaid', //待支付
-        'Paid'      => 'Paid', //已支付
-        'Shipped'   => 'Shipped', //已发货
-        'Completed' => 'Completed', //已完成  Cancelled
-        'Cancelled' => 'Cancelled', //已完成  Cancelled
+        'Unpaid'    => 'Unpaid',
+        'Paid'      => 'Paid',
+        'Shipped'   => 'Shipped',
+        'Completed' => 'Completed',
+        'Cancelled' => 'Cancelled',
     ];
 
     public const Get_Order_Status = [
