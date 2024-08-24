@@ -77,7 +77,7 @@
 <?php $component = $__componentOriginal1b48936358e72618543915217d3ed939; ?>
 <?php unset($__componentOriginal1b48936358e72618543915217d3ed939); ?>
 <?php endif; ?>
-                        <div><?php echo e(json_encode($allRecords)); ?></div>
+                     
                 <?php if (isset($component)) { $__componentOriginal1b48936358e72618543915217d3ed939 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal1b48936358e72618543915217d3ed939 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'admin::components.form.row','data' => ['title' => '']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>

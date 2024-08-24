@@ -49,8 +49,8 @@
       <option value="18h-after">18h trở đi</option>
     </select>
   </div>
-  @if(!empty($vouchers))
-               <div class="checkout-black mt-5"  id="vouchersssssss">
+         @if(!empty($vouchers))
+               <div class=" mt-5 my-5"  id="vouchersssssss">
                   <h5 class="checkout-title">Mã giảm giá</h5>
 
                   <div class="radio-line-wrap" id="voucher-wrap">
@@ -72,28 +72,9 @@
                   </div>
                 </div>
                 @endif
-
-            <div class="checkout-black mt-5">
-              <h5 class="checkout-title">{{ __('shop/checkout.payment_method') }}</h5>
-              <div class="radio-line-wrap" id="payment-methods-wrap">
-                @foreach ($payment_methods as $payment)
-                  <div class="radio-line-item {{ $payment['code'] == $current['payment_method_code'] ? 'active' : '' }}" data-key="payment_method_code" data-value="{{ $payment['code'] }}">
-                    <div class="left">
-                      <span class="radio"></span>
-                      <img src="{{ $payment['icon'] }}" class="img-fluid">
-                    </div>
-                    <div class="right ms-2">
-                      <div class="title">{{ $payment['name'] }}</div>
-                      <div class="sub-title">{!! $payment['description'] !!}</div>
-                    </div>
-                  </div>
-                @endforeach
-              </div>
-            </div>
-
-            @if ($shipping_require)
+                @if ($shipping_require)
               @hookwrapper('checkout.shipping_method')
-              <div class="checkout-black">
+              <div class="checkout-black mt-5">
                 <h5 class="checkout-title">{{ __('shop/checkout.delivery_method') }}</h5>
                 <div class="radio-line-wrap" id="shipping-methods-wrap">
                   @foreach ($shipping_methods as $methods)
@@ -117,8 +98,27 @@
               </div>
               @endhookwrapper
             @endif
+            <div class=" mt-5 mt-5">
+              <h5 class="checkout-title">{{ __('shop/checkout.payment_method') }}</h5>
+              <div class="radio-line-wrap" id="payment-methods-wrap">
+                @foreach ($payment_methods as $payment)
+                  <div class="radio-line-item {{ $payment['code'] == $current['payment_method_code'] ? 'active' : '' }}" data-key="payment_method_code" data-value="{{ $payment['code'] }}">
+                    <div class="left">
+                      <span class="radio"></span>
+                      <img src="{{ $payment['icon'] }}" class="img-fluid">
+                    </div>
+                    <div class="right ms-2">
+                      <div class="title">{{ $payment['name'] }}</div>
+                      <div class="sub-title">{!! $payment['description'] !!}</div>
+                    </div>
+                  </div>
+                @endforeach
+              </div>
+            </div>
 
-            <div class="checkout-black">
+           
+
+            <div class=" mt-5">
               <h5 class="checkout-title">{{ __('shop/checkout.comment') }}</h5>
               <div class="comment-wrap" id="comment-wrap">
                 <textarea rows="5" type="text" class="form-control" name="comment" placeholder="{{ __('shop/checkout.comment') }}">{{ old('comment', $comment ?? '') }}</textarea>
