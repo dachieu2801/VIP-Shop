@@ -20,6 +20,7 @@ use Beike\Repositories\ProductRepo;
 use Beike\Repositories\ProductReviewsRepo;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
@@ -103,15 +104,23 @@ class ProductController extends Controller
 
     public function bestSelling(Request $request)
     {
-        $allRecords = BestSeller::all()->jsonSerialize();
+        $records = BestSeller::pluck('product_id')->jsonSerialize();
 
-        return view('admin::pages.bestSelling.index', ['allRecords'=>$allRecords]);
+        $products = Product::whereHas('masterSku')
+            ->whereIn('id', $records)
+            ->get();
+
+        $allRecords =  \Beike\Shop\Http\Resources\ProductSimple::collection($products)->jsonSerialize();
+
+        return view('admin::pages.bestSelling.index', ['allRecords' => $allRecords]);
     }
 
     public function updateBestSelling(Request $request)
     {
         $requestData = $request->all();
+
         $product_id  = $requestData['id'] ?? [];
+        Log::info('ádsad',['adssad'=> $product_id]);
         BestSeller::truncate();
         $data = array_map(function ($productId) {
             return ['product_id' => $productId];

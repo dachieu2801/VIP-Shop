@@ -134,7 +134,7 @@ class HomeController extends Controller
 
         // lastest product
         if ($statusProduct) {
-            $products       = Product::with(['description','skus', 'masterSku'])
+            $products       = Product::with(['description', 'skus', 'masterSku'])
                 ->join('product_skus', 'products.id', '=', 'product_skus.product_id')
                 ->where('products.active', 1)
                 ->select('products.*')
@@ -170,8 +170,8 @@ class HomeController extends Controller
                     $module['content']['tabs'][0]['products'][] = [
                         'id'                   => $product['id'],
                         'sku_id'               => $product['master_sku']['id']           ?? null,
-                        'name'                 => $product['description']['name'] ?? null,
-                        'name_format'          => $product['description']['name'] ?? null,
+                        'name'                 => $product['description']['name']        ?? null,
+                        'name_format'          => $product['description']['name']        ?? null,
                         'url'                  => url('/products/' . $product['id']),
                         'price'                => $product['master_sku']['price'],
                         'origin_price'         => $product['master_sku']['origin_price'],
