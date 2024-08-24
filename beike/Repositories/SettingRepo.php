@@ -122,15 +122,6 @@ class SettingRepo
         self::clearCache();
     }
 
-    /**
-     * 创建或更新单条记录
-     *
-     * @param             $name
-     * @param             $value
-     * @param  string     $space
-     * @param  string     $type
-     * @throws \Throwable
-     */
     public static function storeValue($name, $value, string $space = 'base', string $type = 'system')
     {
         if (in_array($name, ['_method', '_token'])) {
