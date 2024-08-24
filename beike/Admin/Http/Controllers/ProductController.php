@@ -16,6 +16,7 @@ use Beike\Repositories\FlattenCategoryRepo;
 use Beike\Repositories\LanguageRepo;
 use Beike\Repositories\ProductRepo;
 use Beike\Repositories\ProductReviewsRepo;
+use Beike\Repositories\SettingRepo;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -346,7 +347,7 @@ class ProductController extends Controller
                     }
                 }
 
-                $sku['price'] = round($price); // Cập nhật giá mới vào SKU
+                $sku['price'] = round($price);
             }
             $product     = (new ProductService)->update($product, $requestData);
 
@@ -391,6 +392,8 @@ class ProductController extends Controller
 
         $product    = hook_filter('admin.product.form.product', $product);
         $taxClasses = TaxClassRepo::getList();
+//        $statusProduct = SettingRepo::getPluginStatus('latest_products');
+//        if()
 
         $data = [
             'product'               => $product,
