@@ -11,7 +11,7 @@
 @section('content')
 
             @hook('admin.product.edit.product_relations.before')
-            <form novalidate class="needs-validation" action=""
+            <form novalidate class="needs-validation" action="{{  admin_route('products.storeBestSelling')  }}"
             method="POST" id="app">
        
                 <x-admin::form.row title="Sản phẩm bán chạy">
@@ -40,7 +40,7 @@
                             <span>@{{ item.name }}</span>
                           </div>
                           <i class="el-icon-delete right" @click="relationsRemoveProduct(index)"></i>
-                          <input type="text" :name="'relations['+ index +']'" v-model="item.id" class="form-control d-none">
+                          <input type="text" :name="'id['+ index +']'" v-model="item.id" class="form-control d-none">
                         </div>
                       </draggable>
                     </template>
@@ -49,7 +49,7 @@
                 </div>
               </div>
                         </x-admin::form.row>
-                        <div>{{json_encode($allRecords)}}</div>
+                     
                 <x-admin::form.row title="">
                         <button type="submit" class="btn  btn-primary btn-submit mt-3 btn-lg">{{ __('common.save') }}</button>
                     </x-admin::form.row>
@@ -76,7 +76,7 @@
 
 
                         relationsHandleSelect(item) {
-                            if (!this.relations.products.find(v => v == item.product_id))
+                            if (!this.relations.products.find(v => v == item.id))
                             {
                                 this.relations.products.push(item);
                             }         

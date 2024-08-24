@@ -21,7 +21,7 @@
                 if ($output)
                 echo $output;
                 ?>
-            <form novalidate class="needs-validation" action=""
+            <form novalidate class="needs-validation" action="<?php echo e(admin_route('products.storeBestSelling')); ?>"
             method="POST" id="app">
        
                 <?php if (isset($component)) { $__componentOriginal1b48936358e72618543915217d3ed939 = $component; } ?>
@@ -59,7 +59,7 @@
                             <span>{{ item.name }}</span>
                           </div>
                           <i class="el-icon-delete right" @click="relationsRemoveProduct(index)"></i>
-                          <input type="text" :name="'relations['+ index +']'" v-model="item.id" class="form-control d-none">
+                          <input type="text" :name="'id['+ index +']'" v-model="item.id" class="form-control d-none">
                         </div>
                       </draggable>
                     </template>
@@ -122,7 +122,7 @@
 
 
                         relationsHandleSelect(item) {
-                            if (!this.relations.products.find(v => v == item.product_id))
+                            if (!this.relations.products.find(v => v == item.id))
                             {
                                 this.relations.products.push(item);
                             }         

@@ -1090,7 +1090,7 @@
                     placeholder="<?php echo e(__('admin/builder.modules_keywords_search')); ?>"
                     @select="relationsHandleSelect"
                   ></el-autocomplete>
-                    <div><?php echo e(json_encode($relations)); ?></div>
+                   
                   <div class="item-group-wrapper" v-loading="relations.loading">
                     <template v-if="relations.products.length">
                       <draggable
