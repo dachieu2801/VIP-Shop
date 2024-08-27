@@ -11,13 +11,28 @@
 @section('content')
   @hookwrapper('admin.order.form.base')
   <!-- THONG TIN CHUNG VE KHACH HANG -->
-   <div>{{json_encode($paymentMethod)}}</div>
-  <div class="card mb-4 ">
-    <div class="card-header mb-5"><h6 class="card-title">Phương thức thanh toán</h6></div>
-    <select>
-      <option>{{ $order->payment_method_name }}</option>
-    </select>
-  </div>
+<div id="app"> 
+   <div class="card mb-4">
+  
+    <div class="card-header mb-3">
+        <h6 class="card-title">Phương thức thanh toán</h6>
+    </div>
+    <div class="card-body">
+        <div class="form-group">
+            
+            <select class="form-control custom-select" id="paymentMethod" style="width: 50%;">
+              <option>{{ $order['payment_method_name'] }}</option>
+              @foreach($paymentMethod as $method)
+              @if($method['name'] != $order['payment_method_name']) 
+                <option>{{ $method['name'] }}</option>
+              @endif
+                  
+              @endforeach
+            </select>
+        </div>
+    </div>
+</div>
+
   @endhookwrapper
 
   @hookwrapper('admin.order.form.address')
@@ -37,48 +52,83 @@
 
   @hookwrapper('admin.order.form.products')
   <div class="card mb-4">
-    <div class="card-header"><h6 class="card-title">{{ __('order.product_info') }}</h6></div>
+    <div class="card-header"><h6 class="card-title">Thông tin đơn hàng</h6></div>
     <div class="card-body">
-      <div class="table-push">
-        <table class="table ">
-          <thead class="">
-            <tr>
-              <th>ID</th>
-              <th>{{ __('order.product_name') }}</th>
-              <th class="">{{ __('order.product_sku') }}</th>
-              <th>{{ __('order.product_price') }}</th>
-              <th class="">{{ __('order.product_quantity') }}</th>
-              <th class="text-end">{{ __('order.product_sub_price') }}</th>
-            </tr>
-          </thead>
-          <tbody>
-            @foreach ($order->orderProducts as $product)
-            <tr>
-              <td>{{ $product->product_id }}</td>
-              <td>
-                <div class="d-flex align-items-center">
-                  <div class="wh-60 me-2"><img src="{{ image_resize($product->image) }}" class="img-fluid max-h-100"></div>{{ $product->name }}
-                </div>
-              </td>
-              <td class="">{{ $product->product_sku }}</td>
-              <td>{{ currency_format($product->price, $order->currency_code, $order->currency_value) }}</td>
-              <td class="">{{ $product->quantity }}</td>
-              <td class="text-end">{{ currency_format($product->price * $product->quantity, $order->currency_code, $order->currency_value) }}</td>
-            </tr>
-            @endforeach
-          </tbody>
-          <tfoot>
-            @foreach ($order->orderTotals as $orderTotal)
-              <tr>
-                <td colspan="5" class="text-end">{{ $orderTotal->title }}</td>
-                <td class="text-end"><span class="fw-bold">{{ currency_format($orderTotal->value, $order->currency_code, $order->currency_value) }}</span></td>
-              </tr>
-            @endforeach
-          </tfoot>
-        </table>
+        <div class="table-push">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>{{ __('order.product_name') }}</th>
+                        <th class="">{{ __('order.product_sku') }}</th>
+                        <th>{{ __('order.product_price') }}</th>
+                        <th class="">{{ __('order.product_quantity') }}</th>
+                        <th class="text-end">{{ __('order.product_sub_price') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+    <tr v-for="(product, index) in products" :key="product.id">
+        <td>
+            <div class="d-flex align-items-center">
+                <input type="text" class="form-control" v-model="product.name" name="product_name[]">
+            </div>
+        </td>
+        <td class="">
+            <input type="text" class="form-control" v-model="product.product_sku" name="product_sku[]">
+        </td>
+        <td>
+            <input type="text" class="form-control" v-model="product.price" name="product_price[]">
+        </td>
+        <td class="">
+            <input type="number" class="form-control" v-model="product.quantity" name="product_quantity[]" min="0">
+        </td>
+        <td class="text-end bg-light">
+            <div>@{{ product.price * product.quantity }}</div>
+        </td>
+    </tr>
+</tbody>
+<tfoot>
+  <tr>
+    <td colspan="4" class="text-end">Tổng giá trị</td>
+    <td class="text-end bg-light">
+      <div>@{{ subTotal }}</div>
+    </td>
+  </tr>
+  <tr v-if="orderTotals['tax']">
+    <td colspan="4" class="text-end">@{{ orderTotals['tax'].title }}</td>
+    <td class="text-end">
+      <input type="text" class="form-control text-end" v-model="orderTotals['tax'].value">
+    </td>
+  </tr>
+  <tr v-if="orderTotals['shipping']">
+    <td colspan="4" class="text-end">@{{ orderTotals['shipping'].title }}</td>
+    <td class="text-end">
+      <input type="text" class="form-control text-end" v-model="orderTotals['shipping'].value">
+    </td>
+  </tr>
+  <tr v-if="orderTotals['customer_discount']">
+    <td colspan="4" class="text-end">@{{ orderTotals['customer_discount'].title }}</td>
+    <td class="text-end">
+      <input type="text" class="form-control text-end" v-model="orderTotals['customer_discount'].value">
+    </td>
+  </tr>
+  <tr>
+    <td colspan="4" class="text-end">Tổng thanh toán</td>
+    <td class="text-end bg-light">
+      <div>@{{ orderTotal }}</div>
+    </td>
+  </tr>
+</tfoot>
+            </table>
+            
+        </div>
       </div>
     </div>
-  </div>
+    <div class="d-flex justify-content-end mt-3">
+    <button class="btn btn-primary btn-lg shadow" @click="submitOrder" style="padding: 15px 30px; font-weight: bold; font-size: 1.2rem;">
+        Chỉnh sửa
+    </button>
+</div>
+</div>
   @endhookwrapper
 
 
@@ -86,95 +136,113 @@
 
 @push('footer')
   @can('orders_update_status')
+
+  <?php
+$products = $order->orderProducts->map(function ($product) {
+    return [
+        'id' => $product->id,
+        'order_id' => $product->order_id,
+        'product_id' => $product->product_id,
+        'order_number' => $product->order_number,
+        'product_sku' => $product->product_sku,
+        'name' => $product->name,
+        'image' => $product->image,
+        'quantity' => $product->quantity,
+        'price' => $product->price,
+        'created_at' => $product->created_at,
+        'updated_at' => $product->updated_at,
+        'deleted_at' => $product->deleted_at,
+        'reviewed' => $product->reviewed,
+        'origin_price' => $product->origin_price,
+        'review_id' => $product->review_id,
+        'price_format' => $product->price_format,
+    ];
+});
+?>
     <script>
-      $('.edit-shipment').click(function() {
-        $(this).siblings('.shipment-tool').removeClass('d-none');
-        $(this).addClass('d-none');
-
-        $(this).parents('tr').find('.edit-show').addClass('d-none');
-        $(this).parents('tr').find('.edit-form').removeClass('d-none');
-        @if(!$expressCompanies)
-        $(this).parents('tr').find('.express-company').removeClass('d-none');
-        @endif
-      });
-
-      $('.shipment-tool .btn-outline-secondary').click(function() {
-        $(this).parent().siblings('.edit-shipment').removeClass('d-none');
-        $(this).parent().addClass('d-none');
-
-        $(this).parents('tr').find('.edit-show').removeClass('d-none');
-        $(this).parents('tr').find('.edit-form').addClass('d-none');
-      });
-
-      $('.shipment-tool .btn-primary').click(function() {
-        const id = $(this).parents('tr').data('id');
-        const express_code = $(this).parents('tr').find('.express-code').val();
-        const express_name = $(this).parents('tr').find('.express-code option:selected').text();
-        const express_number = $(this).parents('tr').find('.express-number').val();
-
-        $(this).parent().siblings('.edit-shipment').removeClass('d-none');
-        $(this).parent().addClass('d-none');
-
-        $(this).parents('tr').find('.edit-show').removeClass('d-none');
-        $(this).parents('tr').find('.edit-form').addClass('d-none');
-
-        $http.put(`/orders/{{ $order->id }}/shipments/${id}`, {express_code,express_name,express_number}).then((res) => {
-          layer.msg(res.message);
-          window.location.reload();
-        })
-      });
-
-    new Vue({
-      el: '#app',
-
-      data: {
-        // statuses: [{"value":"pending","label":"待处理"},{"value":"rejected","label":"已拒绝"},{"value":"approved","label":"已批准（待顾客寄回商品）"},{"value":"shipped","label":"已发货（寄回商品）"},{"value":"completed","label":"已完成"}],
-        statuses: @json($statuses ?? []),
-        form: {
-          status: "",
-          express_number: '',
-          express_code: '',
-          notify: 0,
-          comment: '',
-        },
-
-        source: {
-          express_company: @json(system_setting('base.express_company', [])),
-        },
-
-        rules: {
-          status: [{required: true, message: '{{ __('admin/order.error_status') }}', trigger: 'blur'}, ],
-          express_code: [{required: true,message: '{{ __('common.error_required', ['name' => __('order.express_company')]) }}',trigger: 'blur'}, ],
-          express_number: [{required: true,message: '{{ __('common.error_required', ['name' => __('order.express_number')]) }}',trigger: 'blur'}, ],
-        }
-      },
-
-      // beforeMount() {
-      //   let statuses = @json($statuses ?? []);
-      //   this.statuses = Object.keys(statuses).map(key => {
-      //     return {
-      //       value: key,
-      //       label: statuses[name]
-      //     }
-      //   });
-      // },
-
-      methods: {
-        submitForm(form) {
-          this.$refs[form].validate((valid) => {
-            if (!valid) {
-              layer.msg('{{ __('common.error_form') }}',()=>{});
-              return;
-            }
-
-            $http.put(`/orders/{{ $order->id }}/status`,this.form).then((res) => {
-              layer.msg(res.message);
-              window.location.reload();
-            })
-          });
-        }
+new Vue({
+  el: '#app',
+  data: {
+    orderId: @json($order['id']),
+    products: @json($products),
+    statuses: @json($statuses ?? []),
+    form: {
+      status: "",
+      express_number: '',
+      express_code: '',
+      notify: 0,
+      comment: '',
+    },
+    source: {
+      express_company: @json(system_setting('base.express_company', [])),
+    },
+    rules: {
+      status: [{required: true, message: '{{ __('admin/order.error_status') }}', trigger: 'blur'}, ],
+      express_code: [{required: true,message: '{{ __('common.error_required', ['name' => __('order.express_company')]) }}',trigger: 'blur'}, ],
+      express_number: [{required: true,message: '{{ __('common.error_required', ['name' => __('order.express_number')]) }}',trigger: 'blur'}, ],
+    },
+    orderTotals: @json($order->orderTotals->keyBy('code')),
+  },
+  computed: {
+    subTotal() {
+      return this.products.reduce((total, product) => {
+        return total + (product.price * product.quantity);
+      }, 0);
+    },
+    orderTotal() {
+      let total = this.subTotal;
+      if (this.orderTotals['tax']) {
+        total += parseFloat(this.orderTotals['tax'].value);
       }
-    })
+      if (this.orderTotals['shipping']) {
+        total += parseFloat(this.orderTotals['shipping'].value);
+      }
+      if (this.orderTotals['customer_discount']) {
+        total -= parseFloat(this.orderTotals['customer_discount'].value);
+      }
+      if(total < 0){
+        total = 0;
+      }
+      return total;
+    }
+  },
+  methods: {
+    submitOrder() {
+      // Collecting data from the form inputs and products
+      const orderData = {
+        id: this.orderId,
+        paymentMethod: document.getElementById('paymentMethod').value,
+        products: this.products.map(product => ({
+       
+          name: product.name,
+          sku: product.product_sku,
+          price: product.price,
+          quantity: product.quantity
+        })),
+        orderTotals: {
+          sub_total: this.subTotal,
+          order_total: this.orderTotal,
+          tax: this.orderTotals['tax'] ? this.orderTotals['tax'].value : 0,
+          shipping: this.orderTotals['shipping'] ? this.orderTotals['shipping'].value : 0,
+          customer_discount: this.orderTotals['customer_discount'] ? this.orderTotals['customer_discount'].value : 0
+        },  
+       
+      };
+      console.log(orderData);
+
+      // Sending the collected data via a POST request
+      // $http.post('/your-endpoint-url', orderData)
+      //   .then(response => {
+      //     // Handle successful response
+      //     alert('Order updated successfully');
+      //   })
+      //   .catch(error => {
+      //     // Handle error response
+      //     console.error('Error updating order:', error);
+      //   });
+    }
+  }
+});
   </script>
   @endcan
 @endpush
