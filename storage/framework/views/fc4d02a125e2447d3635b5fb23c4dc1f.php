@@ -102,6 +102,7 @@
             </thead>
             <tbody>
               <?php if(count($orders)): ?>
+            
                 <?php $__currentLoopData = $orders; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $order): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                   <tr data-hook-id=<?php echo e($order->id); ?>>
                     <td><input type="checkbox" :value="<?php echo e($order['id']); ?>" v-model="selectedIds" /></td>
@@ -121,12 +122,15 @@
                        class="btn btn-primary btn-sm"><?php echo e(__('common.view')); ?>
 
                       </a>
-                      <!-- CHECK editable ?????? -->
-                      <a href="<?php echo e(admin_route('orders.show', [$order->id])); ?>"
+                   
+                   
+                    
+                       <button type="button"  data-id="<?php echo e($order->id); ?>" class="btn btn-outline-danger btn-sm delete-btn"><?php echo e(__('common.delete')); ?></button>
+                       <?php if($order->status=="unpaid"): ?>
+                      <a href="<?php echo e(admin_route('orders.edit', [$order->id])); ?>"
                          class="btn btn-secondary btn-sm"> Sửa
                       </a>
-                      <!--  -->
-                       <button type="button"  data-id="<?php echo e($order->id); ?>" class="btn btn-outline-danger btn-sm delete-btn"><?php echo e(__('common.delete')); ?></button>
+                      <?php endif; ?>
                      </div>
                       <?php else: ?>
                       <button type="button" data-id="<?php echo e($order->id); ?>" class="btn btn-outline-secondary btn-sm restore-btn"><?php echo e(__('common.restore')); ?></button>
