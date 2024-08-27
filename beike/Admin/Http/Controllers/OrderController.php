@@ -23,6 +23,7 @@ use Beike\Shop\Http\Resources\Account\OrderSimpleList;
 use Beike\Shop\Http\Resources\Checkout\PaymentMethodItem;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller
 {
@@ -110,20 +111,21 @@ class OrderController extends Controller
         $data['paymentMethod']    = $payments;
         $data['expressCompanies'] = system_setting('base.express_company', []);
         hook_action('admin.order.edit.after', $data);
-
         return view('admin::pages.orders.edit', $data);
     }
 
     public function update(Request $request, Order $order)
     {
-        $order->load(['orderTotals', 'orderHistories', 'orderShipments', 'orderPayments']);
+        $requestData            = $request->all();
+        Log::info('ádasd',['ádasd'=> $requestData]);
+//        $order->load(['orderTotals', 'orderHistories', 'orderShipments', 'orderPayments']);
+//
+//        $data                     = hook_filter('admin.order.edit.data', ['order' => $order, 'html_items' => []]);
+//        $data['statuses']         = StateMachineService::getInstance($order)->nextBackendStatuses();
+//        $data['expressCompanies'] = system_setting('base.express_company', []);
+//        hook_action('admin.order.edit.after', $data);
 
-        $data                     = hook_filter('admin.order.edit.data', ['order' => $order, 'html_items' => []]);
-        $data['statuses']         = StateMachineService::getInstance($order)->nextBackendStatuses();
-        $data['expressCompanies'] = system_setting('base.express_company', []);
-        hook_action('admin.order.edit.after', $data);
-
-        return view('admin::pages.orders.edit', $data);
+//        return view('admin::pages.orders.edit', $data);
     }
 
     public function updateStatus(Request $request, Order $order)
