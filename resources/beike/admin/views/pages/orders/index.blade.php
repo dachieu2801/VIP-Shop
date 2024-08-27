@@ -83,6 +83,7 @@
             </thead>
             <tbody>
               @if (count($orders))
+            
                 @foreach ($orders as $order)
                   <tr data-hook-id={{ $order->id }}>
                     <td><input type="checkbox" :value="{{ $order['id'] }}" v-model="selectedIds" /></td>
@@ -99,9 +100,17 @@
                       @if (!$order->deleted_at)
                      <div class="d-flex gap-2 ">
                        <a href="{{ admin_route('orders.show', [$order->id]) }}"
-                          class="btn btn-secondary btn-sm">{{ __('common.view') }}
-                       </a>
+                       class="btn btn-primary btn-sm">{{ __('common.view') }}
+                      </a>
+                   
+                   
+                    
                        <button type="button"  data-id="{{ $order->id }}" class="btn btn-outline-danger btn-sm delete-btn">{{ __('common.delete') }}</button>
+                       @if($order->status=="unpaid")
+                      <a href="{{ admin_route('orders.edit', [$order->id]) }}"
+                         class="btn btn-secondary btn-sm"> Sửa
+                      </a>
+                      @endif
                      </div>
                       @else
                       <button type="button" data-id="{{ $order->id }}" class="btn btn-outline-secondary btn-sm restore-btn">{{ __('common.restore') }}</button>
