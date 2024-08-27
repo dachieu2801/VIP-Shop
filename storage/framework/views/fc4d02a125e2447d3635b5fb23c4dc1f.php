@@ -118,9 +118,14 @@
                       <?php if(!$order->deleted_at): ?>
                      <div class="d-flex gap-2 ">
                        <a href="<?php echo e(admin_route('orders.show', [$order->id])); ?>"
-                          class="btn btn-secondary btn-sm"><?php echo e(__('common.view')); ?>
+                       class="btn btn-primary btn-sm"><?php echo e(__('common.view')); ?>
 
-                       </a>
+                      </a>
+                      <!-- CHECK editable ?????? -->
+                      <a href="<?php echo e(admin_route('orders.show', [$order->id])); ?>"
+                         class="btn btn-secondary btn-sm"> Sửa
+                      </a>
+                      <!--  -->
                        <button type="button"  data-id="<?php echo e($order->id); ?>" class="btn btn-outline-danger btn-sm delete-btn"><?php echo e(__('common.delete')); ?></button>
                      </div>
                       <?php else: ?>

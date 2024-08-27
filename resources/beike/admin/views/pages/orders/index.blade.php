@@ -99,8 +99,13 @@
                       @if (!$order->deleted_at)
                      <div class="d-flex gap-2 ">
                        <a href="{{ admin_route('orders.show', [$order->id]) }}"
-                          class="btn btn-secondary btn-sm">{{ __('common.view') }}
-                       </a>
+                       class="btn btn-primary btn-sm">{{ __('common.view') }}
+                      </a>
+                      <!-- CHECK editable ?????? -->
+                      <a href="{{ admin_route('orders.show', [$order->id]) }}"
+                         class="btn btn-secondary btn-sm"> Sửa
+                      </a>
+                      <!--  -->
                        <button type="button"  data-id="{{ $order->id }}" class="btn btn-outline-danger btn-sm delete-btn">{{ __('common.delete') }}</button>
                      </div>
                       @else
