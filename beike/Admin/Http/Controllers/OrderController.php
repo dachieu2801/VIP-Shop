@@ -15,17 +15,17 @@ use Beike\Admin\Http\Resources\OrderSimple;
 use Beike\Models\Order;
 use Beike\Models\OrderShipment;
 use Beike\Repositories\OrderRepo;
+use Beike\Repositories\PluginRepo;
 use Beike\Services\ShipmentService;
 use Beike\Services\StateMachineService;
 use Beike\Shop\Http\Resources\Account\OrderShippingList;
 use Beike\Shop\Http\Resources\Account\OrderSimpleList;
+use Beike\Shop\Http\Resources\Checkout\PaymentMethodItem;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller
 {
-
     public function index(Request $request)
     {
         $orders = OrderRepo::filterOrders($request->all());
@@ -101,13 +101,13 @@ class OrderController extends Controller
         return view('admin::pages.orders.form', $data);
     }
 
-
     public function edit(Request $request, Order $order)
     {
         $order->load(['orderTotals', 'orderHistories', 'orderShipments', 'orderPayments']);
-
+        $payments                 = PaymentMethodItem::collection(PluginRepo::getPaymentMethods())->jsonSerialize();
         $data                     = hook_filter('admin.order.edit.data', ['order' => $order, 'html_items' => []]);
         $data['statuses']         = StateMachineService::getInstance($order)->nextBackendStatuses();
+        $data['paymentMethod']    = $payments;
         $data['expressCompanies'] = system_setting('base.express_company', []);
         hook_action('admin.order.edit.after', $data);
 
@@ -125,8 +125,6 @@ class OrderController extends Controller
 
         return view('admin::pages.orders.edit', $data);
     }
-
-
 
     public function updateStatus(Request $request, Order $order)
     {

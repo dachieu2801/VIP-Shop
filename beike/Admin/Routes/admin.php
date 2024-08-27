@@ -165,8 +165,8 @@ Route::prefix($adminName)
                 Route::middleware('can:orders_show')->get('orders/shipping', [Controllers\OrderController::class, 'shipping'])->name('orders.shipping.get');
                 Route::middleware('can:orders_show')->post('orders/shipping', [Controllers\OrderController::class, 'shipping'])->name('orders.shipping.post');
                 Route::middleware('can:orders_show')->get('orders/{order}', [Controllers\OrderController::class, 'show'])->name('orders.show');
-                Route::middleware('can:orders_show')->put('orders', [Controllers\OrderController::class, 'update'])->name('orders.update');
-                Route::middleware('can:orders_show')->get('orders/edit/{order}', [Controllers\OrderController::class, 'edit'])->name('orders.edit');
+                Route::middleware('can:orders_update')->put('orders', [Controllers\OrderController::class, 'update'])->name('orders.update');
+                Route::middleware('can:orders_edit')->get('orders/edit/{order}', [Controllers\OrderController::class, 'edit'])->name('orders.edit');
                 Route::middleware('can:orders_delete')->delete('orders/{order}', [Controllers\OrderController::class, 'destroy'])->name('orders.destroy');
                 Route::middleware('can:orders_update_status')->put('orders/{order}/status', [Controllers\OrderController::class, 'updateStatus'])->name('orders.update_status');
                 Route::middleware('can:orders_update_status')->put('orders/{order}/shipments/{shipment}', [Controllers\OrderController::class, 'updateShipment'])->name('orders.update_shipment');
