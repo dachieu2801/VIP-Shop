@@ -34,3 +34,9 @@ Hệ thống này được thiết kế để phục vụ cho thương mại đi
 3. `npm install`（cài đặt node 16+）,`npm run prod` biên dịch các tệp JavaScript và CSS
 4. Đặt `public` trong thư mục dự án vào thư mục gốc của trang web
 5. Truy cập trang web thông qua trình duyệt của bạn và làm theo lời nhắc để hoàn tất cài đặt.
+
+
+## Hướng dẫn chạy ở local
+
+1. Chạy lênh `php artisan serve` nếu sử dụng mySQL serve là DB
+2. Nếu sử dụng xampp làm DB thì mở xampp rồi `start` mysql trong xampp rồi chạy lệnh `php artisan serve` ở terminal của dự án

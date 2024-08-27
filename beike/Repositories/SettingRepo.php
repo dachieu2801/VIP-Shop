@@ -74,6 +74,20 @@ class SettingRepo
             ->keyBy('name');
     }
 
+    public static function getValuePluginColumns($pluginCode, $name)
+    {
+        $setting = Setting::query()
+            ->where('type', 'plugin')
+            ->where('space', $pluginCode)
+            ->where('name', $name)
+            ->first()->jsonSerialize();
+
+        if ($setting) {
+            return $setting['value'];
+        }
+        return null;
+    }
+
     /**
      * 获取单个插件状态
      *

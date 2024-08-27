@@ -28,6 +28,18 @@
                 :value="old($column['name'], $column['value'] ?? '')" />
             @endif
 
+              @if ($column['type'] == 'number')
+                <x-admin-form-input
+                  :name="$column['name']"
+                  :type="$column['type']"
+                  :title="$column['label']"
+                  :placeholder="$column['placeholder'] ?? ''"
+                  :description="$column['description'] ?? ''"
+                  :error="$errors->first($column['name'])"
+                  :required="$column['required'] ? true : false"
+                  :value="old($column['name'], $column['value'] ?? '')" />
+              @endif
+
             @if ($column['type'] == 'string-multiple')
               <x-admin-form-input-locale
                 :name="$column['name'].'.*'"

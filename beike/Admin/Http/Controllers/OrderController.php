@@ -25,13 +25,7 @@ use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller
 {
-    /**
-     * 获取订单列表
-     *
-     * @param Request $request
-     * @return mixed
-     * @throws \Exception
-     */
+
     public function index(Request $request)
     {
         $orders = OrderRepo::filterOrders($request->all());
@@ -107,14 +101,33 @@ class OrderController extends Controller
         return view('admin::pages.orders.form', $data);
     }
 
-    /**
-     * 更新订单状态,添加订单更新日志
-     *
-     * @param Request $request
-     * @param Order   $order
-     * @return array
-     * @throws \Throwable
-     */
+
+    public function edit(Request $request, Order $order)
+    {
+        $order->load(['orderTotals', 'orderHistories', 'orderShipments', 'orderPayments']);
+
+        $data                     = hook_filter('admin.order.edit.data', ['order' => $order, 'html_items' => []]);
+        $data['statuses']         = StateMachineService::getInstance($order)->nextBackendStatuses();
+        $data['expressCompanies'] = system_setting('base.express_company', []);
+        hook_action('admin.order.edit.after', $data);
+
+        return view('admin::pages.orders.edit', $data);
+    }
+
+    public function update(Request $request, Order $order)
+    {
+        $order->load(['orderTotals', 'orderHistories', 'orderShipments', 'orderPayments']);
+
+        $data                     = hook_filter('admin.order.edit.data', ['order' => $order, 'html_items' => []]);
+        $data['statuses']         = StateMachineService::getInstance($order)->nextBackendStatuses();
+        $data['expressCompanies'] = system_setting('base.express_company', []);
+        hook_action('admin.order.edit.after', $data);
+
+        return view('admin::pages.orders.edit', $data);
+    }
+
+
+
     public function updateStatus(Request $request, Order $order)
     {
         $status  = $request->get('status');

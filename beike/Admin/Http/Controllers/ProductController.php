@@ -120,7 +120,6 @@ class ProductController extends Controller
         $requestData = $request->all();
 
         $product_id  = $requestData['id'] ?? [];
-        Log::info('ádsad',['adssad'=> $product_id]);
         BestSeller::truncate();
         $data = array_map(function ($productId) {
             return ['product_id' => $productId];

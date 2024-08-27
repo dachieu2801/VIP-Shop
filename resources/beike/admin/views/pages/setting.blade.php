@@ -42,9 +42,9 @@
           <li class="nav-item" role="presentation">
             <a class="nav-link" data-bs-toggle="tab" href="#tab-express-company">{{ __('order.express_company') }}</a>
           </li>
-          <li class="nav-item" role="presentation">
-            <a class="nav-link" data-bs-toggle="tab" href="#tab-mail">{{ __('admin/setting.mail_settings') }}</a>
-          </li>
+{{--          <li class="nav-item" role="presentation">--}}
+{{--            <a class="nav-link" data-bs-toggle="tab" href="#tab-mail">{{ __('admin/setting.mail_settings') }}</a>--}}
+{{--          </li>--}}
           @hook('admin.setting.nav.after')
         </ul>
 

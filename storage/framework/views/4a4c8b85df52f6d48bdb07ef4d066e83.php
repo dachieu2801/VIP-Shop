@@ -62,9 +62,9 @@
           <li class="nav-item" role="presentation">
             <a class="nav-link" data-bs-toggle="tab" href="#tab-express-company"><?php echo e(__('order.express_company')); ?></a>
           </li>
-          <li class="nav-item" role="presentation">
-            <a class="nav-link" data-bs-toggle="tab" href="#tab-mail"><?php echo e(__('admin/setting.mail_settings')); ?></a>
-          </li>
+
+
+
            <?php
                 $__definedVars = (get_defined_vars()["__data"]);
                 if (empty($__definedVars))
