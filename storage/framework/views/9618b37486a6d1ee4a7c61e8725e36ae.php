@@ -24,11 +24,11 @@
                     ob_start();
                 ?>
   <!-- THONG TIN CHUNG VE KHACH HANG -->
+   <div><?php echo e(json_encode($paymentMethod)); ?></div>
   <div class="card mb-4 ">
     <div class="card-header mb-5"><h6 class="card-title">Phương thức thanh toán</h6></div>
     <select>
       <option><?php echo e($order->payment_method_name); ?></option>
-
     </select>
   </div>
    <?php
