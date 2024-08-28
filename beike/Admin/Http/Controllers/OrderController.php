@@ -118,14 +118,7 @@ class OrderController extends Controller
     {
         $requestData            = $request->all();
         Log::info('ádasd',['ádasd'=> $requestData]);
-//        $order->load(['orderTotals', 'orderHistories', 'orderShipments', 'orderPayments']);
-//
-//        $data                     = hook_filter('admin.order.edit.data', ['order' => $order, 'html_items' => []]);
-//        $data['statuses']         = StateMachineService::getInstance($order)->nextBackendStatuses();
-//        $data['expressCompanies'] = system_setting('base.express_company', []);
-//        hook_action('admin.order.edit.after', $data);
 
-//        return view('admin::pages.orders.edit', $data);
     }
 
     public function updateStatus(Request $request, Order $order)

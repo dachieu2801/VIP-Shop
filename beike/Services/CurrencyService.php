@@ -74,7 +74,7 @@ class CurrencyService
             $string .= $symbol_left;
         }
 
-        $string .= number_format(abs($amount), (int) $decimal_place, __('currency.decimal_point'), __('currency.thousand_point'));
+        $string .= number_format(abs($amount), (int) $decimal_place, __('currency.decimal_point'),);
 
         if ($symbol_right) {
             $string .= ' ' . $symbol_right;

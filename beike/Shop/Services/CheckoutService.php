@@ -27,6 +27,7 @@ use Beike\Repositories\VouchersRepo;
 use Beike\Services\PaymentMethodService;
 use Beike\Services\ShippingMethodService;
 use Beike\Services\StateMachineService;
+use Beike\Shop\Http\Controllers\CheckoutController;
 use Beike\Shop\Http\Resources\Account\AddressResource;
 use Beike\Shop\Http\Resources\Checkout\PaymentMethodItem;
 use Illuminate\Support\Facades\DB;
@@ -169,8 +170,12 @@ class CheckoutService
                 ];
             }
             $checkoutData['totals'] = $newTotals;
-
         }
+        $calculationService = new CheckoutController;
+
+        $checkoutData       = $calculationService->applyPaymentFee($checkoutData);
+
+        $checkoutData       = $calculationService->applyTax($checkoutData);
 
         $this->validateConfirm($checkoutData);
         $carts = $checkoutData['carts']['carts'];
