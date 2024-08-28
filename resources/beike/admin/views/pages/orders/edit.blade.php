@@ -11,22 +11,22 @@
 @section('content')
   @hookwrapper('admin.order.form.base')
   <!-- THONG TIN CHUNG VE KHACH HANG -->
-<div id="app">
+<div id="app"> 
    <div class="card mb-4">
-
+  
     <div class="card-header mb-3">
         <h6 class="card-title">Phương thức thanh toán</h6>
     </div>
     <div class="card-body">
         <div class="form-group">
-
+            
             <select class="form-control custom-select" id="paymentMethod" style="width: 50%;">
               <option>{{ $order['payment_method_name'] }}</option>
               @foreach($paymentMethod as $method)
-              @if($method['name'] != $order['payment_method_name'])
+              @if($method['name'] != $order['payment_method_name']) 
                 <option>{{ $method['name'] }}</option>
               @endif
-
+                  
               @endforeach
             </select>
         </div>
@@ -119,7 +119,7 @@
   </tr>
 </tfoot>
             </table>
-
+            
         </div>
       </div>
     </div>
@@ -197,7 +197,7 @@ new Vue({
         id: this.orderId,
         paymentMethod: document.getElementById('paymentMethod').value,
         products: this.products.map(product => ({
-
+       
           name: product.name,
           sku: product.product_sku,
           price: product.price,
@@ -209,8 +209,8 @@ new Vue({
           tax: this.orderTotals['tax'] ? this.orderTotals['tax'].value : 0,
           shipping: this.orderTotals['shipping'] ? this.orderTotals['shipping'].value : 0,
           customer_discount: this.orderTotals['customer_discount'] ? this.orderTotals['customer_discount'].value : 0
-        },
-
+        },  
+       
       };
       layer.confirm('Bạn có chắc muốn chỉnh sửa đơn ?', {
         title: "{{ __('common.text_hint') }}",
