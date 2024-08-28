@@ -71,8 +71,6 @@ class AccountService
             'code'    => $code,
         ]);
 
-        Log::info("Lấy mã xác minh mật khẩu：{$code}");
-
         Customer::query()->where('email', $email)->firstOrFail()->notifyVerifyCodeForForgotten($code);
     }
 

@@ -230,14 +230,11 @@ new Vue({
       };
       console.log(orderData);
 
-      // Sending the collected data via a POST request
       $http.put('/orders', orderData)
         .then(response => {
-          // Handle successful response
           alert('Order updated successfully');
         })
         .catch(error => {
-          // Handle error response
           console.error('Error updating order:', error);
         });
     }
