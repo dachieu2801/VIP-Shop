@@ -165,22 +165,6 @@ new Vue({
   data: {
     orderId: @json($order['id']),
     products: @json($products),
-    statuses: @json($statuses ?? []),
-    form: {
-      status: "",
-      express_number: '',
-      express_code: '',
-      notify: 0,
-      comment: '',
-    },
-    source: {
-      express_company: @json(system_setting('base.express_company', [])),
-    },
-    rules: {
-      status: [{required: true, message: '{{ __('admin/order.error_status') }}', trigger: 'blur'}, ],
-      express_code: [{required: true,message: '{{ __('common.error_required', ['name' => __('order.express_company')]) }}',trigger: 'blur'}, ],
-      express_number: [{required: true,message: '{{ __('common.error_required', ['name' => __('order.express_number')]) }}',trigger: 'blur'}, ],
-    },
     orderTotals: @json($order->orderTotals->keyBy('code')),
   },
   computed: {
@@ -228,9 +212,14 @@ new Vue({
         },  
        
       };
-      console.log(orderData);
+      layer.confirm('Bạn có chắc muốn chỉnh sửa đơn ?', {
+        title: "{{ __('common.text_hint') }}",
+        btn: ['{{ __('common.cancel') }}', '{{ __('common.confirm') }}'],
+        area: ['400px'],
+        btn2: () => {
+        console.log(orderData);
 
-      // Sending the collected data via a POST request
+         // Sending the collected data via a POST request
       // $http.post('/your-endpoint-url', orderData)
       //   .then(response => {
       //     // Handle successful response
@@ -240,6 +229,11 @@ new Vue({
       //     // Handle error response
       //     console.error('Error updating order:', error);
       //   });
+        
+      }
+    })
+
+     
     }
   }
 });
