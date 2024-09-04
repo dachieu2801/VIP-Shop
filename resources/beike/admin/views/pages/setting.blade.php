@@ -42,6 +42,9 @@
           <li class="nav-item" role="presentation">
             <a class="nav-link" data-bs-toggle="tab" href="#tab-express-company">{{ __('order.express_company') }}</a>
           </li>
+          <li class="nav-item" role="presentation">
+                    <a class="nav-link" data-bs-toggle="tab" href="#tab-shop-address"> Địa chỉ cửa hàng </a>
+                </li>
 {{--          <li class="nav-item" role="presentation">--}}
 {{--            <a class="nav-link" data-bs-toggle="tab" href="#tab-mail">{{ __('admin/setting.mail_settings') }}</a>--}}
 {{--          </li>--}}
@@ -189,6 +192,63 @@
             </x-admin::form.row>
             @hook('admin.setting.express.after')
           </div>
+
+          <div class="tab-pane fade" id="tab-shop-address">
+                    @hook('admin.setting.express.before')
+                    <x-admin::form.row title="{{ __('order.express_company') }}">
+                        <table class="table table-bordered w-max-600">
+                            <thead>
+                                <th>Tên nhà hàng</th>
+                                <th>Link bản đồ</th>
+                                @hook('admin.setting.express.table.thead.th')
+                                <th>Giờ làm việc</th>
+                            </thead>
+                            <tbody>
+                                <tr v-for="item, index in express_company" :key="index">
+                                    <td>
+                                        <input required placeholder="Tên nhà hàng" type="text"
+                                            :name="'express_company['+ index +'][name]'" v-model="item.name"
+                                            class="form-control">
+                                        <div class="invalid-feedback">
+                                            {{ __('common.error_required', ['name' => __('order.express_company')]) }}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input required placeholder="Link bản đồ" type="text"
+                                            :name="'express_company['+ index +'][code]'" v-model="item.code"
+                                            class="form-control">
+                                        <div class="invalid-feedback">
+                                            {{ __('common.error_required', ['name' => 'Code']) }}</div>
+                                    </td>
+                                    <td class="d-flex flex-column gap-3 ">
+                                        <div class="d-flex gap-2 justify-content-center align-items-center">
+                                            <div class="d-flex flex-column gap-2">
+                                                <input placeholder="Giờ mở cửa" name="working_time"
+                                                    class="form-control"></input>
+                                            </div>
+                                            <i @click="express_company.splice(index, 1)"
+                                                class="bi bi-x-circle fs-4 text-danger cursor-pointer"></i>
+                                        </div>
+                                        <div class="text-center">
+                                            <i @click="" class="bi bi-plus-circle cursor-pointer fs-4"></i>
+                                        </div>
+                                    </td>
+                                    @hook('admin.setting.express.table.tbody.td')
+                                    <td><i @click="express_company.splice(index, 1)"
+                                            class="bi bi-x-circle fs-4 text-danger cursor-pointer"></i></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1"><input v-if="!express_company.length" name="express_company"
+                                            class="d-none"></td>
+                                    <td class="text-center"><i class="bi bi-plus-circle cursor-pointer fs-4"
+                                            @click="addCompany"></i></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </x-admin::form.row>
+                    @hook('admin.setting.express.after')
+                </div>
 
           <div class="tab-pane fade" id="tab-mail">
 

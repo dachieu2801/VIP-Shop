@@ -15,7 +15,7 @@ return [
     'customer_id'      => 'Khách hàng',
     'quantity'         => 'Số lượng',
     'opened'           => 'Đã mở',
-    'rma_reason_id'    => 'Lý do RMA',
+    'rma_reason_id'    => 'Lý do hủy',
     'type'             => 'Loại',
 
     'status_pending'   => 'Đang chờ',
