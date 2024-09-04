@@ -80,9 +80,10 @@ class SettingRepo
             ->where('type', 'plugin')
             ->where('space', $pluginCode)
             ->where('name', $name)
-            ->first()->jsonSerialize();
+            ->first();
 
         if ($setting) {
+            $setting = $setting->jsonSerialize();
             return $setting['value'];
         }
         return null;
