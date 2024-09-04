@@ -236,22 +236,6 @@ new Vue({
   data: {
     orderId: <?php echo json_encode($order['id'], 15, 512) ?>,
     products: <?php echo json_encode($products, 15, 512) ?>,
-    statuses: <?php echo json_encode($statuses ?? [], 15, 512) ?>,
-    form: {
-      status: "",
-      express_number: '',
-      express_code: '',
-      notify: 0,
-      comment: '',
-    },
-    source: {
-      express_company: <?php echo json_encode(system_setting('base.express_company', []), 512) ?>,
-    },
-    rules: {
-      status: [{required: true, message: '<?php echo e(__('admin/order.error_status')); ?>', trigger: 'blur'}, ],
-      express_code: [{required: true,message: '<?php echo e(__('common.error_required', ['name' => __('order.express_company')])); ?>',trigger: 'blur'}, ],
-      express_number: [{required: true,message: '<?php echo e(__('common.error_required', ['name' => __('order.express_number')])); ?>',trigger: 'blur'}, ],
-    },
     orderTotals: <?php echo json_encode($order->orderTotals->keyBy('code'), 15, 512) ?>,
   },
   computed: {
@@ -299,9 +283,14 @@ new Vue({
         },  
        
       };
-      console.log(orderData);
+      layer.confirm('Bạn có chắc muốn chỉnh sửa đơn ?', {
+        title: "<?php echo e(__('common.text_hint')); ?>",
+        btn: ['<?php echo e(__('common.cancel')); ?>', '<?php echo e(__('common.confirm')); ?>'],
+        area: ['400px'],
+        btn2: () => {
+        console.log(orderData);
 
-      // Sending the collected data via a POST request
+         // Sending the collected data via a POST request
       // $http.post('/your-endpoint-url', orderData)
       //   .then(response => {
       //     // Handle successful response
@@ -311,6 +300,11 @@ new Vue({
       //     // Handle error response
       //     console.error('Error updating order:', error);
       //   });
+        
+      }
+    })
+
+     
     }
   }
 });
