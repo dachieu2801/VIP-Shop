@@ -13,7 +13,9 @@ namespace Beike\Admin\Http\Controllers;
 
 use Beike\Admin\Http\Resources\OrderSimple;
 use Beike\Models\Order;
+use Beike\Models\OrderProduct;
 use Beike\Models\OrderShipment;
+use Beike\Models\OrderTotal;
 use Beike\Repositories\OrderRepo;
 use Beike\Repositories\PluginRepo;
 use Beike\Services\ShipmentService;
@@ -23,7 +25,6 @@ use Beike\Shop\Http\Resources\Account\OrderSimpleList;
 use Beike\Shop\Http\Resources\Checkout\PaymentMethodItem;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller
 {
@@ -111,14 +112,42 @@ class OrderController extends Controller
         $data['paymentMethod']    = $payments;
         $data['expressCompanies'] = system_setting('base.express_company', []);
         hook_action('admin.order.edit.after', $data);
+
         return view('admin::pages.orders.edit', $data);
     }
 
     public function update(Request $request, Order $order)
     {
-        $requestData            = $request->all();
-        Log::info('ádasd',['ádasd'=> $requestData]);
+        $requestData = $request->all();
 
+        // Update Order
+        Order::where('id', $requestData['id'])->update([
+            'payment_method_code' => $requestData['paymentMethod']['code'],
+            'payment_method_name' => $requestData['paymentMethod']['name'],
+            'total'               => $requestData['orderTotals']['order_total'],
+        ]);
+
+        // Update Order Products
+        foreach ($requestData['products'] as $productData) {
+            OrderProduct::where('id', $productData['id'])
+                ->update([
+                    'product_sku' => $productData['sku'],
+                    'name'        => $productData['name'],
+                    'price'       => $productData['price'],
+                    'quantity'    => $productData['quantity'],
+                ]);
+        }
+
+        // Update Order Totals
+        foreach ($requestData['orderTotals'] as $code => $value) {
+            OrderTotal::where('order_id', $requestData['id'])
+            ->where('code', $code)->update([
+                'value' => $value,
+            ]);
+        }
+
+        // Return a response or redirect
+        return response()->json(['message' => 'Order updated successfully']);
     }
 
     public function updateStatus(Request $request, Order $order)
