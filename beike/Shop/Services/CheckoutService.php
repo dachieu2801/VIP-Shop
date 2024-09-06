@@ -23,6 +23,7 @@ use Beike\Repositories\CountryRepo;
 use Beike\Repositories\OrderRepo;
 use Beike\Repositories\PluginRepo;
 use Beike\Repositories\ProductSkuRepo;
+use Beike\Repositories\SettingRepo;
 use Beike\Repositories\VouchersRepo;
 use Beike\Services\PaymentMethodService;
 use Beike\Services\ShippingMethodService;
@@ -44,9 +45,6 @@ class CheckoutService
 
     public $totalService;
 
-    /**
-     * @throws \Exception
-     */
     public function __construct($customer = null)
     {
         if (is_int($customer) || empty($customer)) {
@@ -60,21 +58,21 @@ class CheckoutService
         }
     }
 
-    /**
-     * 更新结账页数据
-     *
-     * @param $requestData ['shipping_address_id'=>1, 'payment_address_id'=>2, 'shipping_method'=>'code', 'payment_method'=>'code']
-     * @return array
-     * @throws \Exception
-     */
     public function update($requestData): array
     {
+        $receivingMethod = $requestData['receiving_method'] ?? 'shipping';
+        $pickUpAddress   = $requestData['pick_up_address']  ?? '';
+        $pickUpTime      = $requestData['pick_up_time']     ?? '';
+
+        if (! in_array($receivingMethod, ['shipping', 'pick_up_items'])) {
+            throw new \Exception("Invalid receiving method: $receivingMethod");
+        }
         $voucherId          = $requestData['voucher_id']           ?? 0;
         $shippingAddressId  = $requestData['shipping_address_id']  ?? 0;
         $shippingMethodCode = $requestData['shipping_method_code'] ?? '';
 
-        $paymentAddressId  = $requestData['payment_address_id']  ?? 0;
-        $paymentMethodCode = $requestData['payment_method_code'] ?? '';
+        $paymentAddressId      = $requestData['payment_address_id']  ?? 0;
+        $paymentMethodCode     = $requestData['payment_method_code'] ?? '';
 
         $guestShippingAddress = $requestData['guest_shipping_address'] ?? [];
         $guestPaymentAddress  = $requestData['guest_payment_address']  ?? [];
@@ -87,11 +85,9 @@ class CheckoutService
         if ($shippingMethodCode) {
             $this->updateShippingMethod($shippingMethodCode);
         }
-
         if ($voucherId) {
             $this->updateVoucherId($voucherId);
         }
-
         if ($paymentAddressId) {
             $this->updatePaymentAddressId($paymentAddressId);
         }
@@ -104,6 +100,12 @@ class CheckoutService
         if ($guestPaymentAddress) {
             $this->updateGuestPaymentAddress($guestPaymentAddress);
         }
+        $this->updateReceivingMethod($receivingMethod);
+        if ($pickUpAddress) {
+            $this->updatePickUpAddress($pickUpAddress);
+        }if ($pickUpTime) {
+            $this->updatePickUpTime($pickUpTime);
+        }
 
         hook_action('service.checkout.update.after', ['request_data' => $requestData, 'checkout' => $this]);
         $data = $this->checkoutData();
@@ -111,17 +113,13 @@ class CheckoutService
         return $data;
     }
 
-    /**
-     * 确认提交订单
-     * @throws \Throwable
-     */
     public function confirm($voucher_id = 0): Order
     {
-        $customer                      = $this->customer;
-        $checkoutData                  = self::checkoutData();
-        $checkoutData['customer']      = $customer;
-        $checkoutData['comment']       = request('comment');
-        $checkoutData['receive_time']  = request('receive_time');
+        $customer                         = $this->customer;
+        $checkoutData                     = self::checkoutData();
+        $checkoutData['customer']         = $customer;
+        $checkoutData['comment']          = request('comment');
+        $checkoutData['receive_time']     = request('receive_time');
 
         if ($voucher_id) {
             $voucher = (new VouchersRepo)->getByIdActive($voucher_id);
@@ -174,7 +172,6 @@ class CheckoutService
         $calculationService = new CheckoutController;
 
         $checkoutData       = $calculationService->applyPaymentFee($checkoutData);
-
         $checkoutData       = $calculationService->applyTax($checkoutData);
 
         $this->validateConfirm($checkoutData);
@@ -201,11 +198,6 @@ class CheckoutService
         return $order;
     }
 
-    /**
-     * 计算当前选中商品总重量
-     *
-     * @return float
-     */
     public function getCartWeight(): float
     {
         $weight           = 0;
@@ -217,45 +209,56 @@ class CheckoutService
         return $weight;
     }
 
-    /**
-     * @throws \Exception
-     */
     private function validateConfirm($checkoutData)
     {
         $current = $checkoutData['current'];
 
         if ($this->customer) {
-            if ($this->shippingRequired()) {
-                $shippingAddressId = $current['shipping_address_id'];
-                if (empty(Address::query()->find($shippingAddressId))) {
+            if ($current['receiving_method'] == 'shipping') {
+                if ($this->shippingRequired()) {
+                    $shippingAddressId = $current['shipping_address_id'];
+                    if (empty(Address::query()->find($shippingAddressId))) {
+                        throw new \Exception(trans('shop/carts.invalid_shipping_address'));
+                    }
+                }
+                $paymentAddressId = $current['payment_address_id'];
+                if (empty(Address::query()->find($paymentAddressId))) {
+                    throw new \Exception(trans('shop/carts.invalid_payment_address'));
+                }
+            } else {
+                if (! $current['pick_up_time'] || ! $current['pick_up_address']) {
                     throw new \Exception(trans('shop/carts.invalid_shipping_address'));
                 }
             }
 
-            $paymentAddressId = $current['payment_address_id'];
-            if (empty(Address::query()->find($paymentAddressId))) {
-                throw new \Exception(trans('shop/carts.invalid_payment_address'));
-            }
         } else {
-            if ($this->shippingRequired() && ! $current['guest_shipping_address']) {
-                throw new \Exception(trans('shop/carts.invalid_shipping_address'));
-            }
+            if ($current['receiving_method'] == 'shipping') {
+                if ($this->shippingRequired() && ! $current['guest_shipping_address']) {
+                    throw new \Exception(trans('shop/carts.invalid_shipping_address'));
+                }
 
-            if (! $current['guest_payment_address']) {
-                throw new \Exception(trans('shop/carts.invalid_payment_address'));
+                if (! $current['guest_payment_address']) {
+                    throw new \Exception(trans('shop/carts.invalid_payment_address'));
+                }
+            } else {
+                if (! $current['pick_up_time'] || ! $current['pick_up_address']) {
+                    throw new \Exception(trans('shop/carts.invalid_shipping_address'));
+                }
             }
         }
 
-        if ($this->showShippingMethod()) {
-            $shippingMethodCode = $current['shipping_method_code'];
-            if (! PluginRepo::shippingEnabled($shippingMethodCode)) {
-                throw new \Exception(trans('shop/carts.invalid_shipping_method'));
+        if ($current['receiving_method'] == 'shipping') {
+            if ($this->showShippingMethod()) {
+                $shippingMethodCode = $current['shipping_method_code'];
+                if (! PluginRepo::shippingEnabled($shippingMethodCode)) {
+                    throw new \Exception(trans('shop/carts.invalid_shipping_method'));
+                }
             }
-        }
 
-        $paymentMethodCode = $current['payment_method_code'];
-        if (! PluginRepo::paymentEnabled($paymentMethodCode)) {
-            throw new \Exception(trans('shop/carts.invalid_payment_method'));
+            $paymentMethodCode = $current['payment_method_code'];
+            if (! PluginRepo::paymentEnabled($paymentMethodCode)) {
+                throw new \Exception(trans('shop/carts.invalid_payment_method'));
+            }
         }
 
         hook_action('service.checkout.validate_confirm.after', $checkoutData);
@@ -306,6 +309,24 @@ class CheckoutService
         $this->cart->save();
     }
 
+    private function updateReceivingMethod($receivingMethod)
+    {
+        $this->cart->receiving_method = $receivingMethod;
+        $this->cart->save();
+    }
+
+    private function updatePickUpAddress($pickUpAddress)
+    {
+        $this->cart->pick_up_address = $pickUpAddress;
+        $this->cart->save();
+    }
+
+    private function updatePickUpTime($pickUpTime)
+    {
+        $this->cart->pick_up_time = $pickUpTime;
+        $this->cart->save();
+    }
+
     public function initTotalService()
     {
         $customer           = $this->customer;
@@ -314,12 +335,6 @@ class CheckoutService
         $this->totalService = $totalService;
     }
 
-    /**
-     * 获取结账页数据
-     *
-     * @return array
-     * @throws \Exception
-     */
     public function checkoutData(): array
     {
         $customer    = $this->customer;
@@ -328,6 +343,13 @@ class CheckoutService
         $cartList           = CartService::list($customer, true);
         $carts              = CartService::reloadData($cartList);
         $vouchers           = (new \Beike\Repositories\VouchersRepo)->getActiveVouchers(now());
+
+        $addStatus              = SettingRepo::getSystemValue('store_address_status');
+        $storeAddress           = SettingRepo::getSystemValue('store_address');
+        $storeAddressValue      = [];
+        if ($addStatus &&  $addStatus->value) {
+            $storeAddressValue = $storeAddress ? $storeAddress->value : [];
+        }
 
         foreach ($vouchers as &$voucher) {
             $voucher['value_format'] = currency_format(floatval($voucher['discount_value']));
@@ -357,8 +379,12 @@ class CheckoutService
                 'payment_method_code'    => $currentCart->payment_method_code,
                 'payment_method_name'    => $paymentMethod['name'] ?? '',
                 'extra'                  => $currentCart->extra,
-                'voucher_id'             => $this->voucher->id ?? 0,
+                'voucher_id'             => $currentCart->voucher_id            ?? 0,
+                'receiving_method'       => $currentCart->receiving_method      ?? 'shipping',
+                'pick_up_address'        => $currentCart->pick_up_address       ?? '',
+                'pick_up_time'           => $currentCart->pick_up_time          ?? '',
             ],
+            'store_address'    => $storeAddressValue,
             'vouchers'         => $vouchers,
             'shipping_require' => $shippingRequired,
             'country_id'       => (int) system_setting('base.country_id'),

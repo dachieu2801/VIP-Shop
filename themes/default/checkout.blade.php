@@ -41,7 +41,7 @@
   <div class="form-group ">
     <select class="form-select" name="receive_time" required>
       <option value="" disabled selected>Vui lòng chọn thời gian</option>
-      
+
       <option value="7h-12h">7h-12h</option>
       <option value="12h-14h">12h-14h</option>
       <option value="14h-16h">14h-16h</option>
@@ -54,7 +54,7 @@
                   <h5 class="checkout-title">Mã giảm giá</h5>
 
                   <div class="radio-line-wrap" id="voucher-wrap">
-                   
+
                     @foreach ($vouchers as $voucher)
                       <div class="radio-line-item {{ $voucher['id'] == $current['voucher_id'] ? 'active' : '' }}" data-key="voucher_id" data-value="{{ $voucher['id'] }}">
                         <div class="left">
@@ -67,8 +67,8 @@
                         </div>
                       </div>
                     @endforeach
-                  
-                    
+
+
                   </div>
                 </div>
                 @endif
@@ -116,7 +116,7 @@
               </div>
             </div>
 
-           
+
 
             <div class=" mt-5">
               <h5 class="checkout-title">{{ __('shop/checkout.comment') }}</h5>
@@ -124,7 +124,7 @@
                 <textarea rows="5" type="text" class="form-control" name="comment" placeholder="{{ __('shop/checkout.comment') }}">{{ old('comment', $comment ?? '') }}</textarea>
               </div>
             </div>
-            
+
 
             @hook('checkout.bottom')
           </div>
@@ -143,7 +143,7 @@
               </div>
             </div>
           @endif
-          
+
 
           <div class="card total-wrap p-lg-4 p-md-2 shadow-sm">
             <div class="card-header d-flex align-items-center justify-content-between">
@@ -184,7 +184,7 @@
                 @foreach ($totals as $total)
                   <li><span>{{ $total['title'] }}</span><span>{{ $total['amount_format'] }}</span></li>
                 @endforeach
-                
+
               </ul>
               <div class="d-grid gap-2 mt-3 submit-checkout-wrap">
                 @if (is_mobile())

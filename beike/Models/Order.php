@@ -25,6 +25,7 @@ class Order extends Base
     use SoftDeletes;
 
     public mixed $payment_method_code;
+
     protected $fillable = [
         'number', 'customer_id', 'customer_group_id', 'shipping_address_id', 'payment_address_id', 'customer_name',
         'email', 'calling_code', 'telephone', 'total', 'locale', 'currency_code', 'currency_value', 'ip', 'user_agent',
@@ -33,7 +34,8 @@ class Order extends Base
         'shipping_address_1', 'shipping_zipcode', 'shipping_address_2', 'payment_method_code', 'payment_method_name',
         'payment_customer_name', 'payment_calling_code', 'payment_telephone', 'payment_country', 'payment_country_id',
         'payment_zone', 'payment_zone_id', 'payment_city', 'payment_address_1', 'payment_address_2', 'payment_zipcode',
-        'cancellation_reason', 'cancelled_at','voucher_id','receive_time'
+        'cancellation_reason', 'cancelled_at', 'voucher_id', 'receive_time', 'receiving_method', 'pick_up_address',
+        'pick_up_time'
     ];
 
     protected $appends = ['status_format', 'total_format'];

@@ -18,9 +18,6 @@ use Illuminate\Support\Facades\Artisan;
 
 class SettingRepo
 {
-    /**
-     * 按照类型分组获取设置
-     */
     public static function getGroupedSettings(): array
     {
         $settings = Setting::all(['type', 'space', 'name', 'value', 'json']);
@@ -45,11 +42,6 @@ class SettingRepo
         return $result;
     }
 
-    /**
-     * 获取插件默认字段
-     *
-     * @return array
-     */
     public static function getPluginStatusColumn(): array
     {
         return [
@@ -60,11 +52,6 @@ class SettingRepo
         ];
     }
 
-    /**
-     * 获取单个插件所有字段
-     * @param $pluginCode
-     * @return mixed
-     */
     public static function getPluginColumns($pluginCode)
     {
         return Setting::query()
@@ -84,17 +71,13 @@ class SettingRepo
 
         if ($setting) {
             $setting = $setting->jsonSerialize();
+
             return $setting['value'];
         }
+
         return null;
     }
 
-    /**
-     * 获取单个插件状态
-     *
-     * @param $pluginCode
-     * @return bool
-     */
     public static function getPluginStatus($pluginCode): bool
     {
         $status = plugin_setting("{$pluginCode}.status");
@@ -102,13 +85,6 @@ class SettingRepo
         return (bool) $status;
     }
 
-    /**
-     * 批量更新设置
-     *
-     * @param $type
-     * @param $code
-     * @param $fields
-     */
     public static function update($type, $code, $fields)
     {
         $columns = array_keys($fields);
@@ -165,6 +141,14 @@ class SettingRepo
         }
         self::clearCache();
     }
+    public static function getSystemValue($name)
+    {
+        return Setting::query()
+            ->where('type', 'system')
+            ->where('space', 'base')
+            ->where('name', $name)
+            ->first();
+    }
 
     public static function getMobileSetting()
     {
@@ -188,9 +172,6 @@ class SettingRepo
         ];
     }
 
-    /**
-     * Clear all cache.
-     */
     public static function clearCache()
     {
         Artisan::call('cache:clear');

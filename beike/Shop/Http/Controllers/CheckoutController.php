@@ -54,12 +54,6 @@ class CheckoutController extends Controller
         }
     }
 
-    /**
-     * 确认提交订单
-     *
-     * @return mixed
-     * @throws \Throwable
-     */
     public function confirm(Request $request)
     {
         $requestData = $request->all();

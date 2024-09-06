@@ -22,14 +22,10 @@ use Beike\Repositories\ThemeRepo;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class SettingController extends Controller
 {
-    /**
-     * 显示系统设置页面
-     *
-     * @return mixed
-     */
     public function index()
     {
         $themes = ThemeRepo::getAllThemes();
@@ -53,14 +49,27 @@ class SettingController extends Controller
         return view('admin::pages.setting', $data);
     }
 
-    /**
-     * 更新系统设置
-     *
-     * @throws \Throwable
-     */
     public function store(Request $request): mixed
     {
-        $settings = $request->all();
+        $settings                  = $request->all();
+        //        $settings['store_address'] = [
+        //            [
+        //                'address'    => 'tesst add 1',
+        //                'link_map'   => 'test link 1',
+        //                'time_start' => '',
+        //                'time_end'   => '',
+        //                'status'     => true,
+        //            ],
+        //            [
+        //                'address'    => 'tesst add 2',
+        //                'link_map'   => 'test link 2',
+        //                'time_start' => '',
+        //                'time_end'   => '',
+        //                'status'     => false,
+        //            ],
+        //        ];
+        //        $settings['store_address_status'] = true;
+
         if (isset($settings['show_price_after_login'])) {
             if ($settings['show_price_after_login']) {
                 $settings['guest_checkout'] = false;
@@ -80,11 +89,6 @@ class SettingController extends Controller
         return redirect($settingUrl)->with('success', trans('common.updated_success'));
     }
 
-    /**
-     * @param Request $request
-     * @return JsonResponse
-     * @throws \Throwable
-     */
     public function updateValues(Request $request): JsonResponse
     {
         $settings = $request->all();
@@ -98,11 +102,6 @@ class SettingController extends Controller
         }
     }
 
-    /**
-     * @param Request $request
-     * @return JsonResponse
-     * @throws \Throwable
-     */
     public function storeDeveloperToken(Request $request): JsonResponse
     {
         SettingRepo::storeValue('developer_token', $request->get('developer_token'));

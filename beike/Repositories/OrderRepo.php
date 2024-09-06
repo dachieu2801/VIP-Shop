@@ -205,20 +205,18 @@ class OrderRepo
         return $builder->first();
     }
 
-    /**
-     * @param array $data
-     * @return Order
-     * @throws \Throwable
-     */
     public static function create(array $data): Order
     {
-        $customer    = $data['customer']      ?? null;
-        $current     = $data['current']       ?? [];
-        $carts       = $data['carts']         ?? [];
-        $totals      = $data['totals']        ?? [];
-        $receiveTime = $data['receive_time']  ?? '';
-        $comment     = $data['comment']       ?? '';
-        $orderTotal  = collect($totals)->where('code', 'order_total')->first();
+        $customer                  = $data['customer']                       ?? null;
+        $current                   = $data['current']                        ?? [];
+        $carts                     = $data['carts']                          ?? [];
+        $totals                    = $data['totals']                         ?? [];
+        $receiveTime               = $data['receive_time']                   ?? '';
+        $comment                   = $data['comment']                        ?? '';
+        //        $pickUpAddress             = $data['pick_up_address']                ?? '';
+        //        $pickUpTime                = $data['pick_up_time']                   ?? '';
+
+        $orderTotal          = collect($totals)->where('code', 'order_total')->first();
 
         if ($customer) {
             $shippingAddressId = $current['shipping_address_id'] ?? 0;
@@ -293,6 +291,9 @@ class OrderRepo
             'payment_address_1'           => $paymentAddress->address_1,
             'payment_address_2'           => $paymentAddress->address_2,
             'payment_zipcode'             => $paymentAddress->zipcode,
+            'receiving_method'            => $current['receiving_method'] ?? 'shipping',
+            'pick_up_address'             => $current['pick_up_address']  ?? '',
+            'pick_up_time'                => $current['pick_up_time']     ?? '',
         ]);
         $order->saveOrFail();
 
