@@ -356,7 +356,7 @@ class CheckoutService
                         $timeEnd   = $workingPeriod['time_end'];
 
                         if ($timeStart && $timeEnd) {
-                            $store['time_slots'] = $this->generateTimeSlots($timeStart, $timeEnd, 15);
+                            $store['time_slots'][] = $this->generateTimeSlots($timeStart, $timeEnd, 15);
                         } else {
                             $store['time_slots'] = [];
                         }
