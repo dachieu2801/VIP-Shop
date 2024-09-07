@@ -57,10 +57,6 @@ class CheckoutController extends Controller
     {
         $requestData = $request->all();
 
-        if (! $requestData['receive_time']) {
-            return json_fail('Vui lòng chọn thời gian nhận');
-        }
-
         try {
             $data = (new CheckoutService)->confirm($requestData['voucher_id'] ?? 0);
 

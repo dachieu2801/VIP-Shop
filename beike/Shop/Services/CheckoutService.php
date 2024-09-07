@@ -32,6 +32,7 @@ use Beike\Shop\Http\Controllers\CheckoutController;
 use Beike\Shop\Http\Resources\Account\AddressResource;
 use Beike\Shop\Http\Resources\Checkout\PaymentMethodItem;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class CheckoutService
 {
@@ -63,8 +64,8 @@ class CheckoutService
         $receivingMethod = $requestData['receiving_method'] ?? 'shipping';
         $pickUpAddress   = $requestData['pick_up_address']  ?? '';
         $pickUpTime      = $requestData['pick_up_time']     ?? '';
-        $name            = $requestData['name']     ?? '';
-        $phone           = $requestData['phone']     ?? '';
+        $name            = $requestData['name']             ?? '';
+        $phone           = $requestData['phone']            ?? '';
 
         if (! in_array($receivingMethod, ['shipping', 'pick_up_items'])) {
             throw new \Exception("Invalid receiving method: $receivingMethod");
@@ -132,10 +133,14 @@ class CheckoutService
         $checkoutData['comment']          = request('comment');
         $checkoutData['receive_time']     = request('receive_time');
 
+        if ($checkoutData['current']['receiving_method'] == 'shipping' && ! request('receive_time')) {
+            throw new \Exception('Vui lòng chọn thời gian nhận');
+        }
+
         if ($voucher_id) {
             $voucher = (new VouchersRepo)->getByIdActive($voucher_id);
             if (! $voucher) {
-                throw new \Exception('Voucher does not exist or expired.');
+                throw new \Exception('Voucher không tồn tại hoặc đã hết hạn');
             }
             $checkoutData['current']['voucher_id'] = $voucher_id;
             $newTotals                             = [];
@@ -420,12 +425,12 @@ class CheckoutService
                 'payment_method_code'    => $currentCart->payment_method_code,
                 'payment_method_name'    => $paymentMethod['name'] ?? '',
                 'extra'                  => $currentCart->extra,
-                'voucher_id'             => $currentCart->voucher_id            ?? 0,
-                'receiving_method'       => $currentCart->receiving_method      ?? 'shipping',
-                'pick_up_address'        => $currentCart->pick_up_address       ?? '',
-                'pick_up_time'           => $currentCart->pick_up_time          ?? '',
+                'voucher_id'             => $currentCart->voucher_id                    ?? 0,
+                'receiving_method'       => $currentCart->receiving_method              ?? 'shipping',
+                'pick_up_address'        => $currentCart->pick_up_address               ?? '',
+                'pick_up_time'           => $currentCart->pick_up_time                  ?? '',
                 'name'                   => $currentCart->name                          ?? '',
-                'phone'                  => $currentCart->phone                        ?? '',
+                'phone'                  => $currentCart->phone                         ?? '',
             ],
             'store_address'    => $storeAddressValue,
             'vouchers'         => $vouchers,
