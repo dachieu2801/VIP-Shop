@@ -61,15 +61,11 @@ class CheckoutService
 
     public function update($requestData): array
     {
-        $receivingMethod = $requestData['receiving_method'] ?? 'shipping';
+        $receivingMethod = $requestData['receiving_method'] ?? '';
         $pickUpAddress   = $requestData['pick_up_address']  ?? '';
         $pickUpTime      = $requestData['pick_up_time']     ?? '';
         $name            = $requestData['name']             ?? '';
         $phone           = $requestData['phone']            ?? '';
-
-        if (! in_array($receivingMethod, ['shipping', 'pick_up_items'])) {
-            throw new \Exception("Invalid receiving method: $receivingMethod");
-        }
         $voucherId          = $requestData['voucher_id']           ?? 0;
         $shippingAddressId  = $requestData['shipping_address_id']  ?? 0;
         $shippingMethodCode = $requestData['shipping_method_code'] ?? '';
@@ -103,7 +99,9 @@ class CheckoutService
         if ($guestPaymentAddress) {
             $this->updateGuestPaymentAddress($guestPaymentAddress);
         }
-        $this->updateReceivingMethod($receivingMethod);
+        if($receivingMethod){
+            $this->updateReceivingMethod($receivingMethod);
+        }
         if ($pickUpAddress) {
             $this->updatePickUpAddress($pickUpAddress);
         }
