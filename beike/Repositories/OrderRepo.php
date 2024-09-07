@@ -213,8 +213,6 @@ class OrderRepo
         $totals                    = $data['totals']                         ?? [];
         $receiveTime               = $data['receive_time']                   ?? '';
         $comment                   = $data['comment']                        ?? '';
-        //        $pickUpAddress             = $data['pick_up_address']                ?? '';
-        //        $pickUpTime                = $data['pick_up_time']                   ?? '';
 
         $orderTotal          = collect($totals)->where('code', 'order_total')->first();
 

@@ -47,7 +47,6 @@ class CheckoutController extends Controller
             $data = hook_filter('checkout.index.data', $data);
 
             $data = $this->calculateTotals($data);
-
             return view('checkout', $data);
         } catch (\Exception $e) {
             return redirect(shop_route('carts.index'))->withErrors(['error' => $e->getMessage()]);

@@ -52,23 +52,6 @@ class SettingController extends Controller
     public function store(Request $request): mixed
     {
         $settings                  = $request->all();
-        //        $settings['store_address'] = [
-        //            [
-        //                'address'    => 'tesst add 1',
-        //                'link_map'   => 'test link 1',
-        //                'time_start' => '',
-        //                'time_end'   => '',
-        //                'status'     => true,
-        //            ],
-        //            [
-        //                'address'    => 'tesst add 2',
-        //                'link_map'   => 'test link 2',
-        //                'time_start' => '',
-        //                'time_end'   => '',
-        //                'status'     => false,
-        //            ],
-        //        ];
-        //        $settings['store_address_status'] = true;
 
         if (isset($settings['show_price_after_login'])) {
             if ($settings['show_price_after_login']) {

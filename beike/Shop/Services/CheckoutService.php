@@ -348,7 +348,17 @@ class CheckoutService
         $storeAddress           = SettingRepo::getSystemValue('store_address');
         $storeAddressValue      = [];
         if ($addStatus &&  $addStatus->value) {
-            $storeAddressValue = $storeAddress ? $storeAddress->value : [];
+            $storeAddressValue = $storeAddress ? json_decode($storeAddress->value, true) : [];
+            foreach ($storeAddressValue as &$store) {
+                $timeStart = $store['time_start'];
+                $timeEnd   = $store['time_end'];
+
+                if ($timeStart && $timeEnd) {
+                    $store['time_slots'] = $this->generateTimeSlots($timeStart, $timeEnd, 15);
+                } else {
+                    $store['time_slots'] = [];
+                }
+            }
         }
 
         foreach ($vouchers as &$voucher) {
@@ -398,6 +408,20 @@ class CheckoutService
         ];
 
         return hook_filter('service.checkout.data', $data);
+    }
+
+    public function generateTimeSlots($startTime, $endTime, $intervalMinutes)
+    {
+        $slots       = [];
+        $currentTime = $startTime;
+
+        while (strtotime($currentTime) < strtotime($endTime)) {
+            $nextTime    = date('H:i', strtotime("+$intervalMinutes minutes", strtotime($currentTime)));
+            $slots[]     = "$currentTime-$nextTime";
+            $currentTime = $nextTime;
+        }
+
+        return $slots;
     }
 
     private function setDefaultCurrentShippingMethod($shipments)
