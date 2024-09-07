@@ -350,13 +350,17 @@ class CheckoutService
         if ($addStatus &&  $addStatus->value) {
             $storeAddressValue = $storeAddress ? json_decode($storeAddress->value, true) : [];
             foreach ($storeAddressValue as &$store) {
-                $timeStart = $store['time_start'];
-                $timeEnd   = $store['time_end'];
+                if (isset($store['time_working']) && is_array($store['time_working'])) {
+                    foreach ($store['time_working'] as &$workingPeriod) {
+                        $timeStart = $workingPeriod['time_start'];
+                        $timeEnd   = $workingPeriod['time_end'];
 
-                if ($timeStart && $timeEnd) {
-                    $store['time_slots'] = $this->generateTimeSlots($timeStart, $timeEnd, 15);
-                } else {
-                    $store['time_slots'] = [];
+                        if ($timeStart && $timeEnd) {
+                            $store['time_slots'] = $this->generateTimeSlots($timeStart, $timeEnd, 15);
+                        } else {
+                            $store['time_slots'] = [];
+                        }
+                    }
                 }
             }
         }
