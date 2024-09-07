@@ -239,7 +239,7 @@ class CheckoutService
             } else {
                 if (! $current['pick_up_time'] || ! $current['pick_up_address']
                                                || ! $current['name'] || ! $current['phone']) {
-                    throw new \Exception(trans('shop/carts.invalid_shipping_address'));
+                    throw new \Exception('Vui lòng nhập đủ thông tin và ấn lưu');
                 }
             }
 
@@ -255,7 +255,7 @@ class CheckoutService
             } else {
                 if (! $current['pick_up_time'] || ! $current['pick_up_address']
                                                || ! $current['name'] || ! $current['phone']) {
-                    throw new \Exception(trans('shop/carts.invalid_shipping_address'));
+                    throw new \Exception('Vui lòng nhập đủ thông tin và ấn lưu');
                 }
             }
         }
