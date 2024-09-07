@@ -63,6 +63,8 @@ class CheckoutService
         $receivingMethod = $requestData['receiving_method'] ?? 'shipping';
         $pickUpAddress   = $requestData['pick_up_address']  ?? '';
         $pickUpTime      = $requestData['pick_up_time']     ?? '';
+        $name            = $requestData['name']     ?? '';
+        $phone           = $requestData['phone']     ?? '';
 
         if (! in_array($receivingMethod, ['shipping', 'pick_up_items'])) {
             throw new \Exception("Invalid receiving method: $receivingMethod");
@@ -103,8 +105,17 @@ class CheckoutService
         $this->updateReceivingMethod($receivingMethod);
         if ($pickUpAddress) {
             $this->updatePickUpAddress($pickUpAddress);
-        }if ($pickUpTime) {
+        }
+        if ($pickUpTime) {
             $this->updatePickUpTime($pickUpTime);
+        }
+
+        if ($name) {
+            $this->updateName($name);
+        }
+
+        if ($phone) {
+            $this->updatePhone($phone);
         }
 
         hook_action('service.checkout.update.after', ['request_data' => $requestData, 'checkout' => $this]);
@@ -226,7 +237,8 @@ class CheckoutService
                     throw new \Exception(trans('shop/carts.invalid_payment_address'));
                 }
             } else {
-                if (! $current['pick_up_time'] || ! $current['pick_up_address']) {
+                if (! $current['pick_up_time'] || ! $current['pick_up_address']
+                                               || ! $current['name'] || ! $current['phone']) {
                     throw new \Exception(trans('shop/carts.invalid_shipping_address'));
                 }
             }
@@ -241,7 +253,8 @@ class CheckoutService
                     throw new \Exception(trans('shop/carts.invalid_payment_address'));
                 }
             } else {
-                if (! $current['pick_up_time'] || ! $current['pick_up_address']) {
+                if (! $current['pick_up_time'] || ! $current['pick_up_address']
+                                               || ! $current['name'] || ! $current['phone']) {
                     throw new \Exception(trans('shop/carts.invalid_shipping_address'));
                 }
             }
@@ -327,6 +340,18 @@ class CheckoutService
         $this->cart->save();
     }
 
+    private function updateName($name)
+    {
+        $this->cart->name = $name;
+        $this->cart->save();
+    }
+
+    private function updatePhone($phone)
+    {
+        $this->cart->phone = $phone;
+        $this->cart->save();
+    }
+
     public function initTotalService()
     {
         $customer           = $this->customer;
@@ -399,6 +424,8 @@ class CheckoutService
                 'receiving_method'       => $currentCart->receiving_method      ?? 'shipping',
                 'pick_up_address'        => $currentCart->pick_up_address       ?? '',
                 'pick_up_time'           => $currentCart->pick_up_time          ?? '',
+                'name'                   => $currentCart->name                          ?? '',
+                'phone'                  => $currentCart->phone                        ?? '',
             ],
             'store_address'    => $storeAddressValue,
             'vouchers'         => $vouchers,

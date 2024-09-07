@@ -292,6 +292,8 @@ class OrderRepo
             'receiving_method'            => $current['receiving_method'] ?? 'shipping',
             'pick_up_address'             => $current['pick_up_address']  ?? '',
             'pick_up_time'                => $current['pick_up_time']     ?? '',
+            'name'                => $current['name']     ?? '',
+            'phone'                => $current['phone']     ?? '',
         ]);
         $order->saveOrFail();
 

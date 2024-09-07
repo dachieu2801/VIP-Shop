@@ -12,7 +12,7 @@ class Cart extends Base
     protected $fillable = [
         'customer_id', 'session_id', 'shipping_address_id', 'guest_shipping_address', 'shipping_method_code',
         'payment_address_id', 'guest_payment_address', 'payment_method_code', 'extra', 'voucher_id',
-        'pick_up_address', 'pick_up_time','receiving_method'
+        'pick_up_address', 'pick_up_time','receiving_method', 'name', 'phone'
     ];
 
     public function customer(): BelongsTo

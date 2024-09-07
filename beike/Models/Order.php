@@ -35,7 +35,7 @@ class Order extends Base
         'payment_customer_name', 'payment_calling_code', 'payment_telephone', 'payment_country', 'payment_country_id',
         'payment_zone', 'payment_zone_id', 'payment_city', 'payment_address_1', 'payment_address_2', 'payment_zipcode',
         'cancellation_reason', 'cancelled_at', 'voucher_id', 'receive_time', 'receiving_method', 'pick_up_address',
-        'pick_up_time'
+        'pick_up_time','name', 'phone'
     ];
 
     protected $appends = ['status_format', 'total_format'];
