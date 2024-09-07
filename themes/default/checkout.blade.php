@@ -35,20 +35,46 @@
         <div class="card shadow-sm">
           <div class="card-body p-lg-4">
             @hook('checkout.body.header')
+            <div>
+             
+  <ul class="nav nav-tabs" id="checkoutTab" role="tablist">
+    <!-- Tab for Giao hàng tận nơi -->
+    <li class="nav-item" role="presentation">
+      <button class="nav-link {{ $current['receiving_method'] == 'shipping' ? 'active' : '' }} " id="home-delivery-tab"  data-bs-toggle="tab" data-bs-target="#home-delivery" type="button" role="tab" aria-controls="home-delivery" aria-selected="true"> Giao hàng tận nơi</button>
+    </li>
+    <!-- Tab for Đến lấy hàng -->
+    <li class="nav-item" role="presentation">
+      <button class="nav-link {{ $current['receiving_method'] == 'pick_up_items' ? 'active' : '' }}" id="store-pickup-tab" data-bs-toggle="tab" data-bs-target="#store-pickup" type="button" role="tab" aria-controls="store-pickup" aria-selected="false">Đến lấy hàng</button>
+    </li>
+  </ul>
 
-            @include('checkout._address')
-            <h5 class="checkout-title">Thời gian nhận hàng :</h5>
-  <div class="form-group ">
-    <select class="form-select" name="receive_time" required>
-      <option value="" disabled selected>Vui lòng chọn thời gian</option>
-
-      <option value="7h-12h">7h-12h</option>
-      <option value="12h-14h">12h-14h</option>
-      <option value="14h-16h">14h-16h</option>
-      <option value="16h-18h">16h-18h</option>
-      <option value="18h-after">18h trở đi</option>
-    </select>
+  <div class="tab-content" id="checkoutTabContent">
+    <!-- Giao hàng tận nơi content -->
+    <div class="tab-pane fade {{ $current['receiving_method'] == 'pick_up_items' ? 'show active' : '' }} mt-5" id="store-pickup" role="tabpanel" aria-labelledby="store-pickup-tab">
+      <div>
+        @include('checkout._shop_address')
+      </div>
+    </div>
+    
+    <!-- Đến lấy hàng content -->
+    <div class="tab-pane fade {{ $current['receiving_method'] == 'shipping' ? 'show active' : '' }} mt-5" id="home-delivery" role="tabpanel" aria-labelledby="home-delivery-tab">
+      <div>
+        @include('checkout._address')
+        <h5 class="checkout-title">Thời gian nhận hàng :</h5>
+        <div class="form-group">
+          <select class="form-select" name="receive_time" required>
+            <option value="" disabled selected>Vui lòng chọn thời gian</option>
+            <option value="7h-12h">7h-12h</option>
+            <option value="12h-14h">12h-14h</option>
+            <option value="14h-16h">14h-16h</option>
+            <option value="16h-18h">16h-18h</option>
+            <option value="18h-after">18h trở đi</option>
+          </select>
+        </div>
+      </div>
+    </div>
   </div>
+</div>
          @if(!empty($vouchers))
                <div class=" mt-5 my-5"  id="vouchersssssss">
                   <h5 class="checkout-title">Mã giảm giá</h5>
@@ -213,6 +239,7 @@
 @push('add-scripts')
 <script>
   $(document).ready(function() {
+
     $(document).on('click', '.radio-line-item', function(event) {
       if ($(this).hasClass('active')) return;
       console.log($(this).data('key'), $(this).data('value'))
@@ -224,15 +251,15 @@
         const payment = config.isLogin ? checkoutAddressApp.form.payment_address_id : checkoutAddressApp.source.guest_payment_address;
         const voucherId = $('#voucher-wrap .radio-line-item.active').data('value');
 
-        if (checkoutAddressApp.shippingRequired && !address) {
-            layer.msg('{{ __('shop/checkout.error_address') }}', ()=>{})
-            return;
-        }
+        // if (checkoutAddressApp.shippingRequired && !address) {
+        //     layer.msg('{{ __('shop/checkout.error_address') }}', ()=>{})
+        //     return;
+        // }
 
-        if (!payment) {
-            layer.msg('{{ __('shop/checkout.error_payment_address') }}', ()=>{})
-            return;
-        }
+        // if (!payment) {
+        //     layer.msg('{{ __('shop/checkout.error_payment_address') }}', ()=>{})
+        //     return;
+        // }
 
         let data = {
             receive_time: $('select[name=receive_time]').val(),
@@ -248,7 +275,25 @@
     $('.guest-checkout-login').click(function(event) {
       bk.openLogin();
     });
+    $('#home-delivery-tab').click(function(event) {
+      updateReceiveMethod('shipping')
+    });
+    $('#store-pickup-tab').click(function(event) {
+      updateReceiveMethod('pick_up_items')
+    });
   });
+
+  const updateReceiveMethod = ( value, callback) => {
+    $http.put('/checkout', {receiving_method: value}).then((res) => {
+      if (res.status == 'fail') {
+        layer.msg(res.message, ()=>{})
+        return;
+      }
+      if (typeof callback === 'function') {
+        callback(res)
+      }
+    })
+  }
 
   const updateCheckout = (key, value, callback) => {
     $http.put('/checkout', {[key]: value}).then((res) => {
@@ -331,6 +376,20 @@
 
     $('#voucher-wrap').replaceWith('<div class="radio-line-wrap" id="voucher-wrap">' + html + '</div>');
   }
+
 </script>
+<script>
+  // Initialize Bootstrap's Tab functionality (Bootstrap 5+)
+  var triggerTabList = [].slice.call(document.querySelectorAll('#checkoutTab button'))
+  triggerTabList.forEach(function (triggerEl) {
+    var tabTrigger = new bootstrap.Tab(triggerEl)
+
+    triggerEl.addEventListener('click', function (event) {
+      event.preventDefault()
+      tabTrigger.show()
+    })
+  })
+</script>
+<script></script>
 @endpush
 

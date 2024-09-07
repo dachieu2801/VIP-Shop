@@ -10,6 +10,7 @@
 @push('header')
   <script src="{{ asset('vendor/cropper/cropper.min.js') }}"></script>
   <link rel="stylesheet" href="{{ asset('vendor/cropper/cropper.min.css') }}">
+  <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
 
 @endpush
 
@@ -196,52 +197,59 @@
           <div class="tab-pane fade" id="tab-shop-address">
                     @hook('admin.setting.express.before')
                     <x-admin::form.row title="{{ __('order.express_company') }}">
-                        <table class="table table-bordered w-max-600">
+                        <table class="table table-bordered w-max-900">
                             <thead>
                                 <th>Tên nhà hàng</th>
+                                <th>Địa chỉ</th>
                                 <th>Link bản đồ</th>
                                 @hook('admin.setting.express.table.thead.th')
                                 <th>Giờ làm việc</th>
                             </thead>
                             <tbody>
-                                <tr v-for="item, index in express_company" :key="index">
-                                    <td>
-                                        <input required placeholder="Tên nhà hàng" type="text"
-                                            :name="'express_company['+ index +'][name]'" v-model="item.name"
-                                            class="form-control">
-                                        <div class="invalid-feedback">
-                                            {{ __('common.error_required', ['name' => __('order.express_company')]) }}
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <input required placeholder="Link bản đồ" type="text"
-                                            :name="'express_company['+ index +'][code]'" v-model="item.code"
-                                            class="form-control">
-                                        <div class="invalid-feedback">
-                                            {{ __('common.error_required', ['name' => 'Code']) }}</div>
-                                    </td>
-                                    <td class="d-flex flex-column gap-3 ">
-                                        <div class="d-flex gap-2 justify-content-center align-items-center">
-                                            <div class="d-flex flex-column gap-2">
-                                                <input placeholder="Giờ mở cửa" name="working_time"
-                                                    class="form-control"></input>
-                                            </div>
-                                            <i @click="express_company.splice(index, 1)"
-                                                class="bi bi-x-circle fs-4 text-danger cursor-pointer"></i>
-                                        </div>
-                                        <div class="text-center">
-                                            <i @click="" class="bi bi-plus-circle cursor-pointer fs-4"></i>
-                                        </div>
-                                    </td>
-                                    @hook('admin.setting.express.table.tbody.td')
-                                    <td><i @click="express_company.splice(index, 1)"
-                                            class="bi bi-x-circle fs-4 text-danger cursor-pointer"></i></td>
-                                </tr>
+                            <tr v-for="(item, index) in store_address" :key="index">
+  <td>
+    <input required placeholder="Tên nhà hàng" type="text" :name="'store_address['+ index +'][name]'" v-model="item.name" class="form-control timepicker">
+    <div class="invalid-feedback">{{ __('common.error_required', ['name' => __('order.store_address')]) }}</div>
+  </td>
+  <td>
+    <input required placeholder="Địa chỉ" type="text" :name="'store_address['+ index +'][address]'" v-model="item.address" class="form-control timepicker">
+    <div class="invalid-feedback">{{ __('common.error_required', ['name' => __('order.store_address')]) }}</div>
+  </td>
+  <td>
+    <input required placeholder="Link bản đồ" type="text" :name="'store_address['+ index +'][link_map]'" v-model="item.link_map" class="form-control timepicker">
+    <div class="invalid-feedback">{{ __('common.error_required', ['name' => 'Code']) }}</div>
+  </td>
+  <td class="d-flex flex-column gap-1">
+
+  <div v-for="(time, workingTimeIndex) in item.time_working" :key="workingTimeIndex" class="d-flex gap-2 align-items-center">
+    <input type="text" class="form-control" placeholder="Giờ mở cửa"
+           :name="'store_address['+ index +'][time_working]['+ workingTimeIndex +'][time_start]'"
+           :data-time-index="index"
+           v-model="time.time_start">
+    -
+    <input type="text" class="form-control" placeholder="Giờ đóng cửa"
+           :name="'store_address['+ index +'][time_working]['+ workingTimeIndex +'][time_end]'"
+           :data-time-index="index"
+           v-model="time.time_end">
+    <i @click="removeWorkingTime(index, workingTimeIndex)" class="bi bi-x-circle fs-4 text-danger cursor-pointer"></i>
+  </div>
+ 
+</div>
+
+ 
+</div>
+    <div class="text-center">
+      <i @click="addWorkingTime(index)" class="bi bi-plus-circle cursor-pointer fs-4"></i>
+    </div>
+  </td>
+</tr>
+
+
                                 <tr>
                                     <td colspan="1"><input v-if="!express_company.length" name="express_company"
                                             class="d-none"></td>
                                     <td class="text-center"><i class="bi bi-plus-circle cursor-pointer fs-4"
-                                            @click="addCompany"></i></td>
+                                            @click="addStoreAddress"></i></td>
                                 </tr>
 
                             </tbody>
@@ -309,6 +317,8 @@
 
             <x-admin-form-switch name="customer_approved" title="{{ __('admin/setting.customer_approved') }}" value="{{ old('customer_approved', system_setting('base.customer_approved', '0')) }}">
             </x-admin-form-switch>
+            <x-admin-form-switch name="store_address_status" title="Cho phép lấy hàng tại cửa hàng" value="{{ old('store_address_status', system_setting('base.store_address_status', '0')) }}">
+            </x-admin-form-switch>
 
             <x-admin-form-switch name="tax" title="{{ __('admin/setting.enable_tax') }}" value="{{ old('tax', system_setting('base.tax', '0')) }}">
               <div class="help-text font-size-12 lh-base">{{ __('admin/setting.enable_tax_info') }}</div>
@@ -374,6 +384,7 @@
 @endsection
 
 @push('footer')
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <script>
     @if (session('success'))
       layer.msg('{{ session('success') }}')
@@ -530,33 +541,99 @@
   </script>
 
   <script>
-    let app = new Vue({
-      el: '#app',
-      data: {
-        mail_engine: @json(old('mail_engine', system_setting('base.mail_engine', ''))),
-        express_company: @json(old('express_company', system_setting('base.express_company', []))),
-
-        source: {
-          mailEngines: [
-            {name: '{{ __('admin/builder.text_no') }}', code: ''},
-            {name: 'SMTP', code: 'smtp'},
-            {name: 'Sendmail', code: 'sendmail'},
-            {name: 'Mailgun', code: 'mailgun'},
-            {name: 'Log', code: 'log'},
-          ]
-        },
-      },
-      methods: {
-        addCompany() {
-          if (typeof this.express_company == 'string') {
-            this.express_company = [];
-          }
-
-          this.express_company.push({name: '', code: ''})
-        },
+let app = new Vue({
+  el: '#app',
+  data: {
+    mail_engine: @json(old('mail_engine', system_setting('base.mail_engine', ''))),
+    express_company: @json(old('express_company', system_setting('base.express_company', []))),
+    store_address: @json(old('store_address', system_setting('base.store_address', []))),
+    flatpickrInstances: [], // To store flatpickr instances
+    source: {
+      mailEngines: [
+        { name: '{{ __('admin/builder.text_no') }}', code: '' },
+        { name: 'SMTP', code: 'smtp' },
+        { name: 'Sendmail', code: 'sendmail' },
+        { name: 'Mailgun', code: 'mailgun' },
+        { name: 'Log', code: 'log' }
+      ]
+    }
+  },
+  methods: {
+    addCompany() {
+      if (typeof this.express_company === 'string') {
+        this.express_company = [];
       }
+      this.express_company.push({ name: '', code: '' });
+    },
+    addStoreAddress() {
+      if (typeof this.store_address === 'string') {
+        this.store_address = [];
+      }
+      this.store_address.push({ address: '', link_map: '', time_working: [] });
+    },
+    addWorkingTime(index) {
+      let newWorkingTime = {
+        time_start: '',
+        time_end: ''
+      };
+
+      if (!Array.isArray(this.store_address[index].time_working)) {
+        this.$set(this.store_address[index], 'time_working', []);
+      }
+
+      this.store_address[index].time_working.push(newWorkingTime);
+
+      this.$nextTick(() => {
+        this.initializeFlatpickrForIndex(index);
+      });
+    },
+    removeWorkingTime(storeIndex, timeIndex) {
+      this.store_address[storeIndex].time_working.splice(timeIndex, 1);
+
+      if (this.store_address[storeIndex].time_working.length === 0) {
+        this.store_address[storeIndex].time_working.push({
+          time_start: '',
+          time_end: ''
+        });
+      }
+
+      this.$nextTick(() => {
+        this.initializeFlatpickrForIndex(storeIndex);
+      });
+    },
+    initializeFlatpickrForIndex(storeIndex) {
+      if (this.flatpickrInstances[storeIndex]) {
+        this.flatpickrInstances[storeIndex].forEach(instance => instance.destroy());
+      }
+
+      this.flatpickrInstances[storeIndex] = [];
+
+      const timeInputs = document.querySelectorAll(`[data-time-index="${storeIndex}"]`);
+      timeInputs.forEach(input => {
+        const flatpickrInstance = flatpickr(input, {
+          enableTime: true,
+          noCalendar: true,
+          dateFormat: "H:i",
+          time_24hr: true
+        });
+
+        this.flatpickrInstances[storeIndex].push(flatpickrInstance);
+      });
+    }
+  },
+  mounted() {
+    this.store_address.forEach((_, index) => {
+      this.initializeFlatpickrForIndex(index);
     });
-  </script>
+  }
+});
+</script>
+
+
+
+
+
+
 @endpush
 
 
