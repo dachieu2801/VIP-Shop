@@ -22,7 +22,6 @@ use Beike\Repositories\ThemeRepo;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class SettingController extends Controller
 {
@@ -52,9 +51,15 @@ class SettingController extends Controller
     public function store(Request $request): mixed
     {
         $settings                  = $request->all();
-
-//        if($settings['store_address_status')
-//        Log::info('ádasd',['ádas'=>$settings['store_address_status']]);
+        $address_status            = $settings['address_status'] ?? 0;
+        if (
+            ! $address_status                                          &&
+            ! $settings['store_address_status']                        &&
+            $settings['store_address_status']                   == 0   &&
+            $address_status                                     == 0
+        ) {
+            return redirect(admin_route('settings.index'))->withInput()->with('error', 'Bạn cần kích hoạt ít nhất một phương thức nhận hàng');
+        }
 
         if (isset($settings['show_price_after_login'])) {
             if ($settings['show_price_after_login']) {
