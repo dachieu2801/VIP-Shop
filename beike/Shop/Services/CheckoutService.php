@@ -195,7 +195,7 @@ class CheckoutService
             DB::beginTransaction();
 
             $order = OrderRepo::create($checkoutData);
-            StateMachineService::getInstance($order)->changeStatus(StateMachineService::UNPAID, '', false);
+            StateMachineService::getInstance($order)->changeStatus(StateMachineService::UNPAID, '', true);
             CartRepo::clearSelectedCartProducts($customer);
             foreach ($carts as $cart) {
                 ProductSkuRepo::updateQuantitySold($cart['sku_id'], $cart['quantity']);

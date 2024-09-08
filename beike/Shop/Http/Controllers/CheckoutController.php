@@ -47,6 +47,7 @@ class CheckoutController extends Controller
             $data = hook_filter('checkout.index.data', $data);
 
             $data = $this->calculateTotals($data);
+
             return view('checkout', $data);
         } catch (\Exception $e) {
             return redirect(shop_route('carts.index'))->withErrors(['error' => $e->getMessage()]);
@@ -84,35 +85,38 @@ class CheckoutController extends Controller
 
     public function sendEmail($data)
     {
-        try {
+        if (env('MAIL_PORT')) {
+            try {
 
-            $detailCustomer = [
-                'tracking_number' => $data['number'],
-                'order_at'        => $data['created_at'],
-                'amount'          => $data['total_format'],
-                'customer_name'   => $data['customer_name'],
-                'isShop'          => true,
-            ];
+                $detailCustomer = [
+                    'tracking_number' => $data['number'],
+                    'order_at'        => $data['created_at'],
+                    'amount'          => $data['total_format'],
+                    'customer_name'   => $data['customer_name'],
+                    'isShop'          => true,
+                ];
 
-            $detailShop = [
-                'tracking_number' => $data['number'],
-                'order_at'        => $data['created_at'],
-                'amount'          => $data['total_format'],
-                'customer_name'   => $data['customer_name'],
-                'isShop'          => false,
-            ];
+                $detailShop = [
+                    'tracking_number' => $data['number'],
+                    'order_at'        => $data['created_at'],
+                    'amount'          => $data['total_format'],
+                    'customer_name'   => $data['customer_name'],
+                    'isShop'          => false,
+                ];
 
-            Mail::to($data['email'])->send(new SendNotifyOrder($detailCustomer));
+                Mail::to($data['email'])->send(new SendNotifyOrder($detailCustomer));
 
-            $activeEmails = AdminUser::where('active', 1)->pluck('email');
-            foreach ($activeEmails as $email) {
-                Mail::to($email)->send(new SendNotifyOrder($detailShop));
+                $activeEmails = AdminUser::where('active', 1)->pluck('email');
+                foreach ($activeEmails as $email) {
+                    Mail::to($email)->send(new SendNotifyOrder($detailShop));
+                }
+
+                return true;
+            } catch (\Exception $e) {
+                return false;
             }
-
-            return true;
-        } catch (\Exception $e) {
-            return false;
         }
+
     }
 
     public function calculateTotals($data)
