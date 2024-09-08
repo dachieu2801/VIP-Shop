@@ -53,6 +53,9 @@ class SettingController extends Controller
     {
         $settings                  = $request->all();
 
+//        if($settings['store_address_status')
+//        Log::info('ádasd',['ádas'=>$settings['store_address_status']]);
+
         if (isset($settings['show_price_after_login'])) {
             if ($settings['show_price_after_login']) {
                 $settings['guest_checkout'] = false;

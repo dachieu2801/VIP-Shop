@@ -401,7 +401,7 @@ class CheckoutService
         if (! $this->totalService) {
             $this->initTotalService();
         }
-        $addressSystem    = SettingRepo::getSystemValue('address_status') ;
+        $addressSystem    = SettingRepo::getSystemValue('address_status');
 
         $addresses        = AddressRepo::listByCustomer($customer);
         $payments         = PaymentMethodItem::collection(PluginRepo::getPaymentMethods())->jsonSerialize();
@@ -441,7 +441,7 @@ class CheckoutService
             'payment_methods'      => $payments,
             'carts'                => $carts,
             'address_status'       => $addressSystem->value ?? 0,
-            'address_store_status' => $addStatus->value     ?? 0,
+            'store_address_status' => $addStatus->value     ?? 0,
             'totals'               => $this->totalService->getTotals($this),
         ];
 
