@@ -32,7 +32,6 @@ use Beike\Shop\Http\Controllers\CheckoutController;
 use Beike\Shop\Http\Resources\Account\AddressResource;
 use Beike\Shop\Http\Resources\Checkout\PaymentMethodItem;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
 class CheckoutService
 {
@@ -61,11 +60,11 @@ class CheckoutService
 
     public function update($requestData): array
     {
-        $receivingMethod = $requestData['receiving_method'] ?? '';
-        $pickUpAddress   = $requestData['pick_up_address']  ?? '';
-        $pickUpTime      = $requestData['pick_up_time']     ?? '';
-        $name            = $requestData['name']             ?? '';
-        $phone           = $requestData['phone']            ?? '';
+        $receivingMethod    = $requestData['receiving_method']     ?? '';
+        $pickUpAddress      = $requestData['pick_up_address']      ?? '';
+        $pickUpTime         = $requestData['pick_up_time']         ?? '';
+        $name               = $requestData['name']                 ?? '';
+        $phone              = $requestData['phone']                ?? '';
         $voucherId          = $requestData['voucher_id']           ?? 0;
         $shippingAddressId  = $requestData['shipping_address_id']  ?? 0;
         $shippingMethodCode = $requestData['shipping_method_code'] ?? '';
@@ -99,7 +98,7 @@ class CheckoutService
         if ($guestPaymentAddress) {
             $this->updateGuestPaymentAddress($guestPaymentAddress);
         }
-        if($receivingMethod){
+        if ($receivingMethod) {
             $this->updateReceivingMethod($receivingMethod);
         }
         if ($pickUpAddress) {
@@ -376,7 +375,7 @@ class CheckoutService
         $storeAddress           = SettingRepo::getSystemValue('store_address');
         $storeAddressValue      = [];
         if ($addStatus &&  $addStatus->value) {
-            $storeAddressValue = $storeAddress ? json_decode($storeAddress->value, true) : [];
+            $storeAddressValue  = $storeAddress ? json_decode($storeAddress->value, true) : [];
             foreach ($storeAddressValue as &$store) {
                 $store['time_slots'] = [];
                 if (isset($store['time_working']) && is_array($store['time_working'])) {
@@ -402,6 +401,7 @@ class CheckoutService
         if (! $this->totalService) {
             $this->initTotalService();
         }
+        $addressSystem    = SettingRepo::getSystemValue('address_status') ?? 0;
 
         $addresses        = AddressRepo::listByCustomer($customer);
         $payments         = PaymentMethodItem::collection(PluginRepo::getPaymentMethods())->jsonSerialize();
@@ -430,17 +430,19 @@ class CheckoutService
                 'name'                   => $currentCart->name                          ?? '',
                 'phone'                  => $currentCart->phone                         ?? '',
             ],
-            'store_address'    => $storeAddressValue,
-            'vouchers'         => $vouchers,
-            'shipping_require' => $shippingRequired,
-            'country_id'       => (int) system_setting('base.country_id'),
-            'customer_id'      => $customer->id ?? null,
-            'countries'        => CountryRepo::listEnabled(),
-            'addresses'        => AddressResource::collection($addresses),
-            'shipping_methods' => $shipments,
-            'payment_methods'  => $payments,
-            'carts'            => $carts,
-            'totals'           => $this->totalService->getTotals($this),
+            'store_address'        => $storeAddressValue,
+            'vouchers'             => $vouchers,
+            'shipping_require'     => $shippingRequired,
+            'country_id'           => (int) system_setting('base.country_id'),
+            'customer_id'          => $customer->id ?? null,
+            'countries'            => CountryRepo::listEnabled(),
+            'addresses'            => AddressResource::collection($addresses),
+            'shipping_methods'     => $shipments,
+            'payment_methods'      => $payments,
+            'carts'                => $carts,
+            'address_status'       => $addressSystem->value ?? 0,
+            'address_store_status' => $addStatus->value     ?? 0,
+            'totals'               => $this->totalService->getTotals($this),
         ];
 
         return hook_filter('service.checkout.data', $data);

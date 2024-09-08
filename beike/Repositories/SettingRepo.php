@@ -148,6 +148,7 @@ class SettingRepo
             ->where('space', 'base')
             ->where('name', $name)
             ->first();
+
     }
 
     public static function getMobileSetting()
