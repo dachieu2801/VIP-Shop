@@ -1134,51 +1134,9 @@
 <?php $component = $__componentOriginal25bd75d7700e74c748b2a7c7586ce7b0; ?>
 <?php unset($__componentOriginal25bd75d7700e74c748b2a7c7586ce7b0); ?>
 <?php endif; ?>
-            <div class="d-flex justify-center items-center">
-               <div>
-                <?php if (isset($component)) { $__componentOriginal25bd75d7700e74c748b2a7c7586ce7b0 = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginal25bd75d7700e74c748b2a7c7586ce7b0 = $attributes; } ?>
-<?php $component = Beike\Admin\View\Components\Form\SwitchRadio::resolve(['name' => 'store_address_status','title' => 'Lấy hàng tại cửa hàng','value' => ''.e(old('store_address_status', system_setting('base.store_address_status', '0'))).''] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
-<?php $component->withName('admin-form-switch'); ?>
-<?php if ($component->shouldRender()): ?>
-<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Beike\Admin\View\Components\Form\SwitchRadio::class))->getConstructor()): ?>
-<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
-<?php endif; ?>
-<?php $component->withAttributes([]); ?>
-                    <?php echo $__env->renderComponent(); ?>
-<?php endif; ?>
-<?php if (isset($__attributesOriginal25bd75d7700e74c748b2a7c7586ce7b0)): ?>
-<?php $attributes = $__attributesOriginal25bd75d7700e74c748b2a7c7586ce7b0; ?>
-<?php unset($__attributesOriginal25bd75d7700e74c748b2a7c7586ce7b0); ?>
-<?php endif; ?>
-<?php if (isset($__componentOriginal25bd75d7700e74c748b2a7c7586ce7b0)): ?>
-<?php $component = $__componentOriginal25bd75d7700e74c748b2a7c7586ce7b0; ?>
-<?php unset($__componentOriginal25bd75d7700e74c748b2a7c7586ce7b0); ?>
-<?php endif; ?>
-                <?php if (isset($component)) { $__componentOriginal25bd75d7700e74c748b2a7c7586ce7b0 = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginal25bd75d7700e74c748b2a7c7586ce7b0 = $attributes; } ?>
-<?php $component = Beike\Admin\View\Components\Form\SwitchRadio::resolve(['name' => 'address_status','title' => 'Ship hàng tận nơi','value' => ''.e(old('address_status', system_setting('base.address_status', '0'))).''] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
-<?php $component->withName('admin-form-switch'); ?>
-<?php if ($component->shouldRender()): ?>
-<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Beike\Admin\View\Components\Form\SwitchRadio::class))->getConstructor()): ?>
-<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
-<?php endif; ?>
-<?php $component->withAttributes([]); ?>
-                     <?php echo $__env->renderComponent(); ?>
-<?php endif; ?>
-<?php if (isset($__attributesOriginal25bd75d7700e74c748b2a7c7586ce7b0)): ?>
-<?php $attributes = $__attributesOriginal25bd75d7700e74c748b2a7c7586ce7b0; ?>
-<?php unset($__attributesOriginal25bd75d7700e74c748b2a7c7586ce7b0); ?>
-<?php endif; ?>
-<?php if (isset($__componentOriginal25bd75d7700e74c748b2a7c7586ce7b0)): ?>
-<?php $component = $__componentOriginal25bd75d7700e74c748b2a7c7586ce7b0; ?>
-<?php unset($__componentOriginal25bd75d7700e74c748b2a7c7586ce7b0); ?>
-<?php endif; ?>
-                </div>
-                <div class="help-text font-size-12 lh-base">Lưu ý : Vui lòng không vô hiệu hóa cả 2 phương thức nhận hàng</div>
-            </div>
+            
+            
+           
 
             <?php if (isset($component)) { $__componentOriginal25bd75d7700e74c748b2a7c7586ce7b0 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal25bd75d7700e74c748b2a7c7586ce7b0 = $attributes; } ?>
@@ -1201,6 +1159,9 @@
 <?php $component = $__componentOriginal25bd75d7700e74c748b2a7c7586ce7b0; ?>
 <?php unset($__componentOriginal25bd75d7700e74c748b2a7c7586ce7b0); ?>
 <?php endif; ?>
+
+            
+           
 
             <?php if (isset($component)) { $__componentOriginaleff91ade87f65c4b8fb64ccedab31269 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginaleff91ade87f65c4b8fb64ccedab31269 = $attributes; } ?>
@@ -1296,6 +1257,51 @@
 <?php $component = $__componentOriginal1b48936358e72618543915217d3ed939; ?>
 <?php unset($__componentOriginal1b48936358e72618543915217d3ed939); ?>
 <?php endif; ?>
+
+            <div class="w-auto p-2 my-2">
+              <h3 class="font-bold text-primary">Phương thức nhận hàng</h3>
+                <?php if (isset($component)) { $__componentOriginal25bd75d7700e74c748b2a7c7586ce7b0 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal25bd75d7700e74c748b2a7c7586ce7b0 = $attributes; } ?>
+<?php $component = Beike\Admin\View\Components\Form\SwitchRadio::resolve(['name' => 'store_address_status','title' => 'Lấy hàng tại cửa hàng','value' => ''.e(old('store_address_status', system_setting('base.store_address_status', '0'))).''] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('admin-form-switch'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Beike\Admin\View\Components\Form\SwitchRadio::class))->getConstructor()): ?>
+<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+                    <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal25bd75d7700e74c748b2a7c7586ce7b0)): ?>
+<?php $attributes = $__attributesOriginal25bd75d7700e74c748b2a7c7586ce7b0; ?>
+<?php unset($__attributesOriginal25bd75d7700e74c748b2a7c7586ce7b0); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal25bd75d7700e74c748b2a7c7586ce7b0)): ?>
+<?php $component = $__componentOriginal25bd75d7700e74c748b2a7c7586ce7b0; ?>
+<?php unset($__componentOriginal25bd75d7700e74c748b2a7c7586ce7b0); ?>
+<?php endif; ?>
+                <?php if (isset($component)) { $__componentOriginal25bd75d7700e74c748b2a7c7586ce7b0 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal25bd75d7700e74c748b2a7c7586ce7b0 = $attributes; } ?>
+<?php $component = Beike\Admin\View\Components\Form\SwitchRadio::resolve(['name' => 'address_status','title' => 'Ship hàng tận nơi','value' => ''.e(old('address_status', system_setting('base.address_status', '0'))).''] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('admin-form-switch'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Beike\Admin\View\Components\Form\SwitchRadio::class))->getConstructor()): ?>
+<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+                  <div class="help-text font-size-12 lh-base">Lưu ý : Vui lòng không vô hiệu hóa cả 2 phương thức nhận hàng</div>
+                 <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal25bd75d7700e74c748b2a7c7586ce7b0)): ?>
+<?php $attributes = $__attributesOriginal25bd75d7700e74c748b2a7c7586ce7b0; ?>
+<?php unset($__attributesOriginal25bd75d7700e74c748b2a7c7586ce7b0); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal25bd75d7700e74c748b2a7c7586ce7b0)): ?>
+<?php $component = $__componentOriginal25bd75d7700e74c748b2a7c7586ce7b0; ?>
+<?php unset($__componentOriginal25bd75d7700e74c748b2a7c7586ce7b0); ?>
+<?php endif; ?>
+            </div>
           </div>
 
            <?php

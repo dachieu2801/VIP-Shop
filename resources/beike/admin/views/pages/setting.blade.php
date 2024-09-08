@@ -317,19 +317,16 @@
 
             <x-admin-form-switch name="customer_approved" title="{{ __('admin/setting.customer_approved') }}" value="{{ old('customer_approved', system_setting('base.customer_approved', '0')) }}">
             </x-admin-form-switch>
-            <div class="d-flex justify-center items-center">
-               <div>
-                <x-admin-form-switch name="store_address_status" title="Lấy hàng tại cửa hàng" value="{{ old('store_address_status', system_setting('base.store_address_status', '0')) }}">
-                   </x-admin-form-switch>
-                <x-admin-form-switch name="address_status" title="Ship hàng tận nơi" value="{{ old('address_status', system_setting('base.address_status', '0')) }}">
-                    </x-admin-form-switch>
-                </div>
-                <div class="help-text font-size-12 lh-base">Lưu ý : Vui lòng không vô hiệu hóa cả 2 phương thức nhận hàng</div>
-            </div>
+            
+            
+           
 
             <x-admin-form-switch name="tax" title="{{ __('admin/setting.enable_tax') }}" value="{{ old('tax', system_setting('base.tax', '0')) }}">
               <div class="help-text font-size-12 lh-base">{{ __('admin/setting.enable_tax_info') }}</div>
             </x-admin-form-switch>
+
+            
+           
 
             <x-admin-form-select title="{{ __('admin/setting.tax_address') }}" name="tax_address" :value="old('tax_address', system_setting('base.tax_address', 'shipping'))" :options="$tax_address">
             </x-admin-form-select>
@@ -353,6 +350,15 @@
                 <span class="input-group-text">{{ __('common.text_hour') }}</span>
               </div>
             </x-admin::form.row>
+
+            <div class="w-auto p-2 my-2">
+              <h3 class="font-bold text-primary">Phương thức nhận hàng</h3>
+                <x-admin-form-switch name="store_address_status" title="Lấy hàng tại cửa hàng" value="{{ old('store_address_status', system_setting('base.store_address_status', '0')) }}">
+                   </x-admin-form-switch>
+                <x-admin-form-switch name="address_status" title="Ship hàng tận nơi" value="{{ old('address_status', system_setting('base.address_status', '0')) }}">
+                  <div class="help-text font-size-12 lh-base">Lưu ý : Vui lòng không vô hiệu hóa cả 2 phương thức nhận hàng</div>
+                </x-admin-form-switch>
+            </div>
           </div>
 
           @hook('admin.setting.after')
