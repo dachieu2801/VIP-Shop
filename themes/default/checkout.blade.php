@@ -39,25 +39,31 @@
              
   <ul class="nav nav-tabs" id="checkoutTab" role="tablist">
     <!-- Tab for Giao hàng tận nơi -->
+    @if ($address_status == '1')
     <li class="nav-item" role="presentation">
       <button class="nav-link {{ $current['receiving_method'] == 'shipping' ? 'active' : '' }} " id="home-delivery-tab"  data-bs-toggle="tab" data-bs-target="#home-delivery" type="button" role="tab" aria-controls="home-delivery" aria-selected="true"> Giao hàng tận nơi</button>
     </li>
+    @endif
     <!-- Tab for Đến lấy hàng -->
+     @if($store_address_status == '1')
     <li class="nav-item" role="presentation">
       <button class="nav-link {{ $current['receiving_method'] == 'pick_up_items' ? 'active' : '' }}" id="store-pickup-tab" data-bs-toggle="tab" data-bs-target="#store-pickup" type="button" role="tab" aria-controls="store-pickup" aria-selected="false">Đến lấy hàng</button>
     </li>
+    @endif
   </ul>
-<div>{{json_encode($address_status)}}</div>
-<div>{{json_encode($store_address_status)}}</div>
+
   <div class="tab-content" id="checkoutTabContent">
     <!-- Giao hàng tận nơi content -->
+
     <div class="tab-pane fade {{ $current['receiving_method'] == 'pick_up_items' ? 'show active' : '' }} mt-5" id="store-pickup" role="tabpanel" aria-labelledby="store-pickup-tab">
       <div>
         @include('checkout._shop_address')
       </div>
     </div>
+
     
     <!-- Đến lấy hàng content -->
+   
     <div class="tab-pane fade {{ $current['receiving_method'] == 'shipping' ? 'show active' : '' }} mt-5" id="home-delivery" role="tabpanel" aria-labelledby="home-delivery-tab">
       <div>
         @include('checkout._address')
@@ -74,6 +80,7 @@
         </div>
       </div>
     </div>
+  
   </div>
 </div>
          @if(!empty($vouchers))
