@@ -356,4 +356,4 @@
                 echo $output;
                 ?>
 </header>
-<?php /**PATH G:\workspace\new\themes\default/layout/header.blade.php ENDPATH**/ ?>
+<?php /**PATH D:\shop-freelance\themes\default/layout/header.blade.php ENDPATH**/ ?>
