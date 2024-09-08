@@ -83,7 +83,7 @@
             </thead>
             <tbody>
               @if (count($orders))
-            
+
                 @foreach ($orders as $order)
                   <tr data-hook-id={{ $order->id }}>
                     <td><input type="checkbox" :value="{{ $order['id'] }}" v-model="selectedIds" /></td>
@@ -102,9 +102,9 @@
                        <a href="{{ admin_route('orders.show', [$order->id]) }}"
                        class="btn btn-primary btn-sm">{{ __('common.view') }}
                       </a>
-                   
-                   
-                    
+
+
+
                        <button type="button"  data-id="{{ $order->id }}" class="btn btn-outline-danger btn-sm delete-btn">{{ __('common.delete') }}</button>
                        @if($order->status=="unpaid")
                       <a href="{{ admin_route('orders.edit', [$order->id]) }}"
