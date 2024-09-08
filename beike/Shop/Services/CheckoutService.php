@@ -401,7 +401,7 @@ class CheckoutService
         if (! $this->totalService) {
             $this->initTotalService();
         }
-        $addressSystem    = SettingRepo::getSystemValue('address_status') ?? 0;
+        $addressSystem    = SettingRepo::getSystemValue('address_status') ;
 
         $addresses        = AddressRepo::listByCustomer($customer);
         $payments         = PaymentMethodItem::collection(PluginRepo::getPaymentMethods())->jsonSerialize();
