@@ -40,6 +40,10 @@ class OrderShippingList extends JsonResource
             'created_at'              => $this->created_at,
             'status_format'           => $this->status_format,
             'status'                  => $this->status,
+            'pick_up_address'         => $this->pick_up_address,
+            'pick_up_time'            => $this->pick_up_time,
+            'name'            => $this->name,
+            'phone'            => $this->phone,
         ];
 
         return $data;
