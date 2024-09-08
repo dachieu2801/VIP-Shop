@@ -253,7 +253,7 @@ class OrderRepo
             'customer_name'               => $current['receiving_method'] == 'shipping' ? $customer->name ?? '' : $current['name'],
             'email'                       => $email,
             'calling_code'                => $customer->calling_code                                              ?? 0,
-            'telephone'                   => $current['receiving_method'] == 'shipping' ? $customer->telephone    ?? '' : $current['phone'], ,
+            'telephone'                   => $current['receiving_method'] == 'shipping' ? $customer->telephone    ?? '' : $current['phone'],
             'total'                       => $orderTotal['amount'],
             'locale'                      => locale(),
             'currency_code'               => $currencyCode,
