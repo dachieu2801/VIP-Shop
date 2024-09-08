@@ -44,6 +44,7 @@ class OrderShippingList extends JsonResource
             'pick_up_time'            => $this->pick_up_time,
             'name'            => $this->name,
             'phone'            => $this->phone,
+            'receiving_method' => $this->receiving_method
         ];
 
         return $data;
