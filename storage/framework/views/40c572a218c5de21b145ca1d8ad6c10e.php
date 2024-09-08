@@ -52,4 +52,4 @@
     <?php endif; ?>
   <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 </div>
-<?php /**PATH D:\shop-freelance\themes\default/shared/menu-mobile.blade.php ENDPATH**/ ?>
+<?php /**PATH G:\workspace\new\themes\default/shared/menu-mobile.blade.php ENDPATH**/ ?>

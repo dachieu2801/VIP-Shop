@@ -128,4 +128,4 @@
   <?php echo $__env->yieldPushContent('footer'); ?>
 </body>
 </html>
-<?php /**PATH D:\shop-freelance\resources\/beike/admin/views/layouts/master.blade.php ENDPATH**/ ?>
+<?php /**PATH G:\workspace\new\resources\/beike/admin/views/layouts/master.blade.php ENDPATH**/ ?>

@@ -87,4 +87,4 @@
     color: black;
 }
 </style>
-<?php /**PATH D:\shop-freelance\themes\default/shared/menu-pc.blade.php ENDPATH**/ ?>
+<?php /**PATH G:\workspace\new\themes\default/shared/menu-pc.blade.php ENDPATH**/ ?>

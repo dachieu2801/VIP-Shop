@@ -22,6 +22,7 @@ use Beike\Repositories\ThemeRepo;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use function Laravel\Prompts\error;
 
 class SettingController extends Controller
 {

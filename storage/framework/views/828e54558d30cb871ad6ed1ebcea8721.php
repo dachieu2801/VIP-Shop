@@ -171,4 +171,4 @@
                 echo $output;
                 ?>
 </div>
-<?php /**PATH D:\shop-freelance\themes\default/shared/product.blade.php ENDPATH**/ ?>
+<?php /**PATH G:\workspace\new\themes\default/shared/product.blade.php ENDPATH**/ ?>

@@ -5,4 +5,4 @@
 
   </div>
 </div>
-<?php /**PATH D:\shop-freelance\resources\/beike/admin/views/components/form/row.blade.php ENDPATH**/ ?>
+<?php /**PATH G:\workspace\new\resources\/beike/admin/views/components/form/row.blade.php ENDPATH**/ ?>
