@@ -69,18 +69,18 @@
           </el-form-item>
         </el-form>
 
-        <div class="row">
-          <label class="wp-100"></label>
-          <div class="col-auto">
-            <button type="button" @click="search"
-              class="btn btn-outline-primary btn-sm"><?php echo e(__('common.filter')); ?></button>
-            <button type="button" @click="exportOrder"
-              class="btn btn-outline-primary btn-sm ms-1"><?php echo e(__('common.export')); ?></button>
-            <button type="button" @click="resetSearch"
-              class="btn btn-outline-secondary btn-sm ms-1"><?php echo e(__('common.reset')); ?></button>
-          </div>
+            <div class="row">
+                <label class="wp-100"></label>
+                <div class="col-auto">
+                    <button type="button" @click="search"
+                        class="btn btn-outline-primary btn-sm"><?php echo e(__('common.filter')); ?></button>
+
+
+                    <button type="button" @click="resetSearch"
+                        class="btn btn-outline-secondary btn-sm ms-1"><?php echo e(__('common.reset')); ?></button>
+                </div>
+            </div>
         </div>
-      </div>
 
       <?php if(count($orders)): ?>
         <div class="table-push overflow-auto">
@@ -103,25 +103,25 @@
             <tbody>
               <?php if(count($orders)): ?>
 
-                <?php $__currentLoopData = $orders; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $order): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                  <tr data-hook-id=<?php echo e($order->id); ?>>
-                    <td><input type="checkbox" :value="<?php echo e($order['id']); ?>" v-model="selectedIds" /></td>
-                    <td><?php echo e($order->id); ?></td>
-                    <td><?php echo e($order->number); ?></td>
-                    <td><?php echo e(sub_string($order->customer_name, 14)); ?></td>
-                    <td><?php echo e($order->payment_method_name); ?></td>
-                    <td><?php echo e($order->status_format); ?></td>
-                    <td><?php echo e(currency_format($order->total, $order->currency_code, $order->currency_value)); ?></td>
-                    <td><?php echo e($order->created_at); ?></td>
-                    <td><?php echo e($order->updated_at); ?></td>
-                    <td><?php echo e($order->receive_time); ?></td>
-                    <td>
-                      <?php if(!$order->deleted_at): ?>
-                     <div class="d-flex gap-2 ">
-                       <a href="<?php echo e(admin_route('orders.show', [$order->id])); ?>"
-                       class="btn btn-primary btn-sm"><?php echo e(__('common.view')); ?>
+                    <?php $__currentLoopData = $orders; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $order): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <tr data-hook-id=<?php echo e($order->id); ?>>
+                        <td><input type="checkbox" :value="<?php echo e($order['id']); ?>" v-model="selectedIds" /></td>
+                        <td><?php echo e($order->id); ?></td>
+                        <td><?php echo e($order->number); ?></td>
+                        <td><?php echo e(sub_string($order->customer_name, 14)); ?></td>
+                        <td><?php echo e($order->payment_method_name); ?></td>
+                        <td><?php echo e($order->status_format); ?></td>
+                        <td><?php echo e(currency_format($order->total, $order->currency_code, $order->currency_value)); ?></td>
+                        <td><?php echo e($order->created_at); ?></td>
+                        <td><?php echo e($order->updated_at); ?></td>
+                        <td><?php echo e($order->receive_time ? $order->receive_time : $order->pick_up_time); ?></td>
+                        <td>
+                            <?php if(!$order->deleted_at): ?>
+                            <div class="d-flex gap-2 ">
+                                <a href="<?php echo e(admin_route('orders.show', [$order->id])); ?>"
+                                    class="btn btn-primary btn-sm"><?php echo e(__('common.view')); ?>
 
-                      </a>
+                                </a>
 
 
 
