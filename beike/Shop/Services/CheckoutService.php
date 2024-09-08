@@ -374,7 +374,7 @@ class CheckoutService
         $addStatus              = SettingRepo::getSystemValue('store_address_status');
         $storeAddress           = SettingRepo::getSystemValue('store_address');
         $storeAddressValue      = [];
-        if ($addStatus &&  $addStatus->value) {
+        if ($addStatus &&  $addStatus->value == 1) {
             $storeAddressValue  = $storeAddress ? json_decode($storeAddress->value, true) : [];
             foreach ($storeAddressValue as &$store) {
                 $store['time_slots'] = [];

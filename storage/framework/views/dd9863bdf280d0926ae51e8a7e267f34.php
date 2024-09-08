@@ -287,4 +287,4 @@
   </script>
 
 </section>
-<?php /**PATH D:\shop-freelance\themes\default/design/icons.blade.php ENDPATH**/ ?>
+<?php /**PATH G:\workspace\new\themes\default/design/icons.blade.php ENDPATH**/ ?>

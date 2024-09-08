@@ -13,4 +13,4 @@
   <?php echo $msg; ?>
 
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div><?php /**PATH D:\shop-freelance\resources\/beike/admin/views/components/alert.blade.php ENDPATH**/ ?>
+</div><?php /**PATH G:\workspace\new\resources\/beike/admin/views/components/alert.blade.php ENDPATH**/ ?>

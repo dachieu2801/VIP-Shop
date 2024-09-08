@@ -30,4 +30,4 @@
   </div>
 </aside>
 
-<?php /**PATH D:\shop-freelance\resources\/beike/admin/views/components/sidebar.blade.php ENDPATH**/ ?>
+<?php /**PATH G:\workspace\new\resources\/beike/admin/views/components/sidebar.blade.php ENDPATH**/ ?>

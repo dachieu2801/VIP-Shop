@@ -8,4 +8,4 @@
   </div>
 </div>
 <?php endif; ?>
-<?php /**PATH D:\shop-freelance\themes\default/design/_partial/_module_tool.blade.php ENDPATH**/ ?>
+<?php /**PATH G:\workspace\new\themes\default/design/_partial/_module_tool.blade.php ENDPATH**/ ?>

@@ -544,4 +544,4 @@
                 echo $output;
                 ?>
 </footer>
-<?php /**PATH D:\shop-freelance\themes\default/layout/footer.blade.php ENDPATH**/ ?>
+<?php /**PATH G:\workspace\new\themes\default/layout/footer.blade.php ENDPATH**/ ?>

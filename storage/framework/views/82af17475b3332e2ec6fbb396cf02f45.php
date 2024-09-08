@@ -72,4 +72,4 @@
 </body>
 <!-- BeikeShop v<?php echo e(config('beike.version')); ?>(<?php echo e(config('beike.build')); ?>) -->
 </html>
-<?php /**PATH D:\shop-freelance\themes\default/layout/master.blade.php ENDPATH**/ ?>
+<?php /**PATH G:\workspace\new\themes\default/layout/master.blade.php ENDPATH**/ ?>
