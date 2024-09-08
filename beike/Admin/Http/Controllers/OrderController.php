@@ -25,6 +25,7 @@ use Beike\Shop\Http\Resources\Account\OrderSimpleList;
 use Beike\Shop\Http\Resources\Checkout\PaymentMethodItem;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller
 {
@@ -41,13 +42,6 @@ class OrderController extends Controller
         return view('admin::pages.orders.index', $data);
     }
 
-    /**
-     * 获取订单回收站列表
-     *
-     * @param Request $request
-     * @return mixed
-     * @throws \Exception
-     */
     public function trashed(Request $request)
     {
         $requestData            = $request->all();
@@ -63,13 +57,6 @@ class OrderController extends Controller
         return view('admin::pages.orders.index', $data);
     }
 
-    /**
-     * 导出订单列表
-     *
-     * @param Request $request
-     * @return mixed
-     * @throws \Exception
-     */
     public function export(Request $request)
     {
         try {
@@ -83,14 +70,6 @@ class OrderController extends Controller
         }
     }
 
-    /**
-     * 查看单个订单
-     *
-     * @param Request $request
-     * @param Order   $order
-     * @return mixed
-     * @throws \Exception
-     */
     public function show(Request $request, Order $order)
     {
         $order->load(['orderTotals', 'orderHistories', 'orderShipments', 'orderPayments']);
@@ -100,6 +79,7 @@ class OrderController extends Controller
         $data['expressCompanies'] = system_setting('base.express_company', []);
         hook_action('admin.order.show.after', $data);
 
+        Log::info('ádasd',['ádad'=>$data]);
         return view('admin::pages.orders.form', $data);
     }
 
@@ -141,7 +121,7 @@ class OrderController extends Controller
         // Update Order Totals
         foreach ($requestData['orderTotals'] as $code => $value) {
             OrderTotal::where('order_id', $requestData['id'])
-            ->where('code', $code)->update([
+                ->where('code', $code)->update([
                 'value' => $value,
             ]);
         }

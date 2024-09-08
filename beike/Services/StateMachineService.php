@@ -16,7 +16,6 @@ use Beike\Models\OrderHistory;
 use Beike\Models\OrderShipment;
 use Beike\Models\Product;
 use Beike\Repositories\OrderPaymentRepo;
-use Illuminate\Support\Facades\Log;
 use Throwable;
 
 class StateMachineService
@@ -220,7 +219,7 @@ class StateMachineService
         $order         = $this->order;
         $oldStatusCode = $order->status;
         $newStatusCode = $status;
-
+        $notify        = false;
         $this->setComment($comment)->setNotify($notify);
 
         $this->validStatusCode($status);
