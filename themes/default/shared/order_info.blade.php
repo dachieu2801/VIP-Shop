@@ -74,7 +74,7 @@
               <td>{{ currency_format($order->total, $order->currency_code, $order->currency_value) }}</td>
               <td>{{ $order->payment_method_name }}</td>
               <td>{{ $order->shipping_method_name }}</td>
-              <td>{{ $order->receive_time }}</td>
+              <td>{{ $order->receive_time ? $order->receive_time : $order->pick_up_time }}</td>
             </tr>
           </tbody>
         </table>
@@ -109,7 +109,9 @@
     </div>
   </div>
 </div>
+
 <div class="card mb-lg-4 mb-2 d-none d-lg-block">
+  @if ($order->receiving_method == 'shipping')
   <div class="card-header"><h6 class="card-title">{{ __('order.address_info') }}</h6></div>
   <div class="card-body">
     <table class="table ">
@@ -164,6 +166,45 @@
       </tbody>
     </table>
   </div>
+  @endif
+  @if($order->receiving_method == 'pick_up_items')
+  <div class="card-header"><h6 class="card-title">Lấy hàng tận nơi </h6></div>
+  <div class="card-body">
+    <table class="table ">
+      <thead class="">
+        <tr>
+        
+            <th>Thông tin người lấy hàng</th>
+       
+          <th>Thông tin cửa hàng</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          @if ($order->shipping_country)
+            <td>
+              <div>
+                {{ __('address.name') }}：{{ $order->name }}
+           
+              </div>
+              <div>Số điện thoại： {{ $order->phone }}</div>
+      
+              
+            </td>
+          @endif
+          <td>
+            <div>
+              Địa chỉ：{{ $order->pick_up_address }}
+      
+            </div>
+             <div>Giờ nhận hàng：{{ $order->pick_up_time }}</div>
+           
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  @endif
 </div>
 
 <div class="card mb-lg-4 mb-2 d-lg-none">
