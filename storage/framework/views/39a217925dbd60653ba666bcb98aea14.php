@@ -76,7 +76,8 @@
       <button class="nav-link <?php echo e($current['receiving_method'] == 'pick_up_items' ? 'active' : ''); ?>" id="store-pickup-tab" data-bs-toggle="tab" data-bs-target="#store-pickup" type="button" role="tab" aria-controls="store-pickup" aria-selected="false">Đến lấy hàng</button>
     </li>
   </ul>
-
+<div><?php echo e(json_encode($address_status)); ?></div>
+<div><?php echo e(json_encode($store_address_status)); ?></div>
   <div class="tab-content" id="checkoutTabContent">
     <!-- Giao hàng tận nơi content -->
     <div class="tab-pane fade <?php echo e($current['receiving_method'] == 'pick_up_items' ? 'show active' : ''); ?> mt-5" id="store-pickup" role="tabpanel" aria-labelledby="store-pickup-tab">
