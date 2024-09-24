@@ -276,7 +276,11 @@ class Sidebar extends Component
      */
     private function getDesignSubPrefix()
     {
-        $prefix = ['theme', 'design_menu', 'design_app_home'];
+        $prefix = [
+            'theme',
+            'design_menu',
+//            'design_app_home'
+        ];
 
         return hook_filter('admin.sidebar.design.prefix', $prefix);
     }
@@ -404,7 +408,7 @@ class Sidebar extends Component
             ['route' => 'design_menu.index', 'prefixes' => ['design_menu'], 'hide_mobile' => 1],
             ['route' => 'design.index', 'prefixes' => ['design'], 'blank' => true, 'hide_mobile' => true],
             ['route' => 'design_footer.index', 'prefixes' => ['design_footer'], 'blank' => true, 'hide_mobile' => true],
-            ['route' => 'design_app_home.index', 'prefixes' => ['design_app_home'], 'blank' => false, 'hide_mobile' => true],
+//            ['route' => 'design_app_home.index', 'prefixes' => ['design_app_home'], 'blank' => false, 'hide_mobile' => true],
         ];
 
         return hook_filter('admin.sidebar.design_routes', $routes);
