@@ -8,11 +8,16 @@
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
 <?php $component->withAttributes(['title' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($title)]); ?>
-  <select  class="form-select me-3 wp-<?php echo e($width); ?>" name="<?php echo e($name); ?>">
-    <?php $__currentLoopData = $options; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $option): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-      <option value="<?php echo e($option[$key]); ?>" <?php echo e($option[$key] == $value ? 'selected': ''); ?>><?php echo e($option[$label]); ?></option>
-    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-  </select>
+  <div class="mb-1 mt-2">
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" id="<?php echo e($name); ?>-1" type="radio" name="<?php echo e($name); ?>" id="<?php echo e($name); ?>-1" value="1" <?php echo e($value ? 'checked' : ''); ?>>
+      <label class="form-check-label" for="<?php echo e($name); ?>-1"><?php echo e(__('common.enable')); ?></label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" id="<?php echo e($name); ?>-0" type="radio" name="<?php echo e($name); ?>" id="<?php echo e($name); ?>-0" value="0" <?php echo e(!$value ? 'checked' : ''); ?>>
+      <label class="form-check-label" for="<?php echo e($name); ?>-0"><?php echo e(__('common.disable')); ?></label>
+    </div>
+  </div>
   <?php echo e($slot); ?>
 
  <?php echo $__env->renderComponent(); ?>
@@ -25,4 +30,4 @@
 <?php $component = $__componentOriginal1b48936358e72618543915217d3ed939; ?>
 <?php unset($__componentOriginal1b48936358e72618543915217d3ed939); ?>
 <?php endif; ?>
-<?php /**PATH G:\workspace\new\resources\/beike/admin/views/components/form/select.blade.php ENDPATH**/ ?>
+<?php /**PATH D:\shop-freelance\resources\/beike/admin/views/components/form/switch-radio.blade.php ENDPATH**/ ?>

@@ -26,7 +26,7 @@
     function slideshowSwiper() {
       new Swiper ('.module-swiper-{{ $module_id }}', {
         loop: '{{ count($content['images']) > 1 ? true : false }}', // 循环模式选项
-        autoplay: true,
+        autoplay: false,
         pauseOnMouseEnter: true,
         clickable :true,
 

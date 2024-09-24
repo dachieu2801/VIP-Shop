@@ -171,7 +171,7 @@
 {{--            </a>--}}
           </li>
           <li class="nav-item dropdown">
-            <a href="{{ shop_route('orderTracking') }}" class="nav-link"><i class="bi bi-pen"></i></a>
+            <a href="{{ shop_route('orderTracking') }}" class="nav-link"><i class="bi bi-pen me-1"></i></a>
             <ul class="dropdown-menu">
               <li ><a href="{{ shop_route('orderTracking') }}" class="dropdown-item" >{{__('shop/account/order.order_tracking')}}</a></li>
             </ul>
@@ -202,6 +202,7 @@
           @endif
         </a>
         <a href="{{ shop_route('carts.index') }}" class="nav-link ms-3 m-cart position-relative"><i class="iconfont">&#xe634;</i> <span class="cart-badge-quantity" style="color: #fe6233; background-color: white"></span></a>
+        <a href="{{ shop_route('orderTracking') }}" class="nav-link mb-account-icon ms-3"><i class="bi bi-pen me-1"></i></a> 
       </div>
     </div>
   </div>

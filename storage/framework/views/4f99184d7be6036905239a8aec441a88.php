@@ -8,10 +8,10 @@
       <i class="bi bi-heart<?php echo e($product['in_wishlist'] ? '-fill' : ''); ?> me-1"></i>
     </button>
     <button
-      class="btn btn-light text-light btn-add-cart-mobile"
+      class="btn btn-light text-light btn-add-cart-mobile "
       product-id="<?php echo e($product['sku_id']); ?>"
       product-price="<?php echo e($product['price']); ?>"
-      onclick="bk.productQuickView(<?php echo e($product['id']); ?>)">>
+      onclick="bk.addCart({sku_id: '<?php echo e($product['sku_id']); ?>'}, this)">
 
       <i class="bi bi-cart"></i>
 
@@ -30,7 +30,7 @@
                 echo $output;
                 ?>
 
-    <a href="<?php echo e($product['url']); ?>">
+    <div onclick="bk.productQuickView(<?php echo e($product['id']); ?>)" >
       <div class="image-old">
         <img
           data-sizes="auto"
@@ -38,7 +38,7 @@
           src="<?php echo e(image_resize('', 400, 400)); ?>"
           class="img-fluid lazyload">
       </div>
-    </a>
+    </div>
     <?php if(!request('style_list') || request('style_list') == 'grid'): ?>
       <div class="button-wrap">
          <?php
@@ -171,4 +171,4 @@
                 echo $output;
                 ?>
 </div>
-<?php /**PATH G:\workspace\new\themes\default/shared/product.blade.php ENDPATH**/ ?>
+<?php /**PATH D:\shop-freelance\themes\default/shared/product.blade.php ENDPATH**/ ?>

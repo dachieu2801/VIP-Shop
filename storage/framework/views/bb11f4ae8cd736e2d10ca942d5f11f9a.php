@@ -1,32 +1,32 @@
 <template id="address-dialog">
   <div class="address-dialog">
-    <el-dialog custom-class="mobileWidth" title="{{ __('address.index') }}" :visible.sync="editShow" @close="closeAddressDialog('addressForm')" :close-on-click-modal="false">
+    <el-dialog custom-class="mobileWidth" title="<?php echo e(__('address.index')); ?>" :visible.sync="editShow" @close="closeAddressDialog('addressForm')" :close-on-click-modal="false">
       <el-form ref="addressForm" :rules="rules" label-position="top" :model="form" label-width="100px">
-        <el-form-item label="{{ __('address.name') }}" class="w-full" prop="name">
-          <el-input v-model="form.name" placeholder="{{ __('address.name') }}"></el-input>
+        <el-form-item label="<?php echo e(__('address.name')); ?>" class="w-full" prop="name">
+          <el-input v-model="form.name" placeholder="<?php echo e(__('address.name')); ?>"></el-input>
         </el-form-item>
         <div class="d-flex">
      
-          <el-form-item label="{{ __('common.email') }}" prop="email" v-if="type == 'guest_shipping_address'" class="w-50 ">
-            <el-input v-model="form.email" placeholder="{{ __('common.email') }}"></el-input>
+          <el-form-item label="<?php echo e(__('common.email')); ?>" prop="email" v-if="type == 'guest_shipping_address'" class="w-50 ">
+            <el-input v-model="form.email" placeholder="<?php echo e(__('common.email')); ?>"></el-input>
           </el-form-item>
       
           
-          <el-form-item label="{{ __('address.phone') }}"  class="w-50 ms-3" prop="phone">
-            <el-input maxlength="11" v-model="form.phone" type="number" placeholder="{{ __('address.phone') }}"></el-input>
+          <el-form-item label="<?php echo e(__('address.phone')); ?>"  class="w-50 ms-3" prop="phone">
+            <el-input maxlength="11" v-model="form.phone" type="number" placeholder="<?php echo e(__('address.phone')); ?>"></el-input>
           </el-form-item>
         </div>
-        <!-- @if (!current_customer())
-        <el-form-item label="{{ __('address.address_1') }}" prop="address_1">
-          <el-input v-model="form.address_1" placeholder="{{ __('address.address_1') }}"></el-input>
+        <!-- <?php if(!current_customer()): ?>
+        <el-form-item label="<?php echo e(__('address.address_1')); ?>" prop="address_1">
+          <el-input v-model="form.address_1" placeholder="<?php echo e(__('address.address_1')); ?>"></el-input>
         </el-form-item>
-        @endif -->
+        <?php endif; ?> -->
         <div class="d-flex dialog-address">
-          <el-form-item label="{{ __('address.address_1') }}" class="w-50" prop="address_1">
-            <el-input v-model="form.address_1" placeholder="{{ __('address.address_1') }}"></el-input>
+          <el-form-item label="<?php echo e(__('address.address_1')); ?>" class="w-50" prop="address_1">
+            <el-input v-model="form.address_1" placeholder="<?php echo e(__('address.address_1')); ?>"></el-input>
           </el-form-item>
-          <el-form-item prop="zone_id" label="{{ __('address.zone') }}" class="w-50 ms-3 ">
-            <el-select v-model="form.zone_id" class="w-100" filterable placeholder="{{ __('address.zone') }}">
+          <el-form-item prop="zone_id" label="<?php echo e(__('address.zone')); ?>" class="w-50 ms-3 ">
+            <el-select v-model="form.zone_id" class="w-100" filterable placeholder="<?php echo e(__('address.zone')); ?>">
               <el-option v-for="item in source.zones" :key="item.id" :label="item.name"
                 :value="item.id">
               </el-option>
@@ -35,15 +35,15 @@
         </div>
 
         <div class="d-flex dialog-address">
-          <el-form-item prop="country_id" label="{{ __('address.country') }}" required class="w-50" >
-            <el-select v-model="form.country_id" class="w-100" filterable placeholder="{{ __('address.country_id') }}" @change="countryChange">
+          <el-form-item prop="country_id" label="<?php echo e(__('address.country')); ?>" required class="w-50" >
+            <el-select v-model="form.country_id" class="w-100" filterable placeholder="<?php echo e(__('address.country_id')); ?>" @change="countryChange">
               <el-option v-for="item in source.countries" :key="item.id" :label="item.name"
                          :value="item.id">
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="{{ __('address.post_code') }}" class="w-50 ms-3">
-          <el-input v-model="form.zipcode" placeholder="{{ __('address.post_code') }}"></el-input>
+          <el-form-item label="<?php echo e(__('address.post_code')); ?>" class="w-50 ms-3">
+          <el-input v-model="form.zipcode" placeholder="<?php echo e(__('address.post_code')); ?>"></el-input>
         </el-form-item>
 
           
@@ -51,8 +51,8 @@
 
         
         
-        <el-form-item label="{{ __('address.address_2') }}" class="w-100" prop="address_2">
-          <el-input v-model="form.address_2" placeholder="{{ __('address.address_2') }}"></el-input>
+        <el-form-item label="<?php echo e(__('address.address_2')); ?>" class="w-100" prop="address_2">
+          <el-input v-model="form.address_2" placeholder="<?php echo e(__('address.address_2')); ?>"></el-input>
         </el-form-item>
       
 
@@ -61,11 +61,11 @@
 
 
         <el-form-item label="" v-if="source.isLogin">
-          <span class="me-2">{{ __('address.default') }}</span> <el-switch v-model="form.default"></el-switch>
+          <span class="me-2"><?php echo e(__('address.default')); ?></span> <el-switch v-model="form.default"></el-switch>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="addressFormSubmit('addressForm')">{{ __('common.save') }}</el-button>
-          <el-button @click="closeAddressDialog('addressForm')">{{ __('common.cancel') }}</el-button>
+          <el-button type="primary" @click="addressFormSubmit('addressForm')"><?php echo e(__('common.save')); ?></el-button>
+          <el-button @click="closeAddressDialog('addressForm')"><?php echo e(__('common.cancel')); ?></el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -90,7 +90,7 @@
         name: '',
         email: '',
         phone: '',
-        country_id: @json((int) system_setting('base.country_id')),
+        country_id: <?php echo json_encode((int) system_setting('base.country_id'), 15, 512) ?>,
         zipcode: '',
         zone_id: '',
         city: '',
@@ -102,49 +102,49 @@
       rules: {
         name: [{
           required: true,
-          message: '{{ __('shop/account/addresses.enter_name') }}',
+          message: '<?php echo e(__('shop/account/addresses.enter_name')); ?>',
           trigger: 'blur'
         }, ],
         email: [{
           required: true,
           type: 'email',
-          message: '{{ __('shop/login.enter_email') }}',
+          message: '<?php echo e(__('shop/login.enter_email')); ?>',
           trigger: 'blur'
         }, ],
         address_1: [{
           required: true,
-          message: ' {{ __('shop/account/addresses.enter_address_1') }}',
+          message: ' <?php echo e(__('shop/account/addresses.enter_address_1')); ?>',
           trigger: 'blur'
         }, ],
         address_2: [{
           required: true,
-          message: ' {{ __('shop/account/addresses.enter_address_2') }}',
+          message: ' <?php echo e(__('shop/account/addresses.enter_address_2')); ?>',
           trigger: 'blur'
         }, ],
         country_id: [{
           required: true,
-          message: '{{ __('shop/account/addresses.select_province') }}',
+          message: '<?php echo e(__('shop/account/addresses.select_province')); ?>',
           trigger: 'blur'
         }, ],
         zone_id: [{
           required: true,
-          message: '{{ __('shop/account/addresses.select_district') }}',
+          message: '<?php echo e(__('shop/account/addresses.select_district')); ?>',
           trigger: 'blur'
         }, ],
         city: [{
           required: true,
-          message: '{{ __('shop/account/addresses.enter_city') }}',
+          message: '<?php echo e(__('shop/account/addresses.enter_city')); ?>',
           trigger: 'blur'
         }, ],
         phone: [{
           required: true,
-          message: '{{ __('shop/account/addresses.enter_phone') }}',
+          message: '<?php echo e(__('shop/account/addresses.enter_phone')); ?>',
           trigger: 'blur'
         }, ],
       },
 
       source: {
-        countries: @json($countries ?? []),
+        countries: <?php echo json_encode($countries ?? [], 15, 512) ?>,
         zones: [],
         isLogin: config.isLogin,
       },
@@ -172,7 +172,7 @@
     addressFormSubmit(form) {
       this.$refs[form].validate((valid) => {
         if (!valid) {
-          this.$message.error('{{ __('shop/checkout.check_form') }}');
+          this.$message.error('<?php echo e(__('shop/checkout.check_form')); ?>');
           return;
         }
 
@@ -194,7 +194,7 @@
       this.editShow = false
 
       Object.keys(this.form).forEach(key => this.form[key] = '')
-      this.form.country_id = @json((int) system_setting('base.country_id'));
+      this.form.country_id = <?php echo json_encode((int) system_setting('base.country_id'), 15, 512) ?>;
       this.form.default = false;
     },
 
@@ -214,3 +214,4 @@
   }
 });
 </script>
+<?php /**PATH D:\shop-freelance\themes\default/shared/address-form.blade.php ENDPATH**/ ?>

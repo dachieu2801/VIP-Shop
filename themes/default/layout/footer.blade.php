@@ -335,7 +335,7 @@
     echo '</div>';
 }
     @endphp
-    <div>
+    <!-- <div>
       <div class="my-4 text-lg"><h5 class="fw-medium text-uppercase">{{__('shop/common.categories')}}</h5></div>
       <div class="">
 {{--          <div class="footer-categories d-flex gap-3 flex-wrap flex-column w-100 align-content-start overflow-auto">--}}
@@ -365,7 +365,7 @@
               </div>
             @endforeach
             @endif
-          </div>
+          </div> -->
 
     <div class="footer-content">
       <div class="row">

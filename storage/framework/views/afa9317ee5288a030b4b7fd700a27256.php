@@ -227,4 +227,4 @@
     <a href="https://beikeshop.com/download" target="_blank" class="btn btn-primary"><?php echo e(__('admin/common.update_btn')); ?></a>
   </div>
 </div>
-<?php /**PATH G:\workspace\new\resources\/beike/admin/views/components/header.blade.php ENDPATH**/ ?>
+<?php /**PATH D:\shop-freelance\resources\/beike/admin/views/components/header.blade.php ENDPATH**/ ?>

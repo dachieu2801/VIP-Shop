@@ -292,7 +292,7 @@
 
           </li>
           <li class="nav-item dropdown">
-            <a href="<?php echo e(shop_route('orderTracking')); ?>" class="nav-link"><i class="bi bi-pen"></i></a>
+            <a href="<?php echo e(shop_route('orderTracking')); ?>" class="nav-link"><i class="bi bi-pen me-1"></i></a>
             <ul class="dropdown-menu">
               <li ><a href="<?php echo e(shop_route('orderTracking')); ?>" class="dropdown-item" ><?php echo e(__('shop/account/order.order_tracking')); ?></a></li>
             </ul>
@@ -323,6 +323,7 @@
           <?php endif; ?>
         </a>
         <a href="<?php echo e(shop_route('carts.index')); ?>" class="nav-link ms-3 m-cart position-relative"><i class="iconfont">&#xe634;</i> <span class="cart-badge-quantity" style="color: #fe6233; background-color: white"></span></a>
+        <a href="<?php echo e(shop_route('orderTracking')); ?>" class="nav-link mb-account-icon ms-3"><i class="bi bi-pen me-1"></i></a> 
       </div>
     </div>
   </div>
@@ -356,4 +357,4 @@
                 echo $output;
                 ?>
 </header>
-<?php /**PATH G:\workspace\new\themes\default/layout/header.blade.php ENDPATH**/ ?>
+<?php /**PATH D:\shop-freelance\themes\default/layout/header.blade.php ENDPATH**/ ?>

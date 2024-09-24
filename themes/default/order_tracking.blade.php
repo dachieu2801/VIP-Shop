@@ -88,6 +88,7 @@ document.getElementById('orderTrackingForm').addEventListener('submit', function
 });
 
 function renderResult(data) {
+    console.log(data);
     const resultDiv = document.getElementById('result');
     if (data.length > 1) {
         let tableRows = '';
@@ -99,7 +100,7 @@ function renderResult(data) {
                     <td>${order.customer_name}</td>
                     <td>${order.email}</td>
                     <td>${order.total_format}</td>
-                    <td>${order.status_format}</td>
+                    <td>${order.status}</td>
                     <td>${order.shipping_method_name}</td>
                     <td>${order.shipping_address_1},${order.shipping_city},${order.shipping_country}</td>
                     <td>${order.payment_method_name}</td>

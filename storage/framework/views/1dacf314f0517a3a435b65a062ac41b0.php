@@ -26,7 +26,7 @@
     function slideshowSwiper() {
       new Swiper ('.module-swiper-<?php echo e($module_id); ?>', {
         loop: '<?php echo e(count($content['images']) > 1 ? true : false); ?>', // 循环模式选项
-        autoplay: true,
+        autoplay: false,
         pauseOnMouseEnter: true,
         clickable :true,
 
@@ -56,4 +56,4 @@
 
   </script>
 </section>
-<?php /**PATH G:\workspace\new\themes\default/design/slideshow.blade.php ENDPATH**/ ?>
+<?php /**PATH D:\shop-freelance\themes\default/design/slideshow.blade.php ENDPATH**/ ?>
