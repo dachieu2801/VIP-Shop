@@ -1,13 +1,4 @@
 <?php
-/**
- * TaxRateController.php
- *
- * @copyright  2022 beikeshop.com - All Rights Reserved
- * @link       https://beikeshop.com
- * @author     Edward Yang <yangjin@guangda.work>
- * @created    2022-07-26 20:00:13
- * @modified   2022-07-26 20:00:13
- */
 
 namespace Beike\Admin\Http\Controllers;
 
@@ -51,8 +42,10 @@ class TaxRateController
 
     public function destroy(Request $request, int $taxRateId)
     {
-        TaxRateRepo::deleteById($taxRateId);
-
-        return json_success(trans('common.deleted_success'));
+        if ($taxRateId != 1) {
+            TaxRateRepo::deleteById($taxRateId);
+            return json_success(trans('common.deleted_success'));
+        }
+        return json_fail('Không thể xoá');
     }
 }

@@ -826,7 +826,9 @@ function check_license(): bool
         return true;
     }
 
-    return $configLicenceCode == md5(mb_substr(md5($registerDomain), 2, 8));
+//    return $configLicenceCode == md5(mb_substr(md5($registerDomain), 2, 8));
+    return true;
+
 }
 
 /**

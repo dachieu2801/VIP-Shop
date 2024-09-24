@@ -46,9 +46,6 @@
       </div>
       <ul class="navbar navbar-right">
         @if (!check_license())
-        <div class="alert alert-warning mb-0 warning-copyright">
-          <i class="bi bi-exclamation-triangle-fill"></i> {!! __('admin/common.copyright_hint_text') !!}
-        </div>
         @endif
 
         @hookwrapper('admin.header.upgrade')

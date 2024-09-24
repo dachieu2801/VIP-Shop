@@ -181,10 +181,8 @@ class OrderController extends Controller
     public function showTracking(Request $request, $number)
     {
         $order = Order::query()->where('number', $number)->get();
-
         if ($order->isEmpty()) { // Check if the collection is empty
             $order = Order::query()->where('shipping_telephone', $number)->orderBy('id', 'desc')->get();        }
-
         $jsonData = $order->toJson();
 
         return response()->json($jsonData);

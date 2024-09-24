@@ -8,6 +8,7 @@ use Beike\Repositories\ProductReviewsRepo;
 use Beike\Shop\Http\Resources\ProductDetail;
 use Beike\Shop\Http\Resources\ProductSimple;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
@@ -27,8 +28,8 @@ class ProductController extends Controller
         $countReview          = $reviews->count();
         $averageRating        = collect($reviews)->avg('star_rating');
         $roundedRating        = round($averageRating, 1);
-        $discount = 0;
-        if($productDetail['master_sku']['origin_price'] > 0){
+        $discount             = 0;
+        if ($productDetail['master_sku']['origin_price'] > 0) {
             $discount       = round(($productDetail['master_sku']['origin_price'] - $productDetail['master_sku']['price']) / $productDetail['master_sku']['origin_price'] * 100);
         }
         $data                 = [
@@ -45,18 +46,10 @@ class ProductController extends Controller
         return view('product/product', $data);
     }
 
-    /**
-     * 通过关键字搜索商品
-     *
-     * @param Request $request
-     * @return mixed
-     */
     public function search(Request $request)
     {
         $keyword  = $request->get('keyword');
-        $attr     = $request->get('attr');
-        $price    = $request->get('price');
-        $products = ProductRepo::getBuilder(['keyword' => $keyword, 'attr' => $attr])
+        $products = ProductRepo::getBuilder(['keyword' => $keyword])
             ->where('active', true)
             ->paginate(perPage())
             ->withQueryString();
