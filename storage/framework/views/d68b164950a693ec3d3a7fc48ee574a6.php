@@ -47,10 +47,6 @@
       </div>
       <ul class="navbar navbar-right">
         <?php if(!check_license()): ?>
-        <div class="alert alert-warning mb-0 warning-copyright">
-          <i class="bi bi-exclamation-triangle-fill"></i> <?php echo __('admin/common.copyright_hint_text'); ?>
-
-        </div>
         <?php endif; ?>
 
          <?php

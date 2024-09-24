@@ -1,13 +1,4 @@
 <?php
-/**
- * ProductRepo.php
- *
- * @copyright  2022 beikeshop.com - All Rights Reserved
- * @link       https://beikeshop.com
- * @author     Edward Yang <yangjin@guangda.work>
- * @created    2022-06-23 11:19:23
- * @modified   2022-06-23 11:19:23
- */
 
 namespace Beike\Repositories;
 
@@ -25,6 +16,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\HigherOrderBuilderProxy;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\Log;
 
 class ProductRepo
 {
@@ -62,16 +54,10 @@ class ProductRepo
             ->withQueryString();
     }
 
-    /**
-     * 通过商品ID获取商品列表
-     * @param $productIds
-     * @return AnonymousResourceCollection
-     * @throws \Exception
-     */
     public static function getProductsByIds($productIds): AnonymousResourceCollection
     {
         if (! $productIds) {
-            return ProductSimple::collection(new Collection());
+            return ProductSimple::collection(new Collection);
         }
         $builder  = static::getBuilder(['product_ids' => $productIds])->whereHas('masterSku');
         $products = $builder->with('inCurrentWishlist')->get();
@@ -95,7 +81,15 @@ class ProductRepo
                 ->where('locale', locale());
         });
 
-        $builder->select(['products.*', 'pd.name', 'pd.content', 'pd.meta_title', 'pd.meta_description', 'pd.meta_keywords', 'pd.name']);
+        $builder->select([
+            'products.*',
+            'pd.name',
+            'pd.content',
+            'pd.meta_title',
+            'pd.meta_description',
+            'pd.meta_keywords',
+            'pd.name',
+        ]);
 
         if (isset($filters['category_id'])) {
             $builder->whereHas('categories', function ($query) use ($filters) {
@@ -142,7 +136,6 @@ class ProductRepo
 
         if (isset($filters['price']) && $filters['price']) {
             $builder->whereHas('skus', function ($query) use ($filters) {
-                // price 格式:price=30-100
                 $prices = explode('-', $filters['price']);
                 if (! $prices[1]) {
                     $query->where('price', '>', $prices[0] ?: 0)->where('is_default', 1);
@@ -158,24 +151,25 @@ class ProductRepo
 
         $keyword = trim($filters['keyword'] ?? '');
         if ($keyword) {
-            $keywords = explode(' ', $keyword);
-            $keywords = array_unique($keywords);
-            $keywords = array_diff($keywords, ['']);
-            $builder->where(function (Builder $query) use ($keywords) {
-                $query->whereHas('skus', function (Builder $query) use ($keywords) {
-                    $keywordFirst = array_shift($keywords);
-                    $query->where('sku', 'like', "%{$keywordFirst}%")
-                        ->orWhere('model', 'like', "%{$keywordFirst}%");
-
-                    foreach ($keywords as $keyword) {
-                        $query->orWhere('sku', 'like', "%{$keyword}%")
-                            ->orWhere('model', 'like', "%{$keyword}%");
-                    }
-                });
-                foreach ($keywords as $keyword) {
-                    $query->orWhere('pd.name', 'like', "%{$keyword}%");
-                }
-            });
+//            $keywords = explode(' ', $keyword);
+//            $keywords = array_unique($keywords);
+//            $keywords = array_diff($keywords, ['']);
+//            $builder->where(function (Builder $query) use ($keywords) {
+//                $query->whereHas('skus', function (Builder $query) use ($keywords) {
+//                    $keywordFirst = array_shift($keywords);
+//                    $query->where('sku', 'like', "%{$keywordFirst}%")
+//                        ->orWhere('model', 'like', "%{$keywordFirst}%");
+//
+//                    foreach ($keywords as $keyword) {
+//                        $query->orWhere('sku', 'like', "%{$keyword}%")
+//                            ->orWhere('model', 'like', "%{$keyword}%");
+//                    }
+//                });
+//                foreach ($keywords as $keyword) {
+//                    $query->orWhere('pd.name', 'like', "%{$keyword}%");
+//                }
+//            });
+            $builder->where('pd.name', 'like', "%{$keyword}%");
         }
 
         if (isset($filters['created_start'])) {
@@ -218,6 +212,8 @@ class ProductRepo
             $builder->orderBy($sort, $order);
         }
 
+        Log::info('dsadsa',['dasda'=> $keyword]);
+        Log::info('$builder',['$builder'=> $builder]);
         return hook_filter('repo.product.builder', $builder);
     }
 

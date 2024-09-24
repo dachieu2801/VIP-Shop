@@ -1,13 +1,5 @@
 <?php
-/**
- * SettingController.php
- *
- * @copyright  2022 beikeshop.com - All Rights Reserved
- * @link       https://beikeshop.com
- * @author     Edward Yang <yangjin@guangda.work>
- * @created    2022-06-29 16:02:15
- * @modified   2022-06-29 16:02:15
- */
+
 
 namespace Beike\Admin\Http\Controllers;
 
@@ -31,13 +23,9 @@ class PluginController extends Controller
         $data['plugins'] = array_values(PluginResource::collection($plugins)->jsonSerialize());
         $data            = hook_filter('admin.plugin.index.data', $data);
 
-        Log::log('info', 'plugin', ['data' => $data]);
         return view('admin::pages.plugins.index', $data);
     }
 
-    /**
-     * @return mixed
-     */
     public function shipping()
     {
         $type            = 'shipping';
@@ -50,9 +38,6 @@ class PluginController extends Controller
         return view('admin::pages.plugins.index', $data);
     }
 
-    /**
-     * @return mixed
-     */
     public function payment()
     {
         $type            = 'payment';
@@ -65,9 +50,6 @@ class PluginController extends Controller
         return view('admin::pages.plugins.index', $data);
     }
 
-    /**
-     * @return mixed
-     */
     public function total()
     {
         $type            = 'total';
@@ -80,9 +62,6 @@ class PluginController extends Controller
         return view('admin::pages.plugins.index', $data);
     }
 
-    /**
-     * @return mixed
-     */
     public function social()
     {
         $type            = 'social';
@@ -95,9 +74,6 @@ class PluginController extends Controller
         return view('admin::pages.plugins.index', $data);
     }
 
-    /**
-     * @return mixed
-     */
     public function feature()
     {
         $type            = 'feature';
@@ -110,9 +86,6 @@ class PluginController extends Controller
         return view('admin::pages.plugins.index', $data);
     }
 
-    /**
-     * @return mixed
-     */
     public function language()
     {
         $type            = 'language';
@@ -125,9 +98,6 @@ class PluginController extends Controller
         return view('admin::pages.plugins.index', $data);
     }
 
-    /**
-     * @return mixed
-     */
     public function theme()
     {
         $type            = 'theme';
@@ -152,9 +122,6 @@ class PluginController extends Controller
         return view('admin::pages.plugins.index', $data);
     }
 
-    /**
-     * 上传插件
-     */
     public function import(Request $request): JsonResponse
     {
         $zipFile = $request->file('file');
@@ -163,12 +130,6 @@ class PluginController extends Controller
         return json_success(trans('common.success'));
     }
 
-    /**
-     * @param Request $request
-     * @param         $code
-     * @return JsonResponse
-     * @throws Exception
-     */
     public function install(Request $request, $code): JsonResponse
     {
         try {
@@ -181,12 +142,6 @@ class PluginController extends Controller
         }
     }
 
-    /**
-     * @param Request $request
-     * @param         $code
-     * @return JsonResponse
-     * @throws Exception
-     */
     public function uninstall(Request $request, $code): JsonResponse
     {
         try {
@@ -200,12 +155,6 @@ class PluginController extends Controller
         }
     }
 
-    /**
-     * @param Request $request
-     * @param         $code
-     * @return View
-     * @throws Exception
-     */
     public function edit(Request $request, $code): View
     {
         try {
@@ -234,12 +183,6 @@ class PluginController extends Controller
         }
     }
 
-    /**
-     * @param Request $request
-     * @param         $code
-     * @return mixed
-     * @throws Exception
-     */
     public function update(Request $request, $code)
     {
         $fields = $request->all();
@@ -261,11 +204,6 @@ class PluginController extends Controller
         return redirect($this->getRedirect())->with('success', trans('common.updated_success'));
     }
 
-    /**
-     * @param Request $request
-     * @param         $code
-     * @return JsonResponse
-     */
     public function updateStatus(Request $request, $code): JsonResponse
     {
         try {

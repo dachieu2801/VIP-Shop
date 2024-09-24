@@ -8,5 +8,5 @@ Route::get('/test', function () {
 })->name('test');
 Route::get('/order-tracking/{number}', [OrderController::class, 'showTracking'])->name('showTracking');
 
-Route::get('/order-tracking/{number}', [OrderController::class, 'showTracking'])->name('orderShowTracking');
+//Route::get('/order-tracking/{number}', [OrderController::class, 'showTracking'])->name('orderShowTracking');
 

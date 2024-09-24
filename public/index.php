@@ -24,7 +24,7 @@ if (! file_exists(__DIR__ . '/../storage/installed')
 
 if (version_compare(PHP_VERSION, '8.1', '<')) {
     echo 'Your current version of PHP does not meet the requirements. Upgrade to at least version 8.1 <br/>';
-    echo '您当前PHP版本不满足要求，至少升级至 8.1 版本';
+    echo 'Phiên bản PHP hiện tại của bạn không đáp ứng được yêu cầu, hãy nâng cấp lên ít nhất phiên bản 8.1';
     exit;
 }
 
