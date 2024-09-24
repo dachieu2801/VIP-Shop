@@ -813,18 +813,18 @@ function clean_domain($domain): string
  */
 function check_license(): bool
 {
-    $configLicenceCode = system_setting('base.license_code');
-    $appDomain         = clean_domain(config('app.url'));
-
-    try {
-        $domain         = new \Utopia\Domains\Domain($appDomain);
-        $registerDomain = $domain->getRegisterable();
-    } catch (\Exception $e) {
-        $registerDomain = '';
-    }
-    if (empty($registerDomain)) {
-        return true;
-    }
+//    $configLicenceCode = system_setting('base.license_code');
+//    $appDomain         = clean_domain(config('app.url'));
+//
+//    try {
+//        $domain         = new \Utopia\Domains\Domain($appDomain);
+//        $registerDomain = $domain->getRegisterable();
+//    } catch (\Exception $e) {
+//        $registerDomain = '';
+//    }
+//    if (empty($registerDomain)) {
+//        return true;
+//    }
 
 //    return $configLicenceCode == md5(mb_substr(md5($registerDomain), 2, 8));
     return true;
