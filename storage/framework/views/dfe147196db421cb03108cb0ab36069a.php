@@ -502,8 +502,8 @@
       <div class="row align-items-center">
         <div class="col">
           <div class="d-flex flex-wrap">
-         
-     
+
+
             <?php echo $footer_content['bottom']['copyright'][locale()] ?? ''; ?>
 
           </div>

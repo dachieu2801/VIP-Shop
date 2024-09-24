@@ -433,8 +433,8 @@
       <div class="row align-items-center">
         <div class="col">
           <div class="d-flex flex-wrap">
-         
-     
+
+
             {!! $footer_content['bottom']['copyright'][locale()] ?? '' !!}
           </div>
         </div>
