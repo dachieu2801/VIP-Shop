@@ -1,14 +1,13 @@
 @charset "UTF-8";
 
 /**
- * @copyright     2022 beikeshop.com - All Rights Reserved.
- * @link          https://beikeshop.com
- * @Author        pu shuo <pushuo@guangda.work>
+
  * @Date          2022-08-15 17:35:29
  * @LastEditTime  2022-09-16 20:47:16
  */
 
-body.page-checkout, body.page-cart {
+body.page-checkout,
+body.page-cart {
   background-color: #f6f8fa;
 
   .breadcrumb-wrap {
@@ -63,7 +62,7 @@ body.page-cart {
       }
 
       thead {
-        background-color: #F8F9FA;
+        background-color: #f8f9fa;
 
         th {
           border-bottom: none;
@@ -98,7 +97,7 @@ body.page-cart {
       li {
         background-color: transparent;
         padding: 0.7rem 0;
-        border-color: #EEEEEE;
+        border-color: #eeeeee;
 
         &:not(.d-grid) {
           display: flex;
@@ -134,7 +133,8 @@ body.page-cart {
           border-radius: 0;
         }
 
-        input, i {
+        input,
+        i {
           height: 24px;
           line-height: 24px;
           padding: 0;
@@ -174,7 +174,7 @@ body.page-cart {
     bottom: 0;
     justify-content: space-between;
     box-shadow: 0 -8px 12px 0 rgba(0, 0, 0, 0.1019607843);
-    transition: transform .3s ease-in-out;
+    transition: transform 0.3s ease-in-out;
     padding-bottom: calc(8px + env(safe-area-inset-bottom));
 
     .right {
@@ -182,7 +182,7 @@ body.page-cart {
       text-align: right;
 
       .total-price {
-        font-size: .9rem;
+        font-size: 0.9rem;
       }
     }
 

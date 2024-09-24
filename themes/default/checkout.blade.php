@@ -11,8 +11,20 @@
 
 @section('content')
   <x-shop-breadcrumb type="static" value="checkout.index" />
+  <style>
+     #checkoutTab .nav-link{
+      color : white;
+      background-color : #6c757d;
+      margin : 0 10px;
+      font-size : 16px;
+    }
+    #checkoutTab .nav-link.active{
+      color: white!important;
+      background-color : #fb5831!important;
+    }
+  </style>
 
-  <div class="container">
+  <div class="container ">
     @if (!is_mobile())
       <div class="row mt-1 justify-content-center">
         <div class="col-12 col-md-9">@include('shared.steps', ['steps' => 2])</div>
@@ -41,13 +53,32 @@
     <!-- Tab for Giao hàng tận nơi -->
     @if ($address_status == '1')
     <li class="nav-item" role="presentation">
-      <button class="nav-link {{ $current['receiving_method'] == 'shipping' ? 'active' : '' }} " id="home-delivery-tab"  data-bs-toggle="tab" data-bs-target="#home-delivery" type="button" role="tab" aria-controls="home-delivery" aria-selected="true"> Giao hàng tận nơi</button>
+        <button 
+      class="nav-link {{ $current['receiving_method'] == 'shipping' ? 'active' : '' }} " 
+      id="home-delivery-tab"  
+      data-bs-toggle="tab" 
+      data-bs-target="#home-delivery" 
+      type="button" 
+      role="tab" 
+      aria-controls="home-delivery" 
+      aria-selected="true">
+       Giao hàng tận nơi
+        </button>
     </li>
     @endif
     <!-- Tab for Đến lấy hàng -->
      @if($store_address_status == '1')
     <li class="nav-item" role="presentation">
-      <button class="nav-link {{ $current['receiving_method'] == 'pick_up_items' ? 'active' : '' }}" id="store-pickup-tab" data-bs-toggle="tab" data-bs-target="#store-pickup" type="button" role="tab" aria-controls="store-pickup" aria-selected="false">Đến lấy hàng</button>
+        <button 
+      class="nav-link {{ $current['receiving_method'] == 'pick_up_items' ? 'active' : '' }}" 
+      id="store-pickup-tab" 
+      data-bs-toggle="tab" 
+      data-bs-target="#store-pickup" 
+      type="button" role="tab" 
+      aria-controls="store-pickup" 
+      aria-selected="false">
+      Đến lấy hàng
+      </button>
     </li>
     @endif
   </ul>

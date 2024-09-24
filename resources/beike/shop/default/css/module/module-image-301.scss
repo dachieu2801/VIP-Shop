@@ -1,9 +1,7 @@
 @charset "UTF-8";
 
 /**
- * @copyright     2023 beikeshop.com - All Rights Reserved.
- * @link          https://beikeshop.com
- * @Author        pu shuo <pushuo@guangda.work>
+
  * @Date          2023-12-04 13:52:45
  * @LastEditTime  2023-12-04 13:52:53
  */
@@ -47,7 +45,8 @@
       width: 49%;
     }
 
-    &:nth-of-type(2), &:nth-of-type(3) {
+    &:nth-of-type(2),
+    &:nth-of-type(3) {
       position: absolute;
       right: 0;
       width: 49%;

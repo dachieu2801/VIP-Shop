@@ -1,9 +1,7 @@
 @charset "UTF-8";
 
 /**
- * @copyright     2022 beikeshop.com - All Rights Reserved.
- * @link          https://beikeshop.com
- * @Author        pu shuo <pushuo@guangda.work>
+
  * @Date          2022-09-26 16:39:21
  * @LastEditTime  2022-09-26 16:39:34
  */
@@ -12,7 +10,7 @@ body.page-marketing {
   .marketing-item {
     box-shadow: none;
     border: 1px solid #eee;
-    transition: .3s ease-in-out;
+    transition: 0.3s ease-in-out;
 
     .card-body {
       padding: 10px;
@@ -59,7 +57,8 @@ body.page-marketing-info {
     }
   }
 
-  &.zh_cn, &.zh_hk {
+  &.zh_cn,
+  &.zh_hk {
     .text-last {
       width: 60px;
       text-align-last: justify;
@@ -82,7 +81,8 @@ body.page-marketing-info {
       border-radius: 6%;
       position: relative;
       z-index: 1;
-      box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .3), 0 1px 3px 1px rgba(60, 64, 67, .15);
+      box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3),
+        0 1px 3px 1px rgba(60, 64, 67, 0.15);
     }
 
     .plugin-icon-shadow {
@@ -118,8 +118,8 @@ body.page-marketing-info {
     display: flex;
     padding-right: 1.8rem;
     align-items: center;
-    border-top-left-radius: .25rem !important;
-    border-bottom-left-radius: .25rem !important;
+    border-top-left-radius: 0.25rem !important;
+    border-bottom-left-radius: 0.25rem !important;
 
     img {
       width: 16px;

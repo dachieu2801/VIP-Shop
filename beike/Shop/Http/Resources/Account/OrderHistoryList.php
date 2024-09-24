@@ -2,9 +2,7 @@
 /**
  * OrderHistoryList.php
  *
- * @copyright  2023 beikeshop.com - All Rights Reserved
- * @link       https://beikeshop.com
- * @author     Edward Yang <yangjin@guangda.work>
+
  * @created    2023-08-25 15:21:21
  * @modified   2023-08-25 15:21:21
  */

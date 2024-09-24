@@ -1,9 +1,7 @@
 @charset "UTF-8";
 
 /**
- * @copyright     2022 beikeshop.com - All Rights Reserved.
- * @link          https://beikeshop.com
- * @Author        pu shuo <pushuo@guangda.work>
+
  * @Date          2022-08-09 14:12:25
  * @LastEditTime  2022-09-16 19:05:44
  */
@@ -229,7 +227,7 @@ body.page-product-form {
           // padding: 0 5px 0 0;
           min-width: 40px;
 
-          & +.btn-link {
+          & + .btn-link {
             padding-left: 5px;
             // margin-right: 10px;
           }

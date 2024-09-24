@@ -1,13 +1,5 @@
 <?php
-/**
- * Url.php
- *
- * @copyright  2023 beikeshop.com - All Rights Reserved
- * @link       https://beikeshop.com
- * @author     Edward Yang <yangjin@guangda.work>
- * @created    2023-03-15 14:13:39
- * @modified   2023-03-15 14:13:39
- */
+
 
 namespace Beike\Libraries;
 

@@ -1,9 +1,7 @@
 @charset "UTF-8";
 
 /**
- * @copyright     2023 beikeshop.com - All Rights Reserved.
- * @link          https://beikeshop.com
- * @Author        pu shuo <pushuo@guangda.work>
+
  * @Date          2023-12-04 13:52:45
  * @LastEditTime  2023-12-04 13:52:53
  */
@@ -79,7 +77,6 @@
     }
   }
 
-
   .image-wrap {
     border-radius: 10px;
     overflow: hidden;
@@ -107,7 +104,7 @@
         box-shadow: 0 5px 30px rgba($color: #000, $alpha: 0.1);
 
         @media (max-width: 768px) {
-          font-size: .7rem;
+          font-size: 0.7rem;
         }
       }
     }

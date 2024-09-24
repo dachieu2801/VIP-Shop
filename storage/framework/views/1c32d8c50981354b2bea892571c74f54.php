@@ -30,4 +30,4 @@
 <?php $component = $__componentOriginal1b48936358e72618543915217d3ed939; ?>
 <?php unset($__componentOriginal1b48936358e72618543915217d3ed939); ?>
 <?php endif; ?>
-<?php /**PATH G:\workspace\new\resources\/beike/admin/views/components/form/switch-radio.blade.php ENDPATH**/ ?>
+<?php /**PATH D:\shop-freelance\resources\/beike/admin/views/components/form/switch-radio.blade.php ENDPATH**/ ?>

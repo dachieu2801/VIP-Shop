@@ -8,11 +8,11 @@
       <i class="bi bi-heart{{ $product['in_wishlist'] ? '-fill' : '' }} me-1"></i>
     </button>
     <button
-      class="btn btn-light text-light btn-add-cart-mobile"
+      class="btn btn-light text-light btn-add-cart-mobile "
       product-id="{{ $product['sku_id'] }}"
       product-price="{{ $product['price'] }}"
-      onclick="bk.productQuickView({{ $product['id'] }})">>
-{{--      onclick="bk.addCart({sku_id: '{{ $product['sku_id'] }}'}, this)">--}}
+      onclick="bk.addCart({sku_id: '{{ $product['sku_id'] }}'}, this)">
+
       <i class="bi bi-cart"></i>
 
     </button>
@@ -20,7 +20,7 @@
   <div class="image">
     @hook('product_list.item.image.tag')
 
-    <a href="{{ $product['url'] }}">
+    <div onclick="bk.productQuickView({{ $product['id'] }})" >
       <div class="image-old">
         <img
           data-sizes="auto"
@@ -28,7 +28,7 @@
           src="{{ image_resize('', 400, 400) }}"
           class="img-fluid lazyload">
       </div>
-    </a>
+    </div>
     @if (!request('style_list') || request('style_list') == 'grid')
       <div class="button-wrap">
         @hookwrapper('shared.product.btn.add_cart')

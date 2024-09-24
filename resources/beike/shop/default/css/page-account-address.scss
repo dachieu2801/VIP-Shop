@@ -1,14 +1,13 @@
 @charset "UTF-8";
 
 /**
- * @copyright     2022 beikeshop.com - All Rights Reserved.
- * @link          https://beikeshop.com
- * @Author        pu shuo <pushuo@guangda.work>
+
  * @Date          2022-09-01 16:23:34
  * @LastEditTime  2022-09-16 20:55:54
  */
 
-body.page-account-address, body.page-checkout {
+body.page-account-address,
+body.page-checkout {
   .addresses-wrap {
     .item {
       position: relative;
@@ -35,19 +34,29 @@ body.page-account-address, body.page-checkout {
         border-left: none;
 
         &:before {
-          content: '';
+          content: "";
           position: absolute;
           top: -1px;
           left: 0;
           width: 4px;
           height: calc(100% + 2px);
-          background-color: #4991F4;
-          background: repeating-linear-gradient(-45deg, #d60404 0, #d60404 10px, #fff 10px, #fff 20px, #4991F4 20px, #4991F4 30px, #fff 30px, #fff 40px);
+          background-color: #4991f4;
+          background: repeating-linear-gradient(
+            -45deg,
+            #d60404 0,
+            #d60404 10px,
+            #fff 10px,
+            #fff 20px,
+            #4991f4 20px,
+            #4991f4 30px,
+            #fff 30px,
+            #fff 40px
+          );
         }
       }
 
       .name-wrap {
-        margin-bottom: .6rem;
+        margin-bottom: 0.6rem;
         line-height: 1;
 
         .name {
@@ -56,13 +65,13 @@ body.page-account-address, body.page-checkout {
         }
 
         .phone {
-          font-size: .8rem;
+          font-size: 0.8rem;
           color: #666;
         }
       }
 
       .zipcode {
-        margin-bottom: .3rem;
+        margin-bottom: 0.3rem;
         min-height: 20px;
       }
 
@@ -86,26 +95,24 @@ body.page-account-address, body.page-checkout {
     width: 600px;
     @media (max-width: 768px) {
       width: 95%;
-      }
     }
+  }
 
   .dialog-address {
     display: block;
 
-    >div {
-    @media (max-width:768px) {
-      width: 100%;
-      // margin-bottom: 10px;
-      // &:nth-last-child(){
-      //   margin-bottom: 0;
-      // }
-    }
+    > div {
+      @media (max-width: 768px) {
+        width: 100%;
+        // margin-bottom: 10px;
+        // &:nth-last-child(){
+        //   margin-bottom: 0;
+        // }
+      }
     }
 
-    @media (min-width:768px) {
+    @media (min-width: 768px) {
       display: flex;
     }
   }
-
-
 }

@@ -335,7 +335,7 @@
     echo '</div>';
 }
     @endphp
-    <div>
+    <!-- <div>
       <div class="my-4 text-lg"><h5 class="fw-medium text-uppercase">{{__('shop/common.categories')}}</h5></div>
       <div class="">
 {{--          <div class="footer-categories d-flex gap-3 flex-wrap flex-column w-100 align-content-start overflow-auto">--}}
@@ -365,7 +365,7 @@
               </div>
             @endforeach
             @endif
-          </div>
+          </div> -->
 
     <div class="footer-content">
       <div class="row">
@@ -433,10 +433,8 @@
       <div class="row align-items-center">
         <div class="col">
           <div class="d-flex flex-wrap">
-            <!-- 删除版权信息, 请先购买授权 https://beikeshop.com/vip/subscription -->
-            @if(!check_license())
-              Powered By&nbsp;<a href="https://beikeshop.com/" target="_blank" rel="noopener">BeikeShop</a>&nbsp;-&nbsp;
-            @endif
+         
+     
             {!! $footer_content['bottom']['copyright'][locale()] ?? '' !!}
           </div>
         </div>

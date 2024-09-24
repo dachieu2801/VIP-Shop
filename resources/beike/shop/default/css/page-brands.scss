@@ -1,9 +1,7 @@
 @charset "UTF-8";
 
 /**
- * @copyright     2022 beikeshop.com - All Rights Reserved.
- * @link          https://beikeshop.com
- * @Author        pu shuo <pushuo@guangda.work>
+
  * @Date          2022-08-15 15:43:12
  * @LastEditTime  2022-09-16 20:56:17
  */
@@ -13,12 +11,12 @@ body.page-brands {
     display: flex;
     align-items: center; // flex-start | center
     justify-content: center; // flex-end | center | space-between
-    box-shadow: 0 6px 18px rgba(0, 0, 0, .07);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.07);
     margin-bottom: 10px;
     height: 133px;
     width: 100%;
 
-    >img {
+    > img {
       max-height: 100%;
     }
   }
@@ -50,9 +48,9 @@ body.page-brands {
       }
     }
 
-    >li>a {
+    > li > a {
       color: #242424;
-      transition: all .3s;
+      transition: all 0.3s;
       text-decoration: none;
 
       &:hover {

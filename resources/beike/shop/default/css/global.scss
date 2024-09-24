@@ -1,9 +1,7 @@
 @charset "UTF-8";
 
 /**
- * @copyright     2022 beikeshop.com - All Rights Reserved.
- * @link          https://beikeshop.com
- * @Author        pu shuo <pushuo@guangda.work>
+
  * @Date          2022-09-09 19:16:39
  * @LastEditTime  2022-09-16 20:55:07
  */
@@ -11,8 +9,8 @@
 [v-cloak] {
   display: none;
 }
-:root{
-  --main-orange-color:#ee4d2d;
+:root {
+  --main-orange-color: #ee4d2d;
 }
 
 body[class^="page-account"] {
@@ -25,7 +23,9 @@ body {
   -webkit-font-smoothing: antialiased;
   font-style: normal;
   -webkit-text-size-adjust: none;
-  font-family: "Helvetica Neue", "Helvetica", "Arial", "文泉驛正黑", "WenQuanYi Zen Hei", "Hiragino Sans GB", "儷黑 Pro", "LiHei Pro", "Heiti TC", "微軟正黑體", "Microsoft JhengHei UI", "Microsoft JhengHei", sans-serif;
+  font-family: "Helvetica Neue", "Helvetica", "Arial", "文泉驛正黑",
+    "WenQuanYi Zen Hei", "Hiragino Sans GB", "儷黑 Pro", "LiHei Pro", "Heiti TC",
+    "微軟正黑體", "Microsoft JhengHei UI", "Microsoft JhengHei", sans-serif;
 }
 
 body.app {
@@ -42,29 +42,39 @@ body.app {
   }
 }
 
-@font-face {font-family: 'Poppins';
-  src: url('/fonts/poppins/Poppins-Regular.ttf') format("truetype");
+@font-face {
+  font-family: "Poppins";
+  src: url("/fonts/poppins/Poppins-Regular.ttf") format("truetype");
   font-style: normal;
   font-weight: 500;
   font-weight: normal;
   font-display: swap;
 }
 
-@font-face {font-family: 'Poppins';
-  src: url('/fonts/poppins/Poppins-Medium.ttf') format("truetype");
+@font-face {
+  font-family: "Poppins";
+  src: url("/fonts/poppins/Poppins-Medium.ttf") format("truetype");
   font-style: normal;
   font-display: swap;
   font-weight: 600;
 }
 
-@font-face {font-family: 'Poppins';
-  src: url('/fonts/poppins/Poppins-SemiBold.ttf') format("truetype");
+@font-face {
+  font-family: "Poppins";
+  src: url("/fonts/poppins/Poppins-SemiBold.ttf") format("truetype");
   font-style: normal;
   font-display: swap;
   font-weight: 700;
 }
 
-h1,h2,h3, h4, h5, h6, b, strong {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+b,
+strong {
   font-weight: 700;
   color: #282828;
 }
@@ -170,12 +180,12 @@ img {
   &:after {
     position: absolute;
     bottom: 0;
-    transform:translateX(-50%);
+    transform: translateX(-50%);
     left: 50%;
-    content: '';
+    content: "";
     width: 60px;
     height: 1px;
-    background: #FD560F;
+    background: #fd560f;
   }
 }
 
@@ -191,12 +201,12 @@ img {
   position: relative;
 
   &:before {
-    content: '';
+    content: "";
     position: absolute;
     top: 14px;
     left: 0;
     width: 100%;
-    border-bottom: 3px solid #D7D7D7;
+    border-bottom: 3px solid #d7d7d7;
   }
 
   > div {
@@ -218,7 +228,7 @@ img {
 
     .number-wrap {
       padding: 0 4px;
-      margin-bottom: .5rem;
+      margin-bottom: 0.5rem;
     }
 
     .number {
@@ -293,9 +303,9 @@ img {
     opacity: 0;
     cursor: pointer;
     z-index: 9999;
-    background: rgba(0,0,0,.4);
+    background: rgba(0, 0, 0, 0.4);
     visibility: hidden;
-    transition: all .3s ease-out;
+    transition: all 0.3s ease-out;
 
     &.active {
       visibility: visible;
@@ -318,7 +328,7 @@ img {
     height: 100%;
     transform: translateX(-100%);
     background-color: #fff;
-    transition: all .3s ease-out;
+    transition: all 0.3s ease-out;
   }
 
   .mb-header {
@@ -352,7 +362,7 @@ img {
       height: 100px;
       border-radius: 50%;
       box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.14);
-      border: 2px solid #FFFFFF;
+      border: 2px solid #ffffff;
       overflow: hidden;
 
       @media (min-width: 768px) {
@@ -379,11 +389,11 @@ img {
 
   .account-links {
     > a {
-      color: #4B566B;
+      color: #4b566b;
       border: none;
       padding: 0.8rem 1rem;
-      border-bottom: 1px solid #EEEEEE;
-      transition: all .2s ease-in-out;
+      border-bottom: 1px solid #eeeeee;
+      transition: all 0.2s ease-in-out;
       text-decoration: none !important;
 
       &:last-of-type {
@@ -391,12 +401,12 @@ img {
       }
 
       &:hover {
-        background-color: #E9ECEF;
+        background-color: #e9ecef;
       }
 
       &.active {
-        background-color: #E9ECEF;
-        color: #4B566B;
+        background-color: #e9ecef;
+        color: #4b566b;
       }
 
       .badge {
@@ -421,15 +431,14 @@ img {
 .breadcrumb-wrap {
   background-color: #f6f6f6;
 
-
   @media (max-width: 768px) {
     margin-bottom: 10px;
   }
 
   .breadcrumb {
     @media (max-width: 768px) {
-      padding-top: .4rem;
-      padding-bottom: .4rem;
+      padding-top: 0.4rem;
+      padding-bottom: 0.4rem;
     }
   }
 }
@@ -474,7 +483,7 @@ img {
     }
   }
 
-  .btn  {
+  .btn {
     border: 1px solid var(--bs-border-color);
     &:active {
       background-color: #eee;

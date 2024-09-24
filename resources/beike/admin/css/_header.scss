@@ -1,9 +1,7 @@
 @charset "UTF-8";
 
 /**
- * @copyright     2022 beikeshop.com - All Rights Reserved.
- * @link          https://beikeshop.com
- * @Author        pu shuo <pushuo@guangda.work>
+
  * @Date          2022-08-04 15:52:42
  * @LastEditTime  2022-09-16 19:05:15
  */
@@ -16,7 +14,7 @@
   display: flex;
   align-items: center;
   z-index: 9;
-  box-shadow: 0 2px 14px 0 rgba(0, 0, 0, .05);
+  box-shadow: 0 2px 14px 0 rgba(0, 0, 0, 0.05);
 
   .header-left {
     width: 190px;
@@ -80,7 +78,7 @@
         align-items: center;
         padding: 0 0 0 14px;
         height: 35px;
-        transition: all .2s ease-in-out;
+        transition: all 0.2s ease-in-out;
         width: 330px;
         border-radius: 6px;
         font-size: 16px;
@@ -158,8 +156,8 @@
         opacity: 0;
         visibility: hidden;
         border: none;
-        transition: all .2s ease-in-out;
-        padding: .7rem 0;
+        transition: all 0.2s ease-in-out;
+        padding: 0.7rem 0;
         border-radius: 0.5rem;
         // box-shadow: 0 0.6125rem 2.5rem 0.6125rem rgba(140,152,164,.175);
         box-shadow: 0 0.8rem 2.5rem 0.6125rem rgba(140, 152, 164, 0.286);
@@ -204,7 +202,7 @@
 
         .link-item {
           &::after {
-            content: '';
+            content: "";
             display: block;
             padding-bottom: 0.5rem;
             margin-bottom: 0.5rem;
@@ -234,7 +232,7 @@
               line-height: 24px;
               margin-right: 0.2rem;
               text-align: center;
-              background-color: rgba(19,33,68,.1);
+              background-color: rgba(19, 33, 68, 0.1);
               font-size: 12px;
             }
           }
@@ -248,10 +246,10 @@
             margin-right: -0.6rem;
 
             a {
-              background-color: rgba(19,33,68,.1);
+              background-color: rgba(19, 33, 68, 0.1);
               border-radius: 20px;
               padding: 0.3rem 0.7rem;
-              font-size: .75rem;
+              font-size: 0.75rem;
               margin-bottom: 0.5rem;
               margin-right: 0.6rem;
               &:hover {
@@ -275,17 +273,18 @@
 
           &.active {
             &::after {
-              content: '\F131';
+              content: "\F131";
               position: absolute;
               right: 4px;
               top: 50%;
               color: #666;
               margin-top: -9px;
-              font-family: 'bootstrap-icons';
+              font-family: "bootstrap-icons";
             }
           }
 
-          &.active, &:hover {
+          &.active,
+          &:hover {
             color: #333;
             background-color: rgba(189, 197, 209, 0.2);
           }
@@ -398,7 +397,7 @@
   align-items: center;
   justify-content: space-between;
   z-index: 9;
-  box-shadow: 0 2px 14px 0 rgba(0, 0, 0, .05);
+  box-shadow: 0 2px 14px 0 rgba(0, 0, 0, 0.05);
 
   > .logo {
     a {
@@ -423,16 +422,14 @@
       font-size: 1.5rem;
       line-height: 1;
     }
-
-
-
   }
 
   .header-mobile-right {
     display: flex;
     justify-content: right;
 
-    .lang, .user {
+    .lang,
+    .user {
       .dropdown a {
         padding: 0;
       }
@@ -441,7 +438,7 @@
     .mobile-to-front {
       margin-left: 10px;
       a {
-        color:var(--bs-body-color);
+        color: var(--bs-body-color);
 
         i {
           font-size: 1.2rem;

@@ -365,7 +365,7 @@
     echo '</div>';
 }
     ?>
-    <div>
+    <!-- <div>
       <div class="my-4 text-lg"><h5 class="fw-medium text-uppercase"><?php echo e(__('shop/common.categories')); ?></h5></div>
       <div class="">
 
@@ -395,7 +395,7 @@
               </div>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             <?php endif; ?>
-          </div>
+          </div> -->
 
     <div class="footer-content">
       <div class="row">
@@ -502,10 +502,8 @@
       <div class="row align-items-center">
         <div class="col">
           <div class="d-flex flex-wrap">
-            <!-- 删除版权信息, 请先购买授权 https://beikeshop.com/vip/subscription -->
-            <?php if(!check_license()): ?>
-              Powered By&nbsp;<a href="https://beikeshop.com/" target="_blank" rel="noopener">BeikeShop</a>&nbsp;-&nbsp;
-            <?php endif; ?>
+         
+     
             <?php echo $footer_content['bottom']['copyright'][locale()] ?? ''; ?>
 
           </div>
@@ -544,4 +542,4 @@
                 echo $output;
                 ?>
 </footer>
-<?php /**PATH G:\workspace\new\themes\default/layout/footer.blade.php ENDPATH**/ ?>
+<?php /**PATH D:\shop-freelance\themes\default/layout/footer.blade.php ENDPATH**/ ?>

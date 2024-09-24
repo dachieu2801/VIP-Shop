@@ -1,13 +1,5 @@
 <?php
-/**
- * OrderController.php
- *
- * @copyright  2023 beikeshop.com - All Rights Reserved
- * @link       https://beikeshop.com
- * @author     Edward Yang <yangjin@guangda.work>
- * @created    2023-04-20 16:40:35
- * @modified   2023-04-20 16:40:35
- */
+
 
 namespace Beike\AdminAPI\Controllers;
 
