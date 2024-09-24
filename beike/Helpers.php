@@ -804,13 +804,7 @@ function clean_domain($domain): string
     return trim(str_replace(['http://', 'https://'], '', $domain));
 }
 
-/**
- * Check domain ha license.
- * 删除版权信息, 请先购买授权 https://beikeshop.com/vip/subscription
- *
- * @return bool
- * @throws Exception
- */
+
 function check_license(): bool
 {
     $configLicenceCode = system_setting('base.license_code');
@@ -883,11 +877,7 @@ function move_dir($sourcePath, $destinationPath)
     File::deleteDirectory($sourcePath);
 }
 
-/**
- * 是否有开启的翻译工具
- *
- * @return bool
- */
+
 function has_translator(): bool
 {
     return \Beike\Repositories\PluginRepo::getTranslators()->count() > 0;
@@ -907,11 +897,7 @@ function beike_api_url(): string
     return $apiUrl;
 }
 
-/**
- * 检测当前访问域名和 .env 配置域名是否一致
- *
- * @return bool
- */
+
 function check_same_domain(): bool
 {
     $request       = request();

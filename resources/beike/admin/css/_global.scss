@@ -1,25 +1,25 @@
 @charset "UTF-8";
 
 /**
- * @copyright     2022 beikeshop.com - All Rights Reserved.
- * @link          https://beikeshop.com
- * @Author        pu shuo <pushuo@guangda.work>
+
  * @Date          2022-08-24 17:24:33
  * @LastEditTime  2022-09-16 19:05:06
  */
 
-
-@font-face {font-family: 'poppins';
-  src: url('/fonts/poppins/Poppins-Regular.ttf');
+@font-face {
+  font-family: "poppins";
+  src: url("/fonts/poppins/Poppins-Regular.ttf");
 }
 
-@font-face {font-family: 'poppins';
-  src: url('/fonts/poppins/Poppins-Bold.ttf');
+@font-face {
+  font-family: "poppins";
+  src: url("/fonts/poppins/Poppins-Bold.ttf");
   font-weight: bold;
 }
 
-@font-face {font-family: 'Poppins-Medium';
-  src: url('/fonts/poppins/Poppins-Medium.ttf');
+@font-face {
+  font-family: "Poppins-Medium";
+  src: url("/fonts/poppins/Poppins-Medium.ttf");
 }
 
 @for $i from 1 through 6 {
@@ -70,8 +70,6 @@
   }
 }
 
-
-
 // 生成 10 20 30 ... 90 的高宽
 @for $i from 1 through 10 {
   .wh-#{$i}0 {
@@ -108,7 +106,7 @@
 }
 
 .help-text {
-  color: #B2B2B2;
+  color: #b2b2b2;
   margin-top: 4px;
   font-size: 12px;
 }
@@ -129,7 +127,7 @@
   }
 
   .layui-layer-ico {
-    background: url('/image/close.png') no-repeat;
+    background: url("/image/close.png") no-repeat;
     background-size: cover;
     background-position: center center;
   }
@@ -146,7 +144,7 @@
   cursor: pointer;
   align-items: center; // flex-start | center
   justify-content: center; // flex-end | center | space-between
-  transition: all .2s ease;
+  transition: all 0.2s ease;
   &:hover {
     background-color: #f1f1f1;
   }
@@ -156,7 +154,8 @@
   display: flex;
   // flex-direction: column;
   // min-height: 100vh;
-  transition: margin-left .25s ease-in-out,left .25s ease-in-out,margin-right .25s ease-in-out,right .25s ease-in-out;
+  transition: margin-left 0.25s ease-in-out, left 0.25s ease-in-out,
+    margin-right 0.25s ease-in-out, right 0.25s ease-in-out;
   width: 100%;
   height: calc(100vh - 60px);
   overflow: hidden;
@@ -205,7 +204,7 @@
   right: 0;
   background: #fff;
   // border-top: 1px solid #eee;
-  box-shadow: 0 -2px 6px 0 rgba(140,152,164,.15);
+  box-shadow: 0 -2px 6px 0 rgba(140, 152, 164, 0.15);
   z-index: 10;
   padding: 15px 1rem;
   display: none;
@@ -266,11 +265,11 @@
       ~ .toggle-outside .toggle-inside {
         left: 0.25rem;
         background-color: #fff;
-        box-shadow: 0 3px 6px 0 rgba(140,152,164,.25);
+        box-shadow: 0 3px 6px 0 rgba(140, 152, 164, 0.25);
       }
     }
 
-    & ~ input:checked ~ .toggle-outside  {
+    & ~ input:checked ~ .toggle-outside {
       background-color: $primary;
 
       .toggle-inside {
@@ -374,14 +373,23 @@ body.page-seller-product {
   }
 }
 
-table.table thead th, .fw-bold, h1,h2,h3, h4, h5, h6, b, strong, .card .card-header {
-  font-family: 'Arial', sans-serif;
+table.table thead th,
+.fw-bold,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+b,
+strong,
+.card .card-header {
+  font-family: "Arial", sans-serif;
 }
 
 .nowrap {
   white-space: nowrap;
 }
-
 
 // 处理 el-form 表单在非中文情况下的 显示问题
 @media (min-width: 768px) {
@@ -452,10 +460,10 @@ table.table thead th, .fw-bold, h1,h2,h3, h4, h5, h6, b, strong, .card .card-hea
 
   .text-hidden {
     overflow: hidden;
-    text-overflow:ellipsis;
+    text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-box-orient:vertical;
-    -webkit-line-clamp:1;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
   }
 
   .input-group-text {
@@ -463,7 +471,7 @@ table.table thead th, .fw-bold, h1,h2,h3, h4, h5, h6, b, strong, .card .card-hea
   }
 
   .row > * {
-    margin-top: 0.2rem
+    margin-top: 0.2rem;
   }
 
   .el-message-box {
@@ -494,7 +502,10 @@ table.table thead th, .fw-bold, h1,h2,h3, h4, h5, h6, b, strong, .card .card-hea
       td:first-of-type {
         width: 40%;
 
-        html[lang="zh_cn"] &, html[lang="zh_hk"] &, html[lang="en"] &, html[lang="ja"] & {
+        html[lang="zh_cn"] &,
+        html[lang="zh_hk"] &,
+        html[lang="en"] &,
+        html[lang="ja"] & {
           width: 90px;
         }
       }
@@ -544,7 +555,7 @@ table.table thead th, .fw-bold, h1,h2,h3, h4, h5, h6, b, strong, .card .card-hea
         font-size: 12px;
         overflow: hidden;
         padding: 2px 0;
-        text-overflow:ellipsis;
+        text-overflow: ellipsis;
         white-space: nowrap;
       }
 
@@ -568,7 +579,7 @@ table.table thead th, .fw-bold, h1,h2,h3, h4, h5, h6, b, strong, .card .card-hea
   position: relative;
 
   &:after {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -599,17 +610,17 @@ table.table thead th, .fw-bold, h1,h2,h3, h4, h5, h6, b, strong, .card .card-hea
       // 第一名 第二名 第三名 不同的背景色
       &:nth-child(1) {
         // 金色
-        background-color: rgba($color: #ffd700, $alpha: .1);
+        background-color: rgba($color: #ffd700, $alpha: 0.1);
       }
 
       &:nth-child(2) {
         // 银色
-        background-color: rgba($color: #c0c0c0, $alpha: .1);
+        background-color: rgba($color: #c0c0c0, $alpha: 0.1);
       }
 
       &:nth-child(3) {
         // 铜色
-        background-color: rgba($color: #cd7f32, $alpha: .1);
+        background-color: rgba($color: #cd7f32, $alpha: 0.1);
       }
     }
   }

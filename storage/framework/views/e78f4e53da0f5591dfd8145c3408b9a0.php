@@ -502,10 +502,8 @@
       <div class="row align-items-center">
         <div class="col">
           <div class="d-flex flex-wrap">
-            <!-- 删除版权信息, 请先购买授权 https://beikeshop.com/vip/subscription -->
-            <?php if(!check_license()): ?>
-              Powered By&nbsp;<a href="https://beikeshop.com/" target="_blank" rel="noopener">BeikeShop</a>&nbsp;-&nbsp;
-            <?php endif; ?>
+         
+     
             <?php echo $footer_content['bottom']['copyright'][locale()] ?? ''; ?>
 
           </div>

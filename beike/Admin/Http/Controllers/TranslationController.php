@@ -1,13 +1,5 @@
 <?php
-/**
- * TranslationController.php
- *
- * @copyright  2023 beikeshop.com - All Rights Reserved
- * @link       https://beikeshop.com
- * @author     Edward Yang <yangjin@guangda.work>
- * @created    2023-09-04 14:31:37
- * @modified   2023-09-04 14:31:37
- */
+
 
 namespace Beike\Admin\Http\Controllers;
 

@@ -1,9 +1,7 @@
 @charset "UTF-8";
 
 /**
- * @copyright     2022 beikeshop.com - All Rights Reserved.
- * @link          https://beikeshop.com
- * @Author        pu shuo <pushuo@guangda.work>
+
  * @Date          2022-09-01 16:23:34
  * @LastEditTime  2022-09-16 20:56:12
  */
@@ -24,7 +22,7 @@ body.page-checkout {
       display: flex !important;
       justify-content: space-between;
       box-shadow: 0 -8px 12px 0 rgba(0, 0, 0, 0.1019607843);
-      transition: transform .3s ease-in-out;
+      transition: transform 0.3s ease-in-out;
       padding-bottom: calc(8px + env(safe-area-inset-bottom));
 
       #submit-checkout {
@@ -68,7 +66,7 @@ body.page-checkout {
           border-color: $primary;
 
           &:before {
-            content: '';
+            content: "";
             position: absolute;
             width: 12px;
             height: 12px;
@@ -149,7 +147,8 @@ body.page-checkout {
   }
 }
 
-body.page-checkout, body.page-bk-stripe {
+body.page-checkout,
+body.page-bk-stripe {
   .checkout-black {
     margin-bottom: 2.6rem;
 
@@ -190,10 +189,10 @@ body.page-checkout, body.page-bk-stripe {
     .card-header {
       background-color: #fff;
       margin-bottom: 1rem;
-      border-bottom: 1px solid #E6E6E6;
+      border-bottom: 1px solid #e6e6e6;
 
       @media (min-width: 768px) {
-        padding: 0 0 .8rem;
+        padding: 0 0 0.8rem;
       }
 
       h5 {
@@ -209,9 +208,9 @@ body.page-checkout, body.page-bk-stripe {
     }
 
     .products-wrap {
-      border-bottom: 1px solid #E6E6E6;
+      border-bottom: 1px solid #e6e6e6;
       margin-bottom: 1.3rem;
-      padding-bottom: .3rem;
+      padding-bottom: 0.3rem;
       @media (min-width: 768px) {
         max-height: 380px;
         overflow-y: auto;
@@ -221,7 +220,7 @@ body.page-checkout, body.page-bk-stripe {
         display: flex;
         align-items: center; // flex-start | center
         justify-content: space-between; // flex-end | center | space-between
-        margin-bottom: .8rem;
+        margin-bottom: 0.8rem;
 
         .image {
           display: flex;
@@ -245,9 +244,9 @@ body.page-checkout, body.page-bk-stripe {
       list-style: none;
       margin-bottom: 0;
       @media (min-width: 768px) {
-        padding-bottom: .3rem;
+        padding-bottom: 0.3rem;
         margin-bottom: 1.5rem;
-        border-bottom: 1px solid #E6E6E6;
+        border-bottom: 1px solid #e6e6e6;
       }
 
       > li {
@@ -270,7 +269,7 @@ body.page-checkout, body.page-bk-stripe {
 
         > span {
           &:first-of-type {
-            font-size: .8rem;
+            font-size: 0.8rem;
           }
         }
       }

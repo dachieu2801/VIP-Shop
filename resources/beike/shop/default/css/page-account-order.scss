@@ -1,9 +1,7 @@
 @charset "UTF-8";
 
 /**
- * @copyright     2022 beikeshop.com - All Rights Reserved.
- * @link          https://beikeshop.com
- * @Author        pu shuo <pushuo@guangda.work>
+
  * @Date          2022-09-01 16:23:34
  * @LastEditTime  2022-09-16 20:55:58
  */
@@ -17,32 +15,32 @@ body.page-account-order-list {
     border: 1px solid #ee4d2d;
   }
 
-  .completed-order-text{
+  .completed-order-text {
     background-color: limegreen;
     color: white;
     padding: 4px 16px;
     border-radius: 4px;
   }
 
-  .paid-order-text{
+  .paid-order-text {
     background-color: #ee4d2d;
     color: white;
     padding: 4px 16px;
     border-radius: 4px;
   }
 
-  .shipped-order-text{
-    color:black;
+  .shipped-order-text {
+    color: black;
   }
 
-  .cancelled-order-text{
-    color:white;
+  .cancelled-order-text {
+    color: white;
     background-color: red;
     padding: 4px 16px;
     border-radius: 4px;
   }
 
-  .text-truncate-style{
+  .text-truncate-style {
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -64,11 +62,11 @@ body.page-account-order-list {
         padding-right: 2px;
       }
     }
-    .active{
-      color:#ee4d2d;
+    .active {
+      color: #ee4d2d;
     }
   }
-  .user-rating{
+  .user-rating {
     display: inline-block;
     direction: rtl;
 
@@ -83,7 +81,7 @@ body.page-account-order-list {
     }
 
     input:checked ~ label {
-      color:  #ee4d2d;
+      color: #ee4d2d;
     }
   }
 
@@ -116,7 +114,6 @@ body.page-account-order-list {
         td {
           border: 1px solid #e5e5e5;
         }
-
       }
 
       .product-info {
@@ -127,17 +124,17 @@ body.page-account-order-list {
           flex: 0 0 60px;
           margin-right: 10px;
 
-          @media (max-width:768px) {
+          @media (max-width: 768px) {
             flex: 0 0 50px;
-            width: 50px
+            width: 50px;
           }
         }
 
         .name {
-          @media (max-width:768px) {
+          @media (max-width: 768px) {
             a {
               overflow: hidden;
-              text-overflow:ellipsis;
+              text-overflow: ellipsis;
               display: -webkit-box;
               -webkit-box-orient: vertical;
               -webkit-line-clamp: 2;
@@ -169,10 +166,9 @@ body.page-account-order-list {
 }
 
 body.page-account-order-info {
-  background-color: #F7F8FA;
+  background-color: #f7f8fa;
 
   .order-head {
-
   }
 
   .product-list {
@@ -193,12 +189,12 @@ body.page-account-order-info {
       color: #767676;
 
       @media (min-width: 768px) {
-        font-size: .9375rem;
+        font-size: 0.9375rem;
       }
 
       .name {
         // font-weight: bold;
-        margin-bottom: .4rem;
+        margin-bottom: 0.4rem;
         color: #1a1a1a;
       }
     }

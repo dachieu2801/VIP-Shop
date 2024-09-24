@@ -1,13 +1,5 @@
 <?php
-/**
- * AddCountryContinent.php
- *
- * @copyright  2023 beikeshop.com - All Rights Reserved
- * @link       https://beikeshop.com
- * @author     Edward Yang <yangjin@guangda.work>
- * @created    2023-12-05 11:33:30
- * @modified   2023-12-05 11:33:30
- */
+
 
 namespace Beike\Console\Commands;
 

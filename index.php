@@ -1,4 +1,5 @@
 <?php
 
 $currentDir = getcwd();
-exit("请修改 Apache 或 Nginx 配置, 将网站根目录设置为: {$currentDir}/public/");
+
+exit("Vui lòng sửa đổi cấu hình Apache hoặc Nginx và đặt thư mục gốc của trang web thành: {$currentDir}/public/");

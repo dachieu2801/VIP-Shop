@@ -1,16 +1,15 @@
 /**
- * @copyright     2022 beikeshop.com - All Rights Reserved.
- * @link          https://beikeshop.com
- * @Author        pu shuo <pushuo@guangda.work>
+
  * @Date          2022-08-09 10:53:07
  * @LastEditTime  2022-09-16 19:07:03
  */
 
 $main_color: #0072ff;
 
-@font-face {font-family: 'iconfont';
-  src: url('/fonts/design/iconfont.woff') format('woff'), /* chrome、firefox */
-  url('/fonts/design/iconfont.ttf') format('truetype'); /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+@font-face {
+  font-family: "iconfont";
+  src: url("/fonts/design/iconfont.woff") format("woff"),
+    /* chrome、firefox */ url("/fonts/design/iconfont.ttf") format("truetype"); /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
 }
 
 body.page-design {
@@ -22,16 +21,17 @@ body.page-design {
   overflow: hidden;
 
   .iconfont {
-    font-family:"iconfont" !important;
-    font-size:16px;
-    font-style:normal;
+    font-family: "iconfont" !important;
+    font-size: 16px;
+    font-style: normal;
     -webkit-font-smoothing: antialiased;
     // -webkit-text-stroke-width: 0.2px;
     -webkit-text-stroke-width: 0;
     -moz-osx-font-smoothing: grayscale;
   }
 
-  [class*=" el-icon-"], [class^=el-icon-] {
+  [class*=" el-icon-"],
+  [class^="el-icon-"] {
     font-weight: 600;
   }
 
@@ -68,8 +68,8 @@ body.page-design {
         justify-content: center;
         background-color: $main_color;
         text-align: center;
-        font-size: .8rem;
-        transition: all .2s ease-in-out;
+        font-size: 0.8rem;
+        transition: all 0.2s ease-in-out;
         border-right: 1px solid #5692ff;
 
         &:last-of-type {
@@ -92,7 +92,7 @@ body.page-design {
       background-color: #fff;
       border-right: 1px solid #eee;
       position: relative;
-      transition: all .1s ease-in-out;
+      transition: all 0.1s ease-in-out;
 
       &.v-hide {
         margin-left: -300px;
@@ -108,7 +108,7 @@ body.page-design {
         width: 18px;
         height: 50px;
         line-height: 50px;
-        box-shadow: 3px 1px 5px 1px rgba(0,0,0,.12);
+        box-shadow: 3px 1px 5px 1px rgba(0, 0, 0, 0.12);
         color: #000;
 
         &:hover {
@@ -131,7 +131,7 @@ body.page-design {
         .module-info {
           background: #fff;
           color: #556068;
-          transition: all .25s ease-in-out;
+          transition: all 0.25s ease-in-out;
           cursor: move;
 
           &:hover {
@@ -213,7 +213,7 @@ body.page-design {
       justify-content: space-between;
 
       &:before {
-        content: '';
+        content: "";
         position: absolute;
         left: 0;
         top: 3px;
@@ -224,7 +224,6 @@ body.page-design {
     }
 
     .module-edit-sub-title {
-
     }
   }
 }
@@ -285,7 +284,7 @@ body.page-design {
         position: relative;
 
         &:after {
-          content: '';
+          content: "";
           border-right: 1px solid #ccc;
           position: absolute;
           right: 1px;
@@ -455,7 +454,7 @@ body.page-design {
       span {
         font-size: 12px;
         overflow: hidden;
-        text-overflow:ellipsis;
+        text-overflow: ellipsis;
         white-space: nowrap;
       }
 
@@ -529,7 +528,7 @@ body.page-design {
   }
 
   .layui-layer-ico {
-    background: url('/image/close.png') no-repeat;
+    background: url("/image/close.png") no-repeat;
     background-size: cover;
     background-position: center center;
   }
@@ -566,7 +565,7 @@ body.page-design {
 
       &:before {
         content: "\F282";
-        font-family: 'bootstrap-icons';
+        font-family: "bootstrap-icons";
         position: absolute;
         right: 10px;
         top: 8px;
@@ -581,7 +580,7 @@ body.page-design {
       left: 0;
       width: 100%;
       background-color: #fff;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
       display: none;
       &.active {
         display: block;
@@ -633,11 +632,10 @@ body.page-design {
       font-size: 16px;
     }
 
-
     div.input-with-select {
       margin-top: 16px;
       display: flex;
-      align-items:center;
+      align-items: center;
 
       input {
         height: 34px;
@@ -669,7 +667,7 @@ body.page-design {
       background-color: #f3f4f7;
       display: flex;
       justify-content: space-between;
-      align-items:center;
+      align-items: center;
 
       > a {
         border: 1px solid #ccc;
@@ -683,7 +681,6 @@ body.page-design {
       }
 
       .link-top-new {
-
       }
 
       .el-input-group__append {
@@ -721,7 +718,7 @@ body.page-design {
 
         li {
           display: flex;
-          justify-content:space-between;
+          justify-content: space-between;
           align-items: center;
           padding: 5px 10px;
           border-bottom: 1px solid #eee;
@@ -841,6 +838,5 @@ body.page-design {
   }
 
   .link-dialog-footer {
-
   }
 }

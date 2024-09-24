@@ -1,15 +1,13 @@
 @charset "UTF-8";
 
 /**
- * @copyright     2022 beikeshop.com - All Rights Reserved.
- * @link          https://beikeshop.com
- * @Author        pu shuo <pushuo@guangda.work>
+
  * @Date          2022-08-02 19:19:52
  * @LastEditTime  2022-09-16 19:06:56
  */
 
 // $primary: #0b68ff;
-$primary: #409EFF;
+$primary: #409eff;
 
 [v-cloak] {
   display: none;
@@ -19,9 +17,10 @@ body.page-filemanager {
   height: 100vh;
   overflow: hidden;
   font-size: 12px;
-  user-select:none; /* CSS3属性 */
+  user-select: none; /* CSS3属性 */
 
-  [class*=" el-icon-"], [class^=el-icon-] {
+  [class*=" el-icon-"],
+  [class^="el-icon-"] {
     font-weight: 600;
   }
 
@@ -37,8 +36,8 @@ body.page-filemanager {
     display: none;
     align-items: center;
     flex-wrap: wrap;
-    background: rgba(255, 255, 255, .8);
-    box-shadow: 0 0 2px 1px rgba(0, 0, 0, .07);
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.07);
 
     .s-img {
       width: 18px;
@@ -111,7 +110,9 @@ body.page-filemanager {
         }
       }
 
-      .el-tree--highlight-current .el-tree-node.is-current>.el-tree-node__content {
+      .el-tree--highlight-current
+        .el-tree-node.is-current
+        > .el-tree-node__content {
         background-color: #434d66;
         color: #fff;
         border-left: 2px solid $primary;
@@ -191,7 +192,7 @@ body.page-filemanager {
         justify-content: space-between; // flex-end | center | space-between
         // flex-wrap: wrap;
         padding: 0 16px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, .04);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 
         .left {
           a {
@@ -218,7 +219,6 @@ body.page-filemanager {
               color: $primary;
               font-weight: 600;
             }
-
           }
         }
 
@@ -269,7 +269,7 @@ body.page-filemanager {
           display: inline-block;
           background: #fff;
           margin: 0 8px 16px;
-          box-shadow: 0 0 2px 1px rgba(0, 0, 0, .07);
+          box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.07);
           cursor: pointer;
 
           .img {
@@ -292,7 +292,7 @@ body.page-filemanager {
           }
 
           &.active {
-            outline: 1px solid  $primary;
+            outline: 1px solid $primary;
           }
 
           .text {
@@ -306,7 +306,7 @@ body.page-filemanager {
             // flex-wrap: wrap;
             span {
               overflow: hidden;
-              text-overflow:ellipsis;
+              text-overflow: ellipsis;
               white-space: nowrap;
             }
 
@@ -323,7 +323,7 @@ body.page-filemanager {
         padding: 0 16px;
         background-color: #fff;
         display: flex;
-        box-shadow: 0 -2px 4px rgba(0, 0, 0, .04);
+        box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.04);
         align-items: center; // flex-start | center
         justify-content: space-between;
 
@@ -385,7 +385,7 @@ body.page-filemanager {
         .name {
           color: #111111;
           overflow: hidden;
-          text-overflow:ellipsis;
+          text-overflow: ellipsis;
           white-space: nowrap;
         }
 
@@ -402,7 +402,6 @@ body.page-filemanager {
 
   .photos-upload {
     overflow: hidden;
-
 
     .el-upload {
       width: 100%;

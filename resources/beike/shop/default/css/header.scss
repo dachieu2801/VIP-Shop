@@ -1,9 +1,7 @@
 @charset "UTF-8";
 
 /**
- * @copyright     2022 beikeshop.com - All Rights Reserved.
- * @link          https://beikeshop.com
- * @Author        pu shuo <pushuo@guangda.work>
+
  * @Date          2022-09-03 22:32:29
  * @LastEditTime  2022-09-16 20:55:12
  */
@@ -16,10 +14,11 @@ header {
     background-color: #fb5831;
     display: flex;
 
-    > .container, .container-fluid {
+    > .container,
+    .container-fluid {
       max-width: 1700px;
 
-      @media (max-width:768px) {
+      @media (max-width: 768px) {
         padding: 0 10px;
       }
     }
@@ -31,7 +30,7 @@ header {
         .dropdown-menu {
           display: block;
           border: none;
-          box-shadow: 0 0 15px rgb(0, 0, 0, .1);
+          box-shadow: 0 0 15px rgb(0, 0, 0, 0.1);
 
           &.dropdown-menu-end {
             right: 0;
@@ -58,9 +57,9 @@ header {
         opacity: 0;
         display: block;
         transform-origin: top center;
-        transition: all .2s ease-in-out;
+        transition: all 0.2s ease-in-out;
         transform: translate(-50%, 0.5rem);
-        box-shadow: 0 0 15px rgb(0, 0, 0, .1);
+        box-shadow: 0 0 15px rgb(0, 0, 0, 0.1);
       }
 
       &:hover {
@@ -77,7 +76,7 @@ header {
     position: relative;
     background-color: #fff;
     padding: 1rem 0;
-    transition: all .2s ease-in-out;
+    transition: all 0.2s ease-in-out;
     border-bottom: 1px solid #eee;
     background-color: #fc5831;
 
@@ -91,12 +90,13 @@ header {
       left: 0;
       right: 0;
       z-index: 999;
-      padding: .4rem 0;
+      padding: 0.4rem 0;
       border-color: transparent;
-      box-shadow: 0 6px 12px 0 rgba(0, 0, 0, .06);
+      box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.06);
     }
 
-    > .container, .container-fluid {
+    > .container,
+    .container-fluid {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -133,8 +133,8 @@ header {
                 left: 10px;
                 border: 4px solid;
                 border-color: inherit;
-                border-right-color: #0000!important;
-                border-bottom-color: #0000!important;
+                border-right-color: #0000 !important;
+                border-bottom-color: #0000 !important;
                 border-right-width: 7px;
                 border-left-width: 0;
               }
@@ -202,7 +202,7 @@ header {
       left: 0;
       right: 0;
       z-index: 999;
-      box-shadow: 0 8px 14px 0 rgba(0, 0, 0, .1);
+      box-shadow: 0 8px 14px 0 rgba(0, 0, 0, 0.1);
       background: #fff;
       border-color: transparent;
     }
@@ -361,7 +361,6 @@ header {
   }
 
   .offcanvas-footer {
-
   }
 }
 
@@ -427,7 +426,7 @@ header {
             &[aria-expanded="true"] {
               background-color: #eee;
               i {
-                transform:rotate(180deg);
+                transform: rotate(180deg);
               }
             }
           }

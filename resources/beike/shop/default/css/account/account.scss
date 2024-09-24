@@ -1,9 +1,7 @@
 @charset "UTF-8";
 
 /**
- * @copyright     2022 beikeshop.com - All Rights Reserved.
- * @link          https://beikeshop.com
- * @Author        pu shuo <pushuo@guangda.work>
+
  * @Date          2022-09-01 16:23:34
  * @LastEditTime  2022-09-16 20:57:19
  */
@@ -17,26 +15,26 @@ body.page-account {
     border: 1px solid #ee4d2d;
   }
 
-  .completed-status-text{
+  .completed-status-text {
     background-color: limegreen;
     color: white;
     padding: 4px 16px;
     border-radius: 4px;
   }
 
-  .paid-status-text{
+  .paid-status-text {
     background-color: #ee4d2d;
     color: white;
     padding: 4px 16px;
     border-radius: 4px;
   }
 
-  .shipped-status-text{
-    color:black;
+  .shipped-status-text {
+    color: black;
   }
 
-  .cancelled-status-text{
-    color:white;
+  .cancelled-status-text {
+    color: white;
     background-color: red;
     padding: 4px 16px;
     border-radius: 4px;
@@ -69,7 +67,7 @@ body.page-account {
     .order-wrap {
       background-color: #f6f8f9;
 
-      @media (min-width:768px) {
+      @media (min-width: 768px) {
         padding: 2rem 1rem;
       }
 
@@ -88,7 +86,7 @@ body.page-account {
 }
 
 .account-sides-info {
-  @media (max-width:768px) {
+  @media (max-width: 768px) {
     margin-bottom: 14px;
   }
 }

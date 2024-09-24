@@ -2,9 +2,7 @@
 /**
  * BrandController.php
  *
- * @copyright  2022 beikeshop.com - All Rights Reserved
- * @link       https://beikeshop.com
- * @author     licy <licy@guangda.work>
+
  * @created    2023-10-11 11:17:04
  * @modified   2023-10-11 11:17:04
  */

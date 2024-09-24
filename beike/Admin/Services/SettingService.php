@@ -1,13 +1,5 @@
 <?php
-/**
- * SettingService.php
- *
- * @copyright  2023 beikeshop.com - All Rights Reserved
- * @link       https://beikeshop.com
- * @author     TL <mengwb@guangda.work>
- * @created    2023-12-13 12:12:57
- * @modified   2023-12-13 12:12:57
- */
+
 
 namespace Beike\Admin\Services;
 

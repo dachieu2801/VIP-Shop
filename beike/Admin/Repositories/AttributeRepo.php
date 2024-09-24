@@ -1,13 +1,4 @@
 <?php
-/**
- * AttributeRepo.php
- *
- * @copyright  2023 beikeshop.com - All Rights Reserved
- * @link       https://beikeshop.com
- * @author     TL <mengwb@guangda.work>
- * @created    2023-01-04 19:45:41
- * @modified   2023-01-04 19:45:41
- */
 
 namespace Beike\Admin\Repositories;
 

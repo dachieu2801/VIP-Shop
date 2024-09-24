@@ -1,39 +1,38 @@
 @charset "UTF-8";
 
 /**
- * @copyright     2022 beikeshop.com - All Rights Reserved.
- * @link          https://beikeshop.com
- * @Author        pu shuo <pushuo@guangda.work>
+
  * @Date          2022-08-02 19:19:52
  * @LastEditTime  2022-09-16 20:57:36
  */
 
 .swiper.module-slideshow {
-  --swiper-theme-color: #ff6600;/* 设置Swiper风格 */
-  --swiper-navigation-color: #ff6600;/* 单独设置按钮颜色 */
-  --swiper-navigation-size: 30px;/* 设置按钮大小 */
-.swiper-wrapper {
-  .img-fluid{
-    height: 200px;
+  --swiper-theme-color: #ff6600; /* 设置Swiper风格 */
+  --swiper-navigation-color: #ff6600; /* 单独设置按钮颜色 */
+  --swiper-navigation-size: 30px; /* 设置按钮大小 */
+  .swiper-wrapper {
+    .img-fluid {
+      height: 200px;
+    }
   }
-}
-  .swiper-button-prev,.swiper-button-next {
+  .swiper-button-prev,
+  .swiper-button-next {
     display: none;
   }
 
   &:hover {
-    .swiper-button-prev,.swiper-button-next {
+    .swiper-button-prev,
+    .swiper-button-next {
       display: block;
     }
   }
-
 }
-
 
 .swiper-style-plus {
   position: relative;
 
-  .swiper-button-prev,.swiper-button-next {
+  .swiper-button-prev,
+  .swiper-button-next {
     width: 34px;
     height: 37px;
     color: #999;
@@ -48,7 +47,6 @@
     &:after {
       font-size: 26px;
     }
-
   }
 
   .swiper-button-prev {
@@ -72,4 +70,3 @@
     }
   }
 }
-

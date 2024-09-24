@@ -1,13 +1,5 @@
 <?php
-/**
- * Asset.php
- *
- * @copyright  2023 beikeshop.com - All Rights Reserved
- * @link       https://beikeshop.com
- * @author     Edward Yang <yangjin@guangda.work>
- * @created    2023-03-03 14:50:31
- * @modified   2023-03-03 14:50:31
- */
+
 
 namespace Beike\Plugin;
 

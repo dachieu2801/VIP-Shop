@@ -1,16 +1,16 @@
 @charset "UTF-8";
 
 /**
- * @copyright     2022 beikeshop.com - All Rights Reserved.
- * @link          https://beikeshop.com
- * @Author        pu shuo <pushuo@guangda.work>
+
  * @Date          2022-08-02 19:19:52
  * @LastEditTime  2022-09-16 20:57:06
  */
 
 $bootstrap-icons-font: "bootstrap-icons" !default;
-$bootstrap-icons-font-src: url("/vendor/bootstrap/icon/bootstrap-icons.woff2?08efbba7c53d8c5413793eecb19b20bb") format("woff2"),
-url("/vendor/bootstrap/icon/bootstrap-icons.woff?08efbba7c53d8c5413793eecb19b20bb") format("woff") !default;
+$bootstrap-icons-font-src: url("/vendor/bootstrap/icon/bootstrap-icons.woff2?08efbba7c53d8c5413793eecb19b20bb")
+    format("woff2"),
+  url("/vendor/bootstrap/icon/bootstrap-icons.woff?08efbba7c53d8c5413793eecb19b20bb")
+    format("woff") !default;
 
 @font-face {
   font-display: block;
@@ -28,7 +28,7 @@ url("/vendor/bootstrap/icon/bootstrap-icons.woff?08efbba7c53d8c5413793eecb19b20b
   font-variant: normal;
   text-transform: none;
   line-height: 1;
-  vertical-align: -.125em;
+  vertical-align: -0.125em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -1990,5 +1990,7 @@ $bootstrap-icons-map: (
 );
 
 @each $icon, $codepoint in $bootstrap-icons-map {
-  .bi-#{$icon}::before { content: $codepoint; }
+  .bi-#{$icon}::before {
+    content: $codepoint;
+  }
 }
