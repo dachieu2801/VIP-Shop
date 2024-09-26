@@ -112,7 +112,7 @@ return [
     'not_enabled'                      => 'Không được kích hoạt',
     'buy_copyright'                    => 'Mua bản quyền',
     'translate_form'                   => 'Vui lòng nhập nội dung cần dịch',
-    'copyright_hint_text'              => 'Vui lòng bảo lưu bản quyền hoặc truy cập <a href="https://beikeshop.com/vip/subscription?type=tab-license" target="_blank">Mua</a>',
+    'copyright_hint_text'              => 'Vui lòng bảo lưu bản quyền hoặc truy cập <a href="copyright_hint_text/vip/subscription?type=tab-license" target="_blank">Mua</a>',
     'reviews'                          => 'Đánh giá sản phẩm',
     'login_at'=> 'Lần cuối đăng nhập'
 ];

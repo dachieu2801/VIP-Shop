@@ -75,14 +75,11 @@ class ShopServiceProvider extends ServiceProvider
         ]);
     }
 
-    /**
-     * 注册上传文件系统
-     */
     protected function registerFileSystem()
     {
         Config::set('filesystems.disks.upload', [
             'driver'      => 'local',
-            'root'        => public_path('upload'),
+            'root'        => base_path("../upload"),
             'permissions' => [
                 'file' => [
                     'public'  => 0755,

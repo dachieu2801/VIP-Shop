@@ -1,13 +1,4 @@
 <?php
-/**
- * ShareViewData.php
- *
- * @copyright  2022 beikeshop.com - All Rights Reserved
- * @link       https://beikeshop.com
- * @author     Edward Yang <yangjin@guangda.work>
- * @created    2022-08-03 15:46:13
- * @modified   2022-08-03 15:46:13
- */
 
 namespace App\Http\Middleware;
 

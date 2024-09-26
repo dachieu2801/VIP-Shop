@@ -1,18 +1,10 @@
 <?php
-/**
- * FileManagerService.php
- *
- * @copyright  2022 beikeshop.com - All Rights Reserved
- * @link       https://beikeshop.com
- * @author     Edward Yang <yangjin@guangda.work>
- * @created    2022-07-12 15:12:48
- * @modified   2022-07-12 15:12:48
- */
 
 namespace Beike\Admin\Services;
 
 use Illuminate\Support\Facades\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Illuminate\Support\Facades\Log;
 
 class FileManagerService
 {
@@ -22,12 +14,26 @@ class FileManagerService
 
     public function __construct()
     {
-        $this->fileBasePath = public_path('catalog') . $this->basePath;
+        $this->fileBasePath =  base_path("..") . "/catalog" . $this->basePath;
     }
 
-    /**
-     * 获取某个目录下所有文件夹
-     */
+    public function uploadFile(UploadedFile $file, $savePath, $originName): mixed
+    {
+        $originName = $this->getUniqueFileName($savePath, $originName);
+        
+        $destinationPath = base_path("..") . "/catalog" . $savePath; 
+    
+        if (!File::exists($destinationPath)) {
+            File::makeDirectory($destinationPath, 0755, true);
+        }
+    
+        $file->move($destinationPath, $originName);
+    
+        Log::info('File uploaded successfully', ['path' => asset('catalog' . $savePath  . $originName)]);
+    
+        return asset('catalog' . $savePath  . $originName);
+    }
+
     public function getDirectories($baseFolder = '/'): array
     {
         $currentBasePath = rtrim($this->fileBasePath . $baseFolder, '/');
@@ -51,18 +57,6 @@ class FileManagerService
         return $result;
     }
 
-    /**
-     * 获取某个目录下的文件和文件夹
-     *
-     * @param     $baseFolder
-     * @param     $keyword
-     * @param     $sort
-     * @param     $order
-     * @param int $page
-     * @param int $perPage
-     * @return array
-     * @throws \Exception
-     */
     public function getFiles($baseFolder, $keyword, $sort, $order, int $page = 1, int $perPage = 20): array
     {
         $currentBasePath = rtrim($this->fileBasePath . $baseFolder, '/');
@@ -94,7 +88,7 @@ class FileManagerService
             if ($keyword && ! str_contains($baseName, $keyword)) {
                 continue;
             }
-            $fileName = str_replace(public_path('catalog'), '', $file);
+            $fileName = str_replace( base_path("..") .'/catalog', '', $file);
             if (is_file($file)) {
                 $images[] = $this->handleImage($fileName, $baseName);
             }
@@ -112,28 +106,16 @@ class FileManagerService
         ];
     }
 
-    /**
-     * 创建目录
-     * @param             $folderName
-     * @throws \Exception
-     */
     public function createDirectory($folderName)
     {
         $catalogFolderPath = "catalog{$this->basePath}/{$folderName}";
-        $folderPath        = public_path($catalogFolderPath);
+        $folderPath = base_path("../{$catalogFolderPath}");
         if (is_dir($folderPath)) {
             throw new \Exception(trans('admin/file_manager.directory_already_exist'));
         }
         create_directories($catalogFolderPath);
     }
 
-    /**
-     * 移动文件夹
-     *
-     * @param             $sourcePath
-     * @param             $destPath
-     * @throws \Exception
-     */
     public function moveDirectory($sourcePath, $destPath)
     {
         if (empty($sourcePath)) {
@@ -144,15 +126,15 @@ class FileManagerService
         }
 
         $folderName    = basename($sourcePath);
-        $sourceDirPath = public_path("catalog{$this->basePath}{$sourcePath}/");
+        $sourceDirPath = base_path("../catalog{$this->basePath}{$sourcePath}/");
 
         if ($destPath != '/') {
-            $destDirPath = public_path("catalog{$this->basePath}{$destPath}/");
+            $destDirPath = base_path("../catalog{$this->basePath}{$destPath}/");
         } else {
-            $destDirPath = public_path("catalog{$this->basePath}{$destPath}");
+            $destDirPath = base_path("../catalog{$this->basePath}{$destPath}");
         }
 
-        $destFullPath = public_path("catalog{$this->basePath}{$destPath}/{$folderName}");
+        $destFullPath = base_path("../catalog{$this->basePath}{$destPath}/{$folderName}");
         if (! File::exists($destFullPath)) {
             move_dir($sourceDirPath, $destDirPath);
         } else {
@@ -160,50 +142,34 @@ class FileManagerService
         }
     }
 
-    /**
-     * 批量移动图片文件
-     *
-     * @param $images
-     * @param $destPath
-     */
     public function moveFiles($images, $destPath)
     {
         if ($destPath != '/') {
-            $destDirPath = public_path("catalog{$this->basePath}{$destPath}/");
+            $destDirPath = base_path("../catalog{$this->basePath}{$destPath}/");
         } else {
-            $destDirPath = public_path("catalog{$this->basePath}{$destPath}");
+            $destDirPath = base_path("../catalog{$this->basePath}{$destPath}");
         }
 
         foreach ($images as $image) {
-            $sourceDirPath = public_path($image);
+            $sourceDirPath = base_path("../{$image}");
             File::move($sourceDirPath, $destDirPath . basename($sourceDirPath));
         }
     }
 
-    /**
-     * @param $imagePath
-     * @return string
-     */
     public function zipFolder($imagePath): string
     {
         $realPath = $this->fileBasePath . $imagePath;
         $dirName  = basename($realPath);
         $zipName  = $dirName . '-' . date('Ymd') . '.zip';
-        $zipPath  = public_path("{$zipName}");
+        $zipPath  = base_path("../{$zipName}");
         zip_folder($realPath, $zipPath);
 
         return $zipPath;
     }
 
-    /**
-     * 删除文件或文件夹
-     *
-     * @param             $filePath
-     * @throws \Exception
-     */
     public function deleteDirectoryOrFile($filePath)
     {
-        $filePath = public_path("catalog{$this->basePath}/{$filePath}");
+        $filePath = base_path("../catalog{$this->basePath}/{$filePath}");
         if (is_dir($filePath)) {
             $files = glob($filePath . '/*');
             if ($files) {
@@ -215,35 +181,23 @@ class FileManagerService
         }
     }
 
-    /**
-     * 批量删除文件
-     *
-     * @param $basePath
-     * @param $files
-     */
     public function deleteFiles($basePath, $files)
     {
         if (empty($basePath) && empty($files)) {
             return;
         }
         foreach ($files as $file) {
-            $filePath = public_path("catalog{$this->basePath}/{$basePath}/$file");
+            $filePath = base_path("../catalog{$this->basePath}/{$basePath}/$file");
             if (file_exists($filePath)) {
                 @unlink($filePath);
             }
         }
     }
 
-    /**
-     * 修改文件夹或者文件名称
-     *
-     * @param             $originPath
-     * @param             $newPath
-     * @throws \Exception
-     */
+    
     public function updateName($originPath, $newPath)
     {
-        $originPath = public_path("catalog{$this->basePath}/{$originPath}");
+        $originPath = base_path("../catalog{$this->basePath}/{$originPath}");
         if (! is_dir($originPath) && ! file_exists($originPath)) {
             throw new \Exception(trans('admin/file_manager.target_not_exist'));
         }
@@ -261,25 +215,9 @@ class FileManagerService
         }
     }
 
-    /**
-     * 上传文件
-     *
-     * @param $file
-     * @param $savePath
-     * @param $originName
-     * @return mixed
-     */
-    public function uploadFile(UploadedFile $file, $savePath, $originName): mixed
-    {
-        $originName = $this->getUniqueFileName($savePath, $originName);
-        $filePath   = $file->storeAs($this->basePath . $savePath, $originName, 'catalog');
-
-        return asset('catalog/' . $filePath);
-    }
-
     public function getUniqueFileName($savePath, $originName): string
     {
-        if (is_file(public_path('catalog' . $this->basePath . $savePath . '/' . $originName))) {
+        if (is_file(base_path('../catalog' . $this->basePath . $savePath . '/' . $originName))) {
             $originName     = $this->getNewFileName($originName);
             $originName     = $this->getUniqueFileName($savePath, $originName);
         }
@@ -306,13 +244,6 @@ class FileManagerService
         return $originName;
     }
 
-    /**
-     * 处理文件夹
-     *
-     * @param $folderPath
-     * @param $baseName
-     * @return array
-     */
     private function handleFolder($folderPath, $baseName): array
     {
         return [
@@ -321,15 +252,9 @@ class FileManagerService
         ];
     }
 
-    /**
-     * 检测是否含有子文件夹
-     *
-     * @param $folderPath
-     * @return bool
-     */
     private function hasSubFolders($folderPath): bool
     {
-        $path     = public_path("catalog{$this->basePath}/{$folderPath}");
+        $path     = base_path("../catalog{$this->basePath}/{$folderPath}");
         $subFiles = glob($path . '/*');
         foreach ($subFiles as $subFile) {
             if (is_dir($subFile)) {
@@ -340,14 +265,6 @@ class FileManagerService
         return false;
     }
 
-    /**
-     * 处理文件
-     *
-     * @param $filePath
-     * @param $baseName
-     * @return array
-     * @throws \Exception
-     */
     private function handleImage($filePath, $baseName): array
     {
         $path     = "catalog{$filePath}";
