@@ -631,8 +631,8 @@ function create_directories($directoryPath)
     $directories = explode('/', $directoryPath);
     foreach ($directories as $directory) {
         $path = $path . '/' . $directory;
-        if (! is_dir(public_path($path))) {
-            @mkdir(public_path($path), 0755);
+        if (! is_dir(base_path("../{$path}"))) {
+            @mkdir(base_path("../{$path}"), 0755);
         }
     }
 }
@@ -822,7 +822,6 @@ function check_license(): bool
 
 //    return $configLicenceCode == md5(mb_substr(md5($registerDomain), 2, 8));
     return true;
-
 }
 
 /**

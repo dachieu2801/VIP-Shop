@@ -130,7 +130,7 @@ Route::prefix($adminName)
 
                 Route::put('edit', [Controllers\EditController::class, 'update'])->name('edit');
                 Route::get('edit/locale', [Controllers\EditController::class, 'locale'])->name('edit.locale');
-
+ 
                 // 图片库
                 Route::middleware('can:file_manager_show')->get('file_manager', [Controllers\FileManagerController::class, 'index'])->name('file_manager.index');
                 Route::middleware('can:file_manager_show')->get('file_manager/files', [Controllers\FileManagerController::class, 'getFiles'])->name('file_manager.get_files');
