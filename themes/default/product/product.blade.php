@@ -213,7 +213,8 @@
                         padding-left: 20px;
                         padding-right: 20px;
                     "
-                    ><i class="bi bi-cart-fill me-1"></i>{{ __('shop/products.add_to_cart') }}
+                    ><i class="bi bi-cart-fill me-1"></i>
+                    {{ __('shop/products.add_to_cart') }}
                     </button>
                     @endhookwrapper
                     @hookwrapper('product.detail.buy_now')

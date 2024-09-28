@@ -81,7 +81,7 @@
               <div class="help-text mb-1 mt-1">{{ __('admin/product.image_help') }}</div>
             </x-admin::form.row>
 
-            <x-admin::form.row title="{{ __('product.video') }}">
+            <!-- <x-admin::form.row title="{{ __('product.video') }}">
               <div class="wp-400 border">
                 <div class="nav nav-tabs video-nav-tabs" role="tablist">
                   <button :class="['nav-link rounded-0', form.video.videoType == 'local' ? 'active' : '']" @click="videoTypeChange('local')" data-bs-toggle="tab" data-bs-target="#nav-v-local" type="button">{{ __('admin/product.video_local') }}</button>
@@ -93,6 +93,7 @@
                   <div :class="['tab-pane fade ', form.video.videoType == 'local' ? 'show active' : '']" id="nav-v-local">
                     <div class="d-flex align-items-end">
                       <div class="set-product-img wh-80 rounded-2 me-2" @click="addProductVideo">
+                        
                         <i v-if="form.video.url" class="bi bi-play-circle fs-1"></i>
                         <i v-else class="bi bi-plus fs-1 text-muted"></i>
                       </div>
@@ -113,7 +114,7 @@
 
                 <input type="hidden" name="video" :value="form.video.path">
               </div>
-            </x-admin::form.row>
+            </x-admin::form.row> -->
 
             <x-admin-form-input name="position" :title="__('common.sort_order')" :value="old('position', $product->position ?? '0')" />
 

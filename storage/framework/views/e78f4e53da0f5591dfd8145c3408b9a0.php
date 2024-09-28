@@ -415,26 +415,33 @@
             </div>
           </div>
         </div>
-        <?php for($i = 1; $i <= 3; $i++): ?>
-          <?php
-            $link = $footer_content['content']['link' . $i];
-          ?>
-          <div class="col-12 col-md footer-content-link<?php echo e($i); ?> footer-link-wrap">
-            <h6 class="text-uppercase text-dark"><?php echo e($link['title'][locale()] ?? ''); ?><span class="icon-open"><i class="bi bi-plus-lg"></i></span></h6>
-            <ul class="list-unstyled">
-              <?php $__currentLoopData = $link['links']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <?php if($item['link']): ?>
-                <li class="lh-lg mb-2">
-                  <a href="<?php echo e($item['link']); ?>" <?php if(isset($item['new_window']) && $item['new_window']): ?> target="_blank" <?php endif; ?>>
-                    <?php echo e($item['text']); ?>
+        <?php $__currentLoopData = $footer_content['content']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $link): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+  <?php if(strpos($key, 'link') === 0 && !empty($link)): ?>
+    <div class="col-12 col-md footer-content-<?php echo e($key); ?> footer-link-wrap">
+      <h6 class="text-uppercase text-dark">
+        <?php echo e($link['title'][locale()] ?? ''); ?>
 
-                  </a>
-                </li>
-              <?php endif; ?>
-              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-            </ul>
-          </div>
-        <?php endfor; ?>
+        <span class="icon-open"><i class="bi bi-plus-lg"></i></span>
+      </h6>
+
+      <?php if(!empty($link['links'])): ?>
+        <ul class="list-unstyled">
+          <?php $__currentLoopData = $link['links']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <?php if(!empty($item['link'])): ?>
+              <li class="lh-lg mb-2">
+                <a href="<?php echo e($item['link']); ?>" 
+                   <?php if(!empty($item['new_window'])): ?> target="_blank" <?php endif; ?>>
+                  <?php echo e($item['text'] ?? ''); ?>
+
+                </a>
+              </li>
+            <?php endif; ?>
+          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        </ul>
+      <?php endif; ?>
+    </div>
+  <?php endif; ?>
+<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
          <?php
                 $__definedVars = (get_defined_vars()["__data"]);

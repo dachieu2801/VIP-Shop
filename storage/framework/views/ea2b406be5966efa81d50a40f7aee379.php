@@ -1,15 +1,53 @@
-@extends('admin::layouts.master')
 
-@section('title', __('admin/common.product'))
 
-@section('content')
-  @if ($errors->has('error'))
-    <x-admin-alert type="danger" msg="{{ $errors->first('error') }}" class="mt-4" />
-  @endif
+<?php $__env->startSection('title', __('admin/common.product')); ?>
 
-  @if (session()->has('success'))
-    <x-admin-alert type="success" msg="{{ session('success') }}" class="mt-4" />
-  @endif
+<?php $__env->startSection('content'); ?>
+  <?php if($errors->has('error')): ?>
+    <?php if (isset($component)) { $__componentOriginal18fd067f3cb26aee8acdd02921cdd9f8 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal18fd067f3cb26aee8acdd02921cdd9f8 = $attributes; } ?>
+<?php $component = Beike\Admin\View\Components\Alert::resolve(['type' => 'danger','msg' => ''.e($errors->first('error')).''] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('admin-alert'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Beike\Admin\View\Components\Alert::class))->getConstructor()): ?>
+<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['class' => 'mt-4']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal18fd067f3cb26aee8acdd02921cdd9f8)): ?>
+<?php $attributes = $__attributesOriginal18fd067f3cb26aee8acdd02921cdd9f8; ?>
+<?php unset($__attributesOriginal18fd067f3cb26aee8acdd02921cdd9f8); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal18fd067f3cb26aee8acdd02921cdd9f8)): ?>
+<?php $component = $__componentOriginal18fd067f3cb26aee8acdd02921cdd9f8; ?>
+<?php unset($__componentOriginal18fd067f3cb26aee8acdd02921cdd9f8); ?>
+<?php endif; ?>
+  <?php endif; ?>
+
+  <?php if(session()->has('success')): ?>
+    <?php if (isset($component)) { $__componentOriginal18fd067f3cb26aee8acdd02921cdd9f8 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal18fd067f3cb26aee8acdd02921cdd9f8 = $attributes; } ?>
+<?php $component = Beike\Admin\View\Components\Alert::resolve(['type' => 'success','msg' => ''.e(session('success')).''] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('admin-alert'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Beike\Admin\View\Components\Alert::class))->getConstructor()): ?>
+<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['class' => 'mt-4']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal18fd067f3cb26aee8acdd02921cdd9f8)): ?>
+<?php $attributes = $__attributesOriginal18fd067f3cb26aee8acdd02921cdd9f8; ?>
+<?php unset($__attributesOriginal18fd067f3cb26aee8acdd02921cdd9f8); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal18fd067f3cb26aee8acdd02921cdd9f8)): ?>
+<?php $component = $__componentOriginal18fd067f3cb26aee8acdd02921cdd9f8; ?>
+<?php unset($__componentOriginal18fd067f3cb26aee8acdd02921cdd9f8); ?>
+<?php endif; ?>
+  <?php endif; ?>
 
   <div id="product-app">
 
@@ -19,28 +57,28 @@
         <div class="bg-light p-4">
           <div class="row">
             <div class="col-xxl-20 col-xl-3 col-lg-4 col-md-4 d-flex align-items-center mb-3">
-              <label class="filter-title">{{ __('product.name') }}</label>
-              <input @keyup.enter="search" type="text" v-model="filter.name" class="form-control" placeholder="{{ __('product.name') }}">
+              <label class="filter-title"><?php echo e(__('product.name')); ?></label>
+              <input @keyup.enter="search" type="text" v-model="filter.name" class="form-control" placeholder="<?php echo e(__('product.name')); ?>">
             </div>
             <div class="col-xxl-20 col-xl-3 col-lg-4 col-md-4 d-flex align-items-center mb-3">
-              <label class="filter-title">{{ __('product.sku') }}</label>
-              <input @keyup.enter="search" type="text" v-model="filter.sku" class="form-control" placeholder="{{ __('product.sku') }}">
+              <label class="filter-title"><?php echo e(__('product.sku')); ?></label>
+              <input @keyup.enter="search" type="text" v-model="filter.sku" class="form-control" placeholder="<?php echo e(__('product.sku')); ?>">
             </div>
 
             <div class="col-xxl-20 col-xl-3 col-lg-4 col-md-4 d-flex align-items-center mb-3">
-              <label class="filter-title">{{ __('product.model') }}</label>
-              <input @keyup.enter="search" type="text" v-model="filter.model" class="form-control" placeholder="{{ __('product.model') }}">
+              <label class="filter-title"><?php echo e(__('product.model')); ?></label>
+              <input @keyup.enter="search" type="text" v-model="filter.model" class="form-control" placeholder="<?php echo e(__('product.model')); ?>">
             </div>
 
 
 
             <div class="col-xxl-20 col-xl-3 col-lg-4 col-md-4 d-flex align-items-center mb-3">
-              <label class="filter-title">{{ __('product.category') }}</label>
+              <label class="filter-title"><?php echo e(__('product.category')); ?></label>
               <select v-model="filter.category_id" class="form-select">
-                <option value="">{{ __('common.all') }}</option>
-                @foreach ($categories as $_category)
-                  <option :value="{{ $_category->id }}">{{ $_category->name }}</option>
-                @endforeach
+                <option value=""><?php echo e(__('common.all')); ?></option>
+                <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $_category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                  <option :value="<?php echo e($_category->id); ?>"><?php echo e($_category->name); ?></option>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
               </select>
             </div>
 
@@ -54,70 +92,81 @@
             </div>
 
             <div class="col-xxl-20 col-xl-3 col-lg-4 col-md-4 d-flex align-items-center mb-3">
-              <label class="filter-title">{{ __('common.status') }}</label>
+              <label class="filter-title"><?php echo e(__('common.status')); ?></label>
               <select v-model="filter.active" class="form-select">
-                <option value="">{{ __('common.all') }}</option>
-                <option value="1">{{ __('product.active') }}</option>
-                <option value="0">{{ __('product.inactive') }}</option>
+                <option value=""><?php echo e(__('common.all')); ?></option>
+                <option value="1"><?php echo e(__('product.active')); ?></option>
+                <option value="0"><?php echo e(__('product.inactive')); ?></option>
               </select>
             </div>
 
-            @hook('admin.product.list.filter')
+             <?php
+                $__definedVars = (get_defined_vars()["__data"]);
+                if (empty($__definedVars))
+                {
+                    $__definedVars = [];
+                }
+                
+                $output = \Hook::getHook("admin.product.list.filter",["data"=>$__definedVars],function($data) { return null; });
+                if ($output)
+                echo $output;
+                ?>
           </div>
 
           <div class="row">
             <label class="filter-title"></label>
             <div class="col-auto">
-              <button type="button" @click="search" class="btn btn-outline-primary btn-sm">{{ __('common.filter') }}</button>
-              <button type="button" @click="resetSearch" class="btn btn-outline-secondary btn-sm">{{ __('common.reset') }}</button>
+              <button type="button" @click="search" class="btn btn-outline-primary btn-sm"><?php echo e(__('common.filter')); ?></button>
+              <button type="button" @click="resetSearch" class="btn btn-outline-secondary btn-sm"><?php echo e(__('common.reset')); ?></button>
             </div>
           </div>
         </div>
 
         <div class="d-flex justify-content-between my-4 flex-wrap gap-2">
-          @if ($type != 'trashed')
+          <?php if($type != 'trashed'): ?>
           <div class="me-1 nowrap">
 
-            <a href="{{ admin_route('products.create') }}" >
-              <button class="btn btn-primary">{{ __('admin/product.products_create') }}</button>
+            <a href="<?php echo e(admin_route('products.create')); ?>" >
+              <button class="btn btn-primary"><?php echo e(__('admin/product.products_create')); ?></button>
             </a>
 
               <input type="file" id="import-excel" accept=".xlsx, .xls">
               <button class="btn btn-success text-white"  id="upload-excel">Upload Excel</button>
 
               <button id="export-example-excel" class="btn btn-light">Tải file excel mẫu</button>
-              <button id="export-excel" class="btn btn-danger">{{ __('admin/product.export_excel') }}</button>
+              <button id="export-excel" class="btn btn-danger"><?php echo e(__('admin/product.export_excel')); ?></button>
           </div>
-          @else
-            @if ($products->total())
-              <button class="btn btn-primary" @click="clearRestore">{{ __('admin/product.clear_restore') }}</button>
-            @endif
-          @endif
+          <?php else: ?>
+            <?php if($products->total()): ?>
+              <button class="btn btn-primary" @click="clearRestore"><?php echo e(__('admin/product.clear_restore')); ?></button>
+            <?php endif; ?>
+          <?php endif; ?>
 
-          @if ($type != 'trashed' && $products->total())
+          <?php if($type != 'trashed' && $products->total()): ?>
             <div class="d-flex gap-2 flex-wrap">
-              <button class="btn btn-outline-secondary" :disabled="!selectedIds.length" @click="batchDelete">{{ __('admin/product.batch_delete')  }}</button>
+              <button class="btn btn-outline-secondary" :disabled="!selectedIds.length" @click="batchDelete"><?php echo e(__('admin/product.batch_delete')); ?></button>
               <button class="btn btn-outline-secondary" :disabled="!selectedIds.length"
-              @click="batchActive(true)">{{ __('admin/product.batch_active') }}</button>
+              @click="batchActive(true)"><?php echo e(__('admin/product.batch_active')); ?></button>
               <button class="btn btn-outline-secondary" :disabled="!selectedIds.length"
-              @click="batchActive(false)">{{ __('admin/product.batch_inactive') }}</button>
+              @click="batchActive(false)"><?php echo e(__('admin/product.batch_inactive')); ?></button>
             </div>
-          @endif
+          <?php endif; ?>
         </div>
 
-        @if ($products->total())
+        <?php if($products->total()): ?>
           <div class="table-push overflow-auto">
             <table class="table table-hover">
               <thead>
                 <tr>
                   <th><input type="checkbox" v-model="allSelected" /></th>
-                  <th class="d-none d-md-table-cell">{{ __('common.id') }}</th>
-                  <th>{{ __('product.image') }}</th>
-                  <th>{{ __('product.name') }}</th>
-                  <th>{{ __('product.price') }}</th>
+                  <th class="d-none d-md-table-cell"><?php echo e(__('common.id')); ?></th>
+                  <th><?php echo e(__('product.image')); ?></th>
+                  <th><?php echo e(__('product.name')); ?></th>
+                  <th><?php echo e(__('product.price')); ?></th>
                   <th class="d-none d-md-table-cell">
                     <div class="d-flex align-items-center">
-                        {{ __('common.created_at') }}
+                        <?php echo e(__('common.created_at')); ?>
+
                       <div class="d-flex flex-column ml-1 order-by-wrap">
                         <i class="el-icon-caret-top" @click="checkedOrderBy('created_at:asc')"></i>
                         <i class="el-icon-caret-bottom" @click="checkedOrderBy('created_at:desc')"></i>
@@ -136,90 +185,160 @@
                   </th>
                   <th>Tồn kho</th>
                   <th>Trạng thái tồn kho</th>
-                  @if ($type != 'trashed')
-                    <th>{{ __('common.status') }}</th>
-                  @endif
-                  @hook('admin.product.list.column')
-                  <th class="text-center">{{ __('common.action') }}</th>
+                  <?php if($type != 'trashed'): ?>
+                    <th><?php echo e(__('common.status')); ?></th>
+                  <?php endif; ?>
+                   <?php
+                $__definedVars = (get_defined_vars()["__data"]);
+                if (empty($__definedVars))
+                {
+                    $__definedVars = [];
+                }
+                
+                $output = \Hook::getHook("admin.product.list.column",["data"=>$__definedVars],function($data) { return null; });
+                if ($output)
+                echo $output;
+                ?>
+                  <th class="text-center"><?php echo e(__('common.action')); ?></th>
                 </tr>
               </thead>
               <tbody>
-                @foreach ($products_format as $product)
+                <?php $__currentLoopData = $products_format; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <tr>
-                  <td><input type="checkbox" :value="{{ $product['id'] }}" v-model="selectedIds" /></td>
-                  <td class="d-none d-md-table-cell">{{ $product['id'] }}</td>
+                  <td><input type="checkbox" :value="<?php echo e($product['id']); ?>" v-model="selectedIds" /></td>
+                  <td class="d-none d-md-table-cell"><?php echo e($product['id']); ?></td>
                   <td>
-                    <div class="wh-60 border d-flex rounded-2 justify-content-center align-items-center"><img src="{{ $product['images'][0] ?? 'image/placeholder.png' }}" class="img-fluid max-h-100"></div>
+                    <div class="wh-60 border d-flex rounded-2 justify-content-center align-items-center"><img src="<?php echo e($product['images'][0] ?? 'image/placeholder.png'); ?>" class="img-fluid max-h-100"></div>
                   </td>
                   <td>
-                    <a href="{{ $product['url'] }}" target="_blank" title="{{ $product['name'] }}" class="text-dark">{{ $product['name'] }}</a>
+                    <a href="<?php echo e($product['url']); ?>" target="_blank" title="<?php echo e($product['name']); ?>" class="text-dark"><?php echo e($product['name']); ?></a>
                   </td>
-                  <td>{{ $product['price_formatted'] }}</td>
-                  <td class="d-none d-md-table-cell">{{ $product['created_at'] }}</td>
-                  <td class="d-none d-md-table-cell text-center">{{ $product['position'] }}</td>
-                  <td class="text-center">{{$product['quantity']}}</td>
+                  <td><?php echo e($product['price_formatted']); ?></td>
+                  <td class="d-none d-md-table-cell"><?php echo e($product['created_at']); ?></td>
+                  <td class="d-none d-md-table-cell text-center"><?php echo e($product['position']); ?></td>
+                  <td class="text-center"><?php echo e($product['quantity']); ?></td>
                   <td>
                     <div class="
-    @if($product['status_quantity'] == 'Normal') bg-success
-    @elseif($product['status_quantity'] == 'Few') bg-warning
-    @elseif($product['status_quantity'] == 'Out') bg-danger
-    @endif
+    <?php if($product['status_quantity'] == 'Normal'): ?> bg-success
+    <?php elseif($product['status_quantity'] == 'Few'): ?> bg-warning
+    <?php elseif($product['status_quantity'] == 'Out'): ?> bg-danger
+    <?php endif; ?>
     shadow-lg
 " style="padding: 0; border-radius: 1rem;">
                       <div class=" text-white text-center px-1 py-2" >
                         <div class="text-xl font-bold
 
         ">
-                          @if($product['status_quantity'] == 'Normal')
+                          <?php if($product['status_quantity'] == 'Normal'): ?>
                             Còn hàng
-                          @elseif($product['status_quantity'] == 'Few')
+                          <?php elseif($product['status_quantity'] == 'Few'): ?>
                             Có mã sắp hết
-                          @elseif($product['status_quantity'] == 'Out')
+                          <?php elseif($product['status_quantity'] == 'Out'): ?>
                             Có mã đã hết
-                          @endif
+                          <?php endif; ?>
                         </div>
                       </div>
                     </div>
                   </td>
 
 
-                  @if ($type != 'trashed')
+                  <?php if($type != 'trashed'): ?>
                     <td>
                       <div class="form-check form-switch">
-                        <input class="form-check-input cursor-pointer" type="checkbox" role="switch" data-active="{{ $product['active'] ? true : false }}" data-id="{{ $product['id'] }}" @change="turnOnOff($event)" {{ $product['active'] ? 'checked' : '' }}>
+                        <input class="form-check-input cursor-pointer" type="checkbox" role="switch" data-active="<?php echo e($product['active'] ? true : false); ?>" data-id="<?php echo e($product['id']); ?>" @change="turnOnOff($event)" <?php echo e($product['active'] ? 'checked' : ''); ?>>
                       </div>
                     </td>
-                  @endif
-                  @hook('admin.product.list.column_value')
+                  <?php endif; ?>
+                   <?php
+                $__definedVars = (get_defined_vars()["__data"]);
+                if (empty($__definedVars))
+                {
+                    $__definedVars = [];
+                }
+                
+                $output = \Hook::getHook("admin.product.list.column_value",["data"=>$__definedVars],function($data) { return null; });
+                if ($output)
+                echo $output;
+                ?>
                   <td class="text-end text-nowrap">
-                    @if ($product['deleted_at'] == '')
-                      <a href="{{ admin_route('products.reviews',['product_id' => $product['id']]) }}" class="btn btn-outline-secondary btn-sm">{{ __('common.review') }}</a>
-                      <a href="{{ admin_route('products.edit', [$product['id']]) }}" class="btn btn-outline-secondary btn-sm">{{ __('common.edit') }}</a>
-                      <a href="javascript:void(0)" class="btn btn-outline-danger btn-sm" @click.prevent="deleteProduct({{ $loop->index }})">{{ __('common.delete') }}</a>
-                      @hook('admin.product.list.action')
-                    @else
-                      <a href="javascript:void(0)" class="btn btn-outline-secondary btn-sm" @click.prevent="restoreProduct({{ $loop->index }})">{{ __('common.restore') }}</a>
-                      @hook('admin.products.trashed.action')
-                    @endif
+                    <?php if($product['deleted_at'] == ''): ?>
+                      <a href="<?php echo e(admin_route('products.reviews',['product_id' => $product['id']])); ?>" class="btn btn-outline-secondary btn-sm"><?php echo e(__('common.review')); ?></a>
+                      <a href="<?php echo e(admin_route('products.edit', [$product['id']])); ?>" class="btn btn-outline-secondary btn-sm"><?php echo e(__('common.edit')); ?></a>
+                      <a href="javascript:void(0)" class="btn btn-outline-danger btn-sm" @click.prevent="deleteProduct(<?php echo e($loop->index); ?>)"><?php echo e(__('common.delete')); ?></a>
+                       <?php
+                $__definedVars = (get_defined_vars()["__data"]);
+                if (empty($__definedVars))
+                {
+                    $__definedVars = [];
+                }
+                
+                $output = \Hook::getHook("admin.product.list.action",["data"=>$__definedVars],function($data) { return null; });
+                if ($output)
+                echo $output;
+                ?>
+                    <?php else: ?>
+                      <a href="javascript:void(0)" class="btn btn-outline-secondary btn-sm" @click.prevent="restoreProduct(<?php echo e($loop->index); ?>)"><?php echo e(__('common.restore')); ?></a>
+                       <?php
+                $__definedVars = (get_defined_vars()["__data"]);
+                if (empty($__definedVars))
+                {
+                    $__definedVars = [];
+                }
+                
+                $output = \Hook::getHook("admin.products.trashed.action",["data"=>$__definedVars],function($data) { return null; });
+                if ($output)
+                echo $output;
+                ?>
+                    <?php endif; ?>
                   </td>
                 </tr>
-                @endforeach
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
               </tbody>
             </table>
           </div>
 
-          {{ $products->withQueryString()->links('admin::vendor/pagination/bootstrap-4') }}
-        @else
-          <x-admin-no-data />
-        @endif
+          <?php echo e($products->withQueryString()->links('admin::vendor/pagination/bootstrap-4')); ?>
+
+        <?php else: ?>
+          <?php if (isset($component)) { $__componentOriginal5e41293ba75edb5b6791bae671134304 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal5e41293ba75edb5b6791bae671134304 = $attributes; } ?>
+<?php $component = Beike\Admin\View\Components\NoData::resolve([] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('admin-no-data'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Beike\Admin\View\Components\NoData::class))->getConstructor()): ?>
+<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal5e41293ba75edb5b6791bae671134304)): ?>
+<?php $attributes = $__attributesOriginal5e41293ba75edb5b6791bae671134304; ?>
+<?php unset($__attributesOriginal5e41293ba75edb5b6791bae671134304); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal5e41293ba75edb5b6791bae671134304)): ?>
+<?php $component = $__componentOriginal5e41293ba75edb5b6791bae671134304; ?>
+<?php unset($__componentOriginal5e41293ba75edb5b6791bae671134304); ?>
+<?php endif; ?>
+        <?php endif; ?>
       </div>
     </div>
   </div>
 
-  @hook('admin.product.list.content.footer')
-@endsection
+   <?php
+                $__definedVars = (get_defined_vars()["__data"]);
+                if (empty($__definedVars))
+                {
+                    $__definedVars = [];
+                }
+                
+                $output = \Hook::getHook("admin.product.list.content.footer",["data"=>$__definedVars],function($data) { return null; });
+                if ($output)
+                echo $output;
+                ?>
+<?php $__env->stopSection(); ?>
 
-@push('footer')
+<?php $__env->startPush('footer'); ?>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -475,7 +594,7 @@ $(document).ready(function() {
     let app = new Vue({
       el: '#product-app',
       data: {
-        url: '{{ $type == 'trashed' ? admin_route("products.trashed") : admin_route("products.index") }}',
+        url: '<?php echo e($type == 'trashed' ? admin_route("products.trashed") : admin_route("products.index")); ?>',
         filter: {
           name: bk.getQueryString('name'),
           page: bk.getQueryString('page'),
@@ -488,7 +607,7 @@ $(document).ready(function() {
           sort_quantity: bk.getQueryString('sort_quantity',0)
         },
         selectedIds: [],
-        productIds: @json($products->pluck('id')),
+        productIds: <?php echo json_encode($products->pluck('id'), 15, 512) ?>,
       },
 
       computed: {
@@ -519,9 +638,9 @@ $(document).ready(function() {
         },
 
         batchDelete() {
-          this.$confirm('{{ __('admin/product.confirm_batch_product') }}', '{{ __('common.text_hint') }}', {
-            confirmButtonText: '{{ __('common.confirm') }}',
-            cancelButtonText: '{{ __('common.cancel') }}',
+          this.$confirm('<?php echo e(__('admin/product.confirm_batch_product')); ?>', '<?php echo e(__('common.text_hint')); ?>', {
+            confirmButtonText: '<?php echo e(__('common.confirm')); ?>',
+            cancelButtonText: '<?php echo e(__('common.cancel')); ?>',
             type: 'warning'
           }).then(() => {
             $http.delete('products/delete', {ids: this.selectedIds}).then((res) => {
@@ -532,9 +651,9 @@ $(document).ready(function() {
         },
 
         batchActive(type) {
-          this.$confirm('{{ __('admin/product.confirm_batch_status') }}', '{{ __('common.text_hint') }}', {
-            confirmButtonText: '{{ __('common.confirm') }}',
-            cancelButtonText: '{{ __('common.cancel') }}',
+          this.$confirm('<?php echo e(__('admin/product.confirm_batch_status')); ?>', '<?php echo e(__('common.text_hint')); ?>', {
+            confirmButtonText: '<?php echo e(__('common.confirm')); ?>',
+            cancelButtonText: '<?php echo e(__('common.cancel')); ?>',
             type: 'warning'
           }).then(() => {
             $http.post('products/status', {ids: this.selectedIds, status: type}).then((res) => {
@@ -563,7 +682,7 @@ $(document).ready(function() {
         deleteProduct(index) {
           const id = this.productIds[index];
 
-          this.$confirm('{{ __('common.confirm_delete') }}', '{{ __('common.text_hint') }}', {
+          this.$confirm('<?php echo e(__('common.confirm_delete')); ?>', '<?php echo e(__('common.text_hint')); ?>', {
             type: 'warning'
           }).then(() => {
             $http.delete('products/' + id).then((res) => {
@@ -576,7 +695,7 @@ $(document).ready(function() {
         restoreProduct(index) {
           const id = this.productIds[index];
 
-          this.$confirm('{{ __('admin/product.confirm_batch_restore') }}', '{{ __('common.text_hint') }}', {
+          this.$confirm('<?php echo e(__('admin/product.confirm_batch_restore')); ?>', '<?php echo e(__('common.text_hint')); ?>', {
             type: 'warning'
           }).then(() => {
             $http.put('products/restore', {id: id}).then((res) => {
@@ -586,7 +705,7 @@ $(document).ready(function() {
         },
 
         clearRestore() {
-          this.$confirm('{{ __('admin/product.confirm_delete_restore') }}', '{{ __('common.text_hint') }}', {
+          this.$confirm('<?php echo e(__('admin/product.confirm_delete_restore')); ?>', '<?php echo e(__('common.text_hint')); ?>', {
             type: 'warning'
           }).then(() => {
             $http.post('products/trashed/clear').then((res) => {
@@ -597,4 +716,6 @@ $(document).ready(function() {
       }
     });
   </script>
-@endpush
+<?php $__env->stopPush(); ?>
+
+<?php echo $__env->make('admin::layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\shop-freelance\resources\/beike/admin/views/pages/products/index.blade.php ENDPATH**/ ?>

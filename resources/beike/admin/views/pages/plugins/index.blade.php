@@ -16,8 +16,8 @@
           <thead>
             <tr>
               <!-- <th>{{ __('admin/plugin.plugin_code') }}</th> -->
-              <th>{{ __('admin/plugin.plugin_version') }}</th>
-              <th>{{ __('admin/plugin.plugin_type') }}</th>
+              <th class="d-none d-sm-table-cell">{{ __('admin/plugin.plugin_version') }}</th>
+              <th class="d-none d-sm-table-cell">{{ __('admin/plugin.plugin_type') }}</th>
               <th width="50%">{{ __('admin/plugin.plugin_description') }}</th>
               <th>{{ __('admin/common.status') }}</th>
               <th>{{ __('admin/common.action') }}</th>
@@ -26,8 +26,8 @@
           <tbody>
             <tr v-for="plugin, index in plugins" :key="index">
               <!-- <td>@{{ plugin.code }}</td> -->
-              <td>@{{ plugin.version }}</td>
-              <td>@{{ plugin.type_format }}</td>
+              <td class="d-none d-sm-table-cell">@{{ plugin.version }}</td>
+              <td class="d-none d-sm-table-cell">@{{ plugin.type_format }}</td>
               <td>
                 <div class="plugin-describe d-flex align-items-center">
                   <div class="me-2" style="flex: 0 0 50px;"><img :src="plugin.icon" class="img-fluid border"></div>
