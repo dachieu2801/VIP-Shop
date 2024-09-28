@@ -1,29 +1,59 @@
 <footer>
-  @hook('footer.before')
+   <?php
+                $__definedVars = (get_defined_vars()["__data"]);
+                if (empty($__definedVars))
+                {
+                    $__definedVars = [];
+                }
+                
+                $output = \Hook::getHook("footer.before",["data"=>$__definedVars],function($data) { return null; });
+                if ($output)
+                echo $output;
+                ?>
 
   <div class="container">
-    @hook('footer.services.before')
+     <?php
+                $__definedVars = (get_defined_vars()["__data"]);
+                if (empty($__definedVars))
+                {
+                    $__definedVars = [];
+                }
+                
+                $output = \Hook::getHook("footer.services.before",["data"=>$__definedVars],function($data) { return null; });
+                if ($output)
+                echo $output;
+                ?>
 
-    @if ($footer_content['services']['enable'])
+    <?php if($footer_content['services']['enable']): ?>
       <div class="services-wrap">
         <div class="row align-items-lg-center">
-          @foreach ($footer_content['services']['items'] as $item)
+          <?php $__currentLoopData = $footer_content['services']['items']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <div class="col-lg-3 col-md-6 col-12">
               <div class="service-item my-1">
-                <div class="icon"><img src="{{ image_resize($item['image'], 80, 80) }}" class="img-fluid"></div>
+                <div class="icon"><img src="<?php echo e(image_resize($item['image'], 80, 80)); ?>" class="img-fluid"></div>
                 <div class="text">
-                  <p class="title">{{ $item['title'][locale()] ?? '' }}</p>
-                  <p class="sub-title">{{ $item['sub_title'][locale()] ?? '' }}</p>
+                  <p class="title"><?php echo e($item['title'][locale()] ?? ''); ?></p>
+                  <p class="sub-title"><?php echo e($item['sub_title'][locale()] ?? ''); ?></p>
                 </div>
               </div>
             </div>
-          @endforeach
+          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
       </div>
-    @endif
+    <?php endif; ?>
 
-    @hook('footer.services.after')
-    @php
+     <?php
+                $__definedVars = (get_defined_vars()["__data"]);
+                if (empty($__definedVars))
+                {
+                    $__definedVars = [];
+                }
+                
+                $output = \Hook::getHook("footer.services.after",["data"=>$__definedVars],function($data) { return null; });
+                if ($output)
+                echo $output;
+                ?>
+    <?php
       $categories = [
 [
   'id'=> 100005,
@@ -334,13 +364,13 @@
     echo '</div>';
     echo '</div>';
 }
-    @endphp
-    <!-- <div>
-      <div class="my-4 text-lg"><h5 class="fw-medium text-uppercase">{{__('shop/common.categories')}}</h5></div>
+    ?>
+    <div>
+      <div class="my-4 text-lg"><h5 class="fw-medium text-uppercase"><?php echo e(__('shop/common.categories')); ?></h5></div>
       <div class="">
-{{--          <div class="footer-categories d-flex gap-3 flex-wrap flex-column w-100 align-content-start overflow-auto">--}}
+
         <div class="row">
-        @php
+        <?php
 
         if (isset($footer_content['categories']) && is_array($footer_content['categories'])){
            usort($footer_content['categories'], function($a, $b) {
@@ -357,102 +387,161 @@
                 return $countA > $countB ? 1 : -1;
               });
         }
-        @endphp
-            @if(isset($footer_content['categories']) && is_array($footer_content['categories'])&&count($footer_content['categories'])>0)
-            @foreach ($footer_content['categories'] as $category)
+        ?>
+            <?php if(isset($footer_content['categories']) && is_array($footer_content['categories'])&&count($footer_content['categories'])>0): ?>
+            <?php $__currentLoopData = $footer_content['categories']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
               <div class="col-12 col-sm-6 col-md-4 col-xl-3 mb-2">
-                @php renderCategory($category) @endphp
+                <?php renderCategory($category) ?>
               </div>
-            @endforeach
-            @endif
-          </div> -->
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            <?php endif; ?>
+          </div>
 
     <div class="footer-content">
       <div class="row">
         <div class="col-12 col-md-3 me-lg-5">
           <div class="footer-content-left footer-link-wrap">
-            <h6 class="text-uppercase text-dark intro-title">{{ __('shop/common.company_profile') }}<span class="icon-open"><i class="bi bi-plus-lg"></i></span></h6>
+            <h6 class="text-uppercase text-dark intro-title"><?php echo e(__('shop/common.company_profile')); ?><span class="icon-open"><i class="bi bi-plus-lg"></i></span></h6>
             <div class="intro-wrap">
-              @if ($footer_content['content']['intro']['logo'] ?? false)
-                <div class="logo"><a href="{{ shop_route('home.index') }}"><img src="{{ image_origin($footer_content['content']['intro']['logo']) }}" class="img-fluid"></a></div>
-              @endif
-              <div class="text tinymce-format-p">{!! $footer_content['content']['intro']['text'][locale()] ?? '' !!}</div>
+              <?php if($footer_content['content']['intro']['logo'] ?? false): ?>
+                <div class="logo"><a href="<?php echo e(shop_route('home.index')); ?>"><img src="<?php echo e(image_origin($footer_content['content']['intro']['logo'])); ?>" class="img-fluid"></a></div>
+              <?php endif; ?>
+              <div class="text tinymce-format-p"><?php echo $footer_content['content']['intro']['text'][locale()] ?? ''; ?></div>
               <div class="social-network">
-                @foreach ($footer_content['content']['intro']['social_network'] ?? [] as $item)
-                <a href="{{ $item['link'] }}" target="_blank"><img src="{{ image_origin($item['image']) }}" class="img-fluid"></a>
-                @endforeach
+                <?php $__currentLoopData = $footer_content['content']['intro']['social_network'] ?? []; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <a href="<?php echo e($item['link']); ?>" target="_blank"><img src="<?php echo e(image_origin($item['image'])); ?>" class="img-fluid"></a>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
               </div>
             </div>
           </div>
         </div>
-        @foreach ($footer_content['content'] as $key => $link)
-  @if (strpos($key, 'link') === 0 && !empty($link))
-    <div class="col-12 col-md footer-content-{{ $key }} footer-link-wrap">
-      <h6 class="text-uppercase text-dark">
-        {{ $link['title'][locale()] ?? '' }}
-        <span class="icon-open"><i class="bi bi-plus-lg"></i></span>
-      </h6>
+        <?php for($i = 1; $i <= 3; $i++): ?>
+          <?php
+            $link = $footer_content['content']['link' . $i];
+          ?>
+          <div class="col-12 col-md footer-content-link<?php echo e($i); ?> footer-link-wrap">
+            <h6 class="text-uppercase text-dark"><?php echo e($link['title'][locale()] ?? ''); ?><span class="icon-open"><i class="bi bi-plus-lg"></i></span></h6>
+            <ul class="list-unstyled">
+              <?php $__currentLoopData = $link['links']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <?php if($item['link']): ?>
+                <li class="lh-lg mb-2">
+                  <a href="<?php echo e($item['link']); ?>" <?php if(isset($item['new_window']) && $item['new_window']): ?> target="_blank" <?php endif; ?>>
+                    <?php echo e($item['text']); ?>
 
-      @if (!empty($link['links']))
-        <ul class="list-unstyled">
-          @foreach ($link['links'] as $item)
-            @if (!empty($item['link']))
-              <li class="lh-lg mb-2">
-                <a href="{{ $item['link'] }}" 
-                   @if (!empty($item['new_window'])) target="_blank" @endif>
-                  {{ $item['text'] ?? '' }}
-                </a>
-              </li>
-            @endif
-          @endforeach
-        </ul>
-      @endif
-    </div>
-  @endif
-@endforeach
+                  </a>
+                </li>
+              <?php endif; ?>
+              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </ul>
+          </div>
+        <?php endfor; ?>
 
-        @hook('footer.contact.before')
-        @hookwrapper('footer.contact')
+         <?php
+                $__definedVars = (get_defined_vars()["__data"]);
+                if (empty($__definedVars))
+                {
+                    $__definedVars = [];
+                }
+                
+                $output = \Hook::getHook("footer.contact.before",["data"=>$__definedVars],function($data) { return null; });
+                if ($output)
+                echo $output;
+                ?>
+         <?php
+                    $__hook_name="footer.contact";
+                    ob_start();
+                ?>
         <div class="col-12 col-md-3 footer-content-contact footer-link-wrap">
-          <h6 class="text-uppercase text-dark">{{ __('common.contact_us') }}<span class="icon-open"><i class="bi bi-plus-lg"></i></span> </h6>
+          <h6 class="text-uppercase text-dark"><?php echo e(__('common.contact_us')); ?><span class="icon-open"><i class="bi bi-plus-lg"></i></span> </h6>
           <ul class="list-unstyled">
-            @if ($footer_content['content']['contact']['email'])
-              <li class="lh-lg mb-2"><i class="bi bi-envelope-fill"></i> {{ $footer_content['content']['contact']['email'] }}</li>
-            @endif
-            @if ($footer_content['content']['contact']['telephone'])
-              <li class="lh-lg mb-2"><i class="bi bi-telephone-fill"></i> {{ $footer_content['content']['contact']['telephone'] }}</li>
-            @endif
-            @if ($footer_content['content']['contact']['address'][locale()] ?? '')
-              <li class="lh-lg mb-2"><i class="bi bi-geo-alt-fill"></i> {{ $footer_content['content']['contact']['address'][locale()] ?? '' }}</li>
-            @endif
+            <?php if($footer_content['content']['contact']['email']): ?>
+              <li class="lh-lg mb-2"><i class="bi bi-envelope-fill"></i> <?php echo e($footer_content['content']['contact']['email']); ?></li>
+            <?php endif; ?>
+            <?php if($footer_content['content']['contact']['telephone']): ?>
+              <li class="lh-lg mb-2"><i class="bi bi-telephone-fill"></i> <?php echo e($footer_content['content']['contact']['telephone']); ?></li>
+            <?php endif; ?>
+            <?php if($footer_content['content']['contact']['address'][locale()] ?? ''): ?>
+              <li class="lh-lg mb-2"><i class="bi bi-geo-alt-fill"></i> <?php echo e($footer_content['content']['contact']['address'][locale()] ?? ''); ?></li>
+            <?php endif; ?>
           </ul>
         </div>
-        @endhookwrapper
-        @hook('footer.contact.after')
+         <?php
+                $__definedVars = (get_defined_vars()["__data"]);
+                if (empty($__definedVars))
+                {
+                    $__definedVars = [];
+                }
+                $__hook_content = ob_get_clean();
+                $output = \Hook::getWrapper("$__hook_name",["data"=>$__definedVars],function($data) { return null; },$__hook_content);
+                unset($__hook_name);
+                unset($__hook_content);
+                if ($output)
+                echo $output;
+                ?>
+         <?php
+                $__definedVars = (get_defined_vars()["__data"]);
+                if (empty($__definedVars))
+                {
+                    $__definedVars = [];
+                }
+                
+                $output = \Hook::getHook("footer.contact.after",["data"=>$__definedVars],function($data) { return null; });
+                if ($output)
+                echo $output;
+                ?>
       </div>
     </div>
   </div>
 
-  @hookwrapper('footer.copyright')
+   <?php
+                    $__hook_name="footer.copyright";
+                    ob_start();
+                ?>
   <div class="footer-bottom">
     <div class="container">
       <div class="row align-items-center">
         <div class="col">
           <div class="d-flex flex-wrap">
+            <!-- 删除版权信息, 请先购买授权 https://beikeshop.com/vip/subscription -->
+            <?php if(!check_license()): ?>
+              Powered By&nbsp;<a href="https://beikeshop.com/" target="_blank" rel="noopener">BeikeShop</a>&nbsp;-&nbsp;
+            <?php endif; ?>
+            <?php echo $footer_content['bottom']['copyright'][locale()] ?? ''; ?>
 
-
-            {!! $footer_content['bottom']['copyright'][locale()] ?? '' !!}
           </div>
         </div>
-        @if (isset($footer_content['bottom']['image']) && $footer_content['bottom']['image'])
+        <?php if(isset($footer_content['bottom']['image']) && $footer_content['bottom']['image']): ?>
           <div class="col-auto right-img py-md-2">
-            <img src="{{ image_origin($footer_content['bottom']['image']) }}" class="img-fluid">
+            <img src="<?php echo e(image_origin($footer_content['bottom']['image'])); ?>" class="img-fluid">
           </div>
-        @endif
+        <?php endif; ?>
       </div>
     </div>
   </div>
-  @endhookwrapper
+   <?php
+                $__definedVars = (get_defined_vars()["__data"]);
+                if (empty($__definedVars))
+                {
+                    $__definedVars = [];
+                }
+                $__hook_content = ob_get_clean();
+                $output = \Hook::getWrapper("$__hook_name",["data"=>$__definedVars],function($data) { return null; },$__hook_content);
+                unset($__hook_name);
+                unset($__hook_content);
+                if ($output)
+                echo $output;
+                ?>
 
-  @hook('footer.after')
+   <?php
+                $__definedVars = (get_defined_vars()["__data"]);
+                if (empty($__definedVars))
+                {
+                    $__definedVars = [];
+                }
+                
+                $output = \Hook::getHook("footer.after",["data"=>$__definedVars],function($data) { return null; });
+                if ($output)
+                echo $output;
+                ?>
 </footer>
+<?php /**PATH D:\xampp\htdocs\beike\new\themes\default/layout/footer.blade.php ENDPATH**/ ?>

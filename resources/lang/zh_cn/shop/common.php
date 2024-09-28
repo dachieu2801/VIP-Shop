@@ -14,6 +14,6 @@ return [
     'confirm'         => 'Xác nhận',
     'no'              => 'Không',
     'yes'             => 'Có',
-    'company_profile' => 'Thông tin công ty',
+    'company_profile' => 'Thông tin về chúng tôi',
     'categories'      => 'Danh Mục',
 ];

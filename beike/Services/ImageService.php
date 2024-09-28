@@ -20,22 +20,14 @@ class ImageService
 
     private $placeholderImage = 'catalog/placeholder.png';
 
-    /**
-     * @param             $image
-     * @throws \Exception
-     */
+
     public function __construct($image)
     {
         $this->placeholderImage = system_setting('base.placeholder');
         $this->image            = $image ?: $this->placeholderImage;
-        $this->imagePath        = public_path($this->image);
+        $this->imagePath = base_path("../" . $this->image);
     }
 
-    /**
-     * 设置插件目录名称
-     * @param $dirName
-     * @return $this
-     */
     public function setPluginDirName($dirName): static
     {
         $originImage = $this->image;
@@ -48,7 +40,7 @@ class ImageService
             $this->image = strtolower('plugin/' . $dirName . $originImage);
         } else {
             $this->image     = $this->placeholderImage;
-            $this->imagePath = public_path($this->image);
+            $this->imagePath = base_path("../" . $this->image);
         }
 
         return $this;
@@ -65,7 +57,7 @@ class ImageService
         try {
             if (! file_exists($this->imagePath)) {
                 $this->image     = $this->placeholderImage;
-                $this->imagePath = public_path($this->image);
+                $this->imagePath = base_path("../" . $this->image);
             }
             if (! file_exists($this->imagePath)) {
                 return '';
@@ -74,7 +66,7 @@ class ImageService
             $extension = pathinfo($this->imagePath, PATHINFO_EXTENSION);
             $newImage  = 'cache/' . mb_substr($this->image, 0, mb_strrpos($this->image, '.')) . '-' . $width . 'x' . $height . '.' . $extension;
 
-            $newImagePath = public_path($newImage);
+            $newImagePath = base_path("../" . $newImage);
             if (! is_file($newImagePath) || (filemtime($this->imagePath) > filemtime($newImagePath))) {
                 ini_set('memory_limit', '-1');
                 create_directories(dirname($newImage));

@@ -66,7 +66,7 @@ class AdminServiceProvider extends ServiceProvider
 
         Config::set('filesystems.disks.catalog', [
             'driver' => 'local',
-            'root'   => public_path('catalog'),
+            'root'   => base_path("../catalog"),
         ]);
 
         $this->loadDesignComponents();

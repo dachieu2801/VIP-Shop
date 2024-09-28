@@ -69,7 +69,7 @@ class MarketingController
             $pluginCode = $request->code;
             $result     = MarketingService::getInstance()->buy($pluginCode, $postData);
 
-            return json_success('获取成功', $result);
+            return json_success('Đạt được thành công', $result);
         } catch (\Exception $e) {
             return json_fail($e->getMessage());
         }

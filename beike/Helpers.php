@@ -631,8 +631,8 @@ function create_directories($directoryPath)
     $directories = explode('/', $directoryPath);
     foreach ($directories as $directory) {
         $path = $path . '/' . $directory;
-        if (! is_dir(public_path($path))) {
-            @mkdir(public_path($path), 0755);
+        if (! is_dir(base_path("../{$path}"))) {
+            @mkdir(base_path("../{$path}"), 0755);
         }
     }
 }
@@ -807,22 +807,21 @@ function clean_domain($domain): string
 
 function check_license(): bool
 {
-    $configLicenceCode = system_setting('base.license_code');
-    $appDomain         = clean_domain(config('app.url'));
-
-    try {
-        $domain         = new \Utopia\Domains\Domain($appDomain);
-        $registerDomain = $domain->getRegisterable();
-    } catch (\Exception $e) {
-        $registerDomain = '';
-    }
-    if (empty($registerDomain)) {
-        return true;
-    }
+//    $configLicenceCode = system_setting('base.license_code');
+//    $appDomain         = clean_domain(config('app.url'));
+//
+//    try {
+//        $domain         = new \Utopia\Domains\Domain($appDomain);
+//        $registerDomain = $domain->getRegisterable();
+//    } catch (\Exception $e) {
+//        $registerDomain = '';
+//    }
+//    if (empty($registerDomain)) {
+//        return true;
+//    }
 
 //    return $configLicenceCode == md5(mb_substr(md5($registerDomain), 2, 8));
     return true;
-
 }
 
 /**

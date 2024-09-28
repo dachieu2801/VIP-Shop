@@ -183,30 +183,28 @@ const pageBottomBtns = () => {
   }
 };
 
-const checkRemoveCopyRight = () => {
-  let isRemove = false;
+// const checkRemoveCopyRight = () => {
+//   let isRemove = false;
 
-  if (!$("#copyright-text").length) {
-    isRemove = true;
-  }
+//   if (!$("#copyright-text").length) {
+//     isRemove = true;
+//   }
 
-  if ($("#copyright-text").css("display") === "none") {
-    isRemove = true;
-  }
+//   if ($("#copyright-text").css("display") === "none") {
+//     isRemove = true;
+//   }
 
-  if ($("#copyright-text").text().indexOf("BeikeShop") === -1) {
-    isRemove = true;
-  }
+//   if ($("#copyright-text").text().indexOf("BeikeShop") === -1) {
+//     isRemove = true;
+//   }
 
-  if (!config.has_license && isRemove) {
-    $(".warning-copyright").removeClass("d-none");
-    if (!$(".warning-copyright").length) {
-      $(".header-content .header-right .navbar-right").prepend(
-        '<div class="alert alert-warning mb-0 warning-copyright"><i class="bi bi-exclamation-triangle-fill"></i> 请保留网站底部版权，或前往 <a href="https://beikeshop.com/vip/subscription?type=tab-license" target="_blank">购买授权</a></div>'
-      );
-    }
-  }
-};
+//   if (!config.has_license && isRemove) {
+//     $('.warning-copyright').removeClass('d-none')
+//     if (!$('.warning-copyright').length) {
+//       $('.header-content .header-right .navbar-right').prepend('<div class="alert alert-warning mb-0 warning-copyright"><i class="bi bi-exclamation-triangle-fill"></i> 请保留网站底部版权，或前往 <a href="https://beikeshop.com/vip/subscription?type=tab-license" target="_blank">购买授权</a></div>')
+//     }
+//   }
+// };
 
 // const checkHasLicenseCode = () => {
 //   if (!config.has_license_code) {

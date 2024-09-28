@@ -65,7 +65,7 @@ class PluginRepo
         $path       = $bPlugin->getPath();
         $staticPath = $path . '/Static';
         if (is_dir($staticPath)) {
-            File::copyDirectory($staticPath, public_path('plugin/' . $code));
+      File::copyDirectory($staticPath, base_path("../plugin/" . $code));
         }
     }
 
@@ -82,7 +82,7 @@ class PluginRepo
 
         $publicPath = $bPlugin->getPath() . '/Static/public';
         if (is_dir($publicPath)) {
-            File::copyDirectory($publicPath, public_path('/'));
+            File::copyDirectory($publicPath, base_path("../"));
         }
 
         $themePath = $bPlugin->getPath() . '/Themes';
@@ -178,7 +178,7 @@ class PluginRepo
         $path       = $bPlugin->getPath();
         $staticPath = $path . '/static';
         if (is_dir($staticPath)) {
-            File::deleteDirectory(public_path('plugin/' . $code));
+            File::deleteDirectory(base_path("../plugin/" . $code));
         }
     }
 

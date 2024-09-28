@@ -6,7 +6,7 @@ use Beike\Admin\Http\Requests\UploadRequest;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Log;
 class FileManagerController extends Controller
 {
     protected $fileManagerService;
@@ -38,7 +38,7 @@ class FileManagerController extends Controller
      * @return mixed
      * @throws Exception
      */
-    public function getFiles(Request $request): mixed
+    public function getFiles(Request $request): mixed 
     {
         $baseFolder = $request->get('base_folder');
         $keyword    = $request->get('keyword');
@@ -101,11 +101,6 @@ class FileManagerController extends Controller
         }
     }
 
-    /**
-     * 删除文件或文件夹
-     * DELETE    /admin/file_manager/files  {"path":"/xx/yy", "files":["1.jpg", "2.png"]}
-     * @throws Exception
-     */
     public function destroyFiles(Request $request): JsonResponse
     {
         try {
@@ -120,13 +115,6 @@ class FileManagerController extends Controller
         }
     }
 
-    /**
-     * 删除文件夹
-     *
-     * @param Request $request
-     * @return JsonResponse
-     * @throws Exception
-     */
     public function destroyDirectories(Request $request): JsonResponse
     {
         try {
@@ -139,12 +127,6 @@ class FileManagerController extends Controller
         }
     }
 
-    /**
-     * 移动目录
-     *
-     * @param Request $request
-     * @return JsonResponse
-     */
     public function moveDirectories(Request $request): JsonResponse
     {
         try {
@@ -158,12 +140,6 @@ class FileManagerController extends Controller
         }
     }
 
-    /**
-     * 移动多个图片文件
-     *
-     * @param Request $request
-     * @return JsonResponse
-     */
     public function moveFiles(Request $request): JsonResponse
     {
         try {
@@ -177,11 +153,7 @@ class FileManagerController extends Controller
         }
     }
 
-    /**
-     * 压缩文件夹下载ZIP
-     *
-     * @param Request $request
-     */
+
     public function exportZip(Request $request)
     {
         try {
@@ -199,13 +171,6 @@ class FileManagerController extends Controller
         }
     }
 
-    /**
-     * 上传文件
-     * POST      /admin/file_manager/upload
-     *
-     * @param UploadRequest $request
-     * @return array
-     */
     public function uploadFiles(UploadRequest $request): array
     {
         $file     = $request->file('file');
