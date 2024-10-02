@@ -346,6 +346,7 @@ $(document).ready(function() {
   $('#upload-excel').click(function() {
     const fileInput = document.getElementById('import-excel');
     const file = fileInput.files[0];
+  
 
     if (!file) {
       alert("Please select an Excel file.");
@@ -419,7 +420,7 @@ $(document).ready(function() {
 
         if (formattedData.length === 0) {
           alert("No valid data found in the Excel file.");
-          return;
+          return; 
         }
 
         // Send the formatted data as a POST request
@@ -543,35 +544,19 @@ $(document).ready(function() {
   $(document).ready(function() {
     $('#export-example-excel').click(function() {
       const data = [{
-            descriptions: {
-              zh_cn: {
-                name: "",
-                content: "",
-                meta_title:  "",
-                meta_keywords: "",
-                meta_description: ""
-              },
-              en: {
-                name:  "",
-                content: "",
-                meta_title: "",
-                meta_keywords: "",
-                meta_description: ""
-              }
-            },
-            images: [],
-            video:  "",
-            position: 0,
-            weight: 0,
-            weight_class: "",
-            brand_name: "",
-            brand_id: "",
-            tax_class_id: 0,
-            shipping: "1",
-            categories: [],
-            active: "1",
-            variables:  [],
-            skus:  [],
+        name:"",
+        content:"",
+        meta_title:"",
+        meta_keywords:"",
+        description:"",
+        images: "điền link img cách nhau bởi dấu phẩy",
+        position: 0,
+        tax_class_id: 1,
+        categories: "Điền ID của category và cách nhau bởi dấu phẩy",
+        active: "1",
+        variable : "Điền theo mẫu ví dụ sau : size: M, L, XL; color: vang, xanh, xanh nhi; ...",
+       
+        skus:  [],
           }];
           try {
             const wb = XLSX.utils.book_new();
