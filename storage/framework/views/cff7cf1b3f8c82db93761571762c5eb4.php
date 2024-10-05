@@ -62,8 +62,6 @@
         month: '',
         cvv: '',
         remenber: false,
-
-        // 以上为以前自定义表单的字段
         cardholder_Name: '',
       },
 
@@ -84,9 +82,7 @@
     },
 
     methods: {
-      // stripe生成卡号校验部分
       createAndMountFormElements() {
-        // stripe 样式，带边框
         const style = {
           base: {
             color: "#32325d",
@@ -105,23 +101,20 @@
         }
 
         elements = stripe.elements({
-          locale: "en" // 设置默认显示语种   en 英文 cn 中文 auto 自动获取语种
+          locale: "en"
         })
 
-        // 创建cardNumber并实例化
         cardNumberElement = elements.create("cardNumber", {
           style: style,
-          showIcon: true, // 设置卡片icon，默认值为false
+          showIcon: true,
           placeholder: this.cardNumberplaceholder
         })
 
         cardNumberElement.mount("#card-number-element")
 
-        // 创建cardExpiry并实例化
         cardExpiryElement = elements.create("cardExpiry", {style: style})
         cardExpiryElement.mount("#card-expiry-element")
 
-        // 创建cardCvc并实例化
         cardCvcElement = elements.create("cardCvc", {style: style, placeholder: 'CVV'})
         cardCvcElement.mount("#card-cvc-element")
       },
@@ -135,12 +128,10 @@
       },
 
       checkedBtnCheckoutConfirm() {
-        // 判断 stripeForm.errors 里面的值是否都为空
         if (stripeForm.form.cardholder_Name == '') {
           stripeForm.errors.cardholderName = 'Please fill out a cardholder name.'
         }
 
-        // if (Object.values(stripeForm.errors).every(e => e == '')) {
         const options = {
           name: stripeForm.form.cardholder_Name,
         };
@@ -166,4 +157,4 @@
       },
     }
   })
-</script><?php /**PATH G:\workspace\new\plugins/Stripe/Views/checkout/payment.blade.php ENDPATH**/ ?>
+</script>
