@@ -47,7 +47,6 @@
                     <a v-if="plugin.type != 'theme'" :class="['btn btn-outline-secondary btn-sm', !plugin.status ? 'disabled' : '' ]" :href="plugin.edit_url">{{ __('admin/common.edit') }}</a>
                     <a v-else :class="['btn btn-outline-secondary btn-sm', !plugin.status ? 'disabled' : '' ]" href="{{ admin_route('theme.index') }}">{{ __('admin/plugin.to_enable') }}</a>
                   </span>
-                    <a class="btn btn-outline-secondary btn-sm" target="_blank" :href="toBkTicketUrl(plugin.code)">{{ __('admin/plugin.ticket') }}</a>
                     <a class="btn btn-outline-danger btn-sm" @click="installedPlugin(plugin.code, 'uninstall', index)">{{ __('admin/common.uninstall') }}</a>
                   </div>
                 </div>

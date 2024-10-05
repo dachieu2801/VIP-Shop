@@ -2,19 +2,19 @@
   <div class="address-dialog">
     <el-dialog custom-class="mobileWidth" title="<?php echo e(__('address.index')); ?>" :visible.sync="editShow" @close="closeAddressDialog('addressForm')" :close-on-click-modal="false">
       <el-form ref="addressForm" :rules="rules" label-position="top" :model="form" label-width="100px">
+        <el-form-item label="<?php echo e(__('address.name')); ?>" class="w-full" prop="name">
+          <el-input v-model="form.name" placeholder="<?php echo e(__('address.name')); ?>"></el-input>
+        </el-form-item>
         <div class="d-flex">
-          <el-form-item label="<?php echo e(__('address.name')); ?>" class="w-50" prop="name">
-            <el-input v-model="form.name" placeholder="<?php echo e(__('address.name')); ?>"></el-input>
-          </el-form-item>
-          <?php if(!current_customer()): ?>
-          <el-form-item label="<?php echo e(__('common.email')); ?>" prop="email" v-if="type == 'guest_shipping_address'" class="w-50 ms-3">
+     
+          <el-form-item label="<?php echo e(__('common.email')); ?>" prop="email" v-if="type == 'guest_shipping_address'" class="w-50 ">
             <el-input v-model="form.email" placeholder="<?php echo e(__('common.email')); ?>"></el-input>
           </el-form-item>
-          <?php else: ?>
+      
+          
           <el-form-item label="<?php echo e(__('address.phone')); ?>"  class="w-50 ms-3" prop="phone">
             <el-input maxlength="11" v-model="form.phone" type="number" placeholder="<?php echo e(__('address.phone')); ?>"></el-input>
           </el-form-item>
-          <?php endif; ?>
         </div>
         <!-- <?php if(!current_customer()): ?>
         <el-form-item label="<?php echo e(__('address.address_1')); ?>" prop="address_1">

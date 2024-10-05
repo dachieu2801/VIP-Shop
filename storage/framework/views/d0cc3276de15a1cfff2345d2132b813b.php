@@ -30,8 +30,20 @@
 <?php $component = $__componentOriginalaaf2a10efb487c03115f53565e62c23d; ?>
 <?php unset($__componentOriginalaaf2a10efb487c03115f53565e62c23d); ?>
 <?php endif; ?>
+  <style>
+     #checkoutTab .nav-link{
+      color : white;
+      background-color : #6c757d;
+      margin : 0 10px;
+      font-size : 16px;
+    }
+    #checkoutTab .nav-link.active{
+      color: white!important;
+      background-color : #fb5831!important;
+    }
+  </style>
 
-  <div class="container">
+  <div class="container ">
     <?php if(!is_mobile()): ?>
       <div class="row mt-1 justify-content-center">
         <div class="col-12 col-md-9"><?php echo $__env->make('shared.steps', ['steps' => 2], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?></div>
@@ -70,13 +82,32 @@
     <!-- Tab for Giao hàng tận nơi -->
     <?php if($address_status == '1'): ?>
     <li class="nav-item" role="presentation">
-      <button class="nav-link <?php echo e($current['receiving_method'] == 'shipping' ? 'active' : ''); ?> " id="home-delivery-tab"  data-bs-toggle="tab" data-bs-target="#home-delivery" type="button" role="tab" aria-controls="home-delivery" aria-selected="true"> Giao hàng tận nơi</button>
+        <button 
+      class="nav-link <?php echo e($current['receiving_method'] == 'shipping' ? 'active' : ''); ?> " 
+      id="home-delivery-tab"  
+      data-bs-toggle="tab" 
+      data-bs-target="#home-delivery" 
+      type="button" 
+      role="tab" 
+      aria-controls="home-delivery" 
+      aria-selected="true">
+       Giao hàng tận nơi
+        </button>
     </li>
     <?php endif; ?>
     <!-- Tab for Đến lấy hàng -->
      <?php if($store_address_status == '1'): ?>
     <li class="nav-item" role="presentation">
-      <button class="nav-link <?php echo e($current['receiving_method'] == 'pick_up_items' ? 'active' : ''); ?>" id="store-pickup-tab" data-bs-toggle="tab" data-bs-target="#store-pickup" type="button" role="tab" aria-controls="store-pickup" aria-selected="false">Đến lấy hàng</button>
+        <button 
+      class="nav-link <?php echo e($current['receiving_method'] == 'pick_up_items' ? 'active' : ''); ?>" 
+      id="store-pickup-tab" 
+      data-bs-toggle="tab" 
+      data-bs-target="#store-pickup" 
+      type="button" role="tab" 
+      aria-controls="store-pickup" 
+      aria-selected="false">
+      Đến lấy hàng
+      </button>
     </li>
     <?php endif; ?>
   </ul>
