@@ -375,7 +375,8 @@
                         padding-left: 20px;
                         padding-right: 20px;
                     "
-                    ><i class="bi bi-cart-fill me-1"></i><?php echo e(__('shop/products.add_to_cart')); ?>
+                    ><i class="bi bi-cart-fill me-1"></i>
+                    <?php echo e(__('shop/products.add_to_cart')); ?>
 
                     </button>
                      <?php
@@ -1043,7 +1044,7 @@
     }
     setTimeout(()=>{
       let element_all_star = document.getElementById(`all-star-1`);
-      element_all_star.classList.add('active')
+      // element_all_star.classList.add('active')
     },0)
 
 
@@ -1055,7 +1056,7 @@
       el: '#product-app',
 
       data: {
-        selectedVariantsIndex: [], // 选中的变量索引
+        selectedVariantsIndex: [], 
         images: [],
         product: {
           id: 0,

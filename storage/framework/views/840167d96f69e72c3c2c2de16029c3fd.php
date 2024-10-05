@@ -145,7 +145,7 @@
 <?php unset($__componentOriginal1b48936358e72618543915217d3ed939); ?>
 <?php endif; ?>
 
-            <?php if (isset($component)) { $__componentOriginal1b48936358e72618543915217d3ed939 = $component; } ?>
+            <!-- <?php if (isset($component)) { $__componentOriginal1b48936358e72618543915217d3ed939 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal1b48936358e72618543915217d3ed939 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'admin::components.form.row','data' => ['title' => ''.e(__('product.video')).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('admin::form.row'); ?>
@@ -166,6 +166,7 @@
                   <div :class="['tab-pane fade ', form.video.videoType == 'local' ? 'show active' : '']" id="nav-v-local">
                     <div class="d-flex align-items-end">
                       <div class="set-product-img wh-80 rounded-2 me-2" @click="addProductVideo">
+                        
                         <i v-if="form.video.url" class="bi bi-play-circle fs-1"></i>
                         <i v-else class="bi bi-plus fs-1 text-muted"></i>
                       </div>
@@ -195,7 +196,7 @@
 <?php if (isset($__componentOriginal1b48936358e72618543915217d3ed939)): ?>
 <?php $component = $__componentOriginal1b48936358e72618543915217d3ed939; ?>
 <?php unset($__componentOriginal1b48936358e72618543915217d3ed939); ?>
-<?php endif; ?>
+<?php endif; ?> -->
 
             <?php if (isset($component)) { $__componentOriginal9779c7c6189b71f1c04f0551cbef988b = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal9779c7c6189b71f1c04f0551cbef988b = $attributes; } ?>

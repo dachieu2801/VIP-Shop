@@ -20,7 +20,6 @@ use Beike\Repositories\ProductRepo;
 use Beike\Repositories\ProductReviewsRepo;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
@@ -163,36 +162,11 @@ class ProductController extends Controller
     {
         try {
             $requestData = $request->all();
+            $actionType  = $requestData['action_type']  ?? '';
+            $taxClassId  = $requestData['tax_class_id'] ?? 1;
 
-            $actionType  = $requestData['action_type'] ?? '';
-            $taxClassId  = $requestData['tax_class_id'];
-
-            if (round($taxClassId) <= 0) {
-                return redirect(admin_route('products.create'))
-                    ->withInput()
-                    ->withErrors(['error' => 'Cần chọn 1 loại thuế']);
-            }
-
-            $taxRates = TaxClass::find($taxClassId)->taxRates->jsonSerialize();
-
-            foreach ($requestData['skus'] as &$sku) {
-                $costPrice = (float) $sku['cost_price'];
-                $price     = $costPrice;
-
-                foreach ($taxRates as $rate) {
-                    if ($rate['type'] === 'percent') {
-                        $price += $costPrice * ($rate['rate'] / 100);
-                    } elseif ($rate['type'] === 'flat') {
-                        $price += (float) $rate['rate'];
-                    }
-                }
-
-                $sku['price'] = round($price); // Cập nhật giá mới vào SKU
-            }
-
-            $product     = (new ProductService)->create($requestData);
-
-            $data = [
+            $product = $this->createOneProduct($requestData, $taxClassId);
+            $data    = [
                 'request_data' => $requestData,
                 'product'      => $product,
             ];
@@ -207,6 +181,30 @@ class ProductController extends Controller
         }
     }
 
+    public function createOneProduct($data, $taxClassId, $mul=false)
+    {
+        $taxRates = TaxClass::find($taxClassId)->taxRates->jsonSerialize();
+
+        foreach ($data['skus'] as &$sku) {
+            $costPrice = (float) $sku['cost_price'];
+            $price     = $costPrice;
+
+            foreach ($taxRates as $rate) {
+                if ($rate['type'] === 'percent') {
+                    $price += $costPrice * ($rate['rate'] / 100);
+                } elseif ($rate['type'] === 'flat') {
+                    $price += (float) $rate['rate'];
+                }
+            }
+
+            $sku['price'] = round($price);
+        }
+
+        $product     = (new ProductService)->create($data, $mul);
+
+        return $product;
+    }
+
     public function storeMultiple(Request $request)
     {
         $rules = [
@@ -214,31 +212,14 @@ class ProductController extends Controller
             'products.*.descriptions'                    => 'required|array',
             'products.*.descriptions.zh_cn'              => 'required|array',
             'products.*.descriptions.zh_cn.name'         => 'required|string',
-            'products.*.descriptions.en'                 => 'required|array',
-            'products.*.descriptions.en.name'            => 'required|string',
             'products.*.images'                          => 'nullable|array',
             'products.*.images.*'                        => 'nullable|string',
-            'products.*.video'                           => 'nullable|string',
             'products.*.position'                        => 'nullable|integer',
-            'products.*.weight'                          => 'nullable|numeric',
-            'products.*.weight_class'                    => 'nullable|string',
-            'products.*.brand_name'                      => 'nullable|string',
-            'products.*.brand_id'                        => 'nullable|string',
             'products.*.tax_class_id'                    => 'nullable|integer',
-            'products.*.shipping'                        => 'nullable',
             'products.*.categories'                      => 'nullable|array',
             'products.*.categories.*'                    => 'nullable|string',
             'products.*.active'                          => 'nullable',
             'products.*.variables'                       => 'nullable|array',
-            'products.*.variables.*.name'                => 'required|array',
-            'products.*.variables.*.name.zh_cn'          => 'required|string',
-            'products.*.variables.*.name.en'             => 'required|string',
-            'products.*.variables.*.values'              => 'nullable|array',
-            'products.*.variables.*.values.*.name'       => 'required|array',
-            'products.*.variables.*.values.*.name.zh_cn' => 'required|string',
-            'products.*.variables.*.values.*.name.en'    => 'required|string',
-            'products.*.variables.*.values.*.image'      => 'nullable|string',
-            'products.*.variables.*.isImage'             => 'required|boolean',
             'products.*.skus'                            => 'required|array',
             'products.*.skus.*.images'                   => 'nullable|array',
             'products.*.skus.*.images.*'                 => 'nullable|string',
@@ -247,10 +228,9 @@ class ProductController extends Controller
             'products.*.skus.*.variants.*'               => 'nullable|integer',
             'products.*.skus.*.model'                    => 'required|string',
             'products.*.skus.*.sku'                      => 'required|string',
-            'products.*.skus.*.price'                    => 'required|numeric',
             'products.*.skus.*.origin_price'             => 'required|numeric',
             'products.*.skus.*.cost_price'               => 'required|numeric',
-            'products.*.skus.*.quantity'                 => 'required|integer',
+            'products.*.skus.*.quantity'                 => 'required|numeric',
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -262,8 +242,10 @@ class ProductController extends Controller
         $failedProducts    = [];
 
         foreach ($productsData as $index => $productData) {
+
             try {
-                $product             = (new ProductService)->create($productData, true);
+                $product = $this->createOneProduct($productData, $productData['tax_class_id'] ?? 1, true);
+
                 $processedProducts[] = $product;
             } catch (\Exception $e) {
                 $failedProducts[$index] = [
@@ -273,8 +255,6 @@ class ProductController extends Controller
                 ];
             }
         }
-
-        //        return json_success(trans('common.deleted_success'));
 
         // Trả về phản hồi JSON với thông báo thành công và thông tin về các sản phẩm không hợp lệ
         return response()->json([
