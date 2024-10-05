@@ -427,12 +427,12 @@ class Sidebar extends Component
 
         $routes[] = ['route' => 'plugins.index', 'prefixes' => ['plugins'], 'excludes' => $types->toArray()];
 
-        $originTypes = $types->push('plugins.index', 'plugins.edit')->push();
-        foreach (Plugin::TYPES as $type) {
-            $types    = $originTypes->reject("plugins.{$type}");
-            $routes[] = ['route' => "plugins.{$type}", 'prefixes' => ['plugins'], 'title' => trans("admin/plugin.{$type}"), 'excludes' => $types->toArray()];
-        }
 
+//        $originTypes = $types->push('plugins.index', 'plugins.edit')->push();
+//        foreach (Plugin::TYPES as $type) {
+//            $types    = $originTypes->reject("plugins.{$type}");
+//            $routes[] = ['route' => "plugins.{$type}", 'prefixes' => ['plugins'], 'title' => trans("admin/plugin.{$type}"), 'excludes' => $types->toArray()];
+//        }
 //        $routes[] = ['route' => 'marketing.index', 'prefixes' => ['marketing']];
 
         return hook_filter('admin.sidebar.plugins_routes', $routes);
