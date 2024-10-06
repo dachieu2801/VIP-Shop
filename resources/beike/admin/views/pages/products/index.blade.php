@@ -275,7 +275,7 @@ $(document).ready(function() {
             active:"1",
             variables: [],
             skus: [ {
-            images: '',
+            images: [],
             is_default: "1",
             variants: [],
             sku: row[6] ?  String(row[6]) : [],

@@ -410,6 +410,8 @@ class CheckoutService
         $shippingQuote = ShippingMethodService::getCurrentQuote($shipments, $currentCart->shipping_method_code);
         $paymentMethod = PaymentMethodService::getCurrentMethod($payments, $currentCart->payment_method_code);
 
+        $typeReceiving =$addressSystem->value ? 'shipping' : 'pick_up_items';
+        $this->updateReceivingMethod($typeReceiving);
         $data = [
             'current'          => [
                 'shipping_address_id'    => $shippingRequired ? $currentCart->shipping_address_id : 0,
@@ -422,7 +424,7 @@ class CheckoutService
                 'payment_method_name'    => $paymentMethod['name'] ?? '',
                 'extra'                  => $currentCart->extra,
                 'voucher_id'             => $currentCart->voucher_id                    ?? 0,
-                'receiving_method'       => $currentCart->receiving_method              ?? 'shipping',
+                'receiving_method'       => $typeReceiving,
                 'pick_up_address'        => $currentCart->pick_up_address               ?? '',
                 'pick_up_time'           => $currentCart->pick_up_time                  ?? '',
                 'name'                   => $currentCart->name                          ?? '',
