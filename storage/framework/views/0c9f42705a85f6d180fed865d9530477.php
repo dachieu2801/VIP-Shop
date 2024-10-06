@@ -1282,4 +1282,4 @@
   </script>
 <?php $__env->stopPush(); ?>
 
-<?php echo $__env->make('layout.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH G:\workspace\new\themes\default/product/product.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layout.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\shop-freelance\themes\default/product/product.blade.php ENDPATH**/ ?>

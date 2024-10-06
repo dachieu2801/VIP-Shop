@@ -51,10 +51,12 @@
              
   <ul class="nav nav-tabs" id="checkoutTab" role="tablist">
     <!-- Tab for Giao hàng tận nơi -->
+  
     @if ($address_status == '1')
+    
     <li class="nav-item" role="presentation">
         <button 
-      class="nav-link {{ $current['receiving_method'] == 'shipping' ? 'active' : '' }} " 
+      class="nav-link {{ ($current['receiving_method'] == 'shipping' || $store_address_status == '0') ? 'active' : '' }} " 
       id="home-delivery-tab"  
       data-bs-toggle="tab" 
       data-bs-target="#home-delivery" 
@@ -70,7 +72,7 @@
      @if($store_address_status == '1')
     <li class="nav-item" role="presentation">
         <button 
-      class="nav-link {{ $current['receiving_method'] == 'pick_up_items' ? 'active' : '' }}" 
+      class="nav-link {{ ($current['receiving_method'] == 'pick_up_items' || $address_status == '0' ) ? 'active' : '' }}" 
       id="store-pickup-tab" 
       data-bs-toggle="tab" 
       data-bs-target="#store-pickup" 
@@ -86,7 +88,7 @@
   <div class="tab-content" id="checkoutTabContent">
     <!-- Giao hàng tận nơi content -->
 
-    <div class="tab-pane fade {{ $current['receiving_method'] == 'pick_up_items' ? 'show active' : '' }} mt-5" id="store-pickup" role="tabpanel" aria-labelledby="store-pickup-tab">
+    <div class="tab-pane fade {{ ($current['receiving_method'] == 'pick_up_items' || $address_status == '0' )  ? 'show active' : '' }} mt-5" id="store-pickup" role="tabpanel" aria-labelledby="store-pickup-tab">
       <div>
         @include('checkout._shop_address')
       </div>
@@ -95,7 +97,7 @@
     
     <!-- Đến lấy hàng content -->
    
-    <div class="tab-pane fade {{ $current['receiving_method'] == 'shipping' ? 'show active' : '' }} mt-5" id="home-delivery" role="tabpanel" aria-labelledby="home-delivery-tab">
+    <div class="tab-pane fade {{ ($current['receiving_method'] == 'shipping' || $store_address_status == '0') ? 'show active' : '' }} mt-5" id="home-delivery" role="tabpanel" aria-labelledby="home-delivery-tab">
       <div>
         @include('checkout._address')
         <h5 class="checkout-title">Thời gian nhận hàng :</h5>

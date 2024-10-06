@@ -80,10 +80,12 @@
              
   <ul class="nav nav-tabs" id="checkoutTab" role="tablist">
     <!-- Tab for Giao hàng tận nơi -->
+  
     <?php if($address_status == '1'): ?>
+    
     <li class="nav-item" role="presentation">
         <button 
-      class="nav-link <?php echo e($current['receiving_method'] == 'shipping' ? 'active' : ''); ?> " 
+      class="nav-link <?php echo e(($current['receiving_method'] == 'shipping' || $store_address_status == '0') ? 'active' : ''); ?> " 
       id="home-delivery-tab"  
       data-bs-toggle="tab" 
       data-bs-target="#home-delivery" 
@@ -99,7 +101,7 @@
      <?php if($store_address_status == '1'): ?>
     <li class="nav-item" role="presentation">
         <button 
-      class="nav-link <?php echo e($current['receiving_method'] == 'pick_up_items' ? 'active' : ''); ?>" 
+      class="nav-link <?php echo e(($current['receiving_method'] == 'pick_up_items' || $address_status == '0' ) ? 'active' : ''); ?>" 
       id="store-pickup-tab" 
       data-bs-toggle="tab" 
       data-bs-target="#store-pickup" 
@@ -115,7 +117,7 @@
   <div class="tab-content" id="checkoutTabContent">
     <!-- Giao hàng tận nơi content -->
 
-    <div class="tab-pane fade <?php echo e($current['receiving_method'] == 'pick_up_items' ? 'show active' : ''); ?> mt-5" id="store-pickup" role="tabpanel" aria-labelledby="store-pickup-tab">
+    <div class="tab-pane fade <?php echo e(($current['receiving_method'] == 'pick_up_items' || $address_status == '0' )  ? 'show active' : ''); ?> mt-5" id="store-pickup" role="tabpanel" aria-labelledby="store-pickup-tab">
       <div>
         <?php echo $__env->make('checkout._shop_address', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
       </div>
@@ -124,7 +126,7 @@
     
     <!-- Đến lấy hàng content -->
    
-    <div class="tab-pane fade <?php echo e($current['receiving_method'] == 'shipping' ? 'show active' : ''); ?> mt-5" id="home-delivery" role="tabpanel" aria-labelledby="home-delivery-tab">
+    <div class="tab-pane fade <?php echo e(($current['receiving_method'] == 'shipping' || $store_address_status == '0') ? 'show active' : ''); ?> mt-5" id="home-delivery" role="tabpanel" aria-labelledby="home-delivery-tab">
       <div>
         <?php echo $__env->make('checkout._address', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
         <h5 class="checkout-title">Thời gian nhận hàng :</h5>
@@ -537,4 +539,4 @@
 <?php $__env->stopPush(); ?>
 
 
-<?php echo $__env->make('layout.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH G:\workspace\new\themes\default/checkout.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layout.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\shop-freelance\themes\default/checkout.blade.php ENDPATH**/ ?>
