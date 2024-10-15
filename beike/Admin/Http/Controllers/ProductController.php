@@ -164,9 +164,8 @@ class ProductController extends Controller
             $requestData = $request->all();
             $actionType  = $requestData['action_type']  ?? '';
             $taxClassId  = $requestData['tax_class_id'] ?? 1;
-
-            $product = $this->createOneProduct($requestData, $taxClassId);
-            $data    = [
+            $product     = $this->createOneProduct($requestData, $taxClassId);
+            $data        = [
                 'request_data' => $requestData,
                 'product'      => $product,
             ];
@@ -181,7 +180,7 @@ class ProductController extends Controller
         }
     }
 
-    public function createOneProduct($data, $taxClassId, $mul=false)
+    public function createOneProduct($data, $taxClassId, $mul = false)
     {
         $taxRates = TaxClass::find($taxClassId)->taxRates->jsonSerialize();
 
@@ -220,14 +219,13 @@ class ProductController extends Controller
             'products.*.categories.*'                    => 'nullable|string',
             'products.*.active'                          => 'nullable',
             'products.*.variables'                       => 'nullable|array',
-            'products.*.skus'                            => 'required|array',
             'products.*.skus.*.images'                   => 'nullable|array',
             'products.*.skus.*.images.*'                 => 'nullable|string',
             'products.*.skus.*.is_default'               => 'nullable',
             'products.*.skus.*.variants'                 => 'nullable|array',
             'products.*.skus.*.variants.*'               => 'nullable|integer',
             'products.*.skus.*.model'                    => 'required|string',
-            'products.*.skus.*.sku'                      => 'required|string',
+            // 'products.*.skus.*.sku'                      => 'required|string',
             'products.*.skus.*.origin_price'             => 'required|numeric',
             'products.*.skus.*.cost_price'               => 'required|numeric',
             'products.*.skus.*.quantity'                 => 'required|numeric',
@@ -242,7 +240,6 @@ class ProductController extends Controller
         $failedProducts    = [];
 
         foreach ($productsData as $index => $productData) {
-
             try {
                 $product = $this->createOneProduct($productData, $productData['tax_class_id'] ?? 1, true);
 
