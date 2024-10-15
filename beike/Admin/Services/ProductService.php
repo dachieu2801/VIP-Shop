@@ -5,7 +5,6 @@ namespace Beike\Admin\Services;
 use Beike\Models\Product;
 use Beike\Models\ProductSku;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
 class ProductService
 {
@@ -25,14 +24,15 @@ class ProductService
     {
 
         $isUpdating = $product->id > 0;
-//        foreach ($data['skus'] as $sku) {
-//            $productSku = ProductSku::query()->where('sku', $sku['sku'])->first();
-//            if ($productSku && $productSku->product_id != $product->id) {
-//                throw new \Exception(trans('validation.unique', ['attribute' => 'SKU']));
-//            }
-//        }
-        $microtime = microtime(true);
+        //        foreach ($data['skus'] as $sku) {
+        //            $productSku = ProductSku::query()->where('sku', $sku['sku'])->first();
+        //            if ($productSku && $productSku->product_id != $product->id) {
+        //                throw new \Exception(trans('validation.unique', ['attribute' => 'SKU']));
+        //            }
+        //        }
+        $microtime    = microtime(true);
         $milliseconds = round($microtime * 1000);
+
         try {
             DB::beginTransaction();
 
@@ -70,7 +70,7 @@ class ProductService
             $skus = [];
             foreach ($data['skus'] as $index => $sku) {
                 $sku['position']     = $index;
-                $sku['sku']          = $milliseconds.$index;
+                $sku['sku']          = $milliseconds . $index;
                 $sku['origin_price'] = (float) $sku['origin_price'];
                 $sku['cost_price']   = (float) $sku['cost_price'];
                 $sku['quantity']     = (int) $sku['quantity'];

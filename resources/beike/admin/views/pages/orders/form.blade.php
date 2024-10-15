@@ -193,6 +193,7 @@
     <div class="card-header">
         <h6 class="card-title">{{ __('order.order_status') }}</h6>
     </div>
+
     <div class="card-body" id="app">
         <el-form ref="form" :model="form" :rules="rules" label-width="100px">
             <el-form-item label="{{ __('order.current_status') }}">
