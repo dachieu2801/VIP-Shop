@@ -48,6 +48,7 @@
           <div class="card-body p-lg-4">
             @hook('checkout.body.header')
             <div>
+     
 
   <ul class="nav nav-tabs" id="checkoutTab" role="tablist">
     <!-- Tab for Giao hàng tận nơi -->
@@ -111,6 +112,35 @@
           </select>
         </div>
       </div>
+      @if ($shipping_require)
+              @hookwrapper('checkout.shipping_method')
+             
+         
+              <div class="checkout-black mt-5">
+                <h5 class="checkout-title">{{ __('shop/checkout.delivery_method') }}</h5>
+                <div class="radio-line-wrap" id="shipping-methods-wrap">
+                  @foreach ($shipping_methods as $methods)
+                    @foreach ($methods['quotes'] as $shipping)
+                      <div class="radio-line-item {{ $shipping['code'] == $current['shipping_method_code'] ? 'active':'' }}" data-key="shipping_method_code" data-value="{{ $shipping['code'] }}">
+                        <div class="left">
+                          <span class="radio"></span>
+                          <img src="{{ $shipping['icon'] }}" class="img-fluid">
+                        </div>
+                        <div class="right ms-2">
+                          <div class="title">{{ $shipping['name'] }}</div>
+                          <div class="sub-title">{!! $shipping['description'] !!}</div>
+                          @if (isset($shipping['html']))
+                            <div class="mt-2">{!! $shipping['html'] !!}</div>
+                          @endif
+                        </div>
+                      </div>
+                    @endforeach
+                  @endforeach
+                </div>
+              </div>
+         
+              @endhookwrapper
+            @endif
     </div>
 
   </div>
@@ -138,32 +168,7 @@
                   </div>
                 </div>
                 @endif
-                @if ($shipping_require)
-              @hookwrapper('checkout.shipping_method')
-              <div class="checkout-black mt-5">
-                <h5 class="checkout-title">{{ __('shop/checkout.delivery_method') }}</h5>
-                <div class="radio-line-wrap" id="shipping-methods-wrap">
-                  @foreach ($shipping_methods as $methods)
-                    @foreach ($methods['quotes'] as $shipping)
-                      <div class="radio-line-item {{ $shipping['code'] == $current['shipping_method_code'] ? 'active':'' }}" data-key="shipping_method_code" data-value="{{ $shipping['code'] }}">
-                        <div class="left">
-                          <span class="radio"></span>
-                          <img src="{{ $shipping['icon'] }}" class="img-fluid">
-                        </div>
-                        <div class="right ms-2">
-                          <div class="title">{{ $shipping['name'] }}</div>
-                          <div class="sub-title">{!! $shipping['description'] !!}</div>
-                          @if (isset($shipping['html']))
-                            <div class="mt-2">{!! $shipping['html'] !!}</div>
-                          @endif
-                        </div>
-                      </div>
-                    @endforeach
-                  @endforeach
-                </div>
-              </div>
-              @endhookwrapper
-            @endif
+        
             <div class=" mt-5 mt-5">
               <h5 class="checkout-title">{{ __('shop/checkout.payment_method') }}</h5>
               <div class="radio-line-wrap" id="payment-methods-wrap">
