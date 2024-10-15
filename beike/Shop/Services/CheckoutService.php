@@ -30,6 +30,7 @@ use Beike\Shop\Http\Controllers\CheckoutController;
 use Beike\Shop\Http\Resources\Account\AddressResource;
 use Beike\Shop\Http\Resources\Checkout\PaymentMethodItem;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class CheckoutService
 {
@@ -325,6 +326,7 @@ class CheckoutService
     private function updateReceivingMethod($receivingMethod)
     {
         $this->cart->receiving_method = $receivingMethod;
+        Log::info('ádasd',['ádsad'=>$receivingMethod]);
         $this->cart->save();
     }
 
@@ -411,7 +413,7 @@ class CheckoutService
         $paymentMethod = PaymentMethodService::getCurrentMethod($payments, $currentCart->payment_method_code);
 
         $typeReceiving = $addressSystem->value ? 'shipping' : 'pick_up_items';
-        $this->updateReceivingMethod($typeReceiving);
+
         $data = [
             'current'          => [
                 'shipping_address_id'    => $shippingRequired ? $currentCart->shipping_address_id : 0,
