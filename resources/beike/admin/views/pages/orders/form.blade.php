@@ -200,6 +200,7 @@
                 {{ $order->status_format }}
             </el-form-item>
             @if (count($statuses))
+        
             <el-form-item label="{{ __('order.change_to_status') }}" prop="status">
                 <el-select class="wp-200" size="small" v-model="form.status"
                     placeholder="{{ __('common.please_choose') }}">
@@ -499,8 +500,7 @@ $('.shipment-tool .btn-primary').click(function() {
 });
 
 new Vue({
-    el: '#app',
-
+    el:"#app",
     data: {
         // statuses: [{"value":"pending","label":"待处理"},{"value":"rejected","label":"已拒绝"},{"value":"approved","label":"已批准（待顾客寄回商品）"},{"value":"shipped","label":"已发货（寄回商品）"},{"value":"completed","label":"已完成"}],
         statuses: @json($statuses ?? []),
@@ -519,30 +519,24 @@ new Vue({
         rules: {
             status: [{
                 required: true,
-                message: '{{ __('
-                admin / order.error_status ') }}',
+                message: '{{ __('admin / order.error_status ') }}',
                 trigger: 'blur'
             }, ],
             express_code: [{
                 required: true,
-                message: '{{ __('
-                common.error_required ', ['
-                name ' => __('
-                order.express_company ')]) }}',
+                message: '{{ __('common.error_required ', ['name ' => __('order.express_company ')]) }}',
                 trigger: 'blur'
             }, ],
             express_number: [{
                 required: true,
-                message: '{{ __('
-                common.error_required ', ['
-                name ' => __('
-                order.express_number ')]) }}',
+                message: '{{ __('common.error_required ', ['name ' => __('order.express_number ')]) }}',
                 trigger: 'blur'
             }, ],
         }
     },
 
-    // beforeMount() {
+    beforeMount() {
+        console.log("mounted")
     //   let statuses = @json($statuses ?? []);
     //   this.statuses = Object.keys(statuses).map(key => {
     //     return {
@@ -550,14 +544,13 @@ new Vue({
     //       label: statuses[name]
     //     }
     //   });
-    // },
+    },
 
     methods: {
         submitForm(form) {
             this.$refs[form].validate((valid) => {
                 if (!valid) {
-                    layer.msg('{{ __('
-                        common.error_form ') }}', () => {});
+                    layer.msg('{{ __('common.error_form ') }}', () => {});
                     return;
                 }
 
