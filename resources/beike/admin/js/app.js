@@ -66,7 +66,7 @@ $(document).ready(function ($) {
   autoActiveTab();
   tinymceInit();
   inputLocaleTranslate();
-  // checkRemoveCopyRight();
+  checkRemoveCopyRight();
   pageBottomBtns();
 });
 
@@ -183,8 +183,8 @@ const pageBottomBtns = () => {
   }
 };
 
-// const checkRemoveCopyRight = () => {
-//   let isRemove = false;
+const checkRemoveCopyRight = () => {
+  let isRemove = true;
 
 //   if (!$("#copyright-text").length) {
 //     isRemove = true;
@@ -204,7 +204,7 @@ const pageBottomBtns = () => {
 //       $('.header-content .header-right .navbar-right').prepend('<div class="alert alert-warning mb-0 warning-copyright"><i class="bi bi-exclamation-triangle-fill"></i> 请保留网站底部版权，或前往 <a href="https://beikeshop.com/vip/subscription?type=tab-license" target="_blank">购买授权</a></div>')
 //     }
 //   }
-// };
+};
 
 // const checkHasLicenseCode = () => {
 //   if (!config.has_license_code) {
