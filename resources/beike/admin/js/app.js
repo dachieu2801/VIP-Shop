@@ -185,7 +185,7 @@ const pageBottomBtns = () => {
 
 const checkRemoveCopyRight = () => {
   let isRemove = true;
-
+  
 //   if (!$("#copyright-text").length) {
 //     isRemove = true;
 //   }

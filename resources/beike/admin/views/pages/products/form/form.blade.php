@@ -247,7 +247,7 @@
                           <i class="bi bi-plus fs-3 text-muted" v-else></i>
                         </div>
                         <input type="text" class="form-control me-2 bg-white" v-model="variablesBatch.model" placeholder="{{ __('admin/product.model') }}">
-                        <input type="text" class="form-control me-2 bg-white" v-model="variablesBatch.sku" placeholder="sku">
+                        <!-- <input type="text" class="form-control me-2 bg-white" v-model="variablesBatch.sku" placeholder="sku"> -->
                         <input type="number" class="form-control me-2 bg-white" v-model="variablesBatch.cost_price" placeholder="{{ 'Giá trước thuế' }}">
                         <!-- <input type="number" class="form-control me-2 bg-white" v-model="variablesBatch.price" placeholder="{{ 'Giá sau thuế' }}"> -->
                         <input type="number" class="form-control me-2 bg-white" v-model="variablesBatch.origin_price" placeholder="{{ __('admin/product.origin_price') }}">
@@ -264,7 +264,7 @@
                           </th>
                           <th width="106px">{{ __('common.image') }}</th>
                           <th class="w-min-100">{{ __('admin/product.model') }}</th>
-                          <th class="w-min-100">sku</th>
+                          <!-- <th class="w-min-100">sku</th> -->
                           <th class="w-min-100">{{ 'Giá trước thuế' }}</th>
                           <th class="w-min-100">{{ __('admin/product.origin_price') }}</th>
                           <!-- <th class="w-min-100">{{ 'Giá sau thuế' }}</th> -->
@@ -296,11 +296,11 @@
                             </td>
                             <td><input type="text" class="form-control" v-model="sku.model" :name="'skus[' + skuIndex + '][model]'"
                                 placeholder="{{ __('admin/product.model') }}"></td>
-                            <td>
+                            <!-- <td>
                               <input type="text" class="form-control" v-model="sku.sku" :name="'skus[' + skuIndex + '][sku]'" placeholder="sku" :style="sku.is_default ? 'margin-top: 19px;' : ''" required>
                               <span role="alert" class="invalid-feedback">{{ __('common.error_required', ['name' => 'sku']) }}</span>
                               <span v-if="sku.is_default * 1" class="text-success">{{ __('admin/product.default_main_product') }}</span>
-                            </td>
+                            </td> -->
                             <td><input type="number" class="form-control" v-model="sku.cost_price" :name="'skus[' + skuIndex + '][cost_price]'" step="any"
                                 placeholder="{{ 'Giá trước thuế' }}">
                             </td>
@@ -333,7 +333,7 @@
               <div v-if="!editing.isVariable">
                 <input type="hidden" value="{{ old('skus.0.image', $product->skus[0]->image ?? '') }}" name="skus[0][image]">
                 <x-admin-form-input name="skus[0][model]" :title="__('admin/product.model')" :value="old('skus.0.model', $product->skus[0]->model ?? '')" />
-                <x-admin-form-input name="skus[0][sku]" title="sku" :value="old('skus.0.sku', $product->skus[0]->sku ?? '')" required />
+                <!-- <x-admin-form-input name="skus[0][sku]" title="sku" :value="old('skus.0.sku', $product->skus[0]->sku ?? '')" required /> -->
                 <x-admin-form-input name="skus[0][cost_price]" type="number" :title="'Giá trước thuế'" :value="old('skus.0.cost_price', $product->skus[0]->cost_price ?? '')" step="any" required />
                 <!-- <x-admin-form-input name="skus[0][price]" type="number" :title="'Giá sau thuế'" :value="old('skus.0.price', $product->skus[0]->price ?? '')" step="any" required /> -->
                 <x-admin-form-input name="skus[0][origin_price]" type="number" :title="__('admin/product.origin_price')" :value="old('skus.0.origin_price', $product->skus[0]->origin_price ?? '')" step="any" />

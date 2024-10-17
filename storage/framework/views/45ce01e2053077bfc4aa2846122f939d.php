@@ -90,10 +90,6 @@
         <div class="page-bottom-btns">
           <?php echo $__env->yieldContent('page-bottom-btns'); ?>
         </div>
-
-
-
-
       </div>
     </div>
   </div>

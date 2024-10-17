@@ -28,7 +28,7 @@ class SkuDetail extends JsonResource
             'origin_price_format'         => currency_format($this->origin_price),
             'quantity'                    => $this->quantity,
             'is_default'                  => $this->is_default,
-            'discount'                    => round((($this->origin_price - $this->price) / $this->origin_price) * 100),
+            'discount'                    => $this->origin_price ? round((($this->origin_price - $this->price) / $this->origin_price) * 100) : 0,
             'quantity_sold'               => $this->quantity_sold ?? 0,
             'quantity_sold_format'        => $this->format_sold_quantity($this->quantity_sold ?? 0),
         ];
