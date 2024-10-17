@@ -66,7 +66,7 @@ $(document).ready(function ($) {
   autoActiveTab();
   tinymceInit();
   inputLocaleTranslate();
-  checkRemoveCopyRight();
+  // checkRemoveCopyRight();
   pageBottomBtns();
 });
 
