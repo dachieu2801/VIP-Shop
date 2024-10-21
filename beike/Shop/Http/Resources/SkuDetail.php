@@ -8,6 +8,10 @@ class SkuDetail extends JsonResource
 {
     public function toArray($request): array
     {
+        $discount  = 0;
+        if ($this->origin_price > 0) {
+            $discount = round((($this->origin_price - $this->price) / $this->origin_price) * 100);
+        }
         $result = [
             'id'                  => $this->id,
             'product_id'          => $this->product_id,
@@ -28,7 +32,7 @@ class SkuDetail extends JsonResource
             'origin_price_format'         => currency_format($this->origin_price),
             'quantity'                    => $this->quantity,
             'is_default'                  => $this->is_default,
-            'discount'                    => $this->origin_price ? round((($this->origin_price - $this->price) / $this->origin_price) * 100) : 0,
+            'discount'                    => $discount,
             'quantity_sold'               => $this->quantity_sold ?? 0,
             'quantity_sold_format'        => $this->format_sold_quantity($this->quantity_sold ?? 0),
         ];

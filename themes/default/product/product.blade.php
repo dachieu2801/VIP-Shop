@@ -112,7 +112,7 @@
             @if ((system_setting('base.show_price_after_login') and current_customer()) or !system_setting('base.show_price_after_login'))
               <div class=" rounded price-wrap d-flex align-items-end gap-4 bg-light flex-wrap py-4 px-2">
 
-                <div class=" text-decoration-line-through old-price" v-if="product.price != product.origin_price && product.origin_price !== 0">
+                <div class=" text-decoration-line-through old-price" v-if="+product.price < +product.origin_price">
                   @{{ product.origin_price_format }}
                 </div>
                 <div class="lh-1 me-2 new-price">@{{ product.price_format }}</div>
