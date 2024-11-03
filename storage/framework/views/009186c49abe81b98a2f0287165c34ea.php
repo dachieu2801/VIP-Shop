@@ -398,7 +398,7 @@ $(document).ready(function() {
             is_default: "1",
             variants: [],
             // sku: row[6] ?  String(row[6]) : [],
-            model: row[4] ?  String(row[4]) : [],
+            model: row[4] ?  String(row[4]) : "",
             cost_price: row[5] ?  String(row[5]) : 0,
             origin_price: row[6] ?  String(row[6]) : 0,
             quantity: row[7] ?  String(row[7]) : 0,

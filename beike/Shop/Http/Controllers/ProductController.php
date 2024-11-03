@@ -12,12 +12,6 @@ use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
-    /**
-     * 商品详情页
-     * @param Request $request
-     * @param Product $product
-     * @return mixed
-     */
     public function show(Request $request, Product $product)
     {
         $relationIds        = $product->relations->pluck('id')->toArray();

@@ -224,7 +224,7 @@ class ProductController extends Controller
             'products.*.skus.*.is_default'               => 'nullable',
             'products.*.skus.*.variants'                 => 'nullable|array',
             'products.*.skus.*.variants.*'               => 'nullable|integer',
-            'products.*.skus.*.model'                    => 'required|string',
+            'products.*.skus.*.model'                    => 'nullable|string',
             // 'products.*.skus.*.sku'                      => 'required|string',
             'products.*.skus.*.origin_price'             => 'required|numeric',
             'products.*.skus.*.cost_price'               => 'required|numeric',
@@ -253,7 +253,6 @@ class ProductController extends Controller
             }
         }
 
-        // Trả về phản hồi JSON với thông báo thành công và thông tin về các sản phẩm không hợp lệ
         return response()->json([
             'message'            => 'Products processed',
             'processed_products' => $processedProducts,
