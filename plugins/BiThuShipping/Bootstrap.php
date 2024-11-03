@@ -39,13 +39,6 @@ class Bootstrap
 
         return $quotes;
     }
-
-    /**
-     * 计算固定运费
-     *
-     * @param CheckoutService $checkout
-     * @return float|int
-     */
     public function getShippingFee(CheckoutService $checkout): float|int
     {
         $totalService  = $checkout->totalService;
